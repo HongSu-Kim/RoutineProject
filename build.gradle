@@ -27,6 +27,13 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 추가
+	implementation 'javax.servlet:jstl' // 추가
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat' // jsp 사용시 필수 요소
+	implementation 'org.springframework:spring-webmvc'
+
+
+
 }
 
 tasks.named('test') {

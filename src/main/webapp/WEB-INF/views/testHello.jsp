@@ -12,19 +12,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- <link rel="stylesheet" type="text/css" href="/routine/resources/css/bootstrap-grid.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/routine/resources/css/bootstrap-reboot.min.css"/> -->
-    <!-- <link rel="stylesheet" type="text/css" href="/routine/resources/css/bootstrap.min.css"/> -->
-    <!-- <script type="text/javascript" src="/routine/resources/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="/routine/resources/js/bootstrap.min.js"></script> -->
-    <!-- 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-     -->
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" ></script>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
     <style>
         div[class^="col"] { padding: 20px; border: 1px solid #dadada; background-color: #eeeeee; }
