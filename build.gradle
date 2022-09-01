@@ -31,6 +31,11 @@ dependencies {
 	implementation 'javax.servlet:jstl' // 추가
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat' // jsp 사용시 필수 요소
 	implementation 'org.springframework:spring-webmvc'
+	implementation 'org.apache.tiles:tiles-jsp:3.0.8'
+
+
+
+
 
 
 
