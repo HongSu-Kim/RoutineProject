@@ -4,15 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
+@RequestMapping("admin")
 @Controller
 public class AdminController {
 
-    @GetMapping(value = "/testHello")
-    public String testHello() {
-        return "testHello";
-    }
-
-    @GetMapping(value = "inquireDetail")
+    @GetMapping("inquireDetail")
     public String inquireDetail() {
         return "admin/inquireDetail";
     }
