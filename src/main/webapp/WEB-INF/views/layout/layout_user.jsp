@@ -1,3 +1,5 @@
+
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +37,8 @@
 <form class="frame">
 
 </form>
-
+  <tiles:insertAttribute name="navbar"/>
+        <tiles:insertAttribute name="body"/>
 
   <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
