@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    username: routine
+    password: a123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
