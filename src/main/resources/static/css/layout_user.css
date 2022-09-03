@@ -1,0 +1,38 @@
+/* layout_user */
+body{
+    background-color: #f8f8f8;
+}
+.container{
+    max-width: 32rem;
+    min-height: 42rem;
+    margin-top: 2.5rem;
+    background-color: rgb(255, 255, 255);
+    padding-right: 0;
+    padding-left: 0;
+    border-radius: 1.5rem;
+}
+
+/* navbar_user */
+.navbar {
+    padding: 0;
+}
+.fixed-bottom {
+    position: relative;
+    top: 35rem;
+}
+.nav-link {
+    padding-right: 0;
+    padding-left: 0.9rem;
+    color: #c6c5c5!important;
+}
+.navbar-collapse {
+    border-top: 0.01rem solid #dfdfdf;
+    padding-top: 1rem;
+}
+.nav-item {
+    padding-left: 4rem;
+}
+.bi{
+    width: 30px;
+    height: 30px;
+}
