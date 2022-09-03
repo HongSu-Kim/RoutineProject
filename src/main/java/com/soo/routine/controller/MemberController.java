@@ -11,63 +11,63 @@ public class MemberController {
 
     @GetMapping("delete")//delete 창을 띄움
     public String getDelete(){
-        return "routine/delete";
+        return "user/delete";
     }
     @PostMapping("delete")//delete 처리
     public String postDelete(){
-        return "routine/delete";
+        return "user/delete";
     }
     @GetMapping("delete_result")
     public String delete_result(){
-        return "routine/delete_result";
+        return "user/delete_result";
     }
 
     @GetMapping("find")
     public String getFind(){
-        return "routine/find";
+        return "user/find";
     }
     @PostMapping("find")
     public String postFind(){
-        return "routine/find";
+        return "user/find";
     }
 
     @GetMapping("join")
     public String getJoin(){
-        return "routine/join";
+        return "user/join";
     }
     @PostMapping("join")
     public String postJoin(){
-        return "routine/join";
+        return "user/join";
     }
     @GetMapping("join_result")
     public String getJoin_result(){
-        return "routine/join_result";
+        return "user/join_result";
     }
 
     @GetMapping("login")
     public String getLogin(){
-        return "routine/login";
+        return "user/member/login";
     }
     @PostMapping("login")
     public String postLogin(){
-        return "routine/login";
+        return "user/member/login";
     }
 
     @GetMapping("myPage")
     public String getMyPage(){
-        return "routine/myPage";
+        return "user/myPage";
     }
     @PostMapping("myPage")
     public String postMyPage(){
-        return "routine/myPage";
+        return "user/myPage";
     }
 
     @GetMapping("update")
     public String getUpdate(){
-        return "routine/update";
+        return "user/update";
     }
     @PostMapping("update")
     public String postUpdate(){
-        return "routine/update";
+        return "user/update";
     }
 }

@@ -19,14 +19,8 @@
 		<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar_user.jsp" />
 		<put-attribute name="body" value="" />
 	</definition>
-	<definition name="user/*" extends="user-layout">
-		<put-attribute name="body" value="/WEB-INF/views/board/{1}.jsp" />
-	</definition>
-	<definition name="user/*" extends="user-layout">
-		<put-attribute name="body" value="/WEB-INF/views/member/{1}.jsp" />
-	</definition>
-	<definition name="user/*" extends="user-layout">
-		<put-attribute name="body" value="/WEB-INF/views/routine/{1}.jsp" />
+	<definition name="user/*/*" extends="user-layout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
 
 </tiles-definitions>
