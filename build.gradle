@@ -23,7 +23,6 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2' // mybatis
 	compileOnly 'org.projectlombok:lombok' // lombok
 	developmentOnly 'org.springframework.boot:spring-boot-devtools' // devtools
-	runtimeOnly 'com.h2database:h2' // h2
 	runtimeOnly 'mysql:mysql-connector-java' // mysql
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // test
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // tomcat

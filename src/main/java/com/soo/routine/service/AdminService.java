@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class BoardService {
+public class AdminService {
 
     private final BoardDAO dao;
 

@@ -1,16 +1,11 @@
-package com.soo.routine.dto;
+package com.soo.routine.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class RoutineDTO {
+public class Routine {
 
     private int routineNum;
     private int idx;
     private String routineName;
     private boolean active;
     private String totalTime;
-
+    
 }

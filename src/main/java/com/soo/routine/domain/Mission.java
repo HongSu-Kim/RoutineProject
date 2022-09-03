@@ -1,20 +1,17 @@
-package com.soo.routine.dto;
+package com.soo.routine.domain;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class MissionDTO {
+public class Mission {
 
     private int missionNum;
     private int routineNum;
     private int iconNum;
     private String missionName;
-    private int orderNum;
     private String runTime;
     private String missionContent;
-
-    private String iconFileName;
 
 }
