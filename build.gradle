@@ -19,19 +19,19 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'mysql:mysql-connector-java'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 추가
-	implementation 'javax.servlet:jstl' // 추가
+	implementation 'org.springframework.boot:spring-boot-starter-web'  // web
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2' // mybatis
+	compileOnly 'org.projectlombok:lombok' // lombok
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // devtools
+	runtimeOnly 'com.h2database:h2' // h2
+	runtimeOnly 'mysql:mysql-connector-java' // mysql
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // test
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // tomcat
+	implementation 'javax.servlet:jstl' // jstl
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat' // jsp 사용시 필수 요소
-	implementation 'org.springframework:spring-webmvc'
-	implementation 'org.apache.tiles:tiles-jsp:3.0.8'
+	implementation 'org.springframework:spring-webmvc' // webmvc
+	implementation 'org.apache.tiles:tiles-jsp:3.0.8' // tiles
+
 
 
 

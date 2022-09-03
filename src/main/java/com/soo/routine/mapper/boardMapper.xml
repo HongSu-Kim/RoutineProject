@@ -3,7 +3,12 @@
 		PUBLIC "-/mybatis.org//DTD mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper id="boardMapper">
+<mapper namespace="boardMapper">
+
+	<select id="readList" resultType="com.soo.routine.domain.Board" parameterType="String">
+		SELECT * FROM BOARD WHERE CATEGORYNAME = #{categoryName}
+	</select>
+
 
 
 </mapper>
