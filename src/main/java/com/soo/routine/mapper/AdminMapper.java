@@ -10,7 +10,7 @@ import java.util.List;
 public interface AdminMapper {
 
     Board getBoard(int boardNum);
-//    List<Board> getBoardList(String categoryName);
+    List<Board> getBoardList(String categoryName);
 
 
 

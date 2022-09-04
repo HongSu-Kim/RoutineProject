@@ -5,6 +5,7 @@ import com.soo.routine.dto.BoardDTO;
 import com.soo.routine.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,7 @@ public class AdminService {
     }
 
     public List<BoardDTO> getBoardList(String categoryName) {
-//        return modelMapper.map(adminMapper.getBoardList(categoryName), List<Board>);
-        return null;
+        return modelMapper.map(adminMapper.getBoardList(categoryName), new TypeToken<List<BoardDTO>>(){}.getType());
     }
 
 

@@ -1,4 +1,4 @@
 package com.soo.routine.service;
 
-public class RoutineService {
+public class ProfileService {
 }
