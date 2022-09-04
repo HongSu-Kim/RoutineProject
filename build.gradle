@@ -30,6 +30,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat' // jsp 사용시 필수 요소
 	implementation 'org.springframework:spring-webmvc' // webmvc
 	implementation 'org.apache.tiles:tiles-jsp:3.0.8' // tiles
+	implementation 'org.modelmapper:modelmapper:3.1.0' // modelmapper
+	runtimeOnly 'com.h2database:h2' // h2
 
 
 
