@@ -1,4 +1,4 @@
 package com.soo.routine.mapper;
 
-public interface ExploreMapper {
+public interface RecommendMapper {
 }

@@ -28,9 +28,9 @@ public class AdminController {
 
     @GetMapping("board-list")
     public String boardList(Model model, HttpServletRequest request) {
-//        String categoryName = request.getParameter("categoryName");
-//        List<BoardDTO> lists = adminService.getBoardList(categoryName);
-//        model.addAttribute("lists", lists);
+        String categoryName = request.getParameter("categoryName");
+        List<BoardDTO> lists = adminService.getBoardList(categoryName);
+        model.addAttribute("lists", lists);
         return "admin/board_list";
     }
 
