@@ -1,9 +1,11 @@
 package com.soo.routine.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("profile")
 @Controller
@@ -37,7 +39,10 @@ public class ProfileController {
 
     //member
     @GetMapping("join")
-    public String getJoin(){
+    public String getJoin(Model model, @RequestParam("data2") String data1){
+
+        model.addAttribute("data", data1);
+
         return "user/profile/join";
     }
     @PostMapping("join")
