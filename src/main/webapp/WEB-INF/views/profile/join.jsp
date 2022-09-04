@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML>
 <head>
-<title>Join</title>
+    <title>Join</title>
 </head>
 <body>
-    <h2>Join</h2>
+    <p>안녕${data}</p>
 </body>
 </html>
