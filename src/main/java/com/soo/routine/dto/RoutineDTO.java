@@ -3,6 +3,8 @@ package com.soo.routine.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class RoutineDTO {
@@ -12,5 +14,8 @@ public class RoutineDTO {
     private String routineName;
     private boolean active;
     private String totalTime;
+
+    private List<Integer> week;
+    private List<String> timeList;
 
 }
