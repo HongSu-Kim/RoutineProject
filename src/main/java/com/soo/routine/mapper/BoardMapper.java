@@ -1,16 +1,16 @@
 package com.soo.routine.mapper;
 
 import com.soo.routine.domain.Board;
-import com.soo.routine.dto.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
-public interface AdminMapper {
+public interface BoardMapper {
 
-    Board getBoard(int boardNum);
-    List<Board> getBoardList(String categoryName);
+    List<Board> getList(String categoryName);
+    void createData(Board board);
+    Board getData(int boardNum);
 
 
 
