@@ -1,11 +1,9 @@
 package com.soo.routine.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("profile")
 @Controller
@@ -54,8 +52,10 @@ public class ProfileController {
         return "user/profile/join_result";
     }
     @GetMapping("login")
-    public String getLogin(){
-        return "user/profile/login";
+    @ResponseBody
+    public String getLogin(@RequestParam("data2") String data1){
+
+        return "안녕" + data1;
     }
     @PostMapping("login")
     public String postLogin(){
