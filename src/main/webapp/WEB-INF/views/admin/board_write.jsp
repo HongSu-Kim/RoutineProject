@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <body>
 <div class="col-md-8 order-md-1">
@@ -7,9 +8,9 @@
         <div class="row">
             <!-- idx -->
             <div class="col-md-6 mb-3">
-                <label for="idx">Idx</label>
-                <input type="text" class="form-control" id="idx" name="idx" placeholder="idx" required>
-                <!-- <input type="text" class="form-control" id="idx" name="idx" value="${dto.idx}" readonly> -->
+                <label for="memberNum">memberNum</label>
+                <input type="text" class="form-control" id="memberNum" name="memberNum" placeholder="memberNum" required>
+                <!-- <input type="text" class="form-control" id="memberNum" name="memberNum" value="${dto.memberNum}" readonly> -->
             </div>
             <!-- categoryName -->
             <div class="col-md-6 mb-3">
