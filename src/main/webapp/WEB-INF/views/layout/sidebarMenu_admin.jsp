@@ -12,10 +12,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/member-list">Member List</a>
+                <a class="nav-link" href="/admin/member-list?grade=">Member List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/admin-list">Admin List</a>
+                <a class="nav-link" href="/admin/member-list?grade=admin">Admin List</a>
             </li>
         </ul>
 

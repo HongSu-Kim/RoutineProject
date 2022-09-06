@@ -10,7 +10,7 @@ import java.util.List;
 public class BoardDTO {
 
     private int boardNum;
-    private int idx;
+    private int memberNum;
     private String categoryName;
     private String boardTitle;
     private String boardContent;
@@ -20,6 +20,6 @@ public class BoardDTO {
 
     private List<String> imageFileName;
 
-    private String nickName;
+    private String nickname;
 
 }

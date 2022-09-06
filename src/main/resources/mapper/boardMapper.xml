@@ -5,21 +5,21 @@
 
 <mapper namespace="com.soo.routine.mapper.BoardMapper">
 
-	<select id="maxNum" resultType="int">
-		SELECT NVL(MAX(BOARDNUM), 0) + 1 FROM BOARD
-	</select>
+	<sql id="maxNum">
+		select nvl(max(boardNum), 0) + 1 from board
+	</sql>
 	
 	<select id="getList" resultType="com.soo.routine.domain.Board" parameterType="String">
-		SELECT * FROM BOARD WHERE categoryName LIKE '%' || #{categoryName} || '%'
+		select * from board where categoryName LIKE '%' || #{categoryName} || '%'
 	</select>
 
 	<insert id="createData" parameterType="com.soo.routine.domain.Board">
-		INSERT INTO BOARD(BOARDNUM, IDX, CATEGORYNAME, BOARDTITLE, BOARDCONTENT, BOARDCREATE, BOARDMODIFY, BOARDHITS)
-			VALUES((SELECT NVL(MAX(BOARDNUM), 0) + 1 FROM BOARD), #{idx}, #{categoryName}, #{boardTitle}, #{boardContent}, NOW(), NULL, 0)
+		insert into board(boardNum, memberNum, categoryName, boardTitle, boardContent, boardCreate, boardModify, boardHits)
+			values((<include refid="maxNum"/>), #{memberNum}, #{categoryName}, #{boardTitle}, #{boardContent}, now(), null, 0)
 	</insert>
 
 	<select id="getData" resultType="com.soo.routine.domain.Board" parameterType="int">
-		SELECT * FROM BOARD WHERE BOARDNUM = #{boardNum}
+		select * from board where boardNum = #{boardNum}
 	</select>
 
 
