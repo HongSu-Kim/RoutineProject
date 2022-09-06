@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Board {
 
     private int boardNum;
-    private int idx;
+    private int memberNum;
     private String categoryName;
     private String boardTitle;
     private String boardContent;

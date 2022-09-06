@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Reply {
 
     private int replyNum;
-    private int idx;
+    private int memberNum;
     private int boardNum;
     private String replyContent;
     private String replyCreated;

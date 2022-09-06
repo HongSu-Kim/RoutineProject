@@ -10,7 +10,7 @@ import java.util.List;
 public class RoutineDTO {
 
     private int routineNum;
-    private int idx;
+    private int memberNum;
     private String routineName;
     private boolean active;
     private String totalTime;

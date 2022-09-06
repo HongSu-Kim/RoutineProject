@@ -1,6 +1,8 @@
 package com.soo.routine.controller;
 
 import com.soo.routine.dto.BoardDTO;
+import com.soo.routine.dto.MemberDTO;
+import com.soo.routine.dto.ReplyDTO;
 import com.soo.routine.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -34,7 +36,7 @@ public class AdminController {
 
     @PostMapping("board-write")
     public String boardWrite(Model model, BoardDTO boardDTO) {
-        adminService.createData(boardDTO);
+        adminService.createBoard(boardDTO);
         model.addAttribute("categoryName", boardDTO.getCategoryName());
         return "redirect:/admin/board-list";
     }
@@ -46,21 +48,17 @@ public class AdminController {
         return "admin/board_detail";
     }
 
-    @GetMapping("reply-write")
-    public String replyWrite(Model model, int boardNum) {
-        BoardDTO boardDTO = adminService.getBoard(boardNum);
-        model.addAttribute("boardDTO", boardDTO);
+    @PostMapping("reply-write")
+    public String replyWrite(Model model, ReplyDTO replyDTO) {
+        adminService.createReply(replyDTO);
         return "admin/board_detail";
     }
 
     @GetMapping("member-list")
-    public String memberList() {
+    public String memberList(Model model, String grade) {
+        List<MemberDTO> lists = adminService.getMemberList(grade);
+        model.addAttribute("lists", lists);
         return "admin/member_list";
-    }
-
-    @GetMapping("admin-list")
-    public String adminList() {
-        return "admin/admin_list";
     }
 
     @GetMapping("routine-list")
