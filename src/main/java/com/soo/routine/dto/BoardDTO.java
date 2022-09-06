@@ -14,10 +14,12 @@ public class BoardDTO {
     private String categoryName;
     private String boardTitle;
     private String boardContent;
-    private String boardCreated;
+    private String boardCreate;
     private String boardModify;
     private int boardHits;
 
     private List<String> imageFileName;
+
+    private String nickName;
 
 }

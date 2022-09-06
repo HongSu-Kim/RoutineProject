@@ -2,11 +2,11 @@ package com.soo.routine.service;
 
 import com.soo.routine.domain.Board;
 import com.soo.routine.dto.BoardDTO;
-import com.soo.routine.mapper.AdminMapper;
+import com.soo.routine.mapper.BoardMapper;
+import com.soo.routine.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,15 +15,22 @@ import java.util.List;
 @Service
 public class AdminService {
 
-    private final AdminMapper adminMapper;
+    private final BoardMapper boardMapper;
+    private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
 
-    public BoardDTO getBoard(int boardNum) {
-        return modelMapper.map(adminMapper.getBoard(boardNum), BoardDTO.class);
+    public List<BoardDTO> getBoardList(String categoryName) {
+        return modelMapper.map(boardMapper.getList(categoryName), new TypeToken<List<BoardDTO>>(){}.getType());
     }
 
-    public List<BoardDTO> getBoardList(String categoryName) {
-        return modelMapper.map(adminMapper.getBoardList(categoryName), new TypeToken<List<BoardDTO>>(){}.getType());
+    public void createData(BoardDTO boardDTO) {
+        boardMapper.createData(modelMapper.map(boardDTO, Board.class));
+    }
+
+    public BoardDTO getBoard(int boardNum) {
+        BoardDTO boardDTO = modelMapper.map(boardMapper.getData(boardNum), BoardDTO.class);
+//        boardDTO.setNickName(memberMapper.);
+        return boardDTO;
     }
 
 
