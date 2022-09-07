@@ -7,14 +7,13 @@ import lombok.Setter;
 @Setter
 public class Member {
 
-    private int memberNum;
-    private String id;
-    private String pwd;
-    private String nickname;
-    private String gender;
-    private String birth;
-    private String grade;
-    private String joinDate;
-    private String lastDate;
+    private int memberNum;//회원번호
+    private String email;//이메일 주소
+    private String pwd;//비밀번호
+    private String nickname;//닉네임
+    private String gender;//성별
+    private String birth;//생년월일
+    private String grade;//회원등급
+    private String joinDate;//가입일
 
 }
