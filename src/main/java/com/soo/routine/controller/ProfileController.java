@@ -1,13 +1,18 @@
 package com.soo.routine.controller;
 
+import com.soo.routine.service.ProfileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("profile")
+@RequiredArgsConstructor
 @Controller
 public class ProfileController {
+
+    private final ProfileService profileService;
 
     //board
     @GetMapping("board-list")
@@ -37,14 +42,12 @@ public class ProfileController {
 
     //member
     @GetMapping("join")
-    public String getJoin(Model model, @RequestParam("data2") String data1){
-
-        model.addAttribute("data", data1);
-
+    public String getJoin(){
         return "user/profile/join";
     }
     @PostMapping("join")
     public String postJoin(){
+
         return "user/profile/join";
     }
     @GetMapping("join_result")
@@ -52,10 +55,8 @@ public class ProfileController {
         return "user/profile/join_result";
     }
     @GetMapping("login")
-    @ResponseBody
-    public String getLogin(@RequestParam("data2") String data1){
-
-        return "안녕" + data1;
+    public String getLogin(){
+        return "user/profile/login";
     }
     @PostMapping("login")
     public String postLogin(){
