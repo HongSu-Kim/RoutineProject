@@ -5,5 +5,30 @@
 
 <mapper namespace="com.soo.routine.mapper.MissionMapper">
 
+	<sql id="maxNum">
+		select nvl(max(missionNum), 0) + 1 from mission
+	</sql>
+
+	<select id="getList" resultType="com.soo.routine.entity.Mission" parameterType="int">
+		select * from mission where routineNum = #{routineNum}
+	</select>
+
+	<insert id="createData" parameterType="com.soo.routine.entity.Mission">
+		insert into mission(missionNum, routineNum, iconNum, missionName, runTime, missionContent)
+			values((<include refid="maxNum"/>), #{routineNum}, #{iconNum}, #{missionName}, #{runTime}, #{missionContent})
+	</insert>
+
+	<select id="getData" resultType="com.soo.routine.entity.Mission" parameterType="int">
+		select * from mission where missionNum = #{missionNum}
+	</select>
+
+	<update id="updateData" parameterType="com.soo.routine.entity.Mission">
+		update set mission iconNum = #{iconNum}, missionName = #{missionName}, runTime = #{runTime}, missionContent = #{missionContent}
+			where missionNum = #{missionNum}
+	</update>
+
+	<delete id="deleteData" parameterType="int">
+		delete mission where missionNum = #{missionNum}
+	</delete>
 
 </mapper>

@@ -9,16 +9,16 @@
 		select nvl(max(boardNum), 0) + 1 from board
 	</sql>
 	
-	<select id="getList" resultType="com.soo.routine.domain.Board" parameterType="String">
+	<select id="getList" resultType="com.soo.routine.entity.Board" parameterType="String">
 		select * from board where categoryName LIKE '%' || #{categoryName} || '%'
 	</select>
 
-	<insert id="createData" parameterType="com.soo.routine.domain.Board">
+	<insert id="createData" parameterType="com.soo.routine.entity.Board">
 		insert into board(boardNum, memberNum, categoryName, boardTitle, boardContent, boardCreate, boardModify, boardHits)
 			values((<include refid="maxNum"/>), #{memberNum}, #{categoryName}, #{boardTitle}, #{boardContent}, now(), null, 0)
 	</insert>
 
-	<select id="getData" resultType="com.soo.routine.domain.Board" parameterType="int">
+	<select id="getData" resultType="com.soo.routine.entity.Board" parameterType="int">
 		select * from board where boardNum = #{boardNum}
 	</select>
 

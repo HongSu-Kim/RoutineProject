@@ -5,11 +5,12 @@ import com.soo.routine.dto.MemberDTO;
 import com.soo.routine.dto.ReplyDTO;
 import com.soo.routine.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @GetMapping("board-list")
     public String boardList(Model model, @RequestParam(defaultValue = "") String categoryName) {

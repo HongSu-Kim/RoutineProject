@@ -26,7 +26,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools' // devtools
 	runtimeOnly 'mysql:mysql-connector-java' // mysql
 	testImplementation 'org.springframework.boot:spring-boot-starter-test' // test
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // tomcat
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // jsp
 	implementation 'javax.servlet:jstl' // jstl
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat' // jsp 사용시 필수 요소
 	implementation 'org.springframework:spring-webmvc' // webmvc

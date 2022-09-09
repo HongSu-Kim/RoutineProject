@@ -1,6 +1,6 @@
 package com.soo.routine.mapper;
 
-import com.soo.routine.domain.Board;
+import com.soo.routine.entity.Board;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

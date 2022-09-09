@@ -9,16 +9,16 @@
 		select nvl(max(replyNum), 0) + 1 from reply
 	</sql>
 
-	<select id="getList" resultType="com.soo.routine.domain.Reply">
+	<select id="getList" resultType="com.soo.routine.entity.Reply">
 		select * from reply
 	</select>
 
-	<insert id="createData" parameterType="com.soo.routine.domain.Reply">
+	<insert id="createData" parameterType="com.soo.routine.entity.Reply">
 		create into reply(replyNum, memberNum, boardNum, replyContent, replyCreated)
 			values((<include refid="maxNum"/>), #{memberNum#}, #{boardNum}, #{replyContent}, sysdate)
 	</insert>
 
-	<select id="getData" resultType="com.soo.routine.domain.Reply" parameterType="int">
+	<select id="getData" resultType="com.soo.routine.entity.Reply" parameterType="int">
 		select * from reply where replyNum = #{replyNum}
 	</select>
 
