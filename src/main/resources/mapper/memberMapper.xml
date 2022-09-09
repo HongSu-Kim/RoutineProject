@@ -9,15 +9,15 @@
 
 	</select>
 
-	<select id="getList" resultType="com.soo.routine.domain.Member" parameterType="String">
+	<select id="getList" resultType="com.soo.routine.entity.Member" parameterType="String">
 		select * from member where grade like '%' || #{grade} || '%'
 	</select>
 
-	<insert id="createData" parameterType="com.soo.routine.domain.Member">
+	<insert id="createData" parameterType="com.soo.routine.entity.Member">
 
 	</insert>
 
-	<select id="getData" resultType="com.soo.routine.domain.Member" parameterType="int">
+	<select id="getData" resultType="com.soo.routine.entity.Member" parameterType="int">
 
 	</select>
 

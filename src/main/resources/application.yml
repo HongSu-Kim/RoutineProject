@@ -17,3 +17,12 @@ spring:
     password:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:~/routine
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        show_sql: true
+
