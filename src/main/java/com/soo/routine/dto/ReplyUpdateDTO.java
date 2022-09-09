@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReplyDTO {
+public class ReplyUpdateDTO {
 
     private int replyNum;
     private int memberNum;

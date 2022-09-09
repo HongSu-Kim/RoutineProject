@@ -1,10 +1,10 @@
 package com.soo.routine.controller;
 
+import com.soo.routine.dto.MemberLoginDTO;
 import com.soo.routine.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("profile")
@@ -42,11 +42,11 @@ public class ProfileController {
 
     //member
     @GetMapping("join")
-    public String getJoin(){
+    public String getJoin(MemberLoginDTO memberDTO){
         return "user/profile/join";
     }
     @PostMapping("join")
-    public String postJoin(){
+    public String postJoin(@Validated MemberLoginDTO memberDTO){
 
         return "user/profile/join";
     }
