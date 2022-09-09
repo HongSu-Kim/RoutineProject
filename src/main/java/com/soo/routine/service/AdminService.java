@@ -1,7 +1,7 @@
 package com.soo.routine.service;
 
-import com.soo.routine.domain.Board;
-import com.soo.routine.domain.Reply;
+import com.soo.routine.entity.Board;
+import com.soo.routine.entity.Reply;
 import com.soo.routine.dto.BoardDTO;
 import com.soo.routine.dto.MemberDTO;
 import com.soo.routine.dto.ReplyDTO;

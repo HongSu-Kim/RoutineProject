@@ -1,6 +1,6 @@
 package com.soo.routine.mapper;
 
-import com.soo.routine.domain.Reply;
+import com.soo.routine.entity.Reply;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
