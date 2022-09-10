@@ -32,7 +32,7 @@
             </c:forEach>
         </tbody>
     </table>
-    <button class="btn btn-primary" onclick="location.href='/admin/board-write?categoryName=${categoryName }';">write</button>
+    <button class="btn btn-primary" onclick="location.href='/admin/board-write?category=${category }';">write</button>
 </div>
 </body>
 </head>

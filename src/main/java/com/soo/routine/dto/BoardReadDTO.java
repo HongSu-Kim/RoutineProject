@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class BoardWriteDTO {
+public class BoardReadDTO {
 
     private int boardNum;
     private int memberNum;

@@ -1,7 +1,8 @@
 package com.soo.routine.entity;
 
 import lombok.Getter;
-import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@DynamicInsert
 public class Board {
 
     @Id
@@ -27,6 +28,8 @@ public class Board {
     private String boardContent;//게시글내용
     private LocalDateTime boardCreate;//게시글작성일
     private LocalDateTime boardModify;//게시글수정일
+
+    @ColumnDefault("0")
     private int boardHits;//게시글조회수
 
 

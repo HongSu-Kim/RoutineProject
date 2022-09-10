@@ -5,30 +5,8 @@
 
 <mapper namespace="com.soo.routine.mapper.RoutineMapper">
 
-	<sql id="maxNum">
-		select nvl(max(routineNum), 0) + 1 from routine
-	</sql>
-
-	<select id="getList" resultType="com.soo.routine.entity.Routine" parameterType="int">
+	<select id="findAllByMemberNum" resultType="com.soo.routine.entity.Routine" parameterType="int">
 		select * from routine where memberNum = #{memberNum}
 	</select>
-
-	<insert id="createData" parameterType="com.soo.routine.entity.Routine">
-		insert into routine(routineNum, memberNum, routineName, active, totalTime)
-			values((<include refid="maxNum"/>), #{memberNum}, #{routineName}, true, 0)
-	</insert>
-
-	<select id="getData" resultType="com.soo.routine.entity.Routine" parameterType="int">
-		select * from routine where routineNum = #{routineNum}
-	</select>
-
-	<update id="updateData" parameterType="com.soo.routine.entity.Routine">
-		update set routine routineName = #{routineName}, active = #{active}, totalTime = #{totalTime}
-			where routineNum = #{routineNum}
-	</update>
-
-	<delete id="deleteData" parameterType="int">
-		delete routine where routineNum = #{routineNum}
-	</delete>
 
 </mapper>

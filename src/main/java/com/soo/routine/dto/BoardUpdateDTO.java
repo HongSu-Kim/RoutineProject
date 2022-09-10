@@ -1,8 +1,10 @@
 package com.soo.routine.dto;
 
+import com.soo.routine.entity.BoardCategory;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -11,11 +13,11 @@ public class BoardUpdateDTO {
 
     private int boardNum;
     private int memberNum;
-    private String categoryName;
+    private BoardCategory category;
     private String boardTitle;
     private String boardContent;
-    private String boardCreate;
-    private String boardModify;
+    private LocalDateTime boardCreate;
+    private LocalDateTime boardModify;
     private int boardHits;
 
     private List<String> imageFileName;

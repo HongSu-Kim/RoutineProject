@@ -20,11 +20,11 @@ public class RoutineService {
     private final ModelMapper modelMapper;
 
     public void createRoutine(RoutineDTO routineDTO) {
-        routineMapper.createData(modelMapper.map(routineDTO, Routine.class));
+        routineRepository.save(modelMapper.map(routineDTO, Routine.class));
     }
 
-    public List<RoutineDTO> getRoutineList(int memberId) {
-        List<RoutineDTO> lists = modelMapper.map(routineMapper.getList(memberId), new TypeToken<List<RoutineDTO>>(){}.getType());
+    public List<RoutineDTO> getRoutineList(int memberNum) {
+        List<RoutineDTO> lists = modelMapper.map(routineMapper.findAllByMemberNum(memberNum), new TypeToken<List<RoutineDTO>>(){}.getType());
         return lists;
     }
 
