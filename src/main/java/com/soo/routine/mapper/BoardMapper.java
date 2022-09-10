@@ -8,10 +8,5 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    List<Board> getList(String categoryName);
-    void createData(Board board);
-    Board getData(int boardNum);
-
-
-
+    List<Board> findAllByCategoryAndMemberNum(String category, String memberNum);
 }

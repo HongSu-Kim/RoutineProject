@@ -14,8 +14,8 @@
             </div>
             <!-- categoryName -->
             <div class="col-md-6 mb-3">
-                <label for="categoryName">Category</label>
-                <select class="custom-select d-block w-100" id="categoryName" name="categoryName" required>
+                <label for="category">Category</label>
+                <select class="custom-select d-block w-100" id="category" name="category" required>
                     <option value="">Choose...</option>
                     <option value="notice">Notice</option>
                     <option value="FAQ">FAQ</option>
@@ -41,7 +41,7 @@
                 Please enter Content.
             </div>
         </div>
-        <button class="btn btn-primary" onclick="location.href='/admin/board-list?categoryName=${categoryName }';">list</button>
+        <button class="btn btn-primary" onclick="location.href='/admin/board-list?category=${category}';">list</button>
         <button class="btn btn-primary" type="submit">register</button>
     </form>
 </div>

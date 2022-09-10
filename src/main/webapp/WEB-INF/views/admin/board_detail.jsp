@@ -14,8 +14,8 @@
         </div>
         <!-- categoryName -->
         <div class="col-md-6 mb-3">
-            <label for="categoryName">Category</label>
-            ${boardDTO.categoryName }
+            <label for="category">Category</label>
+            ${boardDTO.category }
         </div>
     </div>
     <!-- boardContent -->
@@ -28,7 +28,7 @@
     <hr class="mb-4">
     
     <!-- replyContent -->
-    <c:if test="${boardDTO.categoryName == 'QnA'}">
+    <c:if test="${boardDTO.category == 'QnA'}">
         <form class="needs-validation" action="/admin/reply-write" method="post" novalidate="">
             <div class="mb-3">
                 <label for="replyContent">Reply</label>
