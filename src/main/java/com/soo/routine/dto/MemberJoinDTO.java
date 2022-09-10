@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -24,8 +25,7 @@ public class MemberJoinDTO {//회원가입 시 사용
             message = "8~16자 영문 대·소문자, 숫자를 사용하세요.")
     private String pwd;//비밀번호
 
-    @NotBlank(message="비밀번호가 일치하지 않습니다.")
-//  비밀번호 일치 여부 확인
+    @NotBlank(message="비밀번호를 입력하세요.")
     private String pwd2;//비밀번호 확인
 
     @NotBlank(message="닉네임을 입력하세요.")
