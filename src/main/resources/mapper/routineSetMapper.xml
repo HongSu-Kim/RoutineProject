@@ -5,22 +5,4 @@
 
 <mapper namespace="com.soo.routine.mapper.RoutineSetMapper">
 
-	<insert id="createData" parameterType="com.soo.routine.entity.RoutineSet">
-		insert into routineSet(routineNum, week, startTime)
-			values(#{routineNum}, #{week}, #{startTime})
-	</insert>
-
-	<select id="getData" resultType="com.soo.routine.entity.RoutineSet" parameterType="int">
-		select * from routineSet where routineNum = #{routineNum}
-	</select>
-
-	<update id="updateData" parameterType="com.soo.routine.entity.RoutineSet">
-		update set routineSet startTime = #{startTime}
-			where routineNum = #{routineNum} and week = #{week}
-	</update>
-
-	<delete id="deleteData" parameterType="int">
-		delete routineSet where routineNum = #{routineNum}
-	</delete>
-
 </mapper>
