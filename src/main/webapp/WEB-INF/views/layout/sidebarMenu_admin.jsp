@@ -24,13 +24,13 @@
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="/admin/board-list?categoryName=notice">Notice List</a>
+                <a class="nav-link" href="/admin/board-list?category=notice">Notice List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/board-list?categoryName=FAQ">FAQ List</a>
+                <a class="nav-link" href="/admin/board-list?category=FAQ">FAQ List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/board-list?categoryName=QnA">QnA List</a>
+                <a class="nav-link" href="/admin/board-list?category=QnA">QnA List</a>
             </li>
         </ul>
         

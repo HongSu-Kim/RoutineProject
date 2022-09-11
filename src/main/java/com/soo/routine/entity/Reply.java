@@ -11,14 +11,15 @@ public class Reply {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer replyNum;//답글번호 PK
+    @Column(name = "reply_id")
+    private Integer id;//답글번호 PK
 
     @ManyToOne
-    @JoinColumn(name = "member_num")
+    @JoinColumn(name = "member_id")
     private Member member;//회원번호 FK
 
     @ManyToOne
-    @JoinColumn(name = "board_num")
+    @JoinColumn(name = "board_id")
     private Board board;//게시글번호 FK
 
     private String replyContent;//답글내용

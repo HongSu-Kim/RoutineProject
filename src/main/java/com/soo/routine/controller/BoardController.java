@@ -6,10 +6,12 @@ import com.soo.routine.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("admin/board-list")
-    public String boardList(Model model, @RequestParam("category") String category, @RequestParam("memberNum") String memberNum) {
+    public String boardList(Model model, String category, @RequestParam(defaultValue = "") String memberNum) {
         List<BoardReadDTO> lists = boardService.getBoardList(category, memberNum);
         model.addAttribute("lists", lists);
         model.addAttribute("category", category);
@@ -32,8 +34,14 @@ public class BoardController {
     }
 
     @PostMapping("admin/board-write")
-    public String boardWrite(Model model, BoardWriteDTO boardWriteDTO) {
+    public String boardWrite(Model model, @Valid BoardWriteDTO boardWriteDTO, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+            return "admin/board-write";
+        }
+
         boardService.createBoard(boardWriteDTO);
+
         model.addAttribute("category", boardWriteDTO.getCategory());
         return "redirect:/admin/board-list";
     }

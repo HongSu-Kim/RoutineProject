@@ -11,14 +11,15 @@ public class Mission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer missionNum;//미션번호 PK
+    @Column(name = "mission_id")
+    private Integer id;//미션번호 PK
 
     @ManyToOne
-    @JoinColumn(name = "routine_num")
+    @JoinColumn(name = "routine_id")
     private Routine routine;//루틴번호 FK
 
     @OneToOne
-    @JoinColumn(name = "missionIcon_num")
+    @JoinColumn(name = "missionIcon_id")
     private MissionIcon missionIcon;//미션아이콘번호 FK
 
     private String missionName;//미션이름
