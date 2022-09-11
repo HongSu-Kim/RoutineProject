@@ -1,6 +1,5 @@
 package com.soo.routine.dto;
 
-import com.soo.routine.entity.BoardCategory;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,7 @@ public class BoardUpdateDTO {
 
     private int boardNum;
     private int memberNum;
-    private BoardCategory category;
+    private String category;
     private String boardTitle;
     private String boardContent;
     private LocalDateTime boardCreate;

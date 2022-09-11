@@ -3,7 +3,6 @@ package com.soo.routine.service;
 import com.soo.routine.dto.BoardReadDTO;
 import com.soo.routine.dto.BoardWriteDTO;
 import com.soo.routine.entity.Board;
-import com.soo.routine.mapper.BoardMapper;
 import com.soo.routine.repository.BoardRepository;
 import com.soo.routine.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,15 +19,28 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-    private final BoardMapper boardMapper;
     private final ModelMapper modelMapper;
 
     public List<BoardReadDTO> getBoardList(String category, String memberNum) {
-        return modelMapper.map(boardMapper.findAllByCategoryAndMemberNum(category, memberNum), new TypeToken<List<BoardReadDTO>>(){}.getType());
+
+        if (memberNum.equals(""))
+            return modelMapper.map(boardRepository.findAllByCategory(category), new TypeToken<List<BoardReadDTO>>(){}.getType());
+        else
+            return modelMapper.map(boardRepository.findAllByCategoryAndMemberNum(category, memberNum), new TypeToken<List<BoardReadDTO>>(){}.getType());
     }
 
     public void createBoard(BoardWriteDTO boardWriteDTO) {
-        boardRepository.save(modelMapper.map(boardWriteDTO, Board.class));
+
+        Board board = Board.builder()
+                .member(memberRepository.findById(boardWriteDTO.getMemberNum()).get())
+                .category(boardWriteDTO.getCategory())
+                .boardTitle(boardWriteDTO.getBoardTitle())
+                .boardContent(boardWriteDTO.getBoardContent())
+                .boardCreate(LocalDateTime.now())
+                .boardHits(0)
+                .build();
+
+        boardRepository.save(board);
     }
 
     public BoardReadDTO getBoard(int boardNum) {

@@ -5,8 +5,4 @@
 
 <mapper namespace="com.soo.routine.mapper.BoardMapper">
 
-	<select id="findAllByCategoryAndMemberNum" resultType="com.soo.routine.entity.Board" parameterType="map">
-		select * from board where category = #{category} and memberNum = #{memberNum}
-	</select>
-
 </mapper>
