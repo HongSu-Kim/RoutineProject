@@ -4,14 +4,12 @@ import com.soo.routine.dto.MemberJoinDTO;
 import com.soo.routine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 
 @RequestMapping("profile")
 @RequiredArgsConstructor
@@ -33,14 +31,13 @@ public class MemberController {
             return "user/profile/join";
         }
 
-        //회원가입 로직
-        memberService.join(memberJoinDTO.getEmail(), memberJoinDTO.getPwd(),
-                memberJoinDTO.getNickname(), memberJoinDTO.getGender(), LocalDate.parse(memberJoinDTO.getBirth()));
-
         if(!memberJoinDTO.getPwd().equals(memberJoinDTO.getPwd2())){
             bindingResult.reject("pwd2", "패스워드가 일치하지 않습니다.");
             return  "user/profile/join";
         }
+
+        //회원가입 로직
+        memberService.join(memberJoinDTO);
 
         return "user/profile/join";
     }
