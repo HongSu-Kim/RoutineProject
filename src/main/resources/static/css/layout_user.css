@@ -4,7 +4,7 @@ body{
 }
 .container{
     max-width: 32rem;
-    min-height: 42rem;
+    min-height: 38rem;
     margin-top: 2.5rem;
     background-color: rgb(255, 255, 255);
     padding-right: 0;

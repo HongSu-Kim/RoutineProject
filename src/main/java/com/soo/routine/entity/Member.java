@@ -16,11 +16,18 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberNum;//회원번호 PK
+
+    @Column(unique = true)
     private String email;//이메일 주소
+
     private String pwd;//비밀번호
+
+    @Column(unique = true)
     private String nickname;//닉네임
+
     private String gender;//성별
     private LocalDate birth;//생년월일
+
     private String role;//회원등급
     private LocalDateTime joinDate;//가입일
 
