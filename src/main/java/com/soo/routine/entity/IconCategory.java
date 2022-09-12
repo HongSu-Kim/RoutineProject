@@ -11,7 +11,9 @@ public class IconCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer categoryNum;//카테고리번호 PK
+    @Column(name = "icon_category_id")
+    private Integer id;//카테고리번호 PK
+
     private String categoryName;//카테고리이름
     private Boolean pay;//유료여부
 

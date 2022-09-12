@@ -1,27 +1,27 @@
 package com.soo.routine.dto;
 
-import com.soo.routine.entity.BoardCategory;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 @Setter
 public class BoardWriteDTO {
 
-    private int boardNum;
-    private int memberNum;
-    private BoardCategory category;
+    @NotNull
+    private Integer memberNum;
+
+    private String category;
+    
+    @NotBlank(message = "제목을 입력해주세요.")
     private String boardTitle;
+
+    @NotBlank(message = "내용을 입력해주세요.")
     private String boardContent;
-    private LocalDateTime boardCreate;
-    private LocalDateTime boardModify;
-    private int boardHits;
 
     private List<String> imageFileName;
-
-    private String nickname;
 
 }

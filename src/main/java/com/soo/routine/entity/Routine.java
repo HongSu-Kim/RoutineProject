@@ -12,10 +12,11 @@ public class Routine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer routineNum;//루틴번호 PK
+    @Column(name = "routine_id")
+    private Integer id;//루틴번호 PK
 
     @ManyToOne
-    @JoinColumn(name = "member_num")
+    @JoinColumn(name = "member_id")
     private Member member;//회원번호 FK
 
     private String routineName;//루틴명

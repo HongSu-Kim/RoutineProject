@@ -11,12 +11,11 @@ import java.time.LocalTime;
 public class RoutineSet implements Serializable {
 
     @Id
-    @Enumerated(EnumType.STRING)
-    private Week week;//요일 PK
+    private String week;//요일 PK
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "routine_num")
+    @JoinColumn(name = "routine_id")
     private Routine routine;//루틴번호 PK FK
 
     private LocalTime startTime;//시작시간
