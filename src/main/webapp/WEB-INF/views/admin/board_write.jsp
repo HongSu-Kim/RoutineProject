@@ -8,9 +8,9 @@
         <div class="row">
             <!-- idx -->
             <div class="col-md-6 mb-3">
-                <label for="memberNum">memberNum</label>
-                <input type="text" class="form-control" id="memberNum" name="memberNum" placeholder="memberNum" required>
-                <!-- <input type="text" class="form-control" id="memberNum" name="memberNum" value="${dto.memberNum}" readonly> -->
+                <label for="memberId">memberId</label>
+                <input type="text" class="form-control" id="memberId" name="memberId" placeholder="memberId" required>
+                <!-- <input type="text" class="form-control" id="memberId" name="memberId" value="${dto.memberId}" readonly> -->
             </div>
             <!-- categoryName -->
             <div class="col-md-6 mb-3">

@@ -14,7 +14,7 @@ public class RoutineSet implements Serializable {
     private String week;//요일 PK
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "routine_id")
     private Routine routine;//루틴번호 PK FK
 

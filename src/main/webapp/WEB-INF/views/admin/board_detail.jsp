@@ -4,13 +4,13 @@
 <body>
 <div class="col-md-8 order-md-1">
     <h4 class="mb-3">${boardDTO.boardTitle }</h4>
-    <input type="hidden" name="boardNum" value="${boardDTO.boardNum }"/>
+    <input type="hidden" name="boardId" value="${boardDTO.boardId }"/>
     <div class="row">
         <!-- memberNum -> nickName -->
         <div class="col-md-6 mb-3">
-            <label for="memberNum">MemberNum</label>
+            <label for="memberId">MemberNum</label>
             ${boardDTO.memberNum }
-            <!-- <input type="text" class="form-control" id="memberNum" name="memberNum" value="${boardDTO.memberNum}" readonly> -->
+            <!-- <input type="text" class="form-control" id="memberId" name="memberId" value="${boardDTO.memberId}" readonly> -->
         </div>
         <!-- categoryName -->
         <div class="col-md-6 mb-3">

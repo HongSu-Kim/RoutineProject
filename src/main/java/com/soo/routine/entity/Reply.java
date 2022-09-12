@@ -14,11 +14,11 @@ public class Reply {
     @Column(name = "reply_id")
     private Integer id;//답글번호 PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;//회원번호 FK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;//게시글번호 FK
 

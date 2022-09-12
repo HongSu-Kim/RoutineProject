@@ -13,13 +13,13 @@ public class MissionIcon {
     @Column(name = "mission_icon_id")
     private Integer id;//아이콘번호 PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iconCategory_id")
     private IconCategory iconCategory;//카테고리번호 FK
 
     private String iconFileName;//아이콘파일명
 
-    @OneToOne(mappedBy = "missionIcon")
+    @OneToOne(mappedBy = "missionIcon", fetch = FetchType.LAZY)
     private Mission mission;
 
 }

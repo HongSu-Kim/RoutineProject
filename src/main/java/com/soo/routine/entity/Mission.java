@@ -14,11 +14,11 @@ public class Mission {
     @Column(name = "mission_id")
     private Integer id;//미션번호 PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "routine_id")
     private Routine routine;//루틴번호 FK
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "missionIcon_id")
     private MissionIcon missionIcon;//미션아이콘번호 FK
 

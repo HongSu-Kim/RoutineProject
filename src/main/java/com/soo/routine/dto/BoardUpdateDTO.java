@@ -10,8 +10,8 @@ import java.util.List;
 @Setter
 public class BoardUpdateDTO {
 
-    private int boardNum;
-    private int memberNum;
+    private int boardId;
+    private int memberid;
     private String category;
     private String boardTitle;
     private String boardContent;
