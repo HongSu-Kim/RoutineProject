@@ -15,7 +15,7 @@ public class Routine {
     @Column(name = "routine_id")
     private Integer id;//루틴번호 PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;//회원번호 FK
 

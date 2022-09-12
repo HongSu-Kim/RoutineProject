@@ -12,7 +12,7 @@ import java.util.List;
 public class BoardWriteDTO {
 
     @NotNull
-    private Integer memberNum;
+    private int memberId;
 
     private String category;
     

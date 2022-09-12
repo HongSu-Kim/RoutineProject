@@ -1,9 +1,7 @@
 package com.soo.routine.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.soo.routine.dto.BoardWriteDTO;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,9 +9,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Board {
 
     @Id
@@ -21,7 +16,7 @@ public class Board {
     @Column(name = "board_id")
     private Integer id;//게시글번호 PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;//회원번호 FK
 
@@ -39,5 +34,14 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
+
+    public void write(BoardWriteDTO boardWriteDTO, Member member) {
+        this.member = member;
+        this.category = boardWriteDTO.getCategory();
+        this.boardTitle = boardWriteDTO.getBoardTitle();
+        this.boardContent = boardWriteDTO.getBoardContent();
+        this.boardCreate = LocalDateTime.now();
+        this.boardHits = 0;
+    }
 
 }
