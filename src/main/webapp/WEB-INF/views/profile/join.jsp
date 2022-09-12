@@ -10,7 +10,8 @@
 
 <div class="title">회원가입</div>
 
-<form action="" method="post">
+<form action="/profile/join" method="post">
+
     <div class="contents">
         <input class="element" type="text" name="email" id="email" placeholder="이메일 주소">
     </div>

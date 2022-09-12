@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class MemberUpdateDTO {//회원정보 수정 시 사용
 
-    private int memberNum;//회원번호
+    private int memberId;//회원번호
     private String grade;//회원등급
     private String joinDate;//가입일
 

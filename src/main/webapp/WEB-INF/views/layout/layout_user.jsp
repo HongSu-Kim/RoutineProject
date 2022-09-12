@@ -17,10 +17,10 @@
 </head>
 <body>
 
-  <form class="container">
+  <div class="container">
     <tiles:insertAttribute name="body"/>
     <tiles:insertAttribute name="navbar"/>
-  </form>
+  </div>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
