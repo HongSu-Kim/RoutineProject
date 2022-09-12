@@ -15,7 +15,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer member_id;//회원번호 PK
+    private Integer id;//회원번호 PK
 
     @Column(unique = true)
     private String email;//이메일 주소
