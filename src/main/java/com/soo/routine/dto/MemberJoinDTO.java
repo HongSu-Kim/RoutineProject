@@ -3,6 +3,7 @@ package com.soo.routine.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -12,7 +13,7 @@ import javax.validation.constraints.Pattern;
 public class MemberJoinDTO {//회원가입 시 사용
 
     private int memberId;//회원번호
-    private String grade;//회원등급
+    private String level;//회원등급
     private String joinDate;//가입일
 
     @NotBlank(message="이메일 주소를 입력하세요.")
@@ -20,12 +21,15 @@ public class MemberJoinDTO {//회원가입 시 사용
     private String email;//이메일 주소
 
     @NotBlank(message="비밀번호를 입력하세요.")
-    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,16}",
-            message = "8~16자 영문 대·소문자, 숫자를 사용하세요.")
+    @Pattern(regexp = "(?=.*[a-zA-Z])(?=.*[0-9])(?=\\S+$).{5,15}",
+            message = "5~15자 이내의 영문 및 숫자를 사용하세요.")
     private String pwd;//비밀번호
 
     @NotBlank(message="비밀번호를 입력하세요.")
     private String pwd2;//비밀번호 확인
+
+    @AssertTrue(message = "일치")
+    private boolean pwdc = pwd == pwd2;
 
     @NotBlank(message="닉네임을 입력하세요.")
     private String nickname;//닉네임
