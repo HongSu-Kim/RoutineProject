@@ -12,7 +12,7 @@
     <input class="form-control w-100" type="text" name="searchValue" placeholder="Search" aria-label="Search" style="border-radius: 0.25rem;">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" href="/profile/join">Join</a>
         </li>
     </ul>
 </nav>

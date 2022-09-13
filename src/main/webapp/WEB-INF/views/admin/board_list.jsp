@@ -22,9 +22,9 @@
             </c:if>
             <c:forEach var="dto" items="${lists}">
                 <tr>
-                    <td>${dto.boardNum }</td>
+                    <td>${dto.boardId }</td>
                     <td>
-                        <a href="/admin/board-detail?boardNum=${dto.boardNum }">${dto.boardTitle }</a>
+                        <a href="/admin/board-detail?boardId=${dto.boardId }">${dto.boardTitle }</a>
                     </td>
                     <td>${dto.boardCreate }</td>
                     <td>${dto.boardHits }</td>
@@ -32,7 +32,7 @@
             </c:forEach>
         </tbody>
     </table>
-    <button class="btn btn-primary" onclick="location.href='/admin/board-write?category=${category }';">write</button>
+    <button class="btn btn-primary" onclick="location.href='/admin/board-write';">write</button>
 </div>
 </body>
 </head>

@@ -13,7 +13,7 @@ public class BoardImage {
     @Column(name = "board_image__id")
     private Integer id; // 이미지 번호 PK
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board; // 게시글 번호 FK
 

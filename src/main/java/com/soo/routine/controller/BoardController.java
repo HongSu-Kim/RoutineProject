@@ -21,8 +21,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("admin/board-list")
-    public String boardList(Model model, String category, @RequestParam(defaultValue = "") String memberNum) {
-        List<BoardReadDTO> lists = boardService.getBoardList(category, memberNum);
+    public String boardList(Model model, String category, @RequestParam(defaultValue = "") String memberId) {
+        List<BoardReadDTO> lists = boardService.getBoardList(category, memberId);
         model.addAttribute("lists", lists);
         model.addAttribute("category", category);
         return "admin/board_list";
@@ -40,15 +40,14 @@ public class BoardController {
             return "admin/board-write";
         }
 
-        boardService.createBoard(boardWriteDTO);
+        boardService.writeBoard(boardWriteDTO);
 
-        model.addAttribute("category", boardWriteDTO.getCategory());
-        return "redirect:/admin/board-list";
+        return "redirect:/admin/board-list?category=" + boardWriteDTO.getCategory();
     }
 
     @GetMapping("admin/board-detail")
-    public String boardDetail(Model model, int boardNum) {
-        BoardReadDTO boardReadDTO = boardService.getBoard(boardNum);
+    public String boardDetail(Model model, int boardId) {
+        BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
         model.addAttribute("boardDTO", boardReadDTO);
         return "admin/board_detail";
     }
