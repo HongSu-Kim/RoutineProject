@@ -1,5 +1,6 @@
 package com.soo.routine.entity;
 
+import com.soo.routine.dto.MemberJoinDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,11 +11,11 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Integer id;//회원번호 PK
 
     @Column(unique = true)
@@ -28,7 +29,7 @@ public class Member {
     private String gender;//성별
     private LocalDate birth;//생년월일
 
-    private String role;//회원등급
+    private String level;//회원등급
     private LocalDateTime joinDate;//가입일
 
 
@@ -40,5 +41,16 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
+
+
+    public void join(MemberJoinDTO memberJoinDTO, Member member){
+        this.level = "member";
+        this.joinDate = LocalDateTime.now();
+        this.email = memberJoinDTO.getEmail();
+        this.pwd = memberJoinDTO.getPwd();
+        this.nickname = memberJoinDTO.getNickname();
+        this.gender = memberJoinDTO.getGender();
+        this.birth = LocalDate.parse(memberJoinDTO.getBirth());
+    }
 
 }

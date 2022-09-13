@@ -5,6 +5,7 @@ import com.soo.routine.entity.Member;
 import com.soo.routine.mapper.MemberMapper;
 import com.soo.routine.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Where;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,10 @@ public class MemberService {
 
     public Member join(MemberJoinDTO memberJoinDTO){
 
-        Member member = modelMapper.map(memberJoinDTO, Member.class);
-        member.setBirth(LocalDate.parse(memberJoinDTO.getBirth(), DateTimeFormatter.ISO_DATE));
+        Member member = new Member();
+        member.join(memberJoinDTO, member);
+
+//        Member member = modelMapper.map(memberJoinDTO, Member.class);
 
         memberRepository.save(member);
 
