@@ -8,4 +8,5 @@ DROP TABLE IF EXISTS `board_image`;
 DROP TABLE IF EXISTS `board`;
 DROP TABLE IF EXISTS `member`;
 
-INSERT INTO MEMBER VALUES(1, '1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'HIROKAZU', 'hirokazu72Q', 'admin')
+INSERT INTO MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7');
+INSERT INTO MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1');
