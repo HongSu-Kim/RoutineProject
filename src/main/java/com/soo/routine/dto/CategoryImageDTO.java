@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class CategoryImageDTO {
 
-    private int imageNum;
-    private int boardNum;
+    private int imageId;
+    private int boardId;
     private String imageFileName;
 
 }

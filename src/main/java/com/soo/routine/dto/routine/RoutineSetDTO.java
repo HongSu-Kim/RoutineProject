@@ -1,4 +1,4 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.routine;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class RoutineSetDTO {
 
-    private int routineNum;
+    private int routineId;
     private int week;
     private String startTime;
 
