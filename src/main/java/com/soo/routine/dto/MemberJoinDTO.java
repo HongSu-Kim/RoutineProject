@@ -28,9 +28,6 @@ public class MemberJoinDTO {//회원가입 시 사용
     @NotBlank(message="비밀번호를 입력하세요.")
     private String pwd2;//비밀번호 확인
 
-    @AssertTrue(message = "일치")
-    private boolean pwdc = pwd == pwd2;
-
     @NotBlank(message="닉네임을 입력하세요.")
     private String nickname;//닉네임
 
