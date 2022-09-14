@@ -4,8 +4,11 @@ import com.soo.routine.dto.MemberJoinDTO;
 import com.soo.routine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,21 +22,21 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("join")
-    public String join(MemberJoinDTO memberJoinDTO){//회원가입 창을 띄움
+    public String join(){//회원가입 창을 띄움
         return "user/profile/join";
     }
     
     @PostMapping("join")
-    public String join(@Valid MemberJoinDTO memberJoinDTO, BindingResult bindingResult){
+    public String join(@Valid MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
+
+        if(!memberJoinDTO.getPwd().equals(memberJoinDTO.getPwd2())){
+            bindingResult.addError(new FieldError("memberJoinDTO", "pwd2", "패스워드가 일치하지 않습니다."));
+        }
 
         //검증 실패시
         if(bindingResult.hasErrors()){
+            model.addAttribute("memberJoinDTO", memberJoinDTO);
             return "user/profile/join";
-        }
-
-        if(!memberJoinDTO.getPwd().equals(memberJoinDTO.getPwd2())){
-            bindingResult.reject("pwd2", "패스워드가 일치하지 않습니다.");
-            return  "user/profile/join";
         }
 
         //회원가입 로직
