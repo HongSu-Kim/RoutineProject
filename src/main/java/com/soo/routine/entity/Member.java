@@ -43,7 +43,8 @@ public class Member {
     private List<Reply> replyList;
 
 
-    public void join(MemberJoinDTO memberJoinDTO, Member member){
+    public Member join(MemberJoinDTO memberJoinDTO){
+
         this.level = "member";
         this.joinDate = LocalDateTime.now();
         this.email = memberJoinDTO.getEmail();
@@ -51,6 +52,8 @@ public class Member {
         this.nickname = memberJoinDTO.getNickname();
         this.gender = memberJoinDTO.getGender();
         this.birth = LocalDate.parse(memberJoinDTO.getBirth());
+
+        return this;
     }
 
 }
