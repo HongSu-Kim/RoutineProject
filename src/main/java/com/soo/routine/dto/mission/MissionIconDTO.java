@@ -1,4 +1,4 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.mission;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class MissionIconDTO {
 
-    private int iconNum;
-    private int categoryNum;
+    private int iconId;
+    private int categoryId;
     private String iconFileName;
 
 }

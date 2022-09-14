@@ -1,4 +1,4 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.routine;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,8 +9,8 @@ import java.util.List;
 @Setter
 public class RoutineDTO {
 
-    private int routineNum;
-    private int memberNum;
+    private int routineId;
+    private int memberId;
     private String routineName;
     private boolean active;
     private String totalTime;

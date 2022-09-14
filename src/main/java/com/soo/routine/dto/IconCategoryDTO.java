@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class IconCategoryDTO {
 
-    private int categoryNum;
+    private int categoryId;
     private String categoryName;
     private Boolean pay;
 

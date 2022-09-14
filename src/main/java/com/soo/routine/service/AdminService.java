@@ -2,7 +2,7 @@
 //
 //import com.soo.routine.entity.Board;
 //import com.soo.routine.entity.Reply;
-//import com.soo.routine.dto.BoardDTO;
+//import com.soo.routine.dto.board.BoardDTO;
 //import com.soo.routine.dto.MemberDTO;
 //import com.soo.routine.dto.ReplyDTO;
 //import com.soo.routine.mapper.BoardMapper;

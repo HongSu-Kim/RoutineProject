@@ -1,4 +1,4 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class BoardReadDTO {
+public class BoardDTO {
 
     private int boardId;
     private int memberId;

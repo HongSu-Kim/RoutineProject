@@ -45,5 +45,18 @@
                 <a class="nav-link" href="/admin/mission-list"> Mission List</a>
             </li>
         </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Routine</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="/profile/login">Profile Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/routine/routine-list">Routine List</a>
+            </li>
+        </ul>
+
     </div>
 </nav>
