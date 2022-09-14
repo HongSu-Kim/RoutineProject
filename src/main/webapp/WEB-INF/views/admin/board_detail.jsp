@@ -8,14 +8,13 @@
     <div class="row">
         <!-- memberNum -> nickName -->
         <div class="col-md-6 mb-3">
-            <label for="memberId">MemberNum</label>
-            ${boardDTO.memberNum }
-            <!-- <input type="text" class="form-control" id="memberId" name="memberId" value="${boardDTO.memberId}" readonly> -->
+            <label for="memberNickname">Member Nickname</label>
+            <input type="text" class="form-control" id="memberNickname" name="memberNickname"value="${boardDTO.memberNickname }" readonly>
         </div>
         <!-- categoryName -->
         <div class="col-md-6 mb-3">
             <label for="category">Category</label>
-            ${boardDTO.category }
+            <input type="text" class="form-control" id="category" name="category" value="${boardDTO.category }" readonly>
         </div>
     </div>
     <!-- boardContent -->
@@ -23,8 +22,8 @@
         <label for="boardContent">Content</label>
         <textarea class="form-control" id="boardContent" name="boardContent" rows="5" style="resize: none;" readonly>${boardDTO.boardContent}</textarea>
     </div>
-    <button class="btn btn-primary" onclick="location.href='/admin/board-list';">list</button>
-    <button class="btn btn-primary" onclick="location.href='/admin/board-write';">edit</button>
+    <button class="btn btn-primary" type="button" onclick="location.href='/admin/board-list?category=${boardDTO.category }';">list</button>
+    <button class="btn btn-primary" type="button" onclick="location.href='/admin/board-edit?boardId=${boardDTO.boardId }';">edit</button>
     <hr class="mb-4">
     
     <!-- replyContent -->
@@ -41,9 +40,6 @@
         </form>
         <hr class="mb-4">
     </c:if>
-    <c:forEach var="dto" item="lists">
-
-    </c:forEach>
 </div>
 </body>
 </head>

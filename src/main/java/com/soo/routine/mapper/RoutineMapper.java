@@ -8,5 +8,4 @@ import java.util.List;
 @Mapper
 public interface RoutineMapper {
 
-    List<Routine> findAllByMemberNum(int memberNum);
 }
