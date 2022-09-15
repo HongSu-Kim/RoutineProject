@@ -3,9 +3,9 @@ body{
     background-color: #f8f8f8;
 }
 .container{
-    max-width: 32rem;
-    min-height: 38rem;
-    margin-top: 2.5rem;
+    max-width: 25.5rem;
+    min-height: 41.25rem;
+    margin-top: 6rem;
     background-color: rgb(255, 255, 255);
     padding-right: 0;
     padding-left: 0;
@@ -18,7 +18,7 @@ body{
 }
 .fixed-bottom {
     position: relative;
-    top: 35rem;
+    top: 15rem;
 }
 .nav-link {
     padding-right: 0;
