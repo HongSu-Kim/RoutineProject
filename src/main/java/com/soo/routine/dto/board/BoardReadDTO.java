@@ -1,5 +1,6 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.board;
 
+import com.soo.routine.entity.Reply;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +9,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class BoardDTO {
+public class BoardReadDTO {
 
     private int boardId;
+
     private int memberId;
+    private String memberNickname;
+
     private String category;
     private String boardTitle;
     private String boardContent;
@@ -19,8 +23,8 @@ public class BoardDTO {
     private LocalDateTime boardModify;
     private int boardHits;
 
-    private List<String> imageFileName;
+    private List<String> imageFileNameList;
 
-    private String nickname;
+    private List<Reply> replyList;
 
 }

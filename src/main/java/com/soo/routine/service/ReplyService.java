@@ -1,6 +1,6 @@
 package com.soo.routine.service;
 
-import com.soo.routine.dto.ReplyWriteDTO;
+import com.soo.routine.dto.reply.ReplyWriteDTO;
 import com.soo.routine.entity.Reply;
 import com.soo.routine.mapper.ReplyMapper;
 import com.soo.routine.repository.ReplyRepository;

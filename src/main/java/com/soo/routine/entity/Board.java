@@ -1,6 +1,7 @@
 package com.soo.routine.entity;
 
-import com.soo.routine.dto.BoardWriteDTO;
+import com.soo.routine.dto.board.BoardEditDTO;
+import com.soo.routine.dto.board.BoardWriteDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -35,13 +36,21 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
-    public void write(BoardWriteDTO boardWriteDTO, Member member) {
+    public Board write(BoardWriteDTO boardWriteDTO, Member member) {
         this.member = member;
         this.category = boardWriteDTO.getCategory();
         this.boardTitle = boardWriteDTO.getBoardTitle();
         this.boardContent = boardWriteDTO.getBoardContent();
         this.boardCreate = LocalDateTime.now();
         this.boardHits = 0;
+        return this;
     }
+
+    public void edit(BoardEditDTO boardUpdateDTO) {
+        this.boardTitle = boardUpdateDTO.getBoardTitle();
+        this.boardContent = boardUpdateDTO.getBoardContent();
+        this.boardModify = LocalDateTime.now();
+    }
+
 
 }

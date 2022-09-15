@@ -1,21 +1,18 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.board;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
 @Setter
-public class BoardWriteDTO {
+public class BoardEditDTO {
 
-    @NotNull
-    private int memberId;
-
+    private int boardId;
     private String category;
-    
+
     @NotBlank(message = "제목을 입력해주세요.")
     private String boardTitle;
 

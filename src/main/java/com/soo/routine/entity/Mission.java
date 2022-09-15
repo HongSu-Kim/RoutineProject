@@ -1,5 +1,6 @@
 package com.soo.routine.entity;
 
+import com.soo.routine.dto.mission.MissionAddDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -23,8 +24,19 @@ public class Mission {
     private MissionIcon missionIcon;//미션아이콘번호 FK
 
     private String missionName;//미션이름
-    private String missionOrder;//미션순서
+    private int missionOrder;//미션순서
     private LocalTime runTime;//소요시간
     private String missionContent;//내용
+
+
+    public Mission addRecommend(MissionAddDTO missionAddDTO, Routine routine, MissionIcon missionIcon) {
+        this.routine = routine;
+        this.missionIcon = missionIcon;
+        this.missionName = missionAddDTO.getMissionName();
+        this.missionOrder = missionAddDTO.getOrderNum();
+        this.runTime = missionAddDTO.getRunTime();
+        this.missionContent = missionAddDTO.getMissionContent();
+        return this;
+    }
 
 }

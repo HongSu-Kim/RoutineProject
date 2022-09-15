@@ -5,8 +5,4 @@
 
 <mapper namespace="com.soo.routine.mapper.RoutineMapper">
 
-	<select id="findAllByMemberNum" resultType="com.soo.routine.entity.Routine" parameterType="int">
-		select * from routine where memberNum = #{memberNum}
-	</select>
-
 </mapper>

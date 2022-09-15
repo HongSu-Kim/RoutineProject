@@ -1,5 +1,6 @@
 package com.soo.routine.entity;
 
+import com.soo.routine.dto.routine.RoutineAddDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -29,5 +30,13 @@ public class Routine {
 
     @OneToMany(mappedBy = "routine", cascade = CascadeType.REMOVE)
     private List<RoutineSet> routineSetList;
+
+
+    public Routine addRecommend(RoutineAddDTO routineAddDTO, Member member) {
+        this.member = member;
+        this.routineName = routineAddDTO.getRoutineName();
+        this.active = true;
+        return this;
+    }
 
 }

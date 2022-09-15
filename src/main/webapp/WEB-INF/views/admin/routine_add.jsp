@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <body>
-    <h1>Routine List</h1>
-</div>
+    <h2>Routine Add</h2>
 </body>
-</head>
+</html>
