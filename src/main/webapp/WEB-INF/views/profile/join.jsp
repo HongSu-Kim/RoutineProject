@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div><</div>
+<!-- <div><</div>
 <div>로그인</div>
 
 <div class="title">회원가입</div>
@@ -40,7 +40,8 @@
         <form:errors path="birth"/>
     </div>
     <button class="button" type="submit">가입하기</button>
-</form:form>
+</form:form> -->
+
 
 </body>
 </html>
