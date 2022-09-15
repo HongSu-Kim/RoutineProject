@@ -11,15 +11,24 @@
   
   <title>Layout User</title>
 
-  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-  <link rel="stylesheet" type="text/css" href="/css/layout_user.css"/>
+  <!-- <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/layout_user.css"/> -->
+  <link rel="stylesheet" href="/css/style.css" id="main-css-href"/>
 
 </head>
 <body>
 
-  <div class="container">
-    <tiles:insertAttribute name="body"/>
-    <tiles:insertAttribute name="navbar"/>
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
+    <div class="d-flex flex-column justify-content-between">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-xl-5 col-md-10 ">
+          <div class="card card-default mb-0">
+            <!-- <tiles:insertAttribute name="body"/>  -->
+            <!-- <tiles:insertAttribute name="navbar"/> -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
