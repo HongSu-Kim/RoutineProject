@@ -23,7 +23,7 @@
   <link id="main-css-href" href="/css/style.css" rel="stylesheet"/>
 
   <!-- LAYOUT USER CSS -->
-  <!-- <link rel="stylesheet" href="/css/layout_user.css"/> -->
+  <link rel="stylesheet" href="/css/layout_user.css"/>
 
   <!-- FAVICON -->
   <link href="/images/favicon.png" rel="shortcut icon" />
@@ -33,15 +33,17 @@
 
 </head>
 <body class="bg-light-gray" id="body">
-  <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
+  <div class="container d-flex align-items-center justify-content-center container_routine">
     <div class="d-flex flex-column justify-content-between">
-      <div class="row justify-content-center">
-          <div class="">
+      <div class="row justify-content-center row_routine">
+        <div class="col-lg-6 col-xl-5 col-md-10 col-routine-1">
+          <div class="card card-default mb-0 card_routine">
             <tiles:insertAttribute name="body"/>
-            <tiles:insertAttribute name="navbar"/>
           </div>
+        </div>
       </div>
     </div>
+    <tiles:insertAttribute name="navbar"/>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
