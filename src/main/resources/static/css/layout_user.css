@@ -1,38 +1,27 @@
 /* layout_user */
-body{
-    background-color: #f8f8f8;
-}
-.container{
-    max-width: 25.5rem;
-    min-height: 41.25rem;
-    margin-top: 6rem;
-    background-color: rgb(255, 255, 255);
-    padding-right: 0;
-    padding-left: 0;
-    border-radius: 1.5rem;
-}
 
 /* navbar_user */
-.navbar {
-    padding: 0;
-}
-.fixed-bottom {
+.navi-bottom {
     position: relative;
-    top: 15rem;
+    top: 30rem;
 }
-.nav-link {
+.navi-collapse {
+    border-top: 0.01rem solid #dfdfdf;
+    padding-top: 1rem;
+    display: flex!important;
+}
+.navi-nav{
+    display: flex;
+}
+.navi-link {
     padding-right: 0;
     padding-left: 0.9rem;
     color: #c6c5c5!important;
 }
-.navbar-collapse {
-    border-top: 0.01rem solid #dfdfdf;
-    padding-top: 1rem;
-}
-.nav-item {
-    padding-left: 4rem;
+.navi-item {
+    padding-left: 1.7rem;
+    padding-right: 2.5rem;
 }
 .bi{
     width: 30px;
-    height: 30px;
 }
