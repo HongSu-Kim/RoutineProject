@@ -1,14 +1,107 @@
 /* layout_user */
+body {
+    font-size: 0.8375rem;
+    min-height: 100%;
+}
+
+.container_routine{
+    max-width: 500px;
+    min-height: 100%;
+    height: 100%;
+    padding: 0 0 52pt;
+    background-color: white;
+}
+
+.row_routine{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.col-routine-1{
+    flex: none;
+    max-width: none;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.card_routine {
+    border: 0;
+}
 
 /* navbar_user */
-.row{
+.navi-wrap {
+    display: flex;
+    position: fixed;
+    max-width: 500px;
+    width: 100%;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    background-color: #ffffff;
+    border-top: 1px solid rgb(231, 231, 231);
+}
+
+.navi-item-1 {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 25%;
+    height: 50px;
+    padding-bottom: 6px;
+}
+
+.navi-item-2 {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.navi-item-3 {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    margin-top: 2px;
+}
+
+/* profile_common */
+.card_profile {
+    padding-top: 1.5625rem !important;
+}
+
+.btn_routine {
+    font-size: 0.8375rem;
+}
+
+.input_routine {
+    font-size: 0.8375rem;
+}
+
+.col-routine-2 {
+    text-align: center;
+}
+
+.error_routine {
+    padding: 8px 0 10px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: #f13d2b;
+}
+
+.mb_routine {
+    margin-bottom: 0!important;
+}
+
+/* .row{
     display: block;
 }
 
 .navi-bottom {
     position: relative;
     /* top: 30rem; */
-}
+/* }
 .navi-collapse {
     border-top: 0.01rem solid #dfdfdf;
     padding-top: 1rem;
@@ -27,4 +120,4 @@
 }
 .bi{
     width: 30px;
-}
+} */

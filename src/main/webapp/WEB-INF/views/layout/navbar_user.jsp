@@ -1,8 +1,73 @@
-<nav class="navi-bottom" >
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<div class="navi-wrap">
+    <div class="navi-item-1">
+        <div class="navi-item-2">
+            <a href="/">
+                <div class="navi-item-3">
+                    <div>
+                        <img width="30" src="https://cdn.dailyhotel.com/ux/tapbar-ic-home-off.svg" alt="">
+                    </div>
+                </div>
+                <div style="font-size: 10px; color: rgb(146, 146, 146);">홈</div>
+            </a>
+        </div>
+    </div>
+    <div class="navi-item-1">
+        <div class="navi-item-2">
+            <a href="/reservations">
+                <div class="navi-item-3">
+                    <div>
+                        <img width="30" src="https://cdn.dailyhotel.com/ux/tapbar-ic-reserv-off.svg" alt="">
+                    </div>
+                </div>
+                <div style="font-size: 10px; color: rgb(146, 146, 146);">예약/구매내역</div>
+            </a>
+        </div>
+    </div>
+    <div class="navi-item-1">
+        <div class="navi-item-2">
+            <a href="/mydaily">
+                <div class="navi-item-3">
+                    <div>
+                        <img width="30" src="https://cdn.dailyhotel.com/ux/tapbar-ic-mydaily-on.svg" alt="">
+                    </div>
+                </div>
+                <div style="font-size: 10px; color: rgb(219, 7, 74);">마이데일리</div>
+            </a>
+        </div>
+    </div>
+    <div class="navi-item-1">
+        <div class="navi-item-2">
+            <a href="/etc">
+                <div class="navi-item-3">
+                    <div>
+                        <img width="30" src="https://cdn.dailyhotel.com/ux/tapbar-ic-etc-off.svg" alt="">
+                    </div>
+                </div>
+                <div style="font-size: 10px; color: rgb(146, 146, 146);">더보기</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="card-header pb-0 navi_routine">
+    <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
+      <a class="w-auto pl-0" href="/index.html">
+        <img src="images/logo.png" alt="Mono">
+        <span class="brand-name text-dark">MONO</span>
+      </a>
+    </div>
+</div> -->
+
+
+
+
+<!-- <nav class="navi_routine navi-bottom" > -->
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button> -->
-    <div class="navi-collapse" id="">
+    <!--<div class="navi-collapse" id="">
         <ul class="navi-nav">
             <li class="navi-item">
                 <a class="navi-link" href="user/main">
@@ -35,4 +100,4 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav> -->
