@@ -18,7 +18,7 @@ public class MissionController {
 
     private final MissionService missionService;
 
-    // 추천 미션 리스트 페이지
+    // 추천 미션 리스트 관리 페이지
     @GetMapping("admin/mission-list")
     public String adminMissionList(Model model, int routineId) {
         List<MissionReadDTO> lists = missionService.getMissionList(routineId);
@@ -38,9 +38,6 @@ public class MissionController {
         missionService.addMission(missionAddDTO);
         return "redirect:/admin/mission-list";
     }
-
-
-
 
 
 }

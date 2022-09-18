@@ -11,8 +11,9 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RoutineAddDTO {
+public class RoutineUpdateDTO {
 
+    private int routineId;
     private int memberId;
     
     @NotBlank(message = "루틴명을 입력해주세요")
@@ -24,8 +25,5 @@ public class RoutineAddDTO {
     private Integer[] missionId;
     private String[] week;
     private LocalTime[] startTime;
-
-    private List<Mission> missionList;
-    private List<RoutineSet> routineSetList;
 
 }

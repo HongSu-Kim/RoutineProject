@@ -23,32 +23,34 @@ public class BoardController {
 
     // 게시글 리스트 페이지
     @GetMapping("admin/board-list")
-    public String boardList(Model model, String category, String memberId) {
-        List<BoardListDTO> lists = boardService.getBoardList(category, memberId);
+    public String boardList(Model model, String boardCategory, String memberId) {
+        List<BoardListDTO> lists = boardService.getBoardList(boardCategory, memberId);
         model.addAttribute("lists", lists);
-        model.addAttribute("category", category);
+        model.addAttribute("boardCategory", boardCategory);
         return "admin/board_list";
     }
 
     // 게시글 작성 페이지
     @GetMapping("admin/board-write")
-    public String boardWrite(Model model, String category, BoardWriteDTO boardWriteDTO) {
+    public String boardWrite(Model model, String boardCategory, BoardWriteDTO boardWriteDTO) {
         model.addAttribute("mode", "write");
-        model.addAttribute("category", category);
+        model.addAttribute("boardCategory", boardCategory);
         return "admin/board_write";
     }
 
     // 게시글 작성
     @PostMapping("admin/board-write")
-    public String boardWrite(@Valid BoardWriteDTO boardWriteDTO, BindingResult bindingResult) {
+    public String boardWrite(Model model, @Valid BoardWriteDTO boardWriteDTO, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){
+            model.addAttribute("mode", "write");
+            model.addAttribute("boardDTO", boardWriteDTO);
             return "admin/board_write";
         }
 
         boardService.writeBoard(boardWriteDTO);
 
-        return "redirect:/admin/board-list?category=" + boardWriteDTO.getCategory();
+        return "redirect:/admin/board-list?boardCategory=" + boardWriteDTO.getCategory();
     }
 
     // 게시글 디테일 페이지
@@ -56,6 +58,7 @@ public class BoardController {
     public String boardDetail(Model model, int boardId) {
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
         model.addAttribute("boardDTO", boardReadDTO);
+        model.addAttribute("boardCategory", boardReadDTO.getCategory());
         return "admin/board_detail";
     }
 
@@ -71,9 +74,10 @@ public class BoardController {
 
     // 게시글 수정
     @PostMapping("admin/board-edit")
-    public String boardEdit(@Valid BoardEditDTO boardEditDTO, BindingResult bindingResult){
+    public String boardEdit(Model model, @Valid BoardEditDTO boardEditDTO, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
+            model.addAttribute("boardDTO", boardEditDTO);
             return "admin/board-edit";
         }
 

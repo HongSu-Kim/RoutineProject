@@ -10,7 +10,7 @@ public class BoardImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "board_image__id")
+    @Column(name = "board_image_id")
     private Integer id; // 이미지 번호 PK
 
     @ManyToOne(fetch = FetchType.LAZY)

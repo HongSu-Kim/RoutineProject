@@ -5,37 +5,86 @@
 <html>
 <head>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-<meta name="generator" content="Hugo 0.101.0">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <title>Routine Admin</title>
 
 <!-- <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/"> -->
 
-<!--css -->
-<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="/css/dashboard.css"/>
-<link rel="stylesheet" type="text/css" href="/css/layout_admin.css"/>
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet"/>
+<link href="/plugins/material/css/materialdesignicons.min.css" rel="stylesheet"/>
+<link href="/plugins/simplebar/simplebar.css" rel="stylesheet"/>
+
+<!-- PLUGINS CSS STYLE -->
+<link href="/plugins/nprogress/nprogress.css" rel="stylesheet"/>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<!-- MONO CSS -->
+<link rel="stylesheet" href="/css/style.css"/>
+
+<!-- LAYOUT ADMIN CSS -->
+<link rel="stylesheet" href="/css/layout_admin.css"/>
+
+<!-- FAVICON -->
+<link href="/images/favicon.png" rel="shortcut icon"/>
+
+<!-- nprogress script -->
+<script src="/plugins/nprogress/nprogress.js"></script>
 
 </head>
-<body>
-  <tiles:insertAttribute name="navbar"/>
-  <div class="container-fluid">
-    <div class="row">
-      <tiles:insertAttribute name="sidebarMenu"/>
-      <main role="main" class="main col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <tiles:insertAttribute name="body"/>
-      </main>
-    </div>
-  </div>
+<body class="navbar-fixed sidebar-fixed" id="body">
+<script>
+  NProgress.configure({
+    showSpinner : false
+  });
+  NProgress.start();
+</script>
 
-  <!--script -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
-  <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-  </body>
+<!-- WRAPPER -->
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <tiles:insertAttribute name="sidebar"/>
+  <!-- SIDEBAR END -->
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper min-vh-100">
+
+    <!-- HEADER -->
+    <tiles:insertAttribute name="header"/>
+    <!-- HEADER END -->
+
+    <!-- CONTENT -->
+    <tiles:insertAttribute name="body"/>
+    <!-- CONTENT END -->
+
+    <!-- FOOTER -->
+    <tiles:insertAttribute name="footer"/>
+    <!-- FOOTER END -->
+
+  </div>
+  <!-- PAGE WRAPPER END-->
+
+</div>
+<!-- WRAPPER END -->
+
+<!--script -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/simplebar/simplebar.min.js"></script>
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
+<!-- write -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="/plugins/dropzone/dropzone.js"></script>
+
+<script src="/js/mono.js"></script>
+<script src="/js/chart.js"></script>
+<script src="/js/map.js"></script>
+<script src="/js/custom.js"></script>
+
+</body>
 </html>
