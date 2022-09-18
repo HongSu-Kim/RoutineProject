@@ -18,15 +18,15 @@
           <!-- Member -->
           <li class="section-title">
             <i class="mdi mdi-account"></i>
-            Member
+            User
           </li>
           <li>
-            <a class="sidenav-item-link" href="/admin/member-list?grade=">
+            <a class="sidenav-item-link" href="/admin/user-list?level=member">
               <span class="nav-text">Member List</span>
             </a>
           </li>
           <li>
-            <a class="sidenav-item-link" href="/admin/member-list?grade=admin">
+            <a class="sidenav-item-link" href="/admin/user-list?level=admin">
               <span class="nav-text">Admin List</span>
             </a>
           </li>

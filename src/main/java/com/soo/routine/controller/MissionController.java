@@ -23,6 +23,7 @@ public class MissionController {
     public String adminMissionList(Model model, int routineId) {
         List<MissionReadDTO> lists = missionService.getMissionList(routineId);
         model.addAttribute("lists", lists);
+        model.addAttribute("pageName", "Routine Update");
         return "admin/mission_list";
     }
 

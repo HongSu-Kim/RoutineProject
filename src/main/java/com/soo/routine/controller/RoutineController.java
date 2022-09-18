@@ -7,6 +7,7 @@ import com.soo.routine.service.RoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -25,18 +26,20 @@ public class RoutineController {
         int memberId = 1;
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
         model.addAttribute("lists", lists);
+        model.addAttribute("pageName", "Routine List");
         return "admin/routine_list";
     }
 
     // admin - 추천 루틴 추가 페이지
     @GetMapping("admin/routine-add")
-    public String adminRoutineAdd(RoutineAddDTO routineAddDTO) {
+    public String adminRoutineAdd(Model model, RoutineAddDTO routineAddDTO) {
+        model.addAttribute("pageName", "Routine Add");
         return "admin/routine_add";
     }
 
     // admin - 추천 루틴 추가
     @PostMapping("admin/routine-add")
-    public String adminRoutineAdd(Model model, @Valid RoutineAddDTO routineAddDTO) {
+    public String adminRoutineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
         int memberId = 1;
         routineService.addRoutine(routineAddDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
@@ -46,13 +49,14 @@ public class RoutineController {
 
     // admin - 추천 루틴 수정 페이지
     @GetMapping("admin/routine-update")
-    public String adminRoutineUpdate(RoutineUpdateDTO routineUpdateDTO) {
+    public String adminRoutineUpdate(Model model, RoutineUpdateDTO routineUpdateDTO) {
+        model.addAttribute("pageName", "Routine Update");
         return "admin/routine_add";
     }
 
     // admin - 추천 루틴 수정
     @PostMapping("admin/routine-update")
-    public String adminRoutineUpdate(Model model, @Valid RoutineUpdateDTO routineUpdateDTO) {
+    public String adminRoutineUpdate(Model model, @Valid RoutineUpdateDTO routineUpdateDTO, BindingResult bindingResult) {
         int memberId = 1;
         routineService.updateRoutine(routineUpdateDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);

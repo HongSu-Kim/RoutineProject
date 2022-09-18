@@ -98,17 +98,35 @@
                     <div class="accordion" id="accordionTwo">
                       <div class="card border-0">
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionOne" style="">
-                          <div class="card-body">
-                            <table>
-                              <c:if test="${empty routineDTO.missionList}">
+                          <%-- <div class="card-body"> --%>
+                            <table class="table">
+                              <thead class="thead">
                                 <tr>
-                                  <td class="border-0" align="center">추천 미션이 존재하지 않습니다.</td>
+                                  <th scope="col">No.</th>
+                                  <th scope="col">Icon</th>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Run Time</th>
+                                  <th scope="col">Content</th>
                                 </tr>
-                              </c:if>
-                              <c:forEach var="missionDTO" items="${routineDTO.missionList}">
-                              </c:forEach>
+                              </thead>
+                              <tbody>
+                                <c:if test="${empty routineDTO.missionList}">
+                                  <tr>
+                                    <td class="border-0" colspan="4" align="center">추천 미션이 존재하지 않습니다.</td>
+                                  </tr>
+                                </c:if>
+                                <c:forEach var="missionDTO" items="${routineDTO.missionList}"> 
+                                  <tr>
+                                    <td scope="row">${missionDTO.missionOrder}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
+                                </c:forEach>
+                              </tbody>
                             </table>
-                          </div>
+                          <%-- </div> --%>
                         </div>
                       </div>
                     </div>

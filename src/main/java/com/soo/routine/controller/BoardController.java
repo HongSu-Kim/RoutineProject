@@ -27,6 +27,7 @@ public class BoardController {
         List<BoardListDTO> lists = boardService.getBoardList(boardCategory, memberId);
         model.addAttribute("lists", lists);
         model.addAttribute("boardCategory", boardCategory);
+        model.addAttribute("pageName", boardCategory + " List");
         return "admin/board_list";
     }
 
@@ -35,6 +36,7 @@ public class BoardController {
     public String boardWrite(Model model, String boardCategory, BoardWriteDTO boardWriteDTO) {
         model.addAttribute("mode", "write");
         model.addAttribute("boardCategory", boardCategory);
+        model.addAttribute("pageName", "Board Write");
         return "admin/board_write";
     }
 
@@ -45,6 +47,7 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             model.addAttribute("mode", "write");
             model.addAttribute("boardDTO", boardWriteDTO);
+            model.addAttribute("pageName", "Board Write");
             return "admin/board_write";
         }
 
@@ -59,6 +62,7 @@ public class BoardController {
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
         model.addAttribute("boardDTO", boardReadDTO);
         model.addAttribute("boardCategory", boardReadDTO.getCategory());
+        model.addAttribute("pageName", "Board Detail");
         return "admin/board_detail";
     }
 
@@ -69,6 +73,7 @@ public class BoardController {
 
         model.addAttribute("mode", "edit");
         model.addAttribute("boardDTO", boardReadDTO);
+        model.addAttribute("pageName", "Board Edit");
         return "admin/board_write";
     }
 
@@ -78,6 +83,7 @@ public class BoardController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("boardDTO", boardEditDTO);
+            model.addAttribute("pageName", "Board Edit");
             return "admin/board-edit";
         }
 
