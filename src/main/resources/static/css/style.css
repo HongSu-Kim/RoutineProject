@@ -4554,9 +4554,9 @@
  
  .card {
    position: relative;
+   display: flex;
    flex-direction: column;
-   min-width: 28.125rem;
-   min-height: 35.316rem;
+   min-width: 0;
    word-wrap: break-word;
    background-color: #ffffff;
    background-clip: border-box;

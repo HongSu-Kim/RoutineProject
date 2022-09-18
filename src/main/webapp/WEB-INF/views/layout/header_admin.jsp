@@ -6,7 +6,7 @@
         <span class="sr-only">Toggle navigation</span>
       </button>
 
-      <span class="page-title">Admin Page</span>
+      <span class="page-title">${pageName}</span>
 
       <div class="navbar-right ">
 
