@@ -6,9 +6,10 @@
 
 	<!-- admin -->
 	<definition name="admin-layout" template="/WEB-INF/views/layout/layout_admin.jsp">
-		<put-attribute name="navbar" value="/WEB-INF/views/layout/navbar_admin.jsp" />
-		<put-attribute name="sidebarMenu" value="/WEB-INF/views/layout/sidebarMenu_admin.jsp" />
+		<put-attribute name="sidebar" value="/WEB-INF/views/layout/sidebar_admin.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/layout/header_admin.jsp" />
 		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer_admin.jsp" />
 	</definition>
 	<definition name="admin/*" extends="admin-layout">
 		<put-attribute name="body" value="/WEB-INF/views/admin/{1}.jsp" />
