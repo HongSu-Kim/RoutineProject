@@ -1,9 +1,13 @@
 /* layout_user */
 
 /* navbar_user */
+.row{
+    display: block;
+}
+
 .navi-bottom {
     position: relative;
-    top: 30rem;
+    /* top: 30rem; */
 }
 .navi-collapse {
     border-top: 0.01rem solid #dfdfdf;
@@ -15,11 +19,10 @@
 }
 .navi-link {
     padding-right: 0;
-    padding-left: 0.9rem;
     color: #c6c5c5!important;
 }
 .navi-item {
-    padding-left: 1.7rem;
+    padding-left: 2.6rem;
     padding-right: 2.5rem;
 }
 .bi{
