@@ -27,6 +27,7 @@ public class MissionService {
     private final MissionMapper missionMapper;
     private final ModelMapper modelMapper;
 
+    // 미션 추가
     public void addMission(MissionAddDTO missionAddDTO) {
 
         Routine routine = routineRepository.findById(missionAddDTO.getRoutineId()).get();
@@ -37,6 +38,7 @@ public class MissionService {
         missionRepository.save(mission);
     }
 
+    // 미션 리스트
     public List<MissionReadDTO> getMissionList(int routineId) {
 
         List<Mission> missionList = missionRepository.findAllByRoutineId(routineId);

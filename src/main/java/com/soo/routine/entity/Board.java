@@ -36,6 +36,7 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
+    // 글 작성
     public Board write(BoardWriteDTO boardWriteDTO, Member member) {
         this.member = member;
         this.category = boardWriteDTO.getCategory();
@@ -46,6 +47,7 @@ public class Board {
         return this;
     }
 
+    // 글 수정
     public void edit(BoardEditDTO boardUpdateDTO) {
         this.boardTitle = boardUpdateDTO.getBoardTitle();
         this.boardContent = boardUpdateDTO.getBoardContent();

@@ -1,6 +1,7 @@
 package com.soo.routine.entity;
 
 import com.soo.routine.dto.routine.RoutineAddDTO;
+import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -31,12 +32,20 @@ public class Routine {
     @OneToMany(mappedBy = "routine", cascade = CascadeType.REMOVE)
     private List<RoutineSet> routineSetList;
 
-
-    public Routine addRecommend(RoutineAddDTO routineAddDTO, Member member) {
+    // 루틴 추가
+    public Routine addRoutine(RoutineAddDTO routineAddDTO, Member member) {
         this.member = member;
         this.routineName = routineAddDTO.getRoutineName();
-        this.active = true;
+        this.active = routineAddDTO.isActive();
+        this.totalTime = routineAddDTO.getTotalTime();
         return this;
+    }
+
+    // 루틴 수정
+    public void updateRoutine(RoutineUpdateDTO routineUpdateDTO) {
+        this.routineName = routineUpdateDTO.getRoutineName();
+        this.active = routineUpdateDTO.isActive();
+        this.totalTime = routineUpdateDTO.getTotalTime();
     }
 
 }

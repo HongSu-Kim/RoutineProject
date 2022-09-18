@@ -1,8 +1,8 @@
 package com.soo.routine.service;
 
 import com.soo.routine.dto.routine.RoutineAddDTO;
-import com.soo.routine.dto.routine.RoutineDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
+import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.Member;
 import com.soo.routine.entity.Routine;
 import com.soo.routine.mapper.RoutineMapper;
@@ -25,15 +25,17 @@ public class RoutineService {
     private final RoutineMapper routineMapper;
     private final ModelMapper modelMapper;
 
+    // 루틴 추가
     public void addRoutine(RoutineAddDTO routineAddDTO) {
 
         Member member = memberRepository.findById(routineAddDTO.getMemberId()).get();
 
-        Routine routine = new Routine().addRecommend(routineAddDTO, member);
+        Routine routine = new Routine().addRoutine(routineAddDTO, member);
 
         routineRepository.save(routine);
     }
 
+    // 루틴 리스트
     public List<RoutineReadDTO> getRoutineList(int memberId) {
 
         List<Routine> routineList = routineRepository.findAllByMemberId(memberId);
@@ -43,9 +45,13 @@ public class RoutineService {
 
         return lists;
     }
+    
+    // 루틴 수정
+    public void updateRoutine(RoutineUpdateDTO routineUpdateDTO) {
 
-    public void updateData(RoutineDTO routineDTO) {
+        Routine routine = routineRepository.findById(routineUpdateDTO.getRoutineId()).get();
 
+        routineRepository.save(routine);
     }
 
 }
