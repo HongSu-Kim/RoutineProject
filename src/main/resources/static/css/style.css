@@ -168,7 +168,7 @@
    text-decoration: none;
    background-color: transparent;
  }
- a:hover {
+ a:hover { 
    color: #742ed3;
    text-decoration: underline;
  }
