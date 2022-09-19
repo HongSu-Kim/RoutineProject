@@ -1,4 +1,4 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.member;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,9 +1,8 @@
-package com.soo.routine.dto;
+package com.soo.routine.dto.member;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

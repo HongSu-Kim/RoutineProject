@@ -4,13 +4,6 @@
 	<div class="content-wrapper">
 		<div class="content">
 			<div class="card card-default">
-			
-				<!-- header -->
-				<div class="card-header">
-					<h2>Board Write</h2>
-				</div>
-
-				<!-- input -->
 				<div class="card-body">
 					<form:form action="" method="post" modelAttribute="boardDTO">
 						<div class="row">
@@ -30,6 +23,7 @@
 											<option value="">Choose...</option>
 											<option value="notice">Notice</option>
 											<option value="FAQ">FAQ</option>
+											<option value="QnA">QnA</option>
 										</select>
 									</c:if>
 									<c:if test="${mode == 'edit'}" >
@@ -65,7 +59,6 @@
 						</c:if>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>

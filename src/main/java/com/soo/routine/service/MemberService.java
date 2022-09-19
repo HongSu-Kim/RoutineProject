@@ -1,18 +1,18 @@
 package com.soo.routine.service;
 
-import com.soo.routine.dto.MemberJoinDTO;
+import com.soo.routine.dto.member.MemberJoinDTO;
+import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.Member;
 import com.soo.routine.mapper.MemberMapper;
 import com.soo.routine.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Where;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.lang.reflect.Type;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -45,4 +45,13 @@ public class MemberService {
         }
     }
 
+    /*
+    Admin Page
+    */
+    public List<MemberReadDTO> getMemberList(String level) {
+
+        Type type = new TypeToken<List<MemberReadDTO>>() {}.getType();
+
+        return modelMapper.map(memberRepository.findByLevel(level), type);
+    }
 }
