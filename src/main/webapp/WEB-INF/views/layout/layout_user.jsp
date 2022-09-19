@@ -33,8 +33,8 @@
 
 </head>
 <body class="bg-light-gray body-routine" id="body">
-  <div class="container d-flex align-items-center justify-content-center container-routine">
-    <div class="d-flex flex-column justify-content-between flex-routine">
+  <div class="container align-items-center justify-content-center container-routine">
+    <div class="flex-column justify-content-between flex-routine">
       <tiles:insertAttribute name="body"/>
     </div>
     <tiles:insertAttribute name="navbar"/>

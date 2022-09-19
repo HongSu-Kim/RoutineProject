@@ -81,6 +81,10 @@
 }
 
 /* profile_common */
+.row-routine {
+    justify-content: center;
+}
+
 .card-header-routine {
     background-color: #ffffff;
     padding: 1rem 1.875rem;
@@ -101,6 +105,15 @@
     color: #6c757d;
 }
 
+.a-bottom-routine {
+    margin-bottom: 0;
+}
+
+.bottom-routine {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .input_routine {
     font-size: 0.8375rem;
 }
@@ -119,4 +132,13 @@
 
 .mb_routine {
     margin-bottom: 0!important;
+}
+
+.middlebar-routine {
+    width: .1rem;
+    height: 1.6rem;
+    margin: 0 1.5rem;
+    background: #ccc;
+    display: inline-block;
+    vertical-align: middle;
 }
