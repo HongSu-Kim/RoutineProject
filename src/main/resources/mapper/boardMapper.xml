@@ -5,4 +5,8 @@
 
 <mapper namespace="com.soo.routine.mapper.BoardMapper">
 
+	<update id="updateHits" parameterType="int">
+		update board set board_hits = board_hits + 1 where board_id = #{boardId}
+	</update>
+
 </mapper>

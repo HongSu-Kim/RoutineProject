@@ -85,8 +85,23 @@
                   </a>
                 </li>
                 <li>
+                  <a class="sidenav-item-link" href="/profile/join">
+                    <span class="nav-text">Profile Join</span>
+                  </a>
+                </li>
+                <li>
                   <a class="sidenav-item-link" href="/routine/routine-list">
                     <span class="nav-text">Routine List</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="sidenav-item-link" href="#">
+                    <span class="nav-text">Temp</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="sidenav-item-link" href="#">
+                    <span class="nav-text">Temp</span>
                   </a>
                 </li>
                 <li>

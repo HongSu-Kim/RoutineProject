@@ -14,8 +14,16 @@ textarea {
 	resize: none;
 }
 
+.min-px-150 {
+	min-height: 150px;
+}
+
 .min-px-250 {
 	min-height: 250px;
+}
+
+.text-transform-none {
+    text-transform: none;
 }
 
 

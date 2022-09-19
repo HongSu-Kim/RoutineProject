@@ -5,16 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
-public class BoardReadDTO {
+public class BoardQnaListDTO {
 
     private int boardId;
 
     private int memberId;
-    private String memberNickname;
     private String memberEmail;
 
     private String category;
@@ -23,8 +21,6 @@ public class BoardReadDTO {
     private LocalDateTime boardCreate;
     private LocalDateTime boardModify;
     private int boardHits;
-
-    private List<String> imageFileNameList;
 
     private Reply reply;
 

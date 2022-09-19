@@ -18,7 +18,7 @@ public class Reply {
     @JoinColumn(name = "member_id")
     private Member member;//회원번호 FK
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;//게시글번호 FK
 

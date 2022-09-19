@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-    List<Board> findAllByCategoryAndMemberId(String category, String memberId);
+    List<Board> findAllByCategoryAndMemberId(String category, int memberId);
     List<Board> findAllByCategory(String category);
 
 }
