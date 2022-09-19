@@ -33,8 +33,8 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<BoardImage> boardImageList;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    private List<Reply> replyList;
+    @OneToOne(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private Reply reply;
 
     // 글 작성
     public Board write(BoardWriteDTO boardWriteDTO, Member member) {

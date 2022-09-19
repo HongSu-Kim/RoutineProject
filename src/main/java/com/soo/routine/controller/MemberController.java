@@ -1,7 +1,7 @@
 package com.soo.routine.controller;
 
-import com.soo.routine.dto.MemberJoinDTO;
-import com.soo.routine.entity.Member;
+import com.soo.routine.dto.member.MemberJoinDTO;
+import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,25 +9,23 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
-@RequestMapping("profile")
 @RequiredArgsConstructor
 @Controller
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("join")
+    @GetMapping("profile/join")
     public String join(){
         return "user/profile/join";
     }
     
-    @PostMapping("join")
+    @PostMapping("profile/join")
     public String join(@Valid MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
 
         //패스워드 일치 여부 체크
@@ -60,56 +58,71 @@ public class MemberController {
         return "user/profile/join";
     }
 
-    @GetMapping("join_result")
+    @GetMapping("profile/join_result")
     public String join_result(){
         return "user/profile/join_result";
     }
-    @GetMapping("login")
+    @GetMapping("profile/login")
     public String getLogin(){
         return "user/profile/login";
     }
-    @PostMapping("login")
+    @PostMapping("profile/login")
     public String postLogin(){
         return "user/profile/login";
     }
-    @GetMapping("find")
+    @GetMapping("profile/find")
     public String getFind(){
         return "user/profile/find";
     }
-    @PostMapping("find")
+    @PostMapping("profile/find")
     public String postFind(){
         return "user/profile/find";
     }
 
-    @GetMapping("mypage")
+    @GetMapping("profile/mypage")
     public String mypage(){
         return "user/profile/mypage";
     }
 
-    @PostMapping("mypage")
+    @PostMapping("profile/mypage")
     public String postMyPage(){
         return "user/profile/mypage";
     }
 
-    @GetMapping("update")
+    @GetMapping("profile/update")
     public String getUpdate(){
         return "user/profile/update";
     }
-    @PostMapping("update")
+    @PostMapping("profile/update")
     public String postUpdate(){
         return "user/profile/update";
     }
-    @GetMapping("delete")
+    @GetMapping("profile/delete")
     public String getDelete(){
         return "user/profile/delete";
     }
-    @PostMapping("delete")
+    @PostMapping("profile/delete")
     public String postDelete(){
         return "user/profile/delete";
     }
-    @GetMapping("delete_result")
+    @GetMapping("profile/delete_result")
     public String delete_result(){
         return "user/profile/delete_result";
     }
+
+    /*
+    Admin Page
+    */
+    @GetMapping("admin/user-list")
+    public String memberList(Model model, String level) {
+
+        List<MemberReadDTO> lists = memberService.getMemberList(level);
+
+        model.addAttribute("lists", lists);
+//        model.addAttribute("level", level);
+        model.addAttribute("pageName", level + " List");
+        return "admin/user_list";
+    }
+
 
 }

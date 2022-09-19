@@ -1,9 +1,6 @@
 package com.soo.routine.controller;
 
-import com.soo.routine.dto.board.BoardEditDTO;
-import com.soo.routine.dto.board.BoardListDTO;
-import com.soo.routine.dto.board.BoardReadDTO;
-import com.soo.routine.dto.board.BoardWriteDTO;
+import com.soo.routine.dto.board.*;
 import com.soo.routine.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,16 +21,25 @@ public class BoardController {
     // 게시글 리스트 페이지
     @GetMapping("admin/board-list")
     public String boardList(Model model, String boardCategory, String memberId) {
-        List<BoardListDTO> lists = boardService.getBoardList(boardCategory, memberId);
-        model.addAttribute("lists", lists);
+
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", boardCategory + " List");
-        return "admin/board_list";
+
+        if (boardCategory.equals("QnA")) {
+            List<BoardQnaListDTO> lists = boardService.getQnaList(boardCategory, memberId);
+            model.addAttribute("lists", lists);
+            return "admin/qna_list";
+        } else {
+            List<BoardListDTO> lists = boardService.getBoardList(boardCategory, memberId);
+            model.addAttribute("lists", lists);
+            return "admin/board_list";
+        }
     }
 
     // 게시글 작성 페이지
     @GetMapping("admin/board-write")
     public String boardWrite(Model model, String boardCategory, BoardWriteDTO boardWriteDTO) {
+
         model.addAttribute("mode", "write");
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", "Board Write");
@@ -59,16 +65,24 @@ public class BoardController {
     // 게시글 디테일 페이지
     @GetMapping("admin/board-detail")
     public String boardDetail(Model model, int boardId) {
+
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
+        String category = boardReadDTO.getCategory();
+
         model.addAttribute("boardDTO", boardReadDTO);
-        model.addAttribute("boardCategory", boardReadDTO.getCategory());
+        model.addAttribute("boardCategory", category);
         model.addAttribute("pageName", "Board Detail");
-        return "admin/board_detail";
+
+        if (category.equals("QnA"))
+            return "admin/qna_detail";
+        else
+            return "admin/board_detail";
     }
 
     // 게시글 수정 페이지
     @GetMapping("admin/board-edit")
-    public String boardEdit(Model model, int boardId, BoardEditDTO boardEditDTO){
+    public String boardEdit(Model model, int boardId, BoardEditDTO boardEditDTO) {
+
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
 
         model.addAttribute("mode", "edit");
@@ -82,6 +96,7 @@ public class BoardController {
     public String boardEdit(Model model, @Valid BoardEditDTO boardEditDTO, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
+            model.addAttribute("mode", "edit");
             model.addAttribute("boardDTO", boardEditDTO);
             model.addAttribute("pageName", "Board Edit");
             return "admin/board-edit";

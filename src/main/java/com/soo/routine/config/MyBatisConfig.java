@@ -21,7 +21,7 @@ public class MyBatisConfig {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mapper/*.xml"));
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.example.demo.dto");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.soo.routine.mapper");
 
         return sqlSessionFactoryBean.getObject();
     }

@@ -1,8 +1,7 @@
 package com.soo.routine.entity;
 
-import com.soo.routine.dto.MemberJoinDTO;
+import com.soo.routine.dto.member.MemberJoinDTO;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
