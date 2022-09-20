@@ -32,16 +32,10 @@
   <script src="/plugins/nprogress/nprogress.js"></script>
 
 </head>
-<body class="bg-light-gray" id="body">
-  <div class="container d-flex align-items-center justify-content-center container_routine">
-    <div class="d-flex flex-column justify-content-between">
-      <div class="row justify-content-center row_routine">
-        <div class="col-lg-6 col-xl-5 col-md-10 col-routine-1">
-          <div class="card card-default mb-0 card_routine">
-            <tiles:insertAttribute name="body"/>
-          </div>
-        </div>
-      </div>
+<body class="bg-light-gray body-routine" id="body">
+  <div class="container align-items-center justify-content-center container-routine">
+    <div class="flex-column justify-content-between flex-routine">
+      <tiles:insertAttribute name="body"/>
     </div>
     <tiles:insertAttribute name="navbar"/>
   </div>
