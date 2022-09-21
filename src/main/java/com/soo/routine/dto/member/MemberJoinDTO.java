@@ -11,7 +11,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class MemberJoinDTO {//회원가입 시 사용
 
-    private int memberId;//회원번호
+    private long memberId;//회원번호
     private String level;//회원등급
     private String joinDate;//가입일
 
