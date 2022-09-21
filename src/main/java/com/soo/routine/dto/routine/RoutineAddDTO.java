@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class RoutineAddDTO {
 
-    private int memberId;
+    private Long memberId;
     
     @NotBlank(message = "루틴명을 입력해주세요")
     private String routineName;
@@ -21,7 +21,7 @@ public class RoutineAddDTO {
     private boolean active;
     private LocalTime totalTime;
 
-    private Integer[] missionId;
+    private Long[] missionId;
     private String[] week;
     private LocalTime[] startTime;
 

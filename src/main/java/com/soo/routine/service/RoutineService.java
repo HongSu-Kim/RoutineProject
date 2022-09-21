@@ -36,7 +36,7 @@ public class RoutineService {
     }
 
     // 루틴 리스트
-    public List<RoutineReadDTO> getRoutineList(int memberId) {
+    public List<RoutineReadDTO> getRoutineList(Long memberId) {
 
         List<Routine> routineList = routineRepository.findAllByMemberId(memberId);
         Type type = new TypeToken<List<RoutineReadDTO>>() {}.getType();
@@ -53,5 +53,16 @@ public class RoutineService {
 
         routineRepository.save(routine);
     }
+
+    public List<RoutineReadDTO> getRecommendRoutineList() {
+
+        List<Routine> routineList = routineRepository.findAllByMemberLevel("admin");
+        Type type = new TypeToken<List<RoutineReadDTO>>() {}.getType();
+
+        List<RoutineReadDTO> lists = modelMapper.map(routineList, type);
+
+        return lists;
+    }
+
 
 }

@@ -34,7 +34,7 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-end mt-6">
-            <button class="btn btn-outline-primary mb-2" onclick="location.href='/admin/board-write?boardCategory=${boardCategory }';">write</button>
+            <button class="btn btn-outline-primary mb-2" onclick="location.href='/admin/board-write?boardCategory=${boardCategory }';">글 작성</button>
           </div>
 				</div>
 			</div>

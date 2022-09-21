@@ -12,11 +12,11 @@ import java.util.List;
 public class BoardWriteDTO {
 
     @NotNull
-    private int memberId;
+    private Long memberId;
 
     private String memberNickname;
 
-    @NotNull(message = "카테고리를 선택해주세요.")
+    @NotBlank(message = "카테고리를 선택해주세요.")
     private String category;
     
     @NotBlank(message = "제목을 입력해주세요.")

@@ -15,7 +15,7 @@ public class Routine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "routine_id")
-    private Integer id;//루틴번호 PK
+    private Long id;//루틴번호 PK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -9,13 +9,13 @@ import java.util.List;
 @Setter
 public class RoutineDTO {
 
-    private int routineId;
-    private int memberId;
+    private Long routineId;
+    private Long memberId;
     private String routineName;
     private boolean active;
     private String totalTime;
 
-    private List<Integer> week;
+    private List<String> week;
     private List<String> timeList;
 
 }

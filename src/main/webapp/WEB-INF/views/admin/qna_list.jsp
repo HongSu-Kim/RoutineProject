@@ -34,7 +34,7 @@
                   <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${parsedDateTime }" /></td>
                   <c:if test="${empty dto.reply}" >
                     <td>
-                      <a href="/admin/reply-wrtie?boardId=${dto.boardId}">답변 대기</a>
+                      <a href="/admin/board-detail?boardId=${dto.boardId }">답변 대기</a>
                     </td>
                   </c:if>
                   <c:if test="${!empty dto.reply}" >

@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class ReplyUpdateDTO {
 
-    private int replyId;
-    private int memberId;
-    private int boardId;
+    private Long replyId;
+    private Long memberId;
+    private Long boardId;
     private String replyContent;
     private String replyCreated;
 

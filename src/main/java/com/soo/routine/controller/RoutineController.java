@@ -20,11 +20,16 @@ public class RoutineController {
 
     private final RoutineService routineService;
 
+    /*
+    Admin Page
+    */
+
     // admin - 추천 루틴 리스트 관리 페이지
     @GetMapping("admin/routine-list")
     public String adminRoutineList(Model model) {
-        int memberId = 1;
-        List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
+
+        List<RoutineReadDTO> lists = routineService.getRecommendRoutineList();
+
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Routine List");
         return "admin/routine_list";
@@ -33,6 +38,7 @@ public class RoutineController {
     // admin - 추천 루틴 추가 페이지
     @GetMapping("admin/routine-add")
     public String adminRoutineAdd(Model model, RoutineAddDTO routineAddDTO) {
+        model.addAttribute("mode", "add");
         model.addAttribute("pageName", "Routine Add");
         return "admin/routine_add";
     }
@@ -40,9 +46,17 @@ public class RoutineController {
     // admin - 추천 루틴 추가
     @PostMapping("admin/routine-add")
     public String adminRoutineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("mode", "add");
+            model.addAttribute("pageName", "Routine Add");
+            return "admin/routine_add";
+        }
+
         int memberId = 1;
         routineService.addRoutine(routineAddDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
+
         model.addAttribute("lists", lists);
         return "redirect:/admin/routine-list";
     }
@@ -50,6 +64,7 @@ public class RoutineController {
     // admin - 추천 루틴 수정 페이지
     @GetMapping("admin/routine-update")
     public String adminRoutineUpdate(Model model, RoutineUpdateDTO routineUpdateDTO) {
+        model.addAttribute("mode", "update");
         model.addAttribute("pageName", "Routine Update");
         return "admin/routine_add";
     }
@@ -57,18 +72,32 @@ public class RoutineController {
     // admin - 추천 루틴 수정
     @PostMapping("admin/routine-update")
     public String adminRoutineUpdate(Model model, @Valid RoutineUpdateDTO routineUpdateDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("mode", "update");
+            model.addAttribute("pageName", "Routine Update");
+            return "admin/routine_add";
+        }
+
         int memberId = 1;
         routineService.updateRoutine(routineUpdateDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
+
         model.addAttribute("lists", lists);
         return "redirect:/admin/routine-list";
     }
 
+    /*
+    User Page
+    */
+
     // 루틴 리스트 페이지
     @GetMapping("routine/routine-list")
     public String routineList(Model model) {
+
         int memberId = 1;
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
+
         model.addAttribute("lists", lists);
         return "user/routine/routine_list";
     }
