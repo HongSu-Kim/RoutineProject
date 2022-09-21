@@ -4,27 +4,5 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.soo.routine.mapper.MemberMapper">
-	
-	<select id="maxNum" resultType="int">
-
-	</select>
-
-	<select id="getList" resultType="com.soo.routine.entity.Member" parameterType="String">
-		select * from member where grade like '%' || #{grade} || '%'
-	</select>
-
-	<insert id="createData" parameterType="com.soo.routine.entity.Member">
-
-	</insert>
-
-	<select id="getData" resultType="com.soo.routine.entity.Member" parameterType="int">
-
-	</select>
-
-	<select id="getNickname" resultType="String" parameterType="int">
-		select nickname from member where memberNum = #{memberNum}
-	</select>
-
-
 
 </mapper>

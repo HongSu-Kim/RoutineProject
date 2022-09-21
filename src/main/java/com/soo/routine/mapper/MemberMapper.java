@@ -8,12 +8,4 @@ import java.util.List;
 @Mapper
 public interface MemberMapper {
 
-    public int maxNum();
-    public List<Member> getList(String grade);
-    public void createData();
-    public Member getData();
-    public String getNickname(int memberNum);
-
-
-
 }
