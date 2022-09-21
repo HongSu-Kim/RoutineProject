@@ -43,6 +43,21 @@
   NProgress.start();
 </script>
 
+<!--script -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/simplebar/simplebar.min.js"></script>
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
+<!-- write -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="/plugins/dropzone/dropzone.js"></script>
+
+<script src="/js/mono.js"></script>
+<script src="/js/chart.js"></script>
+<script src="/js/map.js"></script>
+<script src="/js/custom.js"></script>
+
 <!-- WRAPPER -->
 <div class="wrapper">
 
@@ -71,7 +86,7 @@
 </div>
 <!-- WRAPPER END -->
 
-<!--script -->
+<%-- <!--script -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/plugins/simplebar/simplebar.min.js"></script>
@@ -84,7 +99,7 @@
 <script src="/js/mono.js"></script>
 <script src="/js/chart.js"></script>
 <script src="/js/map.js"></script>
-<script src="/js/custom.js"></script>
+<script src="/js/custom.js"></script> --%>
 
 </body>
 </html>

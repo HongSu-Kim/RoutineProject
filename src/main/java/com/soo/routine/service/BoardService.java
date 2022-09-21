@@ -31,17 +31,18 @@ public class BoardService {
         if (memberId == null || memberId.equals(""))
             return modelMapper.map(boardRepository.findAllByCategory(category), type);
         else
-            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, Integer.parseInt(memberId)), type);
+            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, Long.parseLong(memberId)), type);
     }
 
     // QnA 리스트
     public List<BoardQnaListDTO> getQnaList(String category, String memberId) {
 
         Type type = new TypeToken<List<BoardQnaListDTO>>() {}.getType();
+
         if (memberId == null || memberId.equals(""))
             return modelMapper.map(boardRepository.findAllByCategory(category), type);
         else
-            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, Integer.parseInt(memberId)), type);
+            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, Long.parseLong(memberId)), type);
     }
 
     // 게시글 작성
@@ -55,7 +56,7 @@ public class BoardService {
     }
 
     // 게시글 한개
-    public BoardReadDTO getBoard(int boardId) {
+    public BoardReadDTO getBoard(Long boardId) {
         boardMapper.updateHits(boardId); // boardHits++
         BoardReadDTO boardReadDTO = modelMapper.map(boardRepository.findById(boardId), BoardReadDTO.class);
         return boardReadDTO;

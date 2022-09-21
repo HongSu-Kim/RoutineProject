@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MissionRepository extends JpaRepository<Mission, Integer> {
+public interface MissionRepository extends JpaRepository<Mission, Long> {
 
-    List<Mission> findAllByRoutineId(int routineId);
+    List<Mission> findAllByRoutineId(Long routineId);
+    List<Mission> findAllByRoutineMemberLevel(String admin);
 }

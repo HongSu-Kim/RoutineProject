@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class MissionDTO {
 
-    private int missionId;
-    private int routineId;
-    private int iconId;
+    private Long missionId;
+    private Long routineId;
+    private Long iconId;
     private String missionName;
     private int orderNum;
     private String runTime;

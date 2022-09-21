@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Setter
 public class BoardQnaListDTO {
 
-    private int boardId;
+    private Long boardId;
 
-    private int memberId;
+    private Long memberId;
     private String memberEmail;
 
     private String category;

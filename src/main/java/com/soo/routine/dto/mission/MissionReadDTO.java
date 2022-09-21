@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 public class MissionReadDTO {
 
-    private int missionId;
+    private Long missionId;
     private String routineId;
     private String iconFileName;
     private String missionName;
-    private int orderNum;
+    private int missionOrder;
     private String runTime;
     private String missionContent;
 

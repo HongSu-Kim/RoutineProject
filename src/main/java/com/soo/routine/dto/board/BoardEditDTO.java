@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class BoardEditDTO {
 
-    private int boardId;
+    private Long boardId;
     private String category;
 
     @NotBlank(message = "제목을 입력해주세요.")

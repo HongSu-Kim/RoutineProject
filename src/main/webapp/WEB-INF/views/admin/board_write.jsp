@@ -5,22 +5,25 @@
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-body">
-					<form:form action="" method="post" modelAttribute="boardDTO">
+					<form:form action="" method="post" modelAttribute="boardWriteDTO">
 						<div class="row">
 							<!-- nickname -->
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label for="memberNickname">Nickname</label>
+									<label for="memberNickname">작성자</label>
 									<input type="text" class="form-control" id="memberNickname" name="memberId" value="${boardDTO.memberNickname}">
 								</div>
 							</div>
 							<!-- category -->
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label for="category">Category</label>
+									<label for="category">카테고리</label>
+									<div class="error-message">
+										&nbsp;&nbsp;<form:errors path="category"/>
+									</div>
 									<c:if test="${mode == 'write'}" >
 										<select class="form-control" id="category" name="category">
-											<option value="">Choose...</option>
+											<option value="">카테고리를 선택해주세요</option>
 											<option value="notice">Notice</option>
 											<option value="FAQ">FAQ</option>
 											<option value="QnA">QnA</option>
@@ -29,21 +32,24 @@
 									<c:if test="${mode == 'edit'}" >
 											<input type="text" class="form-control" id="memberId" name="memberId" value="${boardDTO.category}" readonly>
 									</c:if>
-									<form:errors path="category"/>
 								</div>
 							</div>
 						</div>
 						<!-- title -->
 						<div class="form-group mb-4">
-							<label for="boardTitle">Title</label>
+							<label for="boardTitle">제목</label>
+								<div class="error-message">
+									&nbsp;&nbsp;<form:errors path="boardTitle"/>
+								</div>
 							<input type="text" class="form-control" id="boardTitle" name="boardTitle" value="${boardDTO.boardTitle}">
-							<form:errors path="boardTitle"/>
 						</div>
 						<!-- content -->
 						<div class="form-group">
-							<label for="boardContent">Content</label>
+							<label for="boardContent">내용</label>
+								<div class="error-message">
+									&nbsp;&nbsp;<form:errors path="boardContent"/>
+								</div>
 							<textarea class="form-control min-px-250" id="boardContent" name="boardContent">${boardDTO.boardContent}</textarea>
-							<form:errors path="boardContent"/>
 						</div>
 						<!-- button -->
 						<div class="d-inline-flex float-right mt-4">

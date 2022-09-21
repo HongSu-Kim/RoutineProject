@@ -9,7 +9,8 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class ReplyWriteDTO {
 
-    private int boardId;
+    private Long memberId;
+    private Long boardId;
     
     @NotBlank(message = "내용을 입력해 주세요.")
     private String replyContent;

@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 public class RoutineReadDTO {
 
-    private int routineId;
-    private int memberId;
+    private Long routineId;
+    private Long memberId;
     private String routineName;
     private boolean active;
     private String totalTime;

@@ -11,7 +11,7 @@ public class MissionIcon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mission_icon_id")
-    private Integer id;//아이콘번호 PK
+    private Long id;//아이콘번호 PK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iconCategory_id")
@@ -21,5 +21,10 @@ public class MissionIcon {
 
     @OneToOne(mappedBy = "missionIcon", fetch = FetchType.LAZY)
     private Mission mission;
+
+//    public MissionIcon add() {
+//        this.IconCategory = iconFile.get
+//
+//    }
 
 }
