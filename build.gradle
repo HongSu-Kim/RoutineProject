@@ -33,9 +33,9 @@ dependencies {
 	implementation 'org.apache.tiles:tiles-jsp:3.0.8' // tiles
 	implementation 'org.modelmapper:modelmapper:3.1.0' // modelmapper
 	runtimeOnly 'com.h2database:h2' // h2
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'// JPA
-	implementation 'org.springframework.boot:spring-boot-starter-validation'// validation
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // validation
+	implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security
 
 
 

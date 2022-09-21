@@ -14,19 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.Type;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
 
+    /* 회원가입 */
+
     @Transactional
     public Member join(MemberJoinDTO memberJoinDTO) {
 
         Member member = new Member().join(memberJoinDTO);
-        memberRepository.save(member);
+        memberRepository. save(member);
 
         return member;
     }

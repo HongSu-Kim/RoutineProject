@@ -1,7 +1,10 @@
 package com.soo.routine.controller;
 
 import com.soo.routine.dto.member.MemberJoinDTO;
+import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
+import com.soo.routine.entity.Member;
+import com.soo.routine.repository.MemberRepository;
 import com.soo.routine.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -19,6 +23,7 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("profile/join")
     public String join(){
@@ -62,14 +67,23 @@ public class MemberController {
     public String join_result(){
         return "user/profile/join_result";
     }
+
     @GetMapping("profile/login")
-    public String getLogin(){
+    public String loginForm(@ModelAttribute("loginForm") MemberLoginDTO form) {
         return "user/profile/login";
     }
+
     @PostMapping("profile/login")
-    public String postLogin(){
+    public String login(@Valid @ModelAttribute MemberLoginDTO form, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "user/profile/login";
+        }
+
+
         return "user/profile/login";
     }
+
     @GetMapping("profile/find")
     public String getFind(){
         return "user/profile/find";
