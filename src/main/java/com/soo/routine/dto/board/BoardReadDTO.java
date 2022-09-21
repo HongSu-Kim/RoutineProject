@@ -11,9 +11,9 @@ import java.util.List;
 @Setter
 public class BoardReadDTO {
 
-    private int boardId;
+    private Long boardId;
 
-    private int memberId;
+    private Long memberId;
     private String memberNickname;
     private String memberEmail;
 

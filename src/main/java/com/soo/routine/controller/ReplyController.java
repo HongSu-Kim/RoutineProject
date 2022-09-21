@@ -16,10 +16,18 @@ public class ReplyController {
 
     private final ReplyService replyService;
 
+    // 답글 작성
     @PostMapping("admin/reply-write")
     public String replyWrite(Model model, @Valid  ReplyWriteDTO replyWriteDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(bindingResult);
+            model.addAttribute("replyDTO", replyWriteDTO);
+            return "admin/board_detail";
+        }
+
         replyService.createReply(replyWriteDTO);
-        return "admin/board_detail";
+        return "redirect:/admin/board-detail?boardId=" + replyWriteDTO.getBoardId();
     }
 
 }

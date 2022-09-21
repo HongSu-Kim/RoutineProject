@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RoutineRepository extends JpaRepository<Routine, Integer> {
+public interface RoutineRepository extends JpaRepository<Routine, Long> {
 
-    List<Routine> findAllByMemberId(int memberId);
+    List<Routine> findAllByMemberId(Long memberId);
+    List<Routine> findAllByMemberLevel(String admin);
 }

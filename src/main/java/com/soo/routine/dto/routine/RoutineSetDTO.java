@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class RoutineSetDTO {
 
-    private int routineId;
-    private int week;
+    private Long routineId;
+    private String week;
     private String startTime;
 
 }

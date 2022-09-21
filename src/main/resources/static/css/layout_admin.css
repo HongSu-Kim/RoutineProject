@@ -26,6 +26,11 @@ textarea {
     text-transform: none;
 }
 
+.error-message {
+    font-size: 12pt;
+    color: red;
+    display: inline-block;
+}
 
 
 

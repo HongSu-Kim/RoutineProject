@@ -11,7 +11,7 @@ public class BoardImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_image_id")
-    private Integer id; // 이미지 번호 PK
+    private Long id; // 이미지 번호 PK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")

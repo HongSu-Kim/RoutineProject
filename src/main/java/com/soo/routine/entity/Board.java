@@ -15,7 +15,7 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
-    private Integer id;//게시글번호 PK
+    private Long id;//게시글번호 PK
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

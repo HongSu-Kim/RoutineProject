@@ -1,6 +1,7 @@
 package com.soo.routine.controller;
 
 import com.soo.routine.dto.board.*;
+import com.soo.routine.dto.reply.ReplyWriteDTO;
 import com.soo.routine.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,10 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+
+    /*
+    Admin Page
+    */
 
     // 게시글 리스트 페이지
     @GetMapping("admin/board-list")
@@ -38,7 +43,7 @@ public class BoardController {
 
     // 게시글 작성 페이지
     @GetMapping("admin/board-write")
-    public String boardWrite(Model model, String boardCategory, BoardWriteDTO boardWriteDTO) {
+    public String boardWrite(Model model, BoardWriteDTO boardWriteDTO, String boardCategory) {
 
         model.addAttribute("mode", "write");
         model.addAttribute("boardCategory", boardCategory);
@@ -64,7 +69,7 @@ public class BoardController {
 
     // 게시글 디테일 페이지
     @GetMapping("admin/board-detail")
-    public String boardDetail(Model model, int boardId) {
+    public String boardDetail(Model model, ReplyWriteDTO replyWriteDTO, int boardId) {
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
         String category = boardReadDTO.getCategory();
@@ -81,7 +86,7 @@ public class BoardController {
 
     // 게시글 수정 페이지
     @GetMapping("admin/board-edit")
-    public String boardEdit(Model model, int boardId, BoardEditDTO boardEditDTO) {
+    public String boardEdit(Model model, BoardEditDTO boardEditDTO, int boardId) {
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
 
@@ -106,5 +111,10 @@ public class BoardController {
 
         return "redirect:/admin/board-detail?boardId=" + boardEditDTO.getBoardId();
     }
+
+    /*
+    User Page
+    */
+
 
 }

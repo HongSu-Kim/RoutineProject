@@ -5,5 +5,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BoardMapper {
 
-    void updateHits(int boardId);
+    void updateHits(Long boardId);
 }
