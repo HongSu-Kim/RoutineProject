@@ -69,7 +69,7 @@ public class BoardController {
 
     // 게시글 디테일 페이지
     @GetMapping("admin/board-detail")
-    public String boardDetail(Model model, ReplyWriteDTO replyWriteDTO, int boardId) {
+    public String boardDetail(Model model, ReplyWriteDTO replyWriteDTO, Long boardId) {
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
         String category = boardReadDTO.getCategory();
@@ -86,7 +86,7 @@ public class BoardController {
 
     // 게시글 수정 페이지
     @GetMapping("admin/board-edit")
-    public String boardEdit(Model model, BoardEditDTO boardEditDTO, int boardId) {
+    public String boardEdit(Model model, BoardEditDTO boardEditDTO, Long boardId) {
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
 
