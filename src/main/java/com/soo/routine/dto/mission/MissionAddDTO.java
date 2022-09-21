@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Setter
 public class MissionAddDTO {
 
-    private int routineId;
+    private Long routineId;
 
     @NotNull(message = "아이콘을 정해주세요")
     private Long iconId;

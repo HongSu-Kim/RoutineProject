@@ -53,7 +53,7 @@ public class RoutineController {
             return "admin/routine_add";
         }
 
-        int memberId = 1;
+        Long memberId = 1L;
         routineService.addRoutine(routineAddDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
 
@@ -79,7 +79,7 @@ public class RoutineController {
             return "admin/routine_add";
         }
 
-        int memberId = 1;
+        Long memberId = 1L;
         routineService.updateRoutine(routineUpdateDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
 
@@ -95,7 +95,7 @@ public class RoutineController {
     @GetMapping("routine/routine-list")
     public String routineList(Model model) {
 
-        int memberId = 1;
+        Long memberId = 1L;
         List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
 
         model.addAttribute("lists", lists);

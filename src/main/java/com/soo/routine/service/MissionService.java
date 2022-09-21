@@ -47,7 +47,7 @@ public class MissionService {
         if (routineId == null || routineId.equals("")) {
             missionList = missionRepository.findAllByRoutineMemberLevel("admin");
         } else {
-            missionList = missionRepository.findAllByRoutineId(Integer.parseInt(routineId));
+            missionList = missionRepository.findAllByRoutineId(Long.parseLong(routineId));
         }
 
         List<MissionReadDTO> lists = modelMapper.map(missionList, type);
