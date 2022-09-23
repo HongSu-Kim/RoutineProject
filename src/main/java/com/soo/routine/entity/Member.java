@@ -1,7 +1,10 @@
 package com.soo.routine.entity;
 
 import com.soo.routine.dto.member.MemberJoinDTO;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -31,7 +35,6 @@ public class Member {
     private String level;//회원등급
     private LocalDateTime joinDate;//가입일
 
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Board> boardList;
 
@@ -41,18 +44,17 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
+    @Builder
+    public Member(String level, LocalDateTime joinDate, String email,
+                  String pwd, String nickname, String gender, LocalDate birth){
 
-    public Member join(MemberJoinDTO memberJoinDTO){
-
-        this.level = "member";
-        this.joinDate = LocalDateTime.now();
-        this.email = memberJoinDTO.getEmail();
-        this.pwd = memberJoinDTO.getPwd();
-        this.nickname = memberJoinDTO.getNickname();
-        this.gender = memberJoinDTO.getGender();
-        this.birth = LocalDate.parse(memberJoinDTO.getBirth());
-
-        return this;
+        this.level = level;
+        this.joinDate = joinDate;
+        this.email = email;
+        this.pwd = pwd;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.birth = birth;
     }
 
 }
