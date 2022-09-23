@@ -1,11 +1,14 @@
 package com.soo.routine.dto.member;
 
+import com.soo.routine.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,7 +16,7 @@ public class MemberJoinDTO {//회원가입 시 사용
 
     private long memberId;//회원번호
     private String level;//회원등급
-    private String joinDate;//가입일
+    private LocalDateTime joinDate;//가입일
 
     @NotBlank(message="이메일 주소를 입력하세요.")
     @Email(message = "이메일 형식에 맞게 입력하세요.")
@@ -34,6 +37,17 @@ public class MemberJoinDTO {//회원가입 시 사용
     private String gender;//성별
 
     @NotBlank(message="생년월일을 입력하세요.")
-    private String birth;//생년월일
+    private LocalDate birth;//생년월일
+
+    public Member toEntity(){
+        return Member
+                .builder()
+                .email(email)
+                .pwd(pwd)
+                .nickname(nickname)
+                .gender(gender)
+                .birth(birth)
+                .build();
+    }
 
 }

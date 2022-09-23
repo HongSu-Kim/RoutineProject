@@ -60,7 +60,7 @@ public class MemberController {
 
         memberService.join(memberJoinDTO);
 
-        return "user/profile/join";
+        return "user/profile/login";
     }
 
     @GetMapping("profile/join_result")
