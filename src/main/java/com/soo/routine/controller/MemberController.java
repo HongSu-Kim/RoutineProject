@@ -70,7 +70,7 @@ public class MemberController {
 
     @GetMapping("profile/login")
     public String loginForm(@ModelAttribute("loginForm") MemberLoginDTO form) {
-        return "user/profile/login";
+        return "profile/login";
     }
 
     @PostMapping("profile/login")

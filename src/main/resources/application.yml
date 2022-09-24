@@ -25,6 +25,10 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
         show_sql: true
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
 
 mybatis:
   mapper-locations: mapper/*.xml

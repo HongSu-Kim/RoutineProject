@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>User Layout</title>
+
+    <!-- 각 페이지의 script 작성 위치 -->
+    <th:block layout:fragment="script"></th:block>
+    <!-- 각 페이지의 css 작성 위치 -->
+    <th:block layout:fragment="css"></th:block>
+
+</head>
+<body>
+
+<!-- navi -->
+<!--<nav th:replace="navbar :: navbarFragment"></nav>-->
+<!--<div th:replace="fragments/navbar::navbar"></div>-->
+
+<!-- header -->
+<!--<div th:replace="fragments/header::header"></div>&lt;!&ndash; 방법1 &ndash;&gt;-->
+<!--<div layout:fragment="header" class="header"></div>&lt;!&ndash; 방법2 &ndash;&gt;-->
+<!--<th:block th:replace="fragments/header::header"></th:block>&lt;!&ndash; 방법3 &ndash;&gt;-->
+<!--<th:block layout:fragment="header"></th:block>&lt;!&ndash; 방법4 &ndash;&gt;-->
+
+<!-- content -->
+<div th:replace="fragments/content::content"></div>
+<!--<th:block layout:fragment="content"></th:block>-->
+
+<!-- footer -->
+<!--<th:block th:replace="fragments/footer::footer"></th:block>-->
+
+</body>
+</html>
