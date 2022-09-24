@@ -1,6 +1,6 @@
 package com.soo.routine.controller;
 
-import com.soo.routine.dto.mission.MissionAddRecommendDTO;
+import com.soo.routine.dto.mission.MissionRecommendAddDTO;
 import com.soo.routine.dto.mission.MissionReadDTO;
 import com.soo.routine.service.MissionService;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class MissionController {
 
     // 추천 미션 추가 페이지
     @GetMapping("admin/mission-add")
-    public String adminMissionAdd(Model model, MissionAddRecommendDTO missionAddRecommendDTO) {
+    public String adminMissionAdd(Model model, MissionRecommendAddDTO missionRecommendAddDTO) {
         model.addAttribute("mode", "add");
         model.addAttribute("pageName", "Recommend Mission Add");
         return "admin/mission_add";
@@ -42,16 +42,16 @@ public class MissionController {
 
     // 추천 미션 추가
     @PostMapping("admin/mission-add")
-    public String adminMissionAdd(Model model, @Valid MissionAddRecommendDTO missionAddRecommendDTO, BindingResult bindingResult) {
+    public String adminMissionAdd(Model model, @Valid MissionRecommendAddDTO missionRecommendAddDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("mode", "add");
-            model.addAttribute("missionDTO", missionAddRecommendDTO);
+            model.addAttribute("missionDTO", missionRecommendAddDTO);
             model.addAttribute("pageName", "Recommend Mission Add");
             return "admin/mission_add";
         }
 
-        missionService.addRecommendMission(missionAddRecommendDTO);
+        missionService.addRecommendMission(missionRecommendAddDTO);
 
         return "redirect:/admin/mission-list";
     }

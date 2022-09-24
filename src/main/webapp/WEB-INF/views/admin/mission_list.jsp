@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 	<div class="content-wrapper">
 		<div class="content">
 			<!-- mission -->
@@ -26,15 +27,9 @@
 								<tr>
 									<td scope="row">${missionDTO.missionId }</td>
 									<td>${missionDTO.iconFileName }</td>
-									<td>
-										<h2 class="mb-0">
-											<button class="btn btn-link collapsed p-0" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-												${missionDTO.missionName }
-											</button>
-										</h2>
-									</td>
-									<fmt:parseDate value="${missionDTO.runTime }" pattern="HH:mm:ss" var="parsedTime" type="both"/>
-									<td><fmt:formatDate pattern="HH:mm:ss" value="${parsedTime }" /></td>
+									<td>${missionDTO.missionName }</td>
+									<fmt:parseDate value="${missionDTO.runTime }" pattern="HH:mm:ss" var="parsedTime" type="time" />
+									<td><fmt:formatDate pattern="HH:mm:ss" value="${parsedTime }" type="time" /></td>
 									<td>${missionDTO.missionContent }</td>
 								</tr>
 							</c:forEach>
