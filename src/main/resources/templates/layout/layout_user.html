@@ -13,22 +13,17 @@
 </head>
 <body>
 
-<!-- navi -->
-<!--<nav th:replace="navbar :: navbarFragment"></nav>-->
-<!--<div th:replace="fragments/navbar::navbar"></div>-->
-
 <!-- header -->
-<!--<div th:replace="fragments/header::header"></div>&lt;!&ndash; 방법1 &ndash;&gt;-->
-<!--<div layout:fragment="header" class="header"></div>&lt;!&ndash; 방법2 &ndash;&gt;-->
-<!--<th:block th:replace="fragments/header::header"></th:block>&lt;!&ndash; 방법3 &ndash;&gt;-->
-<!--<th:block layout:fragment="header"></th:block>&lt;!&ndash; 방법4 &ndash;&gt;-->
+<!--<div th:replace="layout/header_user::header"></div>-->
+<th:block th:replace="layout/header_user::header"></th:block>
 
 <!-- content -->
-<div th:replace="fragments/content::content"></div>
-<!--<th:block layout:fragment="content"></th:block>-->
+<!--<div layout:fragment="content" class="content"></div>-->
+<th:block layout:fragment="content"></th:block>
 
-<!-- footer -->
-<!--<th:block th:replace="fragments/footer::footer"></th:block>-->
+<!-- navi -->
+<!--<div th:replace="layout/navbar_user::navbar"></div>-->
+<th:block th:replace="layout/navbar_user::navbar"></th:block>
 
 </body>
 </html>
