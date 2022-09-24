@@ -37,6 +37,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation' // validation
 	implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security
 	implementation 'commons-fileupload:commons-fileupload' // file upload
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // thymeleaf
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' //thymeleaf layout
 
 
 
