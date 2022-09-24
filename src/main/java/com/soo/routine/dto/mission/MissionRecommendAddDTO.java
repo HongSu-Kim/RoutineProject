@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-public class MissionAddRecommendDTO {
+public class MissionRecommendAddDTO {
 
     @NotNull(message = "아이콘을 선택해주세요")
     private Long iconId;
@@ -18,7 +18,7 @@ public class MissionAddRecommendDTO {
     private String missionName;
 
     @NotNull(message = "시간을 입력해주세요")
-    @Pattern(regexp = "^\\d\\d\\d\\d\\d\\d$", message = "시간형식을 맞게 입력해주세요")
+    @Pattern(regexp = "^\\d\\d:\\d\\d:\\d\\d$", message = "시간형식을 맞게 입력해주세요")
     private String runTime;
 
     private String missionContent;

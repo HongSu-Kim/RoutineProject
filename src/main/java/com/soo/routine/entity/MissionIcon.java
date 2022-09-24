@@ -3,6 +3,7 @@ package com.soo.routine.entity;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,8 +20,8 @@ public class MissionIcon {
 
     private String iconFileName;//아이콘파일명
 
-    @OneToOne(mappedBy = "missionIcon", fetch = FetchType.LAZY)
-    private Mission mission;
+    @OneToMany(mappedBy = "missionIcon")
+    private List<Mission> missionList;
 
 //    public MissionIcon add() {
 //        this.IconCategory = iconFile.get
