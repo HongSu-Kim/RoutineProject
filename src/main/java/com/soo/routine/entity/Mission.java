@@ -1,7 +1,7 @@
 package com.soo.routine.entity;
 
 import com.soo.routine.dto.mission.MissionAddDTO;
-import com.soo.routine.dto.mission.MissionAddRecommendDTO;
+import com.soo.routine.dto.mission.MissionRecommendAddDTO;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class Mission {
     @JoinColumn(name = "routine_id")
     private Routine routine;//루틴번호 FK
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "missionIcon_id")
     private MissionIcon missionIcon;//미션아이콘번호 FK
 
@@ -31,11 +31,11 @@ public class Mission {
     private String missionContent;//내용
 
     // 추천 미션 추가
-    public Mission addRecommend(MissionAddRecommendDTO missionAddRecommendDTO, MissionIcon missionIcon) {
+    public Mission addRecommend(MissionRecommendAddDTO missionRecommendAddDTO, MissionIcon missionIcon) {
         this.missionIcon = missionIcon;
-        this.missionName = missionAddRecommendDTO.getMissionName();
-        this.runTime = LocalTime.parse(missionAddRecommendDTO.getRunTime(), DateTimeFormatter.ISO_LOCAL_TIME);
-        this.missionContent = missionAddRecommendDTO.getMissionContent();
+        this.missionName = missionRecommendAddDTO.getMissionName();
+        this.runTime = LocalTime.parse(missionRecommendAddDTO.getRunTime(), DateTimeFormatter.ISO_LOCAL_TIME);
+        this.missionContent = missionRecommendAddDTO.getMissionContent();
         return this;
     }
     

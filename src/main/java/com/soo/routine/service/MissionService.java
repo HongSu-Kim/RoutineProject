@@ -1,7 +1,7 @@
 package com.soo.routine.service;
 
 import com.soo.routine.dto.mission.MissionAddDTO;
-import com.soo.routine.dto.mission.MissionAddRecommendDTO;
+import com.soo.routine.dto.mission.MissionRecommendAddDTO;
 import com.soo.routine.dto.mission.MissionReadDTO;
 import com.soo.routine.entity.Mission;
 import com.soo.routine.entity.MissionIcon;
@@ -12,6 +12,7 @@ import com.soo.routine.repository.MissionRepository;
 import com.soo.routine.repository.RoutineRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,11 @@ public class MissionService {
     private final ModelMapper modelMapper;
 
     // 추천 미션 추가
-    public void addRecommendMission(MissionAddRecommendDTO missionAddRecommendDTO) {
+    public void addRecommendMission(MissionRecommendAddDTO missionRecommendAddDTO) {
 
-        MissionIcon missionIcon = missionIconRepository.findById(missionAddRecommendDTO.getIconId()).get();
+        MissionIcon missionIcon = missionIconRepository.findById(missionRecommendAddDTO.getIconId()).get();
 
-        Mission mission = new Mission().addRecommend(missionAddRecommendDTO, missionIcon);
+        Mission mission = new Mission().addRecommend(missionRecommendAddDTO, missionIcon);
 
         missionRepository.save(mission);
     }
@@ -45,10 +46,13 @@ public class MissionService {
         Type type = new TypeToken<List<MissionReadDTO>>() {}.getType();
 
         if (routineId == null || routineId.equals("")) {
-            missionList = missionRepository.findAllByRoutineMemberLevel("admin");
+            missionList = missionRepository.findAllByRoutineId(null);
         } else {
             missionList = missionRepository.findAllByRoutineId(Long.parseLong(routineId));
         }
+
+        TypeMap<Mission, MissionReadDTO> typeMap = modelMapper.typeMap(Mission.class, MissionReadDTO.class);
+        typeMap.addMapping(Mission::getId, MissionReadDTO::setMissionId);
 
         List<MissionReadDTO> lists = modelMapper.map(missionList, type);
 

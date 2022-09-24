@@ -40,7 +40,7 @@
 						<div class="card-header align-items-baseline px-3">
 							<fmt:parseDate value="${boardDTO.reply.replyCreated }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime2" type="both"/>
 							<h6>답변 완료 / <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${parsedDateTime2 }" /></h6>
-							<h6>${boardDTO.reply.member.nickname} / ${boardDTO.reply.member.nickname}</h6>
+							<h6 class="text-transform-none">${boardDTO.reply.member.nickname} / ${boardDTO.reply.member.email}</h6>
 						</div>
 						<div class="card mb-3">
 							<div class="card-body min-px-250 py-5">
@@ -49,7 +49,7 @@
 						</div>
 					</c:if>
 					<div class="d-inline-flex mt-4">
-						<button class="btn btn-outline-primary mb-2" onclick="location.href='/admin/board-list?boardCategory=${boardCategory }';" >목록</button>
+						<button class="btn btn-outline-primary mb-2" type="button" onclick="location.href='/admin/board-list?boardCategory=${boardCategory }';" >목록</button>
 						</div>
 				</div>
 			</div>

@@ -17,8 +17,8 @@
 					</div>
 					<!-- button -->
 					<div class="d-flex justify-content-between mt-6">
-						<button class="btn btn-outline-primary mb-2" onclick="location.href='/admin/board-list?boardCategory=${boardCategory }';" >목록</button>
-						<button class="btn btn-outline-primary mb-2" onclick="location.href='/admin/board-edit?boardId=${boardDTO.boardId }';">수정</button>
+						<button class="btn btn-outline-primary mb-2" type="button" onclick="location.href='/admin/board-list?boardCategory=${boardCategory }';" >목록</button>
+						<button class="btn btn-outline-primary mb-2" type="button" onclick="location.href='/admin/board-edit?boardId=${boardDTO.boardId }';">수정</button>
 					</div>
 				</div>
 			</div>

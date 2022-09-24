@@ -3,6 +3,8 @@ package com.soo.routine.dto.mission;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @Getter
 @Setter
 public class MissionReadDTO {
@@ -12,7 +14,7 @@ public class MissionReadDTO {
     private String iconFileName;
     private String missionName;
     private int missionOrder;
-    private String runTime;
+    private LocalTime runTime;
     private String missionContent;
 
 }

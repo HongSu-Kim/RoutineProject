@@ -86,7 +86,7 @@
 											</button>
 										</h2>
 									</td>
-									<fmt:parseDate value="${routineDTO.totalTime }" pattern="HH:mm:ss" var="parsedTime" type="both"/>
+									<fmt:parseDate value="${routineDTO.totalTime }" pattern="HH:mm:ss" var="parsedTime" type="time"/>
 									<td><fmt:formatDate pattern="HH:mm:ss" value="${parsedTime }" /></td>
 									<td>${routineDTO.active }</td>
 								</tr>

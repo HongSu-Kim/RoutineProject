@@ -53,7 +53,7 @@
 							<button class="btn btn-outline-primary mb-2" onclick="location.href='/admin/mission-list';" >목록</button>
 						</c:if>
 						<c:if test="${mode == 'update'}" >
-							<button class="btn btn-outline-primary mb-2" onclick="history.back()" >취소</button>
+							<button class="btn btn-outline-primary mb-2" type="button" onclick="history.back()" >취소</button>
 						</c:if>
 					</div>
 				</div>
