@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="content">
+			<div class="card card-default">
+				<div class="card-body">
+					<form action="" method="post" th:object="${boardWriteDTO}">
+						<div class="row">
+							<!-- nickname -->
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="memberId">작성자</label>
+									<input type="text" class="form-control" th:field="*{memberId}">
+								</div>
+							</div>
+							<!-- category -->
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="category">카테고리</label>
+									<div th:each="err : ${#fields.errors('category')}" class="error-message" th:text="${err}"></div>
+									<select class="form-control" th:field="*{category}">
+										<option value="">카테고리를 선택해주세요</option>
+										<option value="notice">Notice</option>
+										<option value="FAQ">FAQ</option>
+										<option value="QnA">QnA</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- title -->
+						<div class="form-group mb-4">
+							<label for="boardTitle">제목</label>
+							<div th:each="err : ${#fields.errors('boardTitle')}" class="error-message" th:text="${err}"></div>
+							<input type="text" class="form-control" th:field="*{boardTitle}">
+						</div>
+						<!-- content -->
+						<div class="form-group">
+							<label for="boardContent">내용</label>
+							<div th:each="err : ${#fields.errors('boardContent')}" class="error-message" th:text="${err}"></div>
+							<textarea class="form-control min-px-250" th:field="*{boardContent}"></textarea>
+						</div>
+						<!-- button -->
+						<div class="d-flex justify-content-between mt-6">
+							<button class="btn btn-outline-primary mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
+							<button class="btn btn-outline-primary mb-2" type="submit">완료</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+
+<!-- script -->
+<!--<th:block layout:fragment="script">-->
+<!--	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>-->
+<!--	<script src="/plugins/dropzone/dropzone.js"></script>-->
+<!--</th:block>-->
+
+</html>

@@ -20,7 +20,6 @@ public class BoardQnaListDTO {
     private String boardContent;
     private LocalDateTime boardCreate;
     private LocalDateTime boardModify;
-    private int boardHits;
 
     private Reply reply;
 

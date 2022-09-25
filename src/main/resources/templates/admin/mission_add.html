@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="content">
+			<div class="card card-default">
+				<div class="card-body">
+					<form action="" method="post" th:object="${missionRecommendAddDTO}">
+						<div class="row">
+							<!-- name -->
+							<div class="col-lg-6">
+								<div class="form-group mb-4">
+									<label for="missionName">미션명</label>
+									<div th:each="err : ${#fields.errors('missionName')}" class="error-message" th:text="${err}"></div>
+									<input type="text" class="form-control" th:field="*{missionName}">
+								</div>
+							</div>
+							<!-- icon -->
+							<div class="col-lg-6">
+								<div class="form-group mb-4">
+									<label for="iconId">아이콘 </label>
+									<button type="button" class="btn btn-sm btn-outline-primary px-1 py-1" id="iconList"> 아이콘 선택 </button>
+									<div th:each="err : ${#fields.errors('iconId')}" class="error-message" th:text="${err}"></div>
+									<input type="text" class="form-control" th:field="*{iconId}" readonly>
+								</div>
+							</div>
+						</div>
+						<!-- runTime -->
+						<div class="form-group mb-4">
+							<label for="runTime">소요시간</label>
+							<div th:each="err : ${#fields.errors('runTime')}" class="error-message" th:text="${err}"></div>
+							<input type="text" class="form-control" th:field="*{runTime}">
+						</div>
+						<!-- content -->
+						<div class="form-group mb-4">
+							<label for="missionContent">내용</label>
+							<textarea class="form-control min-px-250" th:field="*{missionContent}"></textarea>
+						</div>
+						<!-- button -->
+						<div class="d-inline-flex float-right mt-4">
+							<button class="btn btn-outline-primary mb-2" type="submit">추가</button>
+						</div>
+					</form>
+					<div class="d-inline-flex mt-4">
+<!--						<c:if test="${mode == 'add'}" >-->
+<!--							<button class="btn btn-outline-primary mb-2" type="button" onclick="location.href='/admin/mission-list';" >목록</button>-->
+<!--						</c:if>-->
+<!--						<c:if test="${mode == 'update'}" >-->
+<!--							<button class="btn btn-outline-primary mb-2" type="button" onclick="history.back()" >취소</button>-->
+<!--						</c:if>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+	
+<!-- script -->
+<th:block layout:fragment="script">
+	<script type ="text/javascript">
+	$(function() {
+		$('#iconList').bind('click', function() {
+			$('#iconId').val(1);
+		})
+	});
+	</script>
+</th:block>
+
+</html>

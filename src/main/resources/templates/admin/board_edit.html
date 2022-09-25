@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="content">
+			<div class="card card-default">
+				<div class="card-body">
+					<form action="" method="post" th:object="${boardEditDTO}">
+						<input type="hidden" class="form-control" th:field="*{boardId}">
+						<div class="row">
+							<!-- nickname -->
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="memberNickname">작성자</label>
+									<input type="text" class="form-control" th:field="*{memberNickname}">
+								</div>
+							</div>
+							<!-- category -->
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label for="category">카테고리</label>
+									<div th:each="err : ${#fields.errors('category')}" class="error-message" th:text="${err}"></div>
+									<input type="text" class="form-control" id="" th:field="*{category}" readonly>
+								</div>
+							</div>
+						</div>
+						<!-- title -->
+						<div class="form-group mb-4">
+							<label for="boardTitle">제목</label>
+							<div th:each="err : ${#fields.errors('boardTitle')}" class="error-message" th:text="${err}"></div>
+							<input type="text" class="form-control" id="boardTitle" th:field="*{boardTitle}">
+						</div>
+						<!-- content -->
+						<div class="form-group">
+							<label for="boardContent">내용</label>
+							<div th:each="err : ${#fields.errors('boardContent')}" class="error-message" th:text="${err}"></div>
+							<textarea class="form-control min-px-250" id="boardContent" th:field="*{boardContent}"></textarea>
+						</div>
+						<!-- button -->
+						<div class="d-flex justify-content-between mt-6">
+							<button class="btn btn-outline-primary mb-2" type="button" onclick="history.back()" >취소</button>
+							<button class="btn btn-outline-primary mb-2" type="submit">완료</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>
