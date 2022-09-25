@@ -33,10 +33,10 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // http 관련 인증 설정
         http
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
-                .antMatchers("/admin/**").hasRole("ADMIN") // 관리자만 접근 가능
-                .antMatchers("/").hasRole("MEMBER") // 회원만 접근 가능
-                .antMatchers("/**").permitAll() // 모든 회원(비회원,회원,관리자) 접근 가능
-//                .antMatchers("/routine/**", "/profile/**", "/admin/**").permitAll() // 모든 회원(비회원,회원,관리자) 접근 가능
+//                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
+                .antMatchers("/").hasRole("MEMBER") // user(member,admin)만 접근 가능
+                .antMatchers("/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
+//                .antMatchers("/routine/**", "/profile/**", "/admin/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
                 .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
             .and()
                 .formLogin() // 로그인에 관한 설정

@@ -25,12 +25,46 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
-    @GetMapping("profile/join")
-    public String join(){
-        return "user/profile/join";
+    /*
+    User Page
+    */
+    @GetMapping("mypage")
+    public String mypage(){
+        return "mypage/member_mypage";
     }
-    
-    @PostMapping("profile/join")
+    @PostMapping("mypage")
+    public String postMyPage(){
+        return "mypage/member_mypage";
+    }
+
+    @GetMapping("mypage/login")
+    public String login(@ModelAttribute("loginForm") MemberLoginDTO form) {
+        return "mypage/member_login";
+    }
+    @PostMapping("mypage/login")
+    public String login(@Valid @ModelAttribute MemberLoginDTO form, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "mypage/member_login";
+        }
+
+        return "mypage/member_login";
+    }
+
+    @GetMapping("mypage/resetPwd")
+    public String getFind(){
+        return "mypage/member_resetPwd";
+    }
+    @PostMapping("mypage/resetPwd")
+    public String postFind(){
+        return "mypage/member_resetPwd";
+    }
+
+    @GetMapping("mypage/join")
+    public String join(){
+        return "mypage/member_join";
+    }
+    @PostMapping("mypage/join")
     public String join(@Valid MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
 
         //패스워드 일치 여부 체크
@@ -55,73 +89,30 @@ public class MemberController {
         //검증 실패시
         if(bindingResult.hasErrors()){
             model.addAttribute("memberJoinDTO", memberJoinDTO);
-            return "user/profile/join";
+            return "user/mypage/join";
         }
 
         memberService.join(memberJoinDTO);
 
-        return "user/profile/login";
+        return "mypage/member_join";
     }
 
-    @GetMapping("profile/join_result")
-    public String join_result(){
-        return "user/profile/join_result";
-    }
-
-    @GetMapping("profile/login")
-    public String loginForm(@ModelAttribute("loginForm") MemberLoginDTO form) {
-        return "profile/login";
-    }
-
-    @PostMapping("profile/login")
-    public String login(@Valid @ModelAttribute MemberLoginDTO form, BindingResult bindingResult){
-
-        if(bindingResult.hasErrors()){
-            return "user/profile/login";
-        }
-
-
-        return "user/profile/login";
-    }
-
-    @GetMapping("profile/find")
-    public String getFind(){
-        return "user/profile/find";
-    }
-    @PostMapping("profile/find")
-    public String postFind(){
-        return "user/profile/find";
-    }
-
-    @GetMapping("profile/mypage")
-    public String mypage(){
-        return "user/profile/mypage";
-    }
-
-    @PostMapping("profile/mypage")
-    public String postMyPage(){
-        return "user/profile/mypage";
-    }
-
-    @GetMapping("profile/update")
+    @GetMapping("mypage/editProfile")
     public String getUpdate(){
-        return "user/profile/update";
+        return "mypage/member_editProfile";
     }
-    @PostMapping("profile/update")
+    @PostMapping("mypage/editProfile")
     public String postUpdate(){
-        return "user/profile/update";
+        return "mypage/member_editProfile";
     }
-    @GetMapping("profile/delete")
+
+    @GetMapping("mypage/withdraw")
     public String getDelete(){
-        return "user/profile/delete";
+        return "mypage/member_withdraw";
     }
-    @PostMapping("profile/delete")
+    @PostMapping("mypage/withdraw")
     public String postDelete(){
-        return "user/profile/delete";
-    }
-    @GetMapping("profile/delete_result")
-    public String delete_result(){
-        return "user/profile/delete_result";
+        return "mypage/member_withdraw";
     }
 
     /*
@@ -137,6 +128,5 @@ public class MemberController {
         model.addAttribute("pageName", level + " List");
         return "admin/user_list";
     }
-
 
 }

@@ -38,7 +38,7 @@
       <tiles:insertAttribute name="body"/>
     </div>
     <tiles:insertAttribute name="navbar"/>
-  </div>
+
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
