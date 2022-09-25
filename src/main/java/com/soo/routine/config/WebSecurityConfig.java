@@ -40,11 +40,11 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
             .and()
                 .formLogin() // 로그인에 관한 설정
-                .loginPage("/profile/login") // 로그인 페이지 링크
-                .defaultSuccessUrl("/profile/login/result") // 로그인 성공 후 리다이렉트 주소
+                .loginPage("/startRoutine") // 로그인 안 된 경우 페이지
+                .defaultSuccessUrl("/routine") // 로그인 시 리다이렉트 페이지
             .and()
                 .logout() // 로그아웃에 관한 설정
-                .logoutSuccessUrl("/profile/logout/result") // 로그아웃 성공 시 리다이렉트 주소
+                .logoutSuccessUrl("/startRoutine") // 로그아웃 시 리다이렉트 주소
                 .invalidateHttpSession(true); // 세션 날리기
 
         return http.build();

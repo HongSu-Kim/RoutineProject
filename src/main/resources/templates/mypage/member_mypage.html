@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout_user">
+      layout:decorate="layout/layout_nav_user">
 
 <th:block layout:fragment="content">
-    mypage
+    <h3><b>My Page</b></h3>
+    <div style="text-align: center;">
+        <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c948f324a0b9c48f77dbce3a43bd11ce785" style="width: 100pt;">
+    </div>
+
+    <div class="list-group">
+        <h4><b>Profile</b></h4>
+<!--        <a href="#" class="list-group-item list-group-item-action">로그인</a>-->
+<!--        <a href="#" class="list-group-item list-group-item-action">회원가입</a>-->
+        <a href="#" class="list-group-item list-group-item-action">회원정보 수정</a>
+    </div>
+    <div class="list-group">
+        <h4><b>Board</b></h4>
+        <a href="#" class="list-group-item list-group-item-action">공지사항</a>
+        <a href="#" class="list-group-item list-group-item-action">자주 묻는 질문</a>
+        <a href="#" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">1:1 문의</a>
+    </div>
 </th:block>
 
 </html>

@@ -1,4 +1,6 @@
-/* layout_user */
+/*
+layout_user
+*/
 .body-routine {
     min-width: 320px;
     min-height: 100%;
@@ -87,7 +89,7 @@
 
 .card-header-routine {
     background-color: #ffffff;
-    padding: 1rem 1.875rem;
+    padding: 2rem 1.875rem;
     border-bottom: 0;
 }
 
@@ -116,6 +118,7 @@
 
 .input_routine {
     font-size: 0.8375rem;
+    border-radius: 2rem;
 }
 
 .col-routine-2 {
@@ -141,4 +144,61 @@
     background: #ccc;
     display: inline-block;
     vertical-align: middle;
+}
+
+/*
+image
+*/
+.routine-image {
+    text-align: center;
+    position: relative;
+    top: 30%;
+}
+
+.routine-image-text {
+    padding-top: 20pt;
+}
+
+/*
+button
+*/
+.routine-btn-wrap {
+    position: relative;
+    top: 38%;
+    margin: 25pt;
+}
+
+.routine-btn {
+    border-radius: 2rem;
+    color: #a38479;
+    border-color: #a38479;
+}
+
+.routine-btn:hover {
+   color: #ffffff;
+   background-color: #a38479;
+   border-color: #a38479;
+ }
+
+.routine-btn:focus, .routine-btn.focus {
+box-shadow: 0 0 0 0.2rem #d6cbc7;
+}
+
+.routine-btn.disabled, .routine-btn:disabled {
+color: #a38479;
+background-color: transparent;
+}
+
+.routine-btn:not(:disabled):not(.disabled):active, .routine-btn:not(:disabled):not(.disabled).active, .show > .routine-btn.dropdown-toggle {
+color: #ffffff;
+background-color: #a38479;
+border-color: #a38479;
+}
+
+.routine-btn:not(:disabled):not(.disabled):active:focus, .routine-btn:not(:disabled):not(.disabled).active:focus, .show > .routine-btn.dropdown-toggle:focus {
+box-shadow: 0 0 0 0.2rem #d6cbc7;
+}
+
+.routine-btn-first {
+margin-bottom: 10pt;
 }
