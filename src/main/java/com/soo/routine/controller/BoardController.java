@@ -30,14 +30,14 @@ public class BoardController {
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", boardCategory + " List");
 
-        if (boardCategory.equals("QnA")) {
+        if (boardCategory == null || !boardCategory.equals("QnA")) {
+            List<BoardListDTO> lists = boardService.getBoardList(boardCategory);
+            model.addAttribute("lists", lists);
+            return "admin/board_list";
+        } else {
             List<BoardQnaListDTO> lists = boardService.getQnaList(boardCategory, memberId);
             model.addAttribute("lists", lists);
             return "admin/qna_list";
-        } else {
-            List<BoardListDTO> lists = boardService.getBoardList(boardCategory, memberId);
-            model.addAttribute("lists", lists);
-            return "admin/board_list";
         }
     }
 

@@ -24,14 +24,15 @@ public class BoardService {
     private final BoardMapper boardMapper;
 
     // 게시글 리스트
-    public List<BoardListDTO> getBoardList(String category, String memberId) {
+    public List<BoardListDTO> getBoardList(String category) {
 
         Type type = new TypeToken<List<BoardListDTO>>() {}.getType();
 
-        if (memberId == null || memberId.equals(""))
-            return modelMapper.map(boardRepository.findAllByCategory(category), type);
+        if (category == null)
+            return modelMapper.map(boardRepository.findAll(), type);
         else
-            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, Long.parseLong(memberId)), type);
+            return modelMapper.map(boardRepository.findAllByCategory(category), type);
+
     }
 
     // QnA 리스트

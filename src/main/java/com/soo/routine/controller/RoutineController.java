@@ -91,8 +91,8 @@ public class RoutineController {
     User Page
     */
 
-    // 루틴 리스트 페이지
-    @GetMapping("routine/routine-list")
+    // 루틴 리스트 페이지(메인)
+    @GetMapping("routine")
     public String routineList(Model model) {
 
         Long memberId = 1L;

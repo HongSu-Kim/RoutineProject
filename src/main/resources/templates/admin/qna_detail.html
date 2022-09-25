@@ -28,7 +28,7 @@
 							<textarea class="form-control min-px-150" th:field="*{replyContent}" placeholder="답글을 작성해주세요..."></textarea>
 						</div>
 						<div class="d-inline-flex float-right mt-4">
-							<button class="btn btn-outline-primary mb-2" type="submit">작성</button>
+							<button class="btn btn-outline-brown mb-2" type="submit">작성</button>
 						</div>
 					</form>
 					<div th:if="${boardDTO.reply != null}" >
@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="d-inline-flex mt-4">
-						<button class="btn btn-outline-primary mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
+						<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
 					</div>
 				</div>
 			</div>
