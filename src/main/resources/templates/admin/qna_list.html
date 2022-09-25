@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="content">
+			<div class="card card-default">
+				<div class="card-body">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Email</th>
+                <th scope="col">Title</th>
+                <th scope="col">Created</th>
+                <th scope="col">Reply</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${lists.isEmpty()}">
+                <td colspan="5" align="center">글이 존재하지 않습니다.</td>
+              </tr>
+              <tr th:each="dto : ${lists}">
+                <td scope="row" th:text="${dto.boardId }"></td>
+                <td>
+                  <a th:href="@{|/admin/board-list?boardCategory=QnA&membarId=${dto.memberId}|}" th:text="${dto.memberEmail}">Email</a>
+                </td>
+                <td>
+                  <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}" th:text="${dto.boardTitle}">Title</a>
+                </td>
+                <td th:text="${#temporals.format(dto.boardCreate, 'yyyy-MM-dd HH:mm')}">Create</td>
+                <td th:if="${dto.reply == null}">
+                  <a th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}">답변 대기</a>
+                </td>
+                <td th:if="${dto.reply != null}">답변 완료</td>
+              </tr>
+            </tbody>
+          </table>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

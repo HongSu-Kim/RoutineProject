@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="content">
+			<!-- mission -->
+			<div class="card card-default">
+				<div class="card-body">
+					<table class="table">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">No.</th>
+								<th scope="col">Icon</th>
+								<th scope="col">Name</th>
+								<th scope="col">Run Time</th>
+								<th scope="col">Content</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- mission list -->
+							<tr th:if="${lists.isEmpty()}">
+								<td colspan="5" align="center">추천 미션이 존재하지 않습니다.</td>
+							</tr>
+							<tr th:each="dto : ${lists}">
+								<td scope="row" th:text="${dto.missionId}"></td>
+								<td th:text="${dto.iconFileName}"></td>
+								<td th:text="${dto.missionName}"></td>
+								<td th:text="${#temporals.format(dto.runTime, 'HH:mm:ss')}"></td>
+								<td th:text="${dto.missionContent}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- button -->
+					<div class="d-flex justify-content-end mt-6">
+						<button class="btn btn-outline-primary mb-2" type="button" th:onclick="|location.href='@{/admin/mission-add}';|">미션 추가</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

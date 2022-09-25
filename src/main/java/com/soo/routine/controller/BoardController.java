@@ -45,7 +45,6 @@ public class BoardController {
     @GetMapping("admin/board-write")
     public String boardWrite(Model model, BoardWriteDTO boardWriteDTO, String boardCategory) {
 
-        model.addAttribute("mode", "write");
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", "Board Write");
         return "admin/board_write";
@@ -56,8 +55,6 @@ public class BoardController {
     public String boardWrite(Model model, @Valid BoardWriteDTO boardWriteDTO, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){
-            model.addAttribute("mode", "write");
-            model.addAttribute("boardDTO", boardWriteDTO);
             model.addAttribute("pageName", "Board Write");
             return "admin/board_write";
         }
@@ -90,10 +87,9 @@ public class BoardController {
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
 
-        model.addAttribute("mode", "edit");
-        model.addAttribute("boardDTO", boardReadDTO);
+        model.addAttribute("boardEditDTO", boardReadDTO);
         model.addAttribute("pageName", "Board Edit");
-        return "admin/board_write";
+        return "admin/board_edit";
     }
 
     // 게시글 수정
@@ -101,10 +97,8 @@ public class BoardController {
     public String boardEdit(Model model, @Valid BoardEditDTO boardEditDTO, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
-            model.addAttribute("mode", "edit");
-            model.addAttribute("boardDTO", boardEditDTO);
             model.addAttribute("pageName", "Board Edit");
-            return "admin/board-edit";
+            return "admin/board_edit";
         }
 
         boardService.editBoard(boardEditDTO);

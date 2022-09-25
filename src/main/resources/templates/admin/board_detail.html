@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
+	<div class="content-wrapper">
+		<div class="content">
+			<div class="card card-default">
+				<div class="card-header align-items-baseline px-7">
+					<h3 th:text="${boardDTO.boardTitle}">Title</h3>
+					<h6 th:text="|${boardDTO.category} / ${#temporals.format(boardDTO.boardCreate, 'yyyy-MM-dd HH:mm')} / ${boardDTO.boardHits}|">Category / Create / Hits</h6>
+				</div>
+				<div class="card-body">
+					<div class="card mb-3">
+						<div class="card-body min-px-250 py-5">
+							<p class="card-text" th:text="${boardDTO.boardContent}">Content</p>
+						</div>
+					</div>
+					<!-- button -->
+					<div class="d-flex justify-content-between mt-6">
+						<button class="btn btn-outline-primary mb-2" type="button" th:onclick="@{|location.href='/admin/board-list?boardCategory=${boardCategory}';|}" >목록</button>
+						<button class="btn btn-outline-primary mb-2" type="button" th:onclick="@{|location.href='/admin/board-edit?boardId=${boardDTO.boardId}';|}">수정</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+</html>

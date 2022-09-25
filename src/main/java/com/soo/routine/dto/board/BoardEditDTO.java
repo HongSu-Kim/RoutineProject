@@ -11,6 +11,7 @@ import java.util.List;
 public class BoardEditDTO {
 
     private Long boardId;
+    private String memberNickname;
     private String category;
 
     @NotBlank(message = "제목을 입력해주세요.")
