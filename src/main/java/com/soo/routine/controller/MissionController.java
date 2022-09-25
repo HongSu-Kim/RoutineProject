@@ -35,7 +35,6 @@ public class MissionController {
     // 추천 미션 추가 페이지
     @GetMapping("admin/mission-add")
     public String adminMissionAdd(Model model, MissionRecommendAddDTO missionRecommendAddDTO) {
-        model.addAttribute("mode", "add");
         model.addAttribute("pageName", "Recommend Mission Add");
         return "admin/mission_add";
     }
@@ -45,8 +44,6 @@ public class MissionController {
     public String adminMissionAdd(Model model, @Valid MissionRecommendAddDTO missionRecommendAddDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("mode", "add");
-            model.addAttribute("missionDTO", missionRecommendAddDTO);
             model.addAttribute("pageName", "Recommend Mission Add");
             return "admin/mission_add";
         }

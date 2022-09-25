@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+<meta charset="UTF-8">
+<title>Routine Admin</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet"/>
+<link href="/plugins/material/css/materialdesignicons.min.css" rel="stylesheet"/>
+<link href="/plugins/simplebar/simplebar.css" rel="stylesheet"/>
+
+<!-- PLUGINS CSS STYLE -->
+<link href="/plugins/nprogress/nprogress.css" rel="stylesheet"/>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<!-- MONO CSS -->
+<link rel="stylesheet" href="/css/style.css"/>
+
+<!-- LAYOUT ADMIN CSS -->
+<link rel="stylesheet" href="/css/layout_admin.css"/>
+
+<!-- FAVICON -->
+<link href="/images/favicon.png" rel="shortcut icon"/>
+
+<!-- nprogress script -->
+<script src="/plugins/nprogress/nprogress.js"></script>
+
+<!-- 각 페이지의 css 작성 위치 -->
+<th:block layout:fragment="css"></th:block>
+
+</head>
+<body>
+
+<script>
+	NProgress.configure({
+		showSpinner : false
+	});
+	NProgress.start();
+</script>
+
+<!-- WRAPPER -->
+<div class="wrapper">
+
+	<!-- SIDEBAR -->
+	<th:block th:replace="layout/sidebar_admin :: sidebar"></th:block>
+	<!-- SIDEBAR END -->
+
+	<!-- PAGE WRAPPER -->
+	<div class="page-wrapper min-vh-100">
+
+		<!-- HEADER -->
+		<th:block th:replace="layout/header_admin :: header"></th:block>
+		<!-- HEADER END -->
+
+		<!-- CONTENT -->
+		<th:block layout:fragment="content"></th:block>
+		<!-- CONTENT END -->
+
+		<!-- FOOTER -->
+		<th:block th:replace="layout/footer_admin :: footer"></th:block>
+		<!-- FOOTER END -->
+
+	</div>
+	<!-- PAGE WRAPPER END-->
+
+</div>
+<!-- WRAPPER END -->
+
+<!--script -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/simplebar/simplebar.min.js"></script>
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
+<script src="/js/mono.js"></script>
+<script src="/js/chart.js"></script>
+<script src="/js/map.js"></script>
+<script src="/js/custom.js"></script>
+
+<!-- 각 페이지의 script 작성 위치 -->
+<th:block layout:fragment="script"></th:block>
+
+</body>
+</html>

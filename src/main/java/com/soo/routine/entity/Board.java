@@ -48,9 +48,9 @@ public class Board {
     }
 
     // 글 수정
-    public void edit(BoardEditDTO boardUpdateDTO) {
-        this.boardTitle = boardUpdateDTO.getBoardTitle();
-        this.boardContent = boardUpdateDTO.getBoardContent();
+    public void edit(BoardEditDTO boardEditDTO) {
+        this.boardTitle = boardEditDTO.getBoardTitle();
+        this.boardContent = boardEditDTO.getBoardContent();
         this.boardModify = LocalDateTime.now();
     }
 
