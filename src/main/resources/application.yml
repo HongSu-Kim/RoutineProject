@@ -10,25 +10,28 @@ spring:
 #    console: true
 #    path: /h2-console
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://localhost:3306/harugom?serverTimezone=Asia/Seoul
     username: harugom
     password: a123
-    driver-class-name: com.mysql.cj.jdbc.Driver
 #    username: sa
 #    password:
 #    driver-class-name: org.h2.Driver
 #    url: jdbc:h2:~/routine
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-        format_sql: true
-        show_sql: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.H2Dialect
+#        format_sql: true
+#        show_sql: true
   thymeleaf:
     prefix: classpath:templates/
     suffix: .html
     cache: false
+  main:
+    allow-bean-definition-overriding: true
 
 mybatis:
   mapper-locations: mapper/*.xml
