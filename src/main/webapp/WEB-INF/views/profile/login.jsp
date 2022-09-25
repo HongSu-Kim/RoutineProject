@@ -34,7 +34,7 @@
                 <form:errors path="pwd"/>
                 </div>
             </div>
-            
+
             <!-- 버튼 -->
             <div class="col-md-12 col-routine-2">
                 <button type="submit" class="btn btn-primary btn-pill mb-4 btn-routine">로그인</button>
@@ -42,9 +42,9 @@
 
             <!-- 하단 링크 -->
             <div>
-                <div class="bottom-routine">        
+                <div class="bottom-routine">
                     <a href="/profile/find" class="a-routine a-bottom-routine">비밀번호 찾기</a>
-                </div> 
+                </div>
                 <div class="middlebar-routine"></div>
                 <div class="bottom-routine">
                     <a href="/profile/join" class="a-routine a-bottom-routine">회원가입</a>
