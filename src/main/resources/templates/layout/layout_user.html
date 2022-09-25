@@ -2,8 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
-    <title>User Layout</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Routine</title>
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
+    <link href="/plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="/plugins/simplebar/simplebar.css" rel="stylesheet" />
+
+    <!-- PLUGINS CSS STYLE -->
+    <link href="/plugins/nprogress/nprogress.css" rel="stylesheet" />
+
+    <!-- MONO CSS -->
+    <link id="main-css-href" href="/css/style.css" rel="stylesheet"/>
+
+    <!-- LAYOUT USER CSS -->
+    <link rel="stylesheet" href="/css/layout_user.css"/>
+
+    <!-- FAVICON -->
+    <link href="/images/favicon.png" rel="shortcut icon" />
+
+    <!-- nprogress script -->
+    <script src="/plugins/nprogress/nprogress.js"></script>
 
     <!-- 각 페이지의 script 작성 위치 -->
     <th:block layout:fragment="script"></th:block>
@@ -11,19 +34,17 @@
     <th:block layout:fragment="css"></th:block>
 
 </head>
-<body>
+<body class="bg-light-gray body-routine" id="body">
+    <div class="container align-items-center justify-content-center container-routine">
+        <div class="flex-column justify-content-between flex-routine">
+            <!-- content -->
+            <th:block layout:fragment="content"></th:block>
+        </div>
+        <!-- navi -->
+        <th:block th:replace="layout/navbar_user::navbar"></th:block>
+    </div>
 
-<!-- header -->
-<!--<div th:replace="layout/header_user::header"></div>-->
-<th:block th:replace="layout/header_user::header"></th:block>
-
-<!-- content -->
-<!--<div layout:fragment="content" class="content"></div>-->
-<th:block layout:fragment="content"></th:block>
-
-<!-- navi -->
-<!--<div th:replace="layout/navbar_user::navbar"></div>-->
-<th:block th:replace="layout/navbar_user::navbar"></th:block>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
