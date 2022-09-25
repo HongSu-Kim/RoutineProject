@@ -33,12 +33,12 @@
 
 </head>
 <body class="bg-light-gray body-routine" id="body">
-  <div class="container align-items-center justify-content-center container-routine">
-    <div class="flex-column justify-content-between flex-routine">
-      <tiles:insertAttribute name="body"/>
+    <div class="container align-items-center justify-content-center container-routine">
+        <div class="flex-column justify-content-between flex-routine">
+          <tiles:insertAttribute name="body"/>
+        </div>
+        <tiles:insertAttribute name="navbar"/>
     </div>
-    <tiles:insertAttribute name="navbar"/>
-
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>

@@ -26,6 +26,18 @@ public class MemberController {
     private final MemberRepository memberRepository;
 
     /*
+    Start Page
+    */
+    @GetMapping("startRoutine")
+    public String getStartRoutine(){
+        return "mypage/startRoutine";
+    }
+    @PostMapping("startRoutine")
+    public String postStartRoutine(){
+        return "mypage/startRoutine";
+    }
+
+    /*
     User Page
     */
     @GetMapping("mypage")

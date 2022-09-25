@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
     <link href="/plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
     <link href="/plugins/simplebar/simplebar.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!-- PLUGINS CSS STYLE -->
     <link href="/plugins/nprogress/nprogress.css" rel="stylesheet" />
@@ -36,20 +35,16 @@
 
 </head>
 <body class="bg-light-gray body-routine" id="body">
-    <div class="container align-items-center justify-content-center container-routine" style="padding: 0;">
+    <div class="container align-items-center justify-content-center container-routine">
         <div class="flex-column justify-content-between flex-routine">
-
-            <!-- header -->
-            <th:block th:replace="layout/fragments/header_user::header"></th:block>
-
             <!-- content -->
             <th:block layout:fragment="content"></th:block>
-
         </div>
+        <!-- navi -->
+        <th:block th:replace="layout/fragments/navbar_user::navbar"></th:block>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

@@ -43,14 +43,14 @@
 <div class="wrapper">
 
 	<!-- SIDEBAR -->
-	<th:block th:replace="layout/sidebar_admin :: sidebar"></th:block>
+	<th:block th:replace="layout/fragments/sidebar_admin :: sidebar"></th:block>
 	<!-- SIDEBAR END -->
 
 	<!-- PAGE WRAPPER -->
 	<div class="page-wrapper min-vh-100">
 
 		<!-- HEADER -->
-		<th:block th:replace="layout/header_admin :: header"></th:block>
+		<th:block th:replace="layout/fragments/header_admin :: header"></th:block>
 		<!-- HEADER END -->
 
 		<!-- CONTENT -->
@@ -58,7 +58,7 @@
 		<!-- CONTENT END -->
 
 		<!-- FOOTER -->
-		<th:block th:replace="layout/footer_admin :: footer"></th:block>
+		<th:block th:replace="layout/fragments/footer_admin :: footer"></th:block>
 		<!-- FOOTER END -->
 
 	</div>
