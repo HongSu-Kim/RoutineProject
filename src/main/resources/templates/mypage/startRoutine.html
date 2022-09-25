@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_user">
+
+<th:block layout:fragment="content">
+        <div class="routine-image">
+            <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c948f324a0b9c48f77dbce3a43bd11ce785" style="width: 100pt;">
+            <p class="routine-image-text">루틴, 하루곰과 함께 해요!</p>
+        </div>
+
+        <div class="routine-btn-wrap">
+            <button type="button" class="btn btn-block routine-btn routine-btn-first"
+                    onclick="location.href='/mypage/join'">함께 하기</button>
+            <button type="button" class="btn btn-block routine-btn"
+                    onclick="location.href='/mypage/login'">로그인</button>
+        </div>
+</th:block>
+
+</html>
