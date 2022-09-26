@@ -7,25 +7,26 @@
 
     <!-- body -->
     <div class="card-body px-5 pb-5 pt-0 card-body-routine">
+
         <h4 class="text-dark text-center mb-5">로그인</h4>
-        <form action="/profile/join" method="post" modelAttribute="memberJoinDTO">
+
+        <form th:action="@{/mypage/login}" method="post">
             <div class="row row-routine">
+
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="email" class="form-control input-lg input_routine" name="email" id="email" value="${memberJoinDTO.email}" aria-describedby="nameHelp" placeholder="이메일 주소">
+                        <input type="email" class="form-control input-lg input_routine"
+                               id="email" name="email" placeholder="이메일 주소">
                     </div>
-                    <div class="error_routine">
-                        <errors path="email"/>
-                    </div>
+                    <div class="error_routine"></div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="password" class="form-control input-lg input_routine" name="pwd" id="pwd" value="${memberJoinDTO.pwd}" aria-describedby="emailHelp" placeholder="비밀번호">
+                        <input type="password" class="form-control input-lg input_routine"
+                               id="pwd" name="pwd" placeholder="비밀번호">
                     </div>
-                    <div class="error_routine">
-                        <errors path="pwd"/>
-                    </div>
+                    <div class="error_routine"></div>
                 </div>
 
                 <!-- 버튼 -->
@@ -43,8 +44,10 @@
                         <a href="/mypage/join" class="a-routine a-bottom-routine">회원가입</a>
                     </div>
                 </div>
+
             </div>
         </form>
+
     </div>
 
 </th:block>
