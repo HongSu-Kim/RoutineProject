@@ -1,14 +1,107 @@
-DROP TABLE IF EXISTS MISSION;
-DROP TABLE IF EXISTS MISSION_ICON;
-DROP TABLE IF EXISTS ICON_CATEGORY;
-DROP TABLE IF EXISTS ROUTINE_SET;
-DROP TABLE IF EXISTS ROUTINE;
-DROP TABLE IF EXISTS REPLY;
-DROP TABLE IF EXISTS BOARD_IMAGE;
-DROP TABLE IF EXISTS BOARD;
-DROP TABLE IF EXISTS MEMBER;
+DROP TABLE IF EXISTS harugom.MISSION;
+DROP TABLE IF EXISTS harugom.MISSION_ICON;
+DROP TABLE IF EXISTS harugom.ICON_CATEGORY;
+DROP TABLE IF EXISTS harugom.ROUTINE_SET;
+DROP TABLE IF EXISTS harugom.ROUTINE;
+DROP TABLE IF EXISTS harugom.REPLY;
+DROP TABLE IF EXISTS harugom.BOARD_IMAGE;
+DROP TABLE IF EXISTS harugom.BOARD;
+DROP TABLE IF EXISTS harugom.MEMBER;
 
-INSERT INTO MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7');
-INSERT INTO MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1');
-INSERT INTO ICON_CATEGORY(CATEGORY_NAME, PAY) VALUES('logo', FALSE);
-INSERT INTO MISSION_ICON(ICON_FILE_NAME, ICON_CATEGORY_ID) VALUES('favicon.png', 1);
+
+CREATE TABLE harugom.MEMBER (
+	member_id		integer			NOT NULL,
+	email			varchar(20)		NOT NULL,
+	pwd				varchar(20)		NOT NULL,
+	nickname		varchar(20)		NOT NULL,
+	gender			varchar(10)		NOT NULL,
+	birth			date			NOT NULL,
+	level			varchar(20)		NOT NULL,
+	join_date		datetime		DEFAULT NOW(),
+	CONSTRAINT PK_MEMBER PRIMARY KEY (member_id)
+);
+
+CREATE TABLE harugom.BOARD (
+	board_id		integer			NOT NULL,
+	member_id		integer			NOT NULL,
+	category		varchar(20)		NOT NULL,
+	board_title		varchar(200)	NOT NULL,
+	board_content	varchar(2048)	NOT NULL,
+	board_create	datetime		DEFAULT NOW(),
+	board_modify	datetime		DEFAULT NULL,
+	board_hits		integer			NOT NULL,
+	CONSTRAINT PK_BOARD PRIMARY KEY (board_id),
+	CONSTRAINT FK_BOARD_MEMBER FOREIGN KEY (member_id) REFERENCES MEMBER (member_id)
+);
+
+CREATE TABLE harugom.BOARD_IMAGE (
+	image_id		integer			NOT NULL,
+	board_id		integer			NOT NULL,
+	image_file_name	varchar(50)		NOT NULL,
+	CONSTRAINT PK_BOARD_IMAGE PRIMARY KEY (image_id),
+	CONSTRAINT FK_BOARD_IMAGE_BOARD FOREIGN KEY (board_id) REFERENCES BOARD (board_id)
+);
+
+CREATE TABLE harugom.REPLY (
+	reply_id		integer			NOT NULL,
+	member_id		integer			NOT NULL,
+	board_id		integer			NOT NULL,
+	reply_content	varchar(1024)	NOT NULL,
+	reply_create	datetime		DEFAULT NOW(),
+	CONSTRAINT PK_REPLY PRIMARY KEY (reply_id),
+	CONSTRAINT FK_REPLY_MEMBER FOREIGN KEY (member_id) REFERENCES MEMBER (member_id),
+	CONSTRAINT FK_REPLY_BOARD FOREIGN KEY (board_id) REFERENCES BOARD (board_id)
+);
+
+CREATE TABLE harugom.ROUTINE (
+	routine_id		integer			NOT NULL,
+	member_id		integer			NOT NULL,
+	routine_name	varchar(50)		NOT NULL,
+	active			boolean			NOT NULL,
+	total_time		time			NOT NULL,
+	CONSTRAINT PK_ROUTINE PRIMARY KEY (routine_id),
+	CONSTRAINT FK_ROUTINE_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id)
+);
+
+CREATE TABLE harugom.ROUTINE_SET (
+	week			varchar(20)		NOT NULL,
+	routine_id		integer			NOT NULL,
+	start_time		time			NOT NULL,
+	CONSTRAINT PK_ROUTINE_SET PRIMARY KEY (week,routine_id),
+	CONSTRAINT FK_ROUTINE_SET_ROUTINE FOREIGN KEY (routine_id) REFERENCES ROUTINE (routine_id)
+);
+
+CREATE TABLE harugom.ICON_CATEGORY (
+	icon_category_id	integer			NOT NULL,
+	category_name		varchar(50)		NOT NULL,
+	pay					boolean			NOT NULL,
+	CONSTRAINT PK_ICON_CATEGORY PRIMARY KEY (icon_category_id)
+);
+
+CREATE TABLE harugom.MISSION_ICON (
+	mission_icon_id		integer			NOT NULL,
+	icon_category_id	integer			NOT NULL,
+	icon_file_name		varchar(50)		NOT NULL,
+	CONSTRAINT PK_MISSION_ICON PRIMARY KEY (mission_icon_id),
+	CONSTRAINT FK_MISSION_ICON_ICON_CATEGORY FOREIGN KEY (icon_category_id) REFERENCES ICON_CATEGORY (icon_category_id)
+);
+
+CREATE TABLE harugom.MISSION (
+	mission_id			integer			NOT NULL,
+	routine_id			integer			NOT NULL,
+	mission_icon_id		integer			NOT NULL,
+	mission_name		varchar(50)		NOT NULL,
+	mission_order		integer			NOT NULL,
+	runtime				time			NOT NULL,
+	mission_content		varchar(200)	NOT NULL,
+	CONSTRAINT PK_MISSION PRIMARY KEY (mission_id),
+	CONSTRAINT FK_MISSION_ROUTINE FOREIGN KEY (routine_id) REFERENCES ROUTINE (routine_id),
+	CONSTRAINT FK_MISSION_MISSION_ICON FOREIGN KEY (mission_icon_id) REFERENCES MISSION_ICON (mission_icon_id)
+);
+
+
+
+INSERT INTO harugom.MEMBER (MEMBER_ID,BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES(1, '1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7');
+INSERT INTO harugom.MEMBER (MEMBER_ID,BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES(2,'1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1');
+INSERT INTO harugom.ICON_CATEGORY(ICON_CATEGORY_ID,CATEGORY_NAME, PAY) VALUES(1,'logo', FALSE);
+INSERT INTO harugom.MISSION_ICON(MISSION_ICON_ID,ICON_FILE_NAME, ICON_CATEGORY_ID) VALUES(1,'favicon.png', 1);
