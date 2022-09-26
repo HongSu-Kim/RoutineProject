@@ -32,7 +32,9 @@ public class MemberService implements UserDetailsService {
     private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
 
-    /* 회원가입 */
+    /*
+    회원가입
+    */
     @Transactional
     public Long join(MemberJoinDTO memberJoinDTO) {
 
@@ -71,6 +73,15 @@ public class MemberService implements UserDetailsService {
         if (memberRepository.findByNickname(memberJoinDTO.getNickname()).isPresent()) {
             throw new IllegalStateException();
         }
+    }
+
+    /*
+    로그인
+    */
+    public Member login(String email, String pwd) {
+        return memberRepository.findByEmail(email) // email로 회원을 조회하고
+                .filter(m -> m.getPwd().equals(pwd)) // 그 회원의 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
+                .orElse(null); // 다르면 null을 반환한다
     }
 
     /*
