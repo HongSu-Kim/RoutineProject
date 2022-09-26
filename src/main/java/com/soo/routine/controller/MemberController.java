@@ -50,17 +50,23 @@ public class MemberController {
     }
 
     @GetMapping("mypage/login")
-    public String login(@ModelAttribute("loginForm") MemberLoginDTO form) {
+    public String login(@ModelAttribute("loginForm") MemberLoginDTO memberLoginDTO) {
         return "mypage/member_login";
     }
     @PostMapping("mypage/login")
-    public String login(@Valid @ModelAttribute MemberLoginDTO form, BindingResult bindingResult){
+    public String login(@Valid @ModelAttribute MemberLoginDTO memberLoginDTO, BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
             return "mypage/member_login";
         }
 
-        return "mypage/member_login";
+        Member loginMember = memberService.login(memberLoginDTO.getEmail(), memberLoginDTO.getPwd()); // service를 호출해서
+
+        if (loginMember == null) { // 로그인 실패 시
+            bindingResult.reject("loginFail", "이메일 또는 비밀번호가 일치하지 않습니다."); // 오류 생성하고
+            return "mypage/member_login"; // 다시 로그인 페이지로 이동
+        }
+        return "redirect:/mypage"; // 로그인 성공 시 마이페이지로 이동
     }
 
     @GetMapping("mypage/resetPwd")
