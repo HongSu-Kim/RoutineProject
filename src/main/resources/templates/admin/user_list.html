@@ -1,6 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_admin">
+
+<th:block layout:fragment="content">
 	<div class="content-wrapper">
 		<div class="content">
 			<div class="card card-default">
@@ -15,25 +17,22 @@
               </tr>
             </thead>
             <tbody>
-              <c:if test="${empty lists}">
-                <tr>
-                  <td colspan="4" align="center">회원이 존재하지 않습니다.</td>
-                </tr>
-              </c:if>
-              <c:forEach var="dto" items="${lists}">
-                <tr>
-                  <td scope="row">${dto.memberId }</td>
-                  <td>
-                    <a class="btn btn-link px-0 py-0 text-transform-none" href="/admin/board-list?boardCategory=QnA&memberId=${dto.memberId}">${dto.email }</a>
-                  </td>
-                  <td>${dto.nickname }</td>
-                  <fmt:parseDate value="${dto.joinDate }" pattern="yyyy-MM-dd" var="parsedDate" type="both"/>
-                  <td><fmt:formatDate pattern="yyyy-MM-dd" value="${parsedDate }" /></td>
-                </tr>
-              </c:forEach>
+              <tr th:if="${lists.isEmpty()}">
+                <td colspan="4" align="center">회원이 존재하지 않습니다.</td>
+              </tr>
+              <tr th:each="dto : ${lists}">
+                <td scope="row" th:text="${dto.memberId}">Id</td>
+                <td>
+                  <a class="btn btn-link px-0 py-0 text-transform-none" th:href="@{|/admin/board-list?boardCategory=QnA&memberId=${dto.memberId}|}" th:text="${dto.email}">Email</a>
+                </td>
+                <td th:text="${dto.nickname}">Nickname</td>
+                <td th:text="${#temporals.format(dto.joinDate, 'yyyy-MM-dd')}">JoinDate</td>
+              </tr>
             </tbody>
           </table>
 				</div>
 			</div>
 		</div>
 	</div>
+</th:block>
+</html>
