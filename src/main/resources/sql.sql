@@ -35,10 +35,10 @@ CREATE TABLE harugom.BOARD (
 );
 
 CREATE TABLE harugom.BOARD_IMAGE (
-	image_id		integer			NOT NULL,
+	board_image_id	integer			NOT NULL,
 	board_id		integer			NOT NULL,
 	image_file_name	varchar(50)		NOT NULL,
-	CONSTRAINT PK_BOARD_IMAGE PRIMARY KEY (image_id),
+	CONSTRAINT PK_BOARD_IMAGE PRIMARY KEY (board_image_id),
 	CONSTRAINT FK_BOARD_IMAGE_BOARD FOREIGN KEY (board_id) REFERENCES BOARD (board_id)
 );
 
@@ -92,7 +92,7 @@ CREATE TABLE harugom.MISSION (
 	mission_icon_id		integer			NOT NULL,
 	mission_name		varchar(50)		NOT NULL,
 	mission_order		integer			NOT NULL,
-	runtime				time			NOT NULL,
+	run_time			time			NOT NULL,
 	mission_content		varchar(200)	NOT NULL,
 	CONSTRAINT PK_MISSION PRIMARY KEY (mission_id),
 	CONSTRAINT FK_MISSION_ROUTINE FOREIGN KEY (routine_id) REFERENCES ROUTINE (routine_id),
