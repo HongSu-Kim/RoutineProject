@@ -24,13 +24,13 @@ public class Reply {
     private Board board;//게시글번호 FK
 
     private String replyContent;//답글내용
-    private LocalDateTime replyCreated;//답글작성일
+    private LocalDateTime replyCreate;//답글작성일
 
     public Reply write(ReplyWriteDTO replyWriteDTO, Member member, Board board) {
         this.member = member;
         this.board = board;
         this.replyContent = replyWriteDTO.getReplyContent();
-        this.replyCreated = LocalDateTime.now();
+        this.replyCreate = LocalDateTime.now();
         return this;
     }
 
