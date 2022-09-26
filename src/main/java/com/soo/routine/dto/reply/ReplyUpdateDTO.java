@@ -11,6 +11,6 @@ public class ReplyUpdateDTO {
     private Long memberId;
     private Long boardId;
     private String replyContent;
-    private String replyCreated;
+    private String replyCreate;
 
 }
