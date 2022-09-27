@@ -10,23 +10,23 @@
 
         <h4 class="text-dark text-center mb-5">로그인</h4>
 
-        <form th:action="@{/mypage/login}" method="post">
+        <form th:action="@{/mypage/login}" th:object="${memberLoginDTO}" method="post">
             <div class="row row-routine">
 
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="email" class="form-control input-lg input_routine"
-                               id="email" name="email" placeholder="이메일 주소">
+                        <input type="text" class="form-control input-lg input_routine" id="email" name="email"
+                               th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
                     </div>
-                    <div class="error_routine"></div>
+                    <div class="fieldError error_routine" th:errors="*{email}"></div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="password" class="form-control input-lg input_routine"
-                               id="pwd" name="pwd" placeholder="비밀번호">
+                        <input type="password" class="form-control input-lg input_routine" id="pwd" name="pwd"
+                               th:field="*{pwd}" th:errorclass="fieldErrors" placeholder="비밀번호">
                     </div>
-                    <div class="error_routine"></div>
+                    <div class="fieldError error_routine" th:errors="*{pwd}"></div>
                 </div>
 
                 <!-- 버튼 -->
