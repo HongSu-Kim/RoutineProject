@@ -33,7 +33,7 @@
 					</form>
 					<div th:if="${boardDTO.reply != null}" >
 						<div class="card-header align-items-baseline px-3">
-							<h6 th:text="@{|답변 완료 / ${#temporals.format(boardDTO.reply.replyCreated, 'yyyy-MM-dd HH:mm')}|}">답변 완료 / replyCreated</h6>
+							<h6 th:text="@{|답변 완료 / ${#temporals.format(boardDTO.reply.replyCreate, 'yyyy-MM-dd HH:mm')}|}">답변 완료 / replyCreated</h6>
 							<h6 class="text-transform-none" th:text="@{|${boardDTO.reply.member.nickname} / ${boardDTO.reply.member.email}|}">Nickname / Email</h6>
 						</div>
 						<div class="card mb-3">

@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS harugom.MEMBER;
 
 
 CREATE TABLE harugom.MEMBER (
-	member_id		integer			NOT NULL,
+	member_id		integer			NOT NULL	AUTO_INCREMENT,
 	email			varchar(20)		NOT NULL,
 	pwd				varchar(20)		NOT NULL,
 	nickname		varchar(20)		NOT NULL,
@@ -22,20 +22,20 @@ CREATE TABLE harugom.MEMBER (
 );
 
 CREATE TABLE harugom.BOARD (
-	board_id		integer			NOT NULL,
+	board_id		integer			NOT NULL	AUTO_INCREMENT,
 	member_id		integer			NOT NULL,
 	category		varchar(20)		NOT NULL,
 	board_title		varchar(200)	NOT NULL,
 	board_content	varchar(2048)	NOT NULL,
 	board_create	datetime		DEFAULT NOW(),
 	board_modify	datetime		DEFAULT NULL,
-	board_hits		integer			NOT NULL,
+	board_hits		integer			DEFAULT 0,
 	CONSTRAINT PK_BOARD PRIMARY KEY (board_id),
 	CONSTRAINT FK_BOARD_MEMBER FOREIGN KEY (member_id) REFERENCES MEMBER (member_id)
 );
 
 CREATE TABLE harugom.BOARD_IMAGE (
-	board_image_id	integer			NOT NULL,
+	board_image_id	integer			NOT NULL	AUTO_INCREMENT,
 	board_id		integer			NOT NULL,
 	image_file_name	varchar(50)		NOT NULL,
 	CONSTRAINT PK_BOARD_IMAGE PRIMARY KEY (board_image_id),
@@ -43,7 +43,7 @@ CREATE TABLE harugom.BOARD_IMAGE (
 );
 
 CREATE TABLE harugom.REPLY (
-	reply_id		integer			NOT NULL,
+	reply_id		integer			NOT NULL	AUTO_INCREMENT,
 	member_id		integer			NOT NULL,
 	board_id		integer			NOT NULL,
 	reply_content	varchar(1024)	NOT NULL,
@@ -54,10 +54,10 @@ CREATE TABLE harugom.REPLY (
 );
 
 CREATE TABLE harugom.ROUTINE (
-	routine_id		integer			NOT NULL,
+	routine_id		integer			NOT NULL	AUTO_INCREMENT,
 	member_id		integer			NOT NULL,
 	routine_name	varchar(50)		NOT NULL,
-	active			boolean			NOT NULL,
+	active			boolean			DEFAULT TRUE,
 	total_time		time			NOT NULL,
 	CONSTRAINT PK_ROUTINE PRIMARY KEY (routine_id),
 	CONSTRAINT FK_ROUTINE_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id)
@@ -72,14 +72,14 @@ CREATE TABLE harugom.ROUTINE_SET (
 );
 
 CREATE TABLE harugom.ICON_CATEGORY (
-	icon_category_id	integer			NOT NULL,
+	icon_category_id	integer			NOT NULL	AUTO_INCREMENT,
 	category_name		varchar(50)		NOT NULL,
-	pay					boolean			NOT NULL,
+	pay					boolean			DEFAULT TRUE,
 	CONSTRAINT PK_ICON_CATEGORY PRIMARY KEY (icon_category_id)
 );
 
 CREATE TABLE harugom.MISSION_ICON (
-	mission_icon_id		integer			NOT NULL,
+	mission_icon_id		integer			NOT NULL	AUTO_INCREMENT,
 	icon_category_id	integer			NOT NULL,
 	icon_file_name		varchar(50)		NOT NULL,
 	CONSTRAINT PK_MISSION_ICON PRIMARY KEY (mission_icon_id),
@@ -87,13 +87,13 @@ CREATE TABLE harugom.MISSION_ICON (
 );
 
 CREATE TABLE harugom.MISSION (
-	mission_id			integer			NOT NULL,
-	routine_id			integer			NOT NULL,
+	mission_id			integer			NOT NULL	AUTO_INCREMENT,
+	routine_id			integer			NULL,
 	mission_icon_id		integer			NOT NULL,
 	mission_name		varchar(50)		NOT NULL,
-	mission_order		integer			NOT NULL,
+	mission_order		integer			NULL,
 	run_time			time			NOT NULL,
-	mission_content		varchar(200)	NOT NULL,
+	mission_content		varchar(200)	NULL,
 	CONSTRAINT PK_MISSION PRIMARY KEY (mission_id),
 	CONSTRAINT FK_MISSION_ROUTINE FOREIGN KEY (routine_id) REFERENCES ROUTINE (routine_id),
 	CONSTRAINT FK_MISSION_MISSION_ICON FOREIGN KEY (mission_icon_id) REFERENCES MISSION_ICON (mission_icon_id)
@@ -101,7 +101,7 @@ CREATE TABLE harugom.MISSION (
 
 
 
-INSERT INTO harugom.MEMBER (MEMBER_ID,BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES(1, '1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7');
-INSERT INTO harugom.MEMBER (MEMBER_ID,BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES(2,'1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1');
-INSERT INTO harugom.ICON_CATEGORY(ICON_CATEGORY_ID,CATEGORY_NAME, PAY) VALUES(1,'logo', FALSE);
-INSERT INTO harugom.MISSION_ICON(MISSION_ICON_ID,ICON_FILE_NAME, ICON_CATEGORY_ID) VALUES(1,'favicon.png', 1);
+INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7');
+INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1');
+INSERT INTO harugom.ICON_CATEGORY(CATEGORY_NAME, PAY) VALUES('logo', FALSE);
+INSERT INTO harugom.MISSION_ICON(ICON_FILE_NAME, ICON_CATEGORY_ID) VALUES('favicon.png', 1);
