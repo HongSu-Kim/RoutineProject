@@ -4,59 +4,57 @@
       layout:decorate="layout/layout_user">
 
 <th:block layout:fragment="content">
+
     <!-- body -->
     <div class="card-body px-5 pb-5 pt-0 card-body-routine">
+
         <h4 class="text-dark text-center mb-5">회원가입</h4>
-        <form action="/profile/join" method="post" modelAttribute="memberJoinDTO">
+
+        <form th:action="@{/mypage/join}" th:object="${memberJoinDTO}" method="post">
             <div class="row">
+
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="email" class="form-control input-lg input_routine" name="email" id="email" value="${memberJoinDTO.email}" aria-describedby="nameHelp" placeholder="이메일 주소">
+                        <input type="text" class="form-control input-lg input_routine" id="email" name="email"
+                               th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
                     </div>
-                    <div class="error_routine">
-                        <errors path="email"/>
-                    </div>
+                    <div class="error_routine" th:errors="*{email}"></div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="password" class="form-control input-lg input_routine" name="pwd" id="pwd" value="${memberJoinDTO.pwd}" aria-describedby="emailHelp" placeholder="비밀번호">
+                        <input type="password" class="form-control input-lg input_routine" id="pwd" name="pwd"
+                               th:field="*{pwd}" th:errorclass="fieldErrors" placeholder="비밀번호">
                     </div>
-                    <div class="error_routine">
-                        <errors path="pwd"/>
-                    </div>
+                    <div class="error_routine" th:errors="*{pwd}"></div>
                 </div>
                 <div class="form-group col-md-12 mb_routine">
                     <div>
-                        <input type="password" class="form-control input-lg input_routine" name="pwd2" id="pwd2" value="${memberJoinDTO.pwd2}" placeholder="비밀번호 확인">
+                        <input type="password" class="form-control input-lg input_routine" id="pwd2" name="pwd2"
+                               th:field="*{pwd2}" th:errorclass="fieldErrors" placeholder="비밀번호 확인">
                     </div>
-                    <div class="error_routine">
-                        <errors path="pwd2"/>
-                    </div>
+                    <div class="error_routine" th:errors="*{pwd2}"></div>
                 </div>
                 <div class="form-group col-md-12 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input_routine" name="nickname" id="nickname" value="${memberJoinDTO.nickname}" placeholder="닉네임">
+                        <input type="text" class="form-control input-lg input_routine" id="nickname" name="nickname"
+                               th:field="*{nickname}" th:errorclass="fieldErrors" placeholder="닉네임">
                     </div>
-                    <div class="error_routine">
-                        <errors path="nickname"/>
-                    </div>
+                    <div class="error_routine" th:errors="*{nickname}"></div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input_routine" name="gender" id="gender" value="${memberJoinDTO.gender}"  placeholder="성별">
+                        <input type="text" class="form-control input-lg input_routine" id="gender" name="gender"
+                               th:field="*{gender}" th:errorclass="fieldErrors" placeholder="성별">
                     </div>
-                    <div class="error_routine">
-                        <errors path="gender"/>
-                    </div>
+                    <div class="error_routine" th:errors="*{gender}"></div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input_routine" name="birth" id="birth" value="${memberJoinDTO.birth}" placeholder="생년월일">
+                        <input type="text" class="form-control input-lg input_routine" id="birth" name="birth"
+                               th:field="*{birth}" th:errorclass="fieldErrors" placeholder="생년월일">
                     </div>
-                    <div class="error_routine">
-                        <errors path="birth"/>
-                    </div>
+                    <div class="fieldError error_routine" th:errors="*{birth}"></div>
                 </div>
 
                 <!-- 버튼 -->
@@ -70,9 +68,12 @@
                         <a href="/mypage/login" class="a-routine a-bottom-routine">로그인</a>
                     </div>
                 </div>
+
             </div>
         </form>
+
     </div>
+
 </th:block>
 
 </html>

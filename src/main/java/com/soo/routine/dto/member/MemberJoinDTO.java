@@ -37,7 +37,7 @@ public class MemberJoinDTO {//회원가입 시 사용
     private String gender;//성별
 
     @NotBlank(message="생년월일을 입력하세요.")
-    private LocalDate birth;//생년월일
+    private String birth;//생년월일
 
     public Member toEntity(){
         return Member
