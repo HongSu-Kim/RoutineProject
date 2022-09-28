@@ -119,6 +119,7 @@ layout_user
 .input_routine {
     font-size: 0.8375rem;
     border-radius: 2rem;
+    margin-bottom: 36px;
 }
 
 .col-routine-2 {
@@ -126,7 +127,7 @@ layout_user
 }
 
 .error_routine {
-    padding: 8px 0 15px;
+    padding: 8px 0 10px;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: normal;
@@ -181,24 +182,28 @@ button
  }
 
 .routine-btn:focus, .routine-btn.focus {
-box-shadow: 0 0 0 0.2rem #d6cbc7;
+    box-shadow: 0 0 0 0.2rem #d6cbc7;
 }
 
 .routine-btn.disabled, .routine-btn:disabled {
-color: #a38479;
-background-color: transparent;
+    color: #a38479;
+    background-color: transparent;
 }
 
 .routine-btn:not(:disabled):not(.disabled):active, .routine-btn:not(:disabled):not(.disabled).active, .show > .routine-btn.dropdown-toggle {
-color: #ffffff;
-background-color: #a38479;
-border-color: #a38479;
+    color: #ffffff;
+    background-color: #a38479;
+    border-color: #a38479;
 }
 
 .routine-btn:not(:disabled):not(.disabled):active:focus, .routine-btn:not(:disabled):not(.disabled).active:focus, .show > .routine-btn.dropdown-toggle:focus {
-box-shadow: 0 0 0 0.2rem #d6cbc7;
+    box-shadow: 0 0 0 0.2rem #d6cbc7;
 }
 
 .routine-btn-first {
-margin-bottom: 10pt;
+    margin-bottom: 10pt;
+}
+
+.fieldErrors {
+    margin-bottom: 0;
 }

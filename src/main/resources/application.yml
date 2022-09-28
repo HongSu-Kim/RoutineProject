@@ -32,6 +32,7 @@ spring:
     cache: false
   main:
     allow-bean-definition-overriding: true
+    allow-circular-references: true
 
 mybatis:
   mapper-locations: mapper/*.xml
