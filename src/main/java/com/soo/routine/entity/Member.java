@@ -1,39 +1,40 @@
 package com.soo.routine.entity;
 
 import com.soo.routine.dto.member.MemberJoinDTO;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private long id;//회원번호 PK
+    private long id; // 회원번호 PK
 
     @Column(unique = true)
-    private String email;//이메일 주소
+    private String email; // 이메일 주소
 
-    private String pwd;//비밀번호
+    private String pwd; // 비밀번호
 
     @Column(unique = true)
-    private String nickname;//닉네임
+    private String nickname; // 닉네임
 
-    private String gender;//성별
-    private LocalDate birth;//생년월일
+    private String gender; // 성별
+    private LocalDate birth; // 생년월일
 
-    private String level;//회원등급
-    private LocalDateTime joinDate;//가입일
+    private String level; // 회원등급
+    private LocalDateTime joinDate; // 가입일
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Board> boardList;
@@ -46,7 +47,7 @@ public class Member {
 
     @Builder
     public Member(String level, LocalDateTime joinDate, String email,
-                  String pwd, String nickname, String gender, LocalDate birth){
+                  String pwd, String nickname, String gender, String birth){
 
         this.level = level;
         this.joinDate = joinDate;
@@ -54,7 +55,18 @@ public class Member {
         this.pwd = pwd;
         this.nickname = nickname;
         this.gender = gender;
-        this.birth = birth;
+        this.birth = LocalDate.parse(birth, DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
+    // 비밀번호 암호화
+    public Member hashPwd(PasswordEncoder passwordEncoder) {
+        this.pwd = passwordEncoder.encode(this.pwd);
+        return this;
+    }
+
+    // 비밀번호 확인
+    public boolean checkPwd(PasswordEncoder passwordEncoder, String pwd) {
+        return passwordEncoder.matches(pwd, this.pwd);
     }
 
 }
