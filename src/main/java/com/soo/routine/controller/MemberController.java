@@ -18,7 +18,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -30,6 +34,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+    private final HttpSession httpSession;
 
     /*
     Start Page
@@ -43,16 +48,35 @@ public class MemberController {
     User Page
     */
     @GetMapping("mypage")
-    public String mypage(@AuthenticationPrincipal Member member, Authentication authentication, Principal principal) throws Exception {
-        return "mypage/member_mypage";
+    public String mypage(@AuthenticationPrincipal
+                         @SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                         HttpServletRequest request, Model model,
+                         Authentication authentication, Principal principal) throws Exception {
+
+        if (loginMember == null) {
+            return "mypage/member_login";
+        }
+
+        model.addAttribute("member", loginMember);
+
+        return "mypage/member_login";
     }
 
     @GetMapping("mypage/login")
-    public String login(MemberLoginDTO memberLoginDTO) {
-        return "mypage/member_login";
+    public String login(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                        HttpServletRequest request, Model model, MemberLoginDTO memberLoginDTO) {
+
+        if (loginMember == null) {
+            return "mypage/member_login";
+        }
+
+        model.addAttribute("member", loginMember);
+        return "redirect:/mypage";
     }
+
     @PostMapping("mypage/login")
-    public String login(@Valid @ModelAttribute() MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model){
+    public String login(@Valid @ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO,
+                        BindingResult bindingResult, Model model, HttpServletRequest request){
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberLoginDTO", memberLoginDTO);
@@ -60,18 +84,33 @@ public class MemberController {
         }
 
         Member login_checkEmail = memberService.checkEmail(memberLoginDTO.getEmail());
-        Member login_checkPwd = memberService.checkPwd(memberLoginDTO.getEmail(), memberLoginDTO.getPwd()); // service를 호출해서
+        Member loginMember = memberService.checkPwd(memberLoginDTO.getEmail(), memberLoginDTO.getPwd()); // service를 호출해서
 
-        if (login_checkEmail == null) { // 로그인 실패 시
+        //로그인 실패 처리
+        if (login_checkEmail == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "email", "이메일이 존재하지 않습니다.")); // 오류 생성하고
             return "mypage/member_login"; // 다시 로그인 페이지로 이동
         }
-
-        if (login_checkPwd == null) { // 로그인 실패 시
+        if (loginMember == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
             return "mypage/member_login"; // 다시 로그인 페이지로 이동
         }
+
+        // 로그인 성공 처리
+//        HttpSession session = request.getSession(); // 세션이 있으면 세션 반환, 없으면 세션을 생성해서 반환
+        httpSession.setAttribute("loginMember", loginMember); // 세션에 로그인 회원 정보 보관
+
         return "redirect:/mypage"; // 로그인 성공 시 마이페이지로 이동
+    }
+
+    @PostMapping("mypage/logout")
+    public String logout(HttpServletResponse response, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); // 세션 제거
+        }
+
+        return "redirect:/login";
     }
 
     @GetMapping("mypage/resetPwd")
