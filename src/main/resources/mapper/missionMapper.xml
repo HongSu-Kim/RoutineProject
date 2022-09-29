@@ -3,6 +3,6 @@
 		PUBLIC "-/mybatis.org//DTD mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.soo.routine.mapper.MissionMapper">
+<mapper namespace="com.soo.routine.mapper.mission.MissionMapper">
 
 </mapper>

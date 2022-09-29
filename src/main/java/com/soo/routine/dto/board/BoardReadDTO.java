@@ -1,6 +1,6 @@
 package com.soo.routine.dto.board;
 
-import com.soo.routine.entity.Reply;
+import com.soo.routine.entity.board.Reply;
 import lombok.Getter;
 import lombok.Setter;
 
