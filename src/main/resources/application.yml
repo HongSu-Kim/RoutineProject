@@ -4,6 +4,9 @@ server:
     encoding:
       force: true
       charset: UTF-8
+    session:
+      setMaxInactiveInterval: 1800 # 세션 타임아웃 : 30분(1800초)
+
 
 spring:
 #  h2:
