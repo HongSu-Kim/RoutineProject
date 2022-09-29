@@ -8,7 +8,8 @@ import lombok.Setter;
 public class RoutineSetDTO {
 
     private Long routineId;
-    private String week;
+    private Week week;
+    private boolean weekActive;
     private String startTime;
 
 }
