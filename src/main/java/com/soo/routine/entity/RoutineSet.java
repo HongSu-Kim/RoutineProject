@@ -19,5 +19,6 @@ public class RoutineSet implements Serializable {
     private Routine routine;//루틴번호 PK FK
 
     private LocalTime startTime;//시작시간
+    private boolean weekActive;//요일활성화
 
 }

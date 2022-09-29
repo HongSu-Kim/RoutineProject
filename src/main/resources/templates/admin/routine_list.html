@@ -13,6 +13,7 @@
 							<tr>
 								<th scope="col">No.</th>
 								<th scope="col">Name</th>
+								<th scope="col">Mission Count</th>
 								<th scope="col">Total Time</th>
 								<th scope="col">Active</th>
 							</tr>
@@ -20,15 +21,16 @@
 						<tbody>
 							<!-- routine list -->
 							<tr th:if="${lists.isEmpty()}">
-								<td colspan="4" align="center">추천 루틴이 존재하지 않습니다.</td>
+								<td colspan="5" align="center">추천 루틴이 존재하지 않습니다.</td>
 							</tr>
 							<tr th:each="dto : ${lists}">
 								<td scope="row" th:text="${dto.routineId}">Id</td>
 								<td>
 									<a class="btn btn-link text-transform-none px-0 py-0" th:href="@{|/admin/routine-detail?routineId=${dto.routineId}|}" th:text="${dto.routineName}">Name</a>
 								</td>
+								<td th:text="${#lists.size(dto.missionList)}">MissionCount</td>
 								<td th:text="${#temporals.format(dto.totalTime, 'HH:mm:ss')}">TotalTime</td>
-								<td th:text="${dto.active}">Active</td>
+								<td th:text="${dto.routineActive}">Active</td>
 							</tr>
 						</tbody>
 					</table>

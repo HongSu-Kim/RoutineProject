@@ -16,7 +16,7 @@ public class RoutineUpdateDTO {
     @NotBlank(message = "루틴명을 입력해주세요")
     private String routineName;
 
-    private boolean active;
+    private boolean routineActive;
     private LocalTime totalTime;
 
     private Long[] missionId;

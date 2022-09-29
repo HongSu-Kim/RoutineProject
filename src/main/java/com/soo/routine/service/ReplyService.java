@@ -11,9 +11,11 @@ import com.soo.routine.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ReplyService {
 
     private final ReplyRepository replyRepository;

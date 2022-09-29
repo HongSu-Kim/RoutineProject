@@ -15,12 +15,14 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class MissionService {
 
     private final MissionRepository missionRepository;
@@ -40,6 +42,7 @@ public class MissionService {
     }
 
     // 미션 리스트
+    @Transactional(readOnly = true)
     public List<MissionReadDTO> getMissionList(String routineId) {
 
         List<Mission> missionList;

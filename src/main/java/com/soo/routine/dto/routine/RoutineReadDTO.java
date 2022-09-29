@@ -14,7 +14,7 @@ public class RoutineReadDTO {
     private Long routineId;
     private Long memberId;
     private String routineName;
-    private boolean active;
+    private boolean routineActive;
     private LocalTime totalTime;
 
     private List<String> weekList;
