@@ -41,34 +41,25 @@ public class MemberService {
      */
 
     /*
+    로그인
+    */
+    // 이메일 존재 여부 체크
+    public Member checkEmail(String email) {
+        return memberRepository.findByEmail(email) // email로 회원을 조회하고
+                .filter(m -> m.getEmail().equals(email)) // 그 회원의 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
+                .orElse(null); // 다르면 null을 반환한다
+    }
+
+    // 이메일과 비밀번호 일치 여부 체크
+    public Member checkPwd(String email, String pwd) {
+        return memberRepository.findByEmail(email) // email로 회원을 조회하고
+                .filter(m -> this.passwordEncoder.matches(pwd, m.getPwd())) // 암호화된 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
+                .orElse(null); // 다르면 null을 반환한다
+    }
+
+    /*
     회원가입
     */
-//    @Transactional
-//    public Long join(MemberJoinDTO memberJoinDTO) {
-
-        // 비밀번호 암호화
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        memberJoinDTO.setPwd(passwordEncoder.encode(memberJoinDTO.getPwd()));
-//
-//        return memberRepository.save(memberJoinDTO.toEntity()).getId();
-//    }
-
-//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-//
-//        Optional<Member> userEntityWrapper = memberRepository.findByEmail(email);
-//        Member userEntity = userEntityWrapper.get();
-//
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//
-//        if (("admin@example.com").equals(email)) {
-//            authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-//        } else {
-//            authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-//        }
-//
-//        return new User(userEntity.getEmail(), userEntity.getPwd(), authorities);
-//    }
-
     // 회원 등록
     public void join(Member member) {
         memberRepository.save(member);
@@ -100,24 +91,6 @@ public class MemberService {
 //            throw new IllegalStateException();
 //        }
 //    }
-
-    /*
-    로그인
-    */
-    // 이메일 존재 여부 체크
-    public Member checkEmail(String email) {
-        return memberRepository.findByEmail(email) // email로 회원을 조회하고
-                .filter(m -> m.getEmail().equals(email)) // 그 회원의 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
-                .orElse(null); // 다르면 null을 반환한다
-    }
-
-    // 이메일과 비밀번호 일치 여부 체크
-    public Member checkPwd(String email, String pwd) {
-        return memberRepository.findByEmail(email) // email로 회원을 조회하고
-                .filter(m -> m.getPwd().equals(pwd)) // 그 회원의 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
-                .orElse(null); // 다르면 null을 반환한다
-    }
-
 
     /*
     Admin Page

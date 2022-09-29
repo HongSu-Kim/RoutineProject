@@ -58,15 +58,4 @@ public class Member {
         this.birth = LocalDate.parse(birth, DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
-    // 비밀번호 암호화
-    public Member hashPwd(PasswordEncoder passwordEncoder) {
-        this.pwd = passwordEncoder.encode(this.pwd);
-        return this;
-    }
-
-    // 비밀번호 확인
-    public boolean checkPwd(PasswordEncoder passwordEncoder, String pwd) {
-        return passwordEncoder.matches(pwd, this.pwd);
-    }
-
 }
