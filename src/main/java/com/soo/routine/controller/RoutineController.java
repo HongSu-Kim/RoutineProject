@@ -3,6 +3,8 @@ package com.soo.routine.controller;
 import com.soo.routine.dto.routine.RoutineAddDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
+import com.soo.routine.dto.routine.Week;
+import com.soo.routine.entity.Member;
 import com.soo.routine.service.RoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +25,7 @@ import java.util.List;
 public class RoutineController {
 
     private final RoutineService routineService;
+    private final HttpSession httpSession;
 
     /*
     Admin Page
@@ -100,23 +104,31 @@ public class RoutineController {
     // 루틴 리스트 페이지(메인)
     @GetMapping("routine")
     public String routineList(Model model) {
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
-        Long memberId = 1L;
-        List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
+        List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
-        return "user/routine/routine_list";
+        return "routine/routine_list";
     }
 
     // 루틴 추가 페이지
     @GetMapping("routine/routine-add")
-    public String routineAdd() {
+    public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
+
+        Week sun = Week.SUN;
+
         return "routine/routine_add";
     }
 
     // 루틴 추가
     @PostMapping("routine/routine-add")
-    public String routineAdd(RoutineAddDTO routineAddDTO) {
+    public String routineAdd(@Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "redirect:/routine/routine-add";
+        }
+
         routineService.addRoutine(routineAddDTO);
         return "routine/routine_add";
     }
