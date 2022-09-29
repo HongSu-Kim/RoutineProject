@@ -1,6 +1,6 @@
 package com.soo.routine.dto.routine;
 
-import com.soo.routine.entity.Mission;
+import com.soo.routine.entity.mission.Mission;
 import lombok.Getter;
 import lombok.Setter;
 
