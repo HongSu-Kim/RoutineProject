@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS harugom.MEMBER;
 CREATE TABLE harugom.MEMBER (
 	member_id		integer			NOT NULL	AUTO_INCREMENT,
 	email			varchar(20)		NOT NULL,
-	pwd				varchar(20)		NOT NULL,
+	pwd				varchar(50)		NOT NULL,
 	nickname		varchar(20)		NOT NULL,
 	gender			varchar(10)		NOT NULL,
 	birth			date			NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE harugom.ROUTINE (
 	routine_id		integer			NOT NULL	AUTO_INCREMENT,
 	member_id		integer			NOT NULL,
 	routine_name	varchar(50)		NOT NULL,
-	active			boolean			DEFAULT TRUE,
+	routine_active	boolean			DEFAULT TRUE,
 	total_time		time			NOT NULL,
 	CONSTRAINT PK_ROUTINE PRIMARY KEY (routine_id),
 	CONSTRAINT FK_ROUTINE_MEMBER FOREIGN KEY (member_id) REFERENCES member (member_id)

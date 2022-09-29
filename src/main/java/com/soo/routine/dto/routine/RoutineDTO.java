@@ -12,7 +12,7 @@ public class RoutineDTO {
     private Long routineId;
     private Long memberId;
     private String routineName;
-    private boolean active;
+    private boolean routineActive;
     private String totalTime;
 
     private List<String> week;

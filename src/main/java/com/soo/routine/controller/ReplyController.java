@@ -18,7 +18,7 @@ public class ReplyController {
 
     // 답글 작성
     @PostMapping("admin/reply-write")
-    public String replyWrite(Model model, @Valid  ReplyWriteDTO replyWriteDTO, BindingResult bindingResult) {
+    public String replyWrite(Model model, @Valid ReplyWriteDTO replyWriteDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute(bindingResult);

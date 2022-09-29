@@ -32,6 +32,14 @@ textarea {
 	display: inline-block;
 }
 
+.hide {
+	display: none;
+}
+
+.th-width-115 {
+	width: 115px;
+}
+
 /*
 brown
 	color: #a38479;

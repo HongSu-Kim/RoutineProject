@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -42,6 +43,10 @@ public class MissionController {
     // 추천 미션 추가
     @PostMapping("admin/mission-add")
     public String adminMissionAdd(Model model, @Valid MissionRecommendAddDTO missionRecommendAddDTO, BindingResult bindingResult) {
+
+        if (missionRecommendAddDTO.getRunTime().equals("00:00:00")) {
+            bindingResult.addError(new FieldError("missionRecommendAddDTO", "runTime", "시간을 입력해주세요."));
+        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageName", "Recommend Mission Add");

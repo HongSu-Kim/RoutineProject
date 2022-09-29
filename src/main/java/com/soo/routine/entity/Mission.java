@@ -38,6 +38,14 @@ public class Mission {
         this.missionContent = missionRecommendAddDTO.getMissionContent();
         return this;
     }
+    public Mission addRecommend(Routine routine, MissionIcon missionIcon, String missionName, String runTime, String missionContent) {
+        this.routine = routine;
+        this.missionIcon = missionIcon;
+        this.missionName = missionName;
+        this.runTime = LocalTime.parse(runTime, DateTimeFormatter.ISO_LOCAL_TIME);
+        this.missionContent = missionContent;
+        return this;
+    }
     
     // 미션 추가
     public Mission add(MissionAddDTO missionAddDTO, Routine routine, MissionIcon missionIcon) {
@@ -45,7 +53,7 @@ public class Mission {
         this.missionIcon = missionIcon;
         this.missionName = missionAddDTO.getMissionName();
         this.missionOrder = missionAddDTO.getOrderNum();
-        this.runTime = missionAddDTO.getRunTime();
+        this.runTime = LocalTime.parse(missionAddDTO.getRunTime(), DateTimeFormatter.ISO_LOCAL_TIME);
         this.missionContent = missionAddDTO.getMissionContent();
         return this;
     }

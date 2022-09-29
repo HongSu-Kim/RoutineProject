@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -22,7 +23,7 @@ public class Routine {
     private Member member;//회원번호 FK
 
     private String routineName;//루틴명
-    private boolean active;//활성화
+    private boolean routineActive;//루틴활성화
     private LocalTime totalTime;//전체시간
 
 
@@ -36,15 +37,15 @@ public class Routine {
     public Routine addRoutine(RoutineAddDTO routineAddDTO, Member member) {
         this.member = member;
         this.routineName = routineAddDTO.getRoutineName();
-        this.active = routineAddDTO.isActive();
-        this.totalTime = routineAddDTO.getTotalTime();
+        this.routineActive = routineAddDTO.isRoutineActive();
+        this.totalTime = LocalTime.parse(routineAddDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
         return this;
     }
 
     // 루틴 수정
     public void updateRoutine(RoutineUpdateDTO routineUpdateDTO) {
         this.routineName = routineUpdateDTO.getRoutineName();
-        this.active = routineUpdateDTO.isActive();
+        this.routineActive = routineUpdateDTO.isRoutineActive();
         this.totalTime = routineUpdateDTO.getTotalTime();
     }
 

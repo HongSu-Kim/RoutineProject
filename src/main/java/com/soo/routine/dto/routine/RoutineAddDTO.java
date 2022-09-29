@@ -1,13 +1,10 @@
 package com.soo.routine.dto.routine;
 
-import com.soo.routine.entity.Mission;
-import com.soo.routine.entity.RoutineSet;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -18,14 +15,20 @@ public class RoutineAddDTO {
     @NotBlank(message = "루틴명을 입력해주세요")
     private String routineName;
 
-    private boolean active;
-    private LocalTime totalTime;
+    private boolean routineActive = true;
+    private String totalTime = "00:00:00";
+    private String week;
 
-    private Long[] missionId;
-    private String[] week;
-    private LocalTime[] startTime;
+//    @NotNull(message = "시간을 설정해주세요")
+    private LocalTime startTime;
 
-    private List<Mission> missionList;
-    private List<RoutineSet> routineSetList;
+    // mission
+    private Long[] iconId;
+    private String[] missionName;
+    private String[] runtime;
+    private String[] missionContent;
+
+//    private List<RoutineSet> routineSetList;
+//    private List<Mission> missionList;
 
 }
