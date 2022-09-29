@@ -105,14 +105,14 @@ public class MemberController {
         return "redirect:/mypage"; // 로그인 성공 시 마이페이지로 이동
     }
 
-    @PostMapping("mypage/logout")
+    @GetMapping("mypage/logout")
     public String logout(HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate(); // 세션 제거
         }
 
-        return "redirect:/login";
+        return "redirect:/mypage/login";
     }
 
     @GetMapping("mypage/resetPwd")
