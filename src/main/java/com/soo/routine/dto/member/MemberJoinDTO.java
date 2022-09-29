@@ -1,13 +1,12 @@
 package com.soo.routine.dto.member;
 
-import com.soo.routine.entity.Member;
+import com.soo.routine.entity.member.Member;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
