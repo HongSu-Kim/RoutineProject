@@ -10,12 +10,14 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -24,6 +26,7 @@ public class BoardService {
     private final BoardMapper boardMapper;
 
     // 게시글 리스트
+    @Transactional(readOnly = true)
     public List<BoardListDTO> getBoardList(String category) {
 
         Type type = new TypeToken<List<BoardListDTO>>() {}.getType();
@@ -36,6 +39,7 @@ public class BoardService {
     }
 
     // QnA 리스트
+    @Transactional(readOnly = true)
     public List<BoardQnaListDTO> getQnaList(String category, String memberId) {
 
         Type type = new TypeToken<List<BoardQnaListDTO>>() {}.getType();
@@ -57,6 +61,7 @@ public class BoardService {
     }
 
     // 게시글 한개
+    @Transactional(readOnly = true)
     public BoardReadDTO getBoard(Long boardId) {
         boardMapper.updateHits(boardId); // boardHits++
         BoardReadDTO boardReadDTO = modelMapper.map(boardRepository.findById(boardId), BoardReadDTO.class);

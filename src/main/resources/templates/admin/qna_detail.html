@@ -4,6 +4,7 @@
 
 <th:block layout:fragment="content">
 	<div class="content-wrapper">
+		<!-- board view -->
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-header align-items-baseline px-7">
@@ -17,11 +18,11 @@
 							<p class="card-text" th:text="${boardDTO.boardContent}">Content</p>
 						</div>
 					</div>
-					<!-- reply -->
+					<!-- reply write -->
 					<form th:if="${boardDTO.reply == null}" action="/admin/reply-write" method="post" th:object="${replyWriteDTO}">
 						<!-- session에서 받아온 작성자 id -->
 						<input type="hidden" name="memberId" value="1" />
-						<input type="hidden" th:field="*{boardId}" />
+						<input type="hidden" th:field="${boardDTO.boardId}" />
 						<div class="form-group">
 							<label for="replyContent">답글 작성</label>
 							<div th:each="err : ${#fields.errors('replyContent')}" class="error-message" th:text="${err}"></div>
@@ -31,6 +32,7 @@
 							<button class="btn btn-outline-brown mb-2" type="submit">작성</button>
 						</div>
 					</form>
+					<!-- reply view -->
 					<div th:if="${boardDTO.reply != null}" >
 						<div class="card-header align-items-baseline px-3">
 							<h6 th:text="@{|답변 완료 / ${#temporals.format(boardDTO.reply.replyCreate, 'yyyy-MM-dd HH:mm')}|}">답변 완료 / replyCreated</h6>
@@ -42,6 +44,7 @@
 							</div>
 						</div>
 					</div>
+					<!-- button -->
 					<div class="d-inline-flex mt-4">
 						<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
 					</div>
