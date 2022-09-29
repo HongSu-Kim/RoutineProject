@@ -21,11 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-//    @Bean
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception { // 로그인 시 필요한 정보를 가져옴
-//        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-//    }
-
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
 

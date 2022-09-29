@@ -50,8 +50,9 @@ public class MemberController {
     @GetMapping("mypage")
     public String mypage(@AuthenticationPrincipal
                          @SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                         HttpServletRequest request, Model model,
-                         Authentication authentication, Principal principal) throws Exception {
+                         Model model, Authentication authentication, Principal principal) throws Exception {
+
+//        Member loginMember = httpSession.getAttribute("loginMember");
 
         if (loginMember == null) {
             return "mypage/member_login";
@@ -59,7 +60,7 @@ public class MemberController {
 
         model.addAttribute("member", loginMember);
 
-        return "mypage/member_login";
+        return "mypage/member_mypage";
     }
 
     @GetMapping("mypage/login")
@@ -78,27 +79,28 @@ public class MemberController {
     public String login(@Valid @ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO,
                         BindingResult bindingResult, Model model, HttpServletRequest request){
 
+        // 오류 발생 처리
         if(bindingResult.hasErrors()){
             model.addAttribute("memberLoginDTO", memberLoginDTO);
             return "mypage/member_login";
         }
 
-        Member login_checkEmail = memberService.checkEmail(memberLoginDTO.getEmail());
-        Member loginMember = memberService.checkPwd(memberLoginDTO.getEmail(), memberLoginDTO.getPwd()); // service를 호출해서
+        Member login_checkEmail = memberService.checkEmail(memberLoginDTO.getEmail()); // service를 호출해서
+        Member login_checkPwd = memberService.checkPwd(memberLoginDTO.getEmail(), memberLoginDTO.getPwd()); // service를 호출해서
 
         //로그인 실패 처리
         if (login_checkEmail == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "email", "이메일이 존재하지 않습니다.")); // 오류 생성하고
             return "mypage/member_login"; // 다시 로그인 페이지로 이동
         }
-        if (loginMember == null) {
+        if (login_checkPwd == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
             return "mypage/member_login"; // 다시 로그인 페이지로 이동
         }
 
         // 로그인 성공 처리
 //        HttpSession session = request.getSession(); // 세션이 있으면 세션 반환, 없으면 세션을 생성해서 반환
-        httpSession.setAttribute("loginMember", loginMember); // 세션에 로그인 회원 정보 보관
+        httpSession.setAttribute("loginMember", login_checkPwd); // 세션에 로그인 회원 정보 보관
 
         return "redirect:/mypage"; // 로그인 성공 시 마이페이지로 이동
     }
