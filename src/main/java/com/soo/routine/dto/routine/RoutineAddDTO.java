@@ -1,10 +1,10 @@
 package com.soo.routine.dto.routine;
 
+import com.soo.routine.entity.routine.Week;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -17,10 +17,12 @@ public class RoutineAddDTO {
 
     private boolean routineActive = true;
     private String totalTime = "00:00:00";
-    private String week;
 
+    private Week week;
+    // routine set
 //    @NotNull(message = "시간을 설정해주세요")
-    private LocalTime startTime;
+    private String startTime;
+    private boolean weekActive;
 
     // mission
     private Long[] iconId;

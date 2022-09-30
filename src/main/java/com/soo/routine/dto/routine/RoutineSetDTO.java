@@ -1,5 +1,6 @@
 package com.soo.routine.dto.routine;
 
+import com.soo.routine.entity.routine.Week;
 import lombok.Getter;
 import lombok.Setter;
 

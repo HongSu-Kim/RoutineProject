@@ -1,6 +1,5 @@
 package com.soo.routine.entity.routine;
 
-import com.soo.routine.dto.routine.Week;
 import lombok.Getter;
 
 import javax.persistence.*;
