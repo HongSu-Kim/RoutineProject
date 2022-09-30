@@ -3,6 +3,7 @@ package com.soo.routine.controller.member;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
+import com.soo.routine.dto.member.MemberWithdrawDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -62,7 +63,7 @@ public class MemberController {
         return "mypage/member_mypage";
     }
 
-    @GetMapping("mypage/login")
+    @GetMapping("login")
     public String login(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                         HttpServletRequest request, Model model, MemberLoginDTO memberLoginDTO) {
 
@@ -74,7 +75,7 @@ public class MemberController {
         return "redirect:/mypage";
     }
 
-    @PostMapping("mypage/login")
+    @PostMapping("login")
     public String login(@Valid @ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO,
                         BindingResult bindingResult, Model model, HttpServletRequest request){
 
@@ -104,30 +105,30 @@ public class MemberController {
         return "redirect:/mypage"; // 로그인 성공 시 마이페이지로 이동
     }
 
-    @GetMapping("mypage/logout")
+    @GetMapping("logout")
     public String logout(HttpServletResponse response, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate(); // 세션 제거
         }
 
-        return "redirect:/mypage/login";
+        return "redirect:/login";
     }
 
-    @GetMapping("mypage/resetPwd")
+    @GetMapping("resetPwd")
     public String getFind(){
         return "mypage/member_resetPwd";
     }
-    @PostMapping("mypage/resetPwd")
+    @PostMapping("resetPwd")
     public String postFind(){
         return "mypage/member_resetPwd";
     }
 
-    @GetMapping("mypage/join")
+    @GetMapping("join")
     public String join(MemberJoinDTO memberJoinDTO){
         return "mypage/member_join";
     }
-    @PostMapping("mypage/join")
+    @PostMapping("join")
     public String join(@Valid @ModelAttribute() MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
 
         ModelMapper modelMapper = new ModelMapper();
@@ -165,24 +166,26 @@ public class MemberController {
 
 //        memberService.join(memberJoinDTO);
 
-        return "redirect:/mypage/login";
+        return "redirect:/login";
     }
 
-    @GetMapping("mypage/editProfile")
+    @GetMapping("editProfile")
     public String getUpdate(){
         return "mypage/member_editProfile";
     }
-    @PostMapping("mypage/editProfile")
+    @PostMapping("editProfile")
     public String postUpdate(){
         return "mypage/member_editProfile";
     }
 
-    @GetMapping("mypage/withdraw")
-    public String getDelete(){
+    @GetMapping("withdraw")
+    public String withdraw(@AuthenticationPrincipal
+                                @SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                           Model model, Authentication authentication, Principal principal, MemberWithdrawDTO memberWithdrawDTO){
         return "mypage/member_withdraw";
     }
-    @PostMapping("mypage/withdraw")
-    public String postDelete(){
+    @PostMapping("withdraw")
+    public String withdraw(){
         return "mypage/member_withdraw";
     }
 

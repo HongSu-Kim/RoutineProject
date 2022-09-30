@@ -10,7 +10,7 @@
 
         <h4 class="text-dark text-center mb-5">로그인</h4>
 
-        <form th:action="@{/mypage/login}" th:object="${memberLoginDTO}" method="post">
+        <form th:action="@{login}" th:object="${memberLoginDTO}" method="post">
             <div class="row row-routine">
 
                 <!-- 입력 -->
@@ -37,11 +37,11 @@
                 <!-- 하단 링크 -->
                 <div>
                     <div class="bottom-routine">
-                        <a href="/mypage/resetPwd" class="a-routine a-bottom-routine">비밀번호 찾기</a>
+                        <a href="resetPwd" class="a-routine a-bottom-routine">비밀번호 찾기</a>
                     </div>
                     <div class="middlebar-routine"></div>
                     <div class="bottom-routine">
-                        <a href="/mypage/join" class="a-routine a-bottom-routine">회원가입</a>
+                        <a href="join" class="a-routine a-bottom-routine">회원가입</a>
                     </div>
                 </div>
 
