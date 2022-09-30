@@ -3,8 +3,8 @@ package com.soo.routine.controller.routine;
 import com.soo.routine.dto.routine.RoutineAddDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
-import com.soo.routine.dto.routine.Week;
 import com.soo.routine.entity.member.Member;
+import com.soo.routine.entity.routine.Week;
 import com.soo.routine.service.routine.RoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -116,7 +116,7 @@ public class RoutineController {
     @GetMapping("routine/routine-add")
     public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
 
-        Week sun = Week.SUN;
+        model.addAttribute("weekEnum", Week.class.getEnumConstants());
 
         return "routine/routine_add";
     }
