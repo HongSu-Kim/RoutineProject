@@ -19,40 +19,60 @@
 				<!-- name -->
 				<div class="form-group">
 					<label for="routineName">루틴명</label>
-					<input type="text" class="form-control" th:field="*{routineName}">
+					<div th:each="err : ${#fields.errors('routineName')}" class="error-message" th:text="${err}"></div>
+					<input type="text" class="form-control input-lg input_routine" th:field="*{routineName}">
 				</div>
 				<!-- week -->
 				<div class="form-group mb-4">
 					<label for="week">요일 설정</label>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">일</button>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">월</button>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">일</button>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">일</button>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">일</button>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">일</button>
-					<button type="button" class="mb-1 btn btn-outline-primary btn-pill">일</button>
-					<input type="hidden" class="form-control" th:field="*{week}">
-					<input type="hidden" class="form-control" th:field="*{week}">
-					<input type="hidden" class="form-control" th:field="*{week}">
-					<input type="hidden" class="form-control" th:field="*{week}">
-					<input type="hidden" class="form-control" th:field="*{week}">
-					<input type="hidden" class="form-control" th:field="*{week}">
-					<input type="hidden" class="form-control" th:field="*{week}">
+					<div class="d-flex justify-content-between">
+						<span th:each="item : ${weekEnum}">
+							<button type="button" class="mb-1 btn btn-primary btn-pill px-3 week" th:id="|week${item.value}|" th:text="${item.button}"></button>
+							<input type="hidden" class="form-control" id="week" name="week" th:value="${item.bool ? 'true' : 'false'}">
+						</span>
+					</div>
 				</div>
-				<!-- content -->
+				<!-- start time -->
 				<div class="form-group">
-					<label for="boardCont ent">내용</label>
-					<div th:each="err : ${#fields.errors('boardContent')}" class="error-message" th:text="${err}"></div>
-					<textarea class="form-control min-px-250" th:field="*{boardContent}"></textarea>
+					<label for="startTime">시작시간</label>
+					<div th:each="err : ${#fields.errors('startTime')}" class="error-message" th:text="${err}"></div>
+					<input type="text" class="form-control input-lg input_routine" th:field="*{startTime}">
 				</div>
 				<!-- button -->
-				<div class="d-flex justify-content-between mt-6">
-					<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
-					<button class="btn btn-outline-brown mb-2" type="submit">완료</button>
+				<div class="d-flex justify-content-center mt-6 mx-6">
+					<button class="btn btn-block btn-primary btn-pill mb-2" type="submit">완료</button>
 				</div>
 			</form>
 		</div>
 	</div>
+</th:block>
+
+<th:block layout:fragment="script">
+	<script>
+		
+		$(function() {
+
+			let week = document.getElementsByName('week')
+
+			for (let i = 0; i < 7; i++) {
+				if (week[i].value == 'false') {
+					document.getElementById('week' + i).style.color = '#a38479'
+					document.getElementById('week' + i).style.backgroundColor = '#ffffff'
+				}
+			}
+			
+			$('.week').click(function() {
+				if ($(this).parent('span').children('input').val() == 'true') {
+					$(this).css('color','#a38479').css('background-color','#ffffff')
+					$(this).parent('span').children('input').val('false')
+				} else {
+					$(this).css('color','#ffffff').css('background-color','#a38479')
+					$(this).parent('span').children('input').val('true')
+				}
+			})
+
+		})
+	</script>
 </th:block>
 
 </html>

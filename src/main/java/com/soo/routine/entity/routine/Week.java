@@ -1,4 +1,4 @@
-package com.soo.routine.dto.routine;
+package com.soo.routine.entity.routine;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
