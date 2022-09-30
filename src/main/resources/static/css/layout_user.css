@@ -207,3 +207,14 @@ button
 .fieldErrors {
     margin-bottom: 0;
 }
+
+/*
+img
+*/
+.routine-img {
+    text-align: center;
+}
+
+.withdraw-img {
+    margin-bottom: 30pt;
+}
