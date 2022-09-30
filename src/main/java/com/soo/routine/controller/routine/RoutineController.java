@@ -113,8 +113,9 @@ public class RoutineController {
     }
 
     // 루틴 추가 페이지
-    @GetMapping("routine/routine-add")
+    @GetMapping("routine-add")
     public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
+        System.out.println("GetMapping routine_add");
 
         model.addAttribute("weekEnum", Week.class.getEnumConstants());
 
@@ -122,47 +123,51 @@ public class RoutineController {
     }
 
     // 루틴 추가
-    @PostMapping("routine/routine-add")
-    public String routineAdd(@Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
+    @PostMapping("routine-add")
+    public String routineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
+        System.out.println("PostMapping routine_add");
+        System.out.println(bindingResult.getFieldError());
 
         if (bindingResult.hasErrors()) {
-            return "redirect:/routine/routine-add";
+            model.addAttribute("weekEnum", Week.class.getEnumConstants());
+            return "routine/routine_add";
         }
 
         routineService.addRoutine(routineAddDTO);
-        return "routine/routine_add";
+
+        return "redirect:/routine-list";
     }
 
     // 루틴 상세 페이지
-    @GetMapping("routine/routine-detail")
+    @GetMapping("routine-detail")
     public String routineDetail() {
 
         return "routine/routine_detail";
     }
 
     // 루틴 실행 페이지
-    @GetMapping("routine/routine-start")
+    @GetMapping("routine-start")
     public String routineStart() {
 
         return "routine/routine_start";
     }
 
     // 루틴 종료 페이지
-    @GetMapping("routine/routine-finish")
+    @GetMapping("routine-finish")
     public String routineFinish() {
 
         return "routine/routine_finish";
     }
 
     // 미션 리스트 페이지
-    @GetMapping("routine/mission-list")
+    @GetMapping("mission-list")
     public String missionList() {
 
         return "routine/mission_list";
     }
 
     // 미션 추가 페이지
-    @GetMapping("routine/mission-add")
+    @GetMapping("mission-add")
     public String missionAdd() {
 
         return "routine/mission_add";

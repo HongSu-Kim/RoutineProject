@@ -109,47 +109,47 @@ public class BoardController {
     /*
     User Page
     */
-    @GetMapping("mypage/board-list")
+    @GetMapping("board-list")
     public String getBoardList(){
         return "mypage/board_list";
     }
-    @PostMapping("mypage/board-list")
+    @PostMapping("board-list")
     public String postBoardList(){
         return "mypage/board_list";
     }
 
-    @GetMapping("mypage/board-detail")
+    @GetMapping("/board-detail")
     public String getBoardDetail(){
         return "mypage/board_detail";
     }
-    @PostMapping("mypage/board-detail")
+    @PostMapping("board-detail")
     public String postBoardDetail(){
         return "mypage/board_detail";
     }
 
-    @GetMapping("mypage/board-write")
+    @GetMapping("board-write")
     public String getBoardWrite(){
         return "mypage/board_write";
     }
-    @PostMapping("mypage/board-write")
+    @PostMapping("board-write")
     public String postBoardWrite(){
         return "mypage/board_write";
     }
 
-    @GetMapping("mypage/board-edit")
+    @GetMapping("board-edit")
     public String getBoardEdit(){
         return "mypage/board_edit";
     }
-    @PostMapping("mypage/board-edit")
+    @PostMapping("/board-edit")
     public String postBoardEdit(){
         return "mypage/board_edit";
     }
 
-    @GetMapping("mypage/board-delete")
+    @GetMapping("board-delete")
     public String getBoardDelete(){
         return "mypage/board_delete";
     }
-    @PostMapping("mypage/board-delete")
+    @PostMapping("/board-delete")
     public String postBoardDelete(){
         return "mypage/board_delete";
     }
