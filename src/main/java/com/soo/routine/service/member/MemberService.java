@@ -96,7 +96,7 @@ public class MemberService {
 
 
         // 회원 활성화
-        Member member = memberRepository.findByEmail(email).orElse(null);
+        Member member = memberRepository.findByEmail(email).get();
         member.setMember_active(false);
         memberRepository.save(member);
     }
