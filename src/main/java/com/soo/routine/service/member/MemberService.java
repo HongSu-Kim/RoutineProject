@@ -1,10 +1,8 @@
 package com.soo.routine.service.member;
 
-import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
-import com.soo.routine.entity.member.Level;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.member.Member;
-import com.soo.routine.mapper.member.MemberMapper;
 import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -117,10 +113,10 @@ public class MemberService {
     /*
     Admin Page
     */
-    public List<MemberReadDTO> getMemberList(Level level) {
+    public List<MemberReadDTO> getMemberList(Role role) {
 
         Type type = new TypeToken<List<MemberReadDTO>>() {}.getType();
 
-        return modelMapper.map(memberRepository.findByLevel(level), type);
+        return modelMapper.map(memberRepository.findByrole(role), type);
     }
 }

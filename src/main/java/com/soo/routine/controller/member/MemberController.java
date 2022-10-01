@@ -3,13 +3,11 @@ package com.soo.routine.controller.member;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
-import com.soo.routine.dto.member.MemberWithdrawDTO;
-import com.soo.routine.entity.member.Level;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,11 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -160,7 +155,7 @@ public class MemberController {
 //        Member member = modelMapper.map(memberJoinDTO, Member.class);
         Member member = new Member(memberJoinDTO.getEmail(), memberJoinDTO.getPwd(),
                 memberJoinDTO.getNickname(), memberJoinDTO.getGender(),
-                memberJoinDTO.getBirth(), Level.MEMBER, LocalDateTime.now(), true);
+                memberJoinDTO.getBirth(), Role.MEMBER, LocalDateTime.now(), true);
 
         member.setPwd(passwordEncoder.encode(member.getPwd()));
         memberService.join(member);
@@ -232,13 +227,13 @@ public class MemberController {
     Admin Page
     */
     @GetMapping("admin/user-list")
-    public String memberList(Model model, Level level) {
+    public String memberList(Model model, Role role) {
 
-        List<MemberReadDTO> lists = memberService.getMemberList(level);
+        List<MemberReadDTO> lists = memberService.getMemberList(role);
 
         model.addAttribute("lists", lists);
-//        model.addAttribute("level", level);
-        model.addAttribute("pageName", level + " List");
+//        model.addAttribute("role", role);
+        model.addAttribute("pageName", role + " List");
         return "admin/user_list";
     }
 
