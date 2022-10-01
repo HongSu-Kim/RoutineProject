@@ -1,17 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-			layout:decorate="layout/layout_nav_user">
+			layout:decorate="layout/layout_user">
+
+<!-- css -->
+<th:block layout:fragment="css">
+	<link href="/css/routine.css" rel="stylesheet" />
+</th:block>
 
 <th:block layout:fragment="content">
 	<!-- body -->
-	<div class="card card-default mb-0">
-		<div class="card-body">
-			<h4 class="text-dark mb-6 text-center">Routine List</h4>
-
+	<div class="card card-default mb-0 border-0">
+		<div class="card-header pb-0">
+			<h3 class="text-dark mb-6 text-center" th:text="${routineDTO.routineName}"></h3>
+			<p th:text="|${routineDTO.routineSet.startTime} ~ ${routineDTO.finalTime} (${routineDTO.totalTime})|"></p>
+		</div>
+		<div class="card-body px-5 pb-5 pt-0">
+			
+			<!-- missionList.isEmpty() -->
+			<div th:if="${routineDTO.missionList.isEmpty()}">
+				<div style="text-align: center;">
+					<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c94339e41ce89b663315d96faecd7cfd11b" style="width: 100pt;">
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="card py-3 mb-4 border-0">
+							<div class="card-body text-center ">
+								<p class="card-text pb-4 pt-1">할 일을 차례대로</p>
+								<p class="card-text pb-4 pt-1">추가해보세요!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- missionList -->
+			<ul class="list-group">
+				<li th:each="mission : ${routineDTO.missionList}" class="list-group-item list-group-item-action">
+					<div class="media media-sm mb-0">
+						<div class="media-sm-wrapper">
+							<span th:text="${mission.missionIcon.iconFileName}">iconFileName</span>
+							<img src="/image/user/user-sm-01.jpg" alt="User Image">
+						</div>
+						<div class="media-body">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1 text-white" th:text="${mission.missionName}">missionName</h5>
+								<small th:text="|${mission.runTime}분|"></small>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+			<!-- button -->
+			<div class="d-flex justify-content-center mt-6">
+				<button class="btn btn-outline-primary mb-2" type="button" th:onclick="|location.href='@{|/routine-add?routineId=${routineDTO.routineId}|}';|">추가</button>
+				<button class="btn btn-outline-primary mb-2" type="button" th:onclick="|location.href='@{|/routine-start?routineId=${routineDTO.routineId}|}';|">시작</button>
+			</div>
 			
 		</div>
 	</div>
 </th:block>
 
-</html>2
+</html>

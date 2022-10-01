@@ -1,6 +1,7 @@
 package com.soo.routine.dto.routine;
 
 import com.soo.routine.entity.mission.Mission;
+import com.soo.routine.entity.routine.RoutineSet;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,9 +18,11 @@ public class RoutineReadDTO {
     private boolean routineActive;
     private LocalTime totalTime;
 
-    private List<String> weekList;
-    private List<LocalTime> startTimeList;
+    private RoutineSet routineSet;
 
     private List<Mission> missionList;
+
+
+    private LocalTime finalTime;
 
 }

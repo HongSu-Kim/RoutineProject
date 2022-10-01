@@ -4,8 +4,6 @@ import com.soo.routine.dto.routine.RoutineAddDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.member.Member;
-import com.soo.routine.entity.mission.Mission;
-import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
 import com.soo.routine.entity.routine.RoutineSet;
 import com.soo.routine.mapper.routine.RoutineMapper;
@@ -21,7 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -54,14 +55,14 @@ public class RoutineService {
         }
 
         // save mission
-        if (routineAddDTO.getIconId() != null) {
-            for (int i = 0; i < routineAddDTO.getIconId().length; i++) {
-                MissionIcon missionIcon = missionIconRepository.findById(routineAddDTO.getIconId()[i]).get();
-                Mission mission = new Mission().addRecommend(routine, missionIcon, routineAddDTO.getMissionName()[i],
-                routineAddDTO.getRuntime()[i], routineAddDTO.getMissionContent()[i] != null ? routineAddDTO.getMissionContent()[i] : "");
-                missionRepository.save(mission);
-            }
-        }
+//        if (routineAddDTO.getIconId() != null) {
+//            for (int i = 0; i < routineAddDTO.getIconId().length; i++) {
+//                MissionIcon missionIcon = missionIconRepository.findById(routineAddDTO.getIconId()[i]).get();
+//                Mission mission = new Mission().addRecommend(routine, missionIcon, routineAddDTO.getMissionName()[i],
+//                routineAddDTO.getRuntime()[i], routineAddDTO.getMissionContent()[i] != null ? routineAddDTO.getMissionContent()[i] : "");
+//                missionRepository.save(mission);
+//            }
+//        }
     }
 
     // 루틴 리스트
@@ -96,5 +97,36 @@ public class RoutineService {
         return lists;
     }
 
+    // 루틴 디테일
+    @Transactional(readOnly = true)
+    public RoutineReadDTO getRoutine(Long routineId) {
 
+        Optional<Routine> optionalRoutine = routineRepository.findById(routineId);
+
+        if (optionalRoutine.isEmpty()) {
+            return null;
+        }
+
+        Routine routine = optionalRoutine.get();
+
+        RoutineReadDTO routineReadDTO = modelMapper.map(routine, RoutineReadDTO.class);
+        String today = LocalDate.now().getDayOfWeek().name();
+
+        for (RoutineSet rs : routine.getRoutineSetList()) {
+            if (today.equals(rs.getWeek().name())){
+
+                LocalTime totalTime = routine.getTotalTime();
+                LocalTime finalTime = rs.getStartTime();
+
+                finalTime.plusHours(totalTime.getHour());
+                finalTime.plusMinutes(totalTime.getMinute());
+                finalTime.plusSeconds(totalTime.getSecond());
+
+                routineReadDTO.setFinalTime(finalTime);
+                routineReadDTO.setRoutineSet(rs);
+            }
+        }
+
+        return routineReadDTO;
+    }
 }
