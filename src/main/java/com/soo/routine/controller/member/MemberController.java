@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -121,11 +122,22 @@ public class MemberController {
     }
 
     @GetMapping("resetPwd")
-    public String getFind(){
+    public String resetPwd(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                          Model model, MemberLoginDTO memberLoginDTO){
         return "mypage/member_resetPwd";
     }
     @PostMapping("resetPwd")
-    public String postFind(){
+    public String resetPwd(MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
+                           HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+
+        Member resetPwd_checkBirth = memberService.checkBirth(loginMember.getEmail(), loginMember.getBirth());
+
+        //이메일 또는 생년월일 불일치 처리
+        if (resetPwd_checkBirth == null) {
+            bindingResult.addError(new FieldError("memberLoginDTO", "birth", "이메일 또는 생년월일이 일치하지 않습니다."));
+            return "mypage/member_resetPwd";
+        }
+
         return "mypage/member_resetPwd";
     }
 
@@ -225,7 +237,7 @@ public class MemberController {
     Admin Page
     */
     @GetMapping("admin/user-list")
-    public String memberList(Model model, String level) {
+    public String memberList(Model model, Level level) {
 
         List<MemberReadDTO> lists = memberService.getMemberList(level);
 

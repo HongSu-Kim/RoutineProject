@@ -2,6 +2,7 @@ package com.soo.routine.service.member;
 
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
+import com.soo.routine.entity.member.Level;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.mapper.member.MemberMapper;
 import com.soo.routine.repository.member.MemberRepository;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +37,8 @@ public class MemberService {
     */
     // 이메일 존재 여부 체크
     public Member checkEmail(String email) {
-        return memberRepository.findByEmail(email) // email로 회원을 조회하고
-                .filter(m -> m.getEmail().equals(email)) // 그 회원의 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
+        return memberRepository.findByEmail(email) // email로 회원을 조회해서
+                .filter(m -> m.getEmail().equals(email)) // 입력한 email과 같으면, 회원을 반환하고
                 .orElse(null); // 다르면 null을 반환한다
     }
 
@@ -96,15 +99,25 @@ public class MemberService {
 
 
         // 회원 활성화
-        Member member = memberRepository.findByEmail(email).get();
+        Member member = memberRepository.findByEmail(email).orElse(null);
         member.setMember_active(false);
         memberRepository.save(member);
     }
 
     /*
+    비밀번호 재설정
+    */
+    // 이메일과 생년월일 일치 여부 체크
+    public Member checkBirth(String email, LocalDate birth) {
+        return memberRepository.findByEmail(email) // email로 회원을 조회해서
+                .filter(m -> m.getBirth().equals(birth)) // birth(getBirth)와 입력한 birth 같으면, 회원을 반환하고
+                .orElse(null); // 다르면 null을 반환한다
+    }
+
+    /*
     Admin Page
     */
-    public List<MemberReadDTO> getMemberList(String level) {
+    public List<MemberReadDTO> getMemberList(Level level) {
 
         Type type = new TypeToken<List<MemberReadDTO>>() {}.getType();
 
