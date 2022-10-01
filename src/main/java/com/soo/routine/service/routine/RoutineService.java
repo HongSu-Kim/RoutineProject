@@ -7,11 +7,13 @@ import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.mission.Mission;
 import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
+import com.soo.routine.entity.routine.RoutineSet;
 import com.soo.routine.mapper.routine.RoutineMapper;
 import com.soo.routine.repository.member.MemberRepository;
 import com.soo.routine.repository.mission.MissionIconRepository;
 import com.soo.routine.repository.mission.MissionRepository;
 import com.soo.routine.repository.routine.RoutineRepository;
+import com.soo.routine.repository.routine.RoutineSetRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -27,6 +29,7 @@ import java.util.List;
 public class RoutineService {
 
     private final RoutineRepository routineRepository;
+    private final RoutineSetRepository routineSetRepository;
     private final MemberRepository memberRepository;
     private final MissionRepository missionRepository;
     private final MissionIconRepository missionIconRepository;
@@ -38,10 +41,19 @@ public class RoutineService {
 
         Member member = memberRepository.findById(routineAddDTO.getMemberId()).get();
 
+        // save routine
         Routine routine = new Routine().addRoutine(routineAddDTO, member);
-
         routineRepository.save(routine);
 
+        // save routineSet
+        boolean[] weekActive = routineAddDTO.getWeekActive();
+        String startTime = routineAddDTO.getStartTime();
+        for (int i = 0; i < 7; i++) {
+            RoutineSet routineSet = new RoutineSet().addRoutineSet(i , weekActive[i], startTime, routine);
+            routineSetRepository.save(routineSet);
+        }
+
+        // save mission
         if (routineAddDTO.getIconId() != null) {
             for (int i = 0; i < routineAddDTO.getIconId().length; i++) {
                 MissionIcon missionIcon = missionIconRepository.findById(routineAddDTO.getIconId()[i]).get();
