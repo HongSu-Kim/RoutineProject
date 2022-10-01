@@ -97,10 +97,6 @@ public class RoutineController {
     public String routineList(Model model) {
         Member loginMember = (Member) session.getAttribute("loginMember");
 
-        if (loginMember == null) {
-            return "redirect:/login";
-        }
-
         List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
@@ -110,10 +106,6 @@ public class RoutineController {
     // 루틴 추가 페이지
     @GetMapping("routine-add")
     public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
-
-        if (session.getAttribute("loginMember") == null) {
-            return "redirect:/login";
-        }
 
         model.addAttribute("weekEnum", Week.class.getEnumConstants());
 
@@ -139,8 +131,15 @@ public class RoutineController {
 
     // 루틴 상세 페이지
     @GetMapping("routine-detail")
-    public String routineDetail() {
+    public String routineDetail(Model model, Long routineId) {
 
+        RoutineReadDTO routineReadDTO = routineService.getRoutine(routineId);
+
+        if (routineReadDTO == null) {
+            return "redirect:/routine";
+        }
+
+        model.addAttribute("routineDTO" , routineReadDTO);
         return "routine/routine_detail";
     }
 
