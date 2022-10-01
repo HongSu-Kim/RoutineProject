@@ -10,8 +10,8 @@
 
         <h4 class="text-dark text-center mb-5">회원가입</h4>
 
-        <form th:action="@{/mypage/join}" th:object="${memberJoinDTO}" method="post">
-            <div class="row">
+        <form th:action="@{join}" th:object="${memberJoinDTO}" method="post">
+            <div class="row row-routine">
 
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
@@ -65,7 +65,7 @@
                 <!-- 하단 링크 -->
                 <div>
                     <div class="bottom-routine">
-                        <a href="/mypage/login" class="a-routine a-bottom-routine">로그인</a>
+                        <a href="login" class="a-routine a-bottom-routine">로그인</a>
                     </div>
                 </div>
 

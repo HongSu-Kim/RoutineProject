@@ -6,21 +6,21 @@
 <th:block layout:fragment="content">
     <h3><b>My Page</b></h3>
     <div style="text-align: center;">
-        <img src="https://item.kakaocdn.net/do/dcc1fe9a210baebe70b6543d51482bb2f604e7b0e6900f9ac53a43965300eb9a" style="width: 100pt;">
+        <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c948f324a0b9c48f77dbce3a43bd11ce785" style="width: 100pt;">
     </div>
-    <div th:text="${member.nickname}">님 안녕하세요!</div>
-    <a href="mypage/logout">로그아웃</a>
+    <div th:text="${member.nickname}"></div>
+    <a href="logout">로그아웃</a>
     <div class="list-group">
         <h4><b>Profile</b></h4>
-<!--        <a href="#" class="list-group-item list-group-item-action">로그인</a>-->
-<!--        <a href="#" class="list-group-item list-group-item-action">회원가입</a>-->
-        <a href="#" class="list-group-item list-group-item-action">회원정보 수정</a>
+        <a href="resetPwd" class="list-group-item list-group-item-action">비밀번호 찾기</a>
+        <a href="editProfile" class="list-group-item list-group-item-action">회원정보 수정</a>
+        <a href="withdraw" class="list-group-item list-group-item-action">회원탈퇴</a>
     </div>
     <div class="list-group">
         <h4><b>Board</b></h4>
-        <a href="#" class="list-group-item list-group-item-action">공지사항</a>
-        <a href="#" class="list-group-item list-group-item-action">자주 묻는 질문</a>
-        <a href="#" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">1:1 문의</a>
+        <a href="notice" class="list-group-item list-group-item-action">공지사항</a>
+        <a href="faq" class="list-group-item list-group-item-action">자주 묻는 질문</a>
+        <a href="qna" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">1:1 문의</a>
     </div>
 </th:block>
 
