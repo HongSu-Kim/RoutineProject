@@ -50,14 +50,9 @@ public class MemberController {
     User Page
     */
     @GetMapping("mypage")
-    public String mypage(@AuthenticationPrincipal
-                         @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model) {
+    public String mypage(@AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model) {
 
 //        Member loginMember = httpSession.getAttribute("loginMember");
-
-        if (loginMember == null) {
-            return "mypage/member_login";
-        }
 
         model.addAttribute("member", loginMember);
 
