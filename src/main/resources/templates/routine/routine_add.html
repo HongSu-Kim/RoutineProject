@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout_nav_user">
+      layout:decorate="layout/layout_user">
 
 <!-- css -->
 <th:block layout:fragment="css">
@@ -28,7 +28,7 @@
 					<div class="d-flex justify-content-between">
 						<span th:each="item : ${weekEnum}">
 							<button type="button" class="mb-1 btn btn-primary btn-pill px-3 week" th:id="|week${item.value}|" th:text="${item.button}"></button>
-							<input type="hidden" class="form-control" id="week" name="week" th:value="${item.bool ? 'true' : 'false'}">
+							<input type="hidden" class="form-control" id="weekActive" name="weekActive" th:value="${item.bool ? 'true' : 'false'}">
 						</span>
 					</div>
 				</div>
@@ -36,7 +36,7 @@
 				<div class="form-group">
 					<label for="startTime">시작시간</label>
 					<div th:each="err : ${#fields.errors('startTime')}" class="error-message" th:text="${err}"></div>
-					<input type="text" class="form-control input-lg input_routine" th:field="*{startTime}">
+					<input type="text" class="form-control input-lg input_routine" th:field="*{startTime}" placeholder="hh:mm">
 				</div>
 				<!-- button -->
 				<div class="d-flex justify-content-center mt-6 mx-6">
@@ -48,31 +48,7 @@
 </th:block>
 
 <th:block layout:fragment="script">
-	<script>
-		
-		$(function() {
-
-			let week = document.getElementsByName('week')
-
-			for (let i = 0; i < 7; i++) {
-				if (week[i].value == 'false') {
-					document.getElementById('week' + i).style.color = '#a38479'
-					document.getElementById('week' + i).style.backgroundColor = '#ffffff'
-				}
-			}
-			
-			$('.week').click(function() {
-				if ($(this).parent('span').children('input').val() == 'true') {
-					$(this).css('color','#a38479').css('background-color','#ffffff')
-					$(this).parent('span').children('input').val('false')
-				} else {
-					$(this).css('color','#ffffff').css('background-color','#a38479')
-					$(this).parent('span').children('input').val('true')
-				}
-			})
-
-		})
-	</script>
+	<script src="/js/routine/routine_add.js"></script>
 </th:block>
 
 </html>

@@ -16,7 +16,7 @@ public class MissionIcon {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "iconCategory_id")
-    private MissionIconCategory iconCategory;//카테고리번호 FK
+    private IconCategory iconCategory;//카테고리번호 FK
 
     private String iconFileName;//아이콘파일명
 
