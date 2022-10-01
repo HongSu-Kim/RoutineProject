@@ -66,6 +66,7 @@ CREATE TABLE harugom.ROUTINE (
 CREATE TABLE harugom.ROUTINE_SET (
 	week			varchar(20)		NOT NULL,
 	routine_id		integer			NOT NULL,
+	week_active		boolean			NOT NULL,
 	start_time		time			NOT NULL,
 	CONSTRAINT PK_ROUTINE_SET PRIMARY KEY (week,routine_id),
 	CONSTRAINT FK_ROUTINE_SET_ROUTINE FOREIGN KEY (routine_id) REFERENCES ROUTINE (routine_id)
