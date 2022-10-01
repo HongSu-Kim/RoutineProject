@@ -10,14 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -25,7 +22,7 @@ import java.util.List;
 public class RoutineController {
 
     private final RoutineService routineService;
-    private final HttpSession httpSession;
+    private final HttpSession session;
 
     /*
     Admin Page
@@ -51,21 +48,15 @@ public class RoutineController {
 
     // admin - 추천 루틴 추가
     @PostMapping("admin/routine-add")
-    public String adminRoutineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult, HttpServletRequest request) {
+    public String adminRoutineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getErrorCount());
-            List<ObjectError> list = bindingResult.getAllErrors();
-            Iterator<ObjectError> it = list.iterator();
-            System.out.println(request.getAttribute("runtime"));
-            System.out.println(request.getAttribute("missionName"));
-            while (it.hasNext()){
-                System.out.println(it.next());
-            }
             model.addAttribute("pageName", "Routine Add");
             return "admin/routine_add";
         }
 
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        routineAddDTO.setMemberId(loginMember.getId());
         routineService.addRoutine(routineAddDTO);
 
         return "redirect:/admin/routine-list";
@@ -104,7 +95,11 @@ public class RoutineController {
     // 루틴 리스트 페이지(메인)
     @GetMapping("routine")
     public String routineList(Model model) {
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        if (loginMember == null) {
+            return "redirect:/login";
+        }
 
         List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
@@ -115,7 +110,10 @@ public class RoutineController {
     // 루틴 추가 페이지
     @GetMapping("routine-add")
     public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
-        System.out.println("GetMapping routine_add");
+
+        if (session.getAttribute("loginMember") == null) {
+            return "redirect:/login";
+        }
 
         model.addAttribute("weekEnum", Week.class.getEnumConstants());
 
@@ -125,17 +123,18 @@ public class RoutineController {
     // 루틴 추가
     @PostMapping("routine-add")
     public String routineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
-        System.out.println("PostMapping routine_add");
-        System.out.println(bindingResult.getFieldError());
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("weekEnum", Week.class.getEnumConstants());
             return "routine/routine_add";
         }
 
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        routineAddDTO.setMemberId(loginMember.getId());
+
         routineService.addRoutine(routineAddDTO);
 
-        return "redirect:/routine-list";
+        return "redirect:/routine";
     }
 
     // 루틴 상세 페이지

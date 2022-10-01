@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Getter
-public class MissionIconCategory {
+public class IconCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
