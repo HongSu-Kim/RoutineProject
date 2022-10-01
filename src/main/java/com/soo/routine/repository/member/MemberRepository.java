@@ -1,5 +1,6 @@
 package com.soo.routine.repository.member;
 
+import com.soo.routine.entity.member.Level;
 import com.soo.routine.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,6 +16,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
 
-    public List<Member> findByLevel(String level);
+    public List<Member> findByLevel(Level level);
 
 }

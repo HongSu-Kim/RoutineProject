@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class MemberController {
     }
 
     @PostMapping("login")
-    public String login(@Valid @ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO,
+    public String login(@Valid @ModelAttribute() MemberLoginDTO memberLoginDTO,
                         BindingResult bindingResult, Model model){
 
         // 오류 발생 처리
@@ -121,11 +122,22 @@ public class MemberController {
     }
 
     @GetMapping("resetPwd")
-    public String getFind(){
+    public String resetPwd(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                          Model model, MemberLoginDTO memberLoginDTO){
         return "mypage/member_resetPwd";
     }
     @PostMapping("resetPwd")
-    public String postFind(){
+    public String resetPwd(MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
+                           HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+
+        Member resetPwd_checkBirth = memberService.checkBirth(loginMember.getEmail(), loginMember.getBirth());
+
+        //이메일 또는 생년월일 불일치 처리
+        if (resetPwd_checkBirth == null) {
+            bindingResult.addError(new FieldError("memberLoginDTO", "birth", "이메일 또는 생년월일이 일치하지 않습니다."));
+            return "mypage/member_resetPwd";
+        }
+
         return "mypage/member_resetPwd";
     }
 
@@ -136,6 +148,19 @@ public class MemberController {
     @PostMapping("join")
     public String join(@Valid @ModelAttribute() MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
 
+        //검증 실패시
+        if(bindingResult.hasErrors()){
+            model.addAttribute("memberJoinDTO", memberJoinDTO);
+            return "mypage/member_join";
+        }
+
+        Member join_checkEmail = memberService.checkEmail(memberJoinDTO.getEmail());
+
+        if (join_checkEmail != null) {
+            bindingResult.addError(new FieldError("memberJoinDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
+            return "mypage/member_join";
+        }
+
         ModelMapper modelMapper = new ModelMapper();
 //        Member member = modelMapper.map(memberJoinDTO, Member.class);
         Member member = new Member(memberJoinDTO.getEmail(), memberJoinDTO.getPwd(),
@@ -144,12 +169,6 @@ public class MemberController {
 
         member.setPwd(passwordEncoder.encode(member.getPwd()));
         memberService.join(member);
-
-        //검증 실패시
-        if(bindingResult.hasErrors()){
-            model.addAttribute("memberJoinDTO", memberJoinDTO);
-            return "mypage/member_join";
-        }
 
         //패스워드 일치 여부 체크
 //        if(!memberJoinDTO.getPwd().equals(memberJoinDTO.getPwd2())){
@@ -190,7 +209,7 @@ public class MemberController {
         return "mypage/member_withdraw";
     }
     @PostMapping("withdraw")
-    public String withdraw(@ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
+    public String withdraw(MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
                            HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
 
         Member login_checkPwd = memberService.checkPwd(loginMember.getEmail(), memberLoginDTO.getPwd());
@@ -202,7 +221,7 @@ public class MemberController {
         // 비밀번호 일치 시
         }else {
 
-            memberService.change_memberActive(memberLoginDTO.getEmail());
+            memberService.change_memberActive(loginMember.getEmail());
 //            loginMember.setMember_active(false); // 멤버 비활성화
 
             if (httpSession!=null) {
@@ -218,7 +237,7 @@ public class MemberController {
     Admin Page
     */
     @GetMapping("admin/user-list")
-    public String memberList(Model model, String level) {
+    public String memberList(Model model, Level level) {
 
         List<MemberReadDTO> lists = memberService.getMemberList(level);
 
