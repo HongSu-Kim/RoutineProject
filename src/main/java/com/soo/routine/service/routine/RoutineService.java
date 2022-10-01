@@ -4,6 +4,7 @@ import com.soo.routine.dto.routine.RoutineAddDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.member.Member;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.routine.Routine;
 import com.soo.routine.entity.routine.RoutineSet;
 import com.soo.routine.mapper.routine.RoutineMapper;
@@ -89,7 +90,7 @@ public class RoutineService {
     @Transactional(readOnly = true)
     public List<RoutineReadDTO> getRecommendRoutineList() {
 
-        List<Routine> routineList = routineRepository.findAllByMemberLevel("admin");
+        List<Routine> routineList = routineRepository.findAllByMemberRole(Role.ADMIN);
         Type type = new TypeToken<List<RoutineReadDTO>>() {}.getType();
 
         List<RoutineReadDTO> lists = modelMapper.map(routineList, type);

@@ -53,9 +53,9 @@ public class WebSecurityConfig {
         http
             .csrf().disable()
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
-                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").access("!hasRole('ADMIN') or !hasRole('MEMBER')") // 모든 user(non-member,member,admin) 접근 가능
+                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 비회원만 접근 가능
                 .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
-                .antMatchers("/**").permitAll() // user(member,admin)만 접근 가능
+                .antMatchers("/**").access("hasRole('ADMIN') or hasRole('MEMBER')") // user(member,admin)만 접근 가능
 //                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 모든 user(non-member,member,admin) 접근 가능
 //                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
 //                .antMatchers("/**").hasRole("MEMBER") // user(member,admin)만 접근 가능

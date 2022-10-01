@@ -36,7 +36,7 @@ public class Member {
     private LocalDate birth; // 생년월일
 
     @Enumerated(EnumType.STRING)
-    private Level level; // 회원등급
+    private Role role; // 회원등급
 
     private LocalDateTime joinDate; // 가입일
 
@@ -53,14 +53,14 @@ public class Member {
 
     @Builder
     public Member(String email, String pwd, String nickname, String gender,
-                  String birth, Level level, LocalDateTime joinDate, boolean member_active){
+                  String birth, Role role, LocalDateTime joinDate, boolean member_active){
 
         this.email = email;
         this.pwd = pwd;
         this.nickname = nickname;
         this.gender = gender;
         this.birth = LocalDate.parse(birth, DateTimeFormatter.ISO_LOCAL_DATE);
-        this.level = level;
+        this.role = role;
         this.joinDate = joinDate;
         this.member_active = member_active;
     }
