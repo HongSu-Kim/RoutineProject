@@ -12,12 +12,13 @@ DROP TABLE IF EXISTS harugom.MEMBER;
 CREATE TABLE harugom.MEMBER (
 	member_id		integer			NOT NULL	AUTO_INCREMENT,
 	email			varchar(20)		NOT NULL,
-	pwd				varchar(100)	NOT NULL,
+	pwd				varchar(100)	NOT NULL UNIQUE,
 	nickname		varchar(20)		NOT NULL,
 	gender			varchar(10)		NOT NULL,
 	birth			date			NOT NULL,
 	level			varchar(20)		NOT NULL,
 	join_date		datetime		DEFAULT NOW(),
+	member_active   boolean         DEFAULT TRUE,
 	CONSTRAINT PK_MEMBER PRIMARY KEY (member_id)
 );
 
@@ -102,7 +103,9 @@ CREATE TABLE harugom.MISSION (
 
 
 
-INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7');
-INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD) VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1');
+INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD,MEMBER_ACTIVE)
+    VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'admin', 'HIROKAZU', 'hirokazu7', TRUE);
+INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,LEVEL,NICKNAME,PWD,MEMBER_ACTIVE)
+    VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'admin', 'KRISTAL', 'kristal1', TRUE);
 INSERT INTO harugom.ICON_CATEGORY(CATEGORY_NAME, PAY) VALUES('logo', FALSE);
 INSERT INTO harugom.MISSION_ICON(ICON_FILE_NAME, ICON_CATEGORY_ID) VALUES('favicon.png', 1);

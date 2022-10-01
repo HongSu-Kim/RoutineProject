@@ -4,6 +4,7 @@ import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.dto.member.MemberWithdrawDTO;
+import com.soo.routine.entity.member.Level;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +50,7 @@ public class MemberController {
     */
     @GetMapping("mypage")
     public String mypage(@AuthenticationPrincipal
-                         @SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                         Model model, Authentication authentication, Principal principal) throws Exception {
+                         @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model) {
 
 //        Member loginMember = httpSession.getAttribute("loginMember");
 
@@ -65,19 +65,20 @@ public class MemberController {
 
     @GetMapping("login")
     public String login(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                        HttpServletRequest request, Model model, MemberLoginDTO memberLoginDTO) {
+                        Model model, MemberLoginDTO memberLoginDTO) {
 
         if (loginMember == null) {
             return "mypage/member_login";
         }
 
         model.addAttribute("member", loginMember);
+
         return "redirect:/mypage";
     }
 
     @PostMapping("login")
     public String login(@Valid @ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO,
-                        BindingResult bindingResult, Model model, HttpServletRequest request){
+                        BindingResult bindingResult, Model model){
 
         // 오류 발생 처리
         if(bindingResult.hasErrors()){
@@ -97,6 +98,10 @@ public class MemberController {
             bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
             return "mypage/member_login"; // 다시 로그인 페이지로 이동
         }
+        if (!login_checkEmail.isMember_active()) {
+            bindingResult.addError(new FieldError("memberLoginDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
+            return "mypage/member_login";
+        }
 
         // 로그인 성공 처리
 //        HttpSession session = request.getSession(); // 세션이 있으면 세션 반환, 없으면 세션을 생성해서 반환
@@ -106,10 +111,10 @@ public class MemberController {
     }
 
     @GetMapping("logout")
-    public String logout(HttpServletResponse response, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate(); // 세션 제거
+    public String logout() {
+
+        if (httpSession != null) {
+            httpSession.invalidate(); // 세션 제거
         }
 
         return "redirect:/login";
@@ -133,9 +138,10 @@ public class MemberController {
 
         ModelMapper modelMapper = new ModelMapper();
 //        Member member = modelMapper.map(memberJoinDTO, Member.class);
-        Member member = new Member("member", LocalDateTime.now(),
-                memberJoinDTO.getEmail(), memberJoinDTO.getPwd(), memberJoinDTO.getNickname(),
-                memberJoinDTO.getGender(), memberJoinDTO.getBirth());
+        Member member = new Member(memberJoinDTO.getEmail(), memberJoinDTO.getPwd(),
+                memberJoinDTO.getNickname(), memberJoinDTO.getGender(),
+                memberJoinDTO.getBirth(), Level.MEMBER, LocalDateTime.now(), true);
+
         member.setPwd(passwordEncoder.encode(member.getPwd()));
         memberService.join(member);
 
@@ -179,15 +185,34 @@ public class MemberController {
     }
 
     @GetMapping("withdraw")
-    public String withdraw(@AuthenticationPrincipal
-                                @SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                           Model model, Authentication authentication, Principal principal, MemberWithdrawDTO memberWithdrawDTO){
+    public String withdraw(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                           Model model, MemberLoginDTO memberLoginDTO){
         return "mypage/member_withdraw";
     }
     @PostMapping("withdraw")
-    public String withdraw(){
-        return "mypage/member_withdraw";
+    public String withdraw(@ModelAttribute("memberLoginDTO") MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
+                           HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+
+        Member login_checkPwd = memberService.checkPwd(loginMember.getEmail(), memberLoginDTO.getPwd());
+
+        if (login_checkPwd == null) {
+            bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
+            return "mypage/member_withdraw"; // 다시 회원탈퇴 페이지로 이동
+
+        // 비밀번호 일치 시
+        }else {
+
+            memberService.change_memberActive(memberLoginDTO.getEmail());
+//            loginMember.setMember_active(false); // 멤버 비활성화
+
+            if (httpSession!=null) {
+                httpSession.invalidate(); // 세션 제거
+            }
+
+            return "redirect:/login";
+        }
     }
+
 
     /*
     Admin Page

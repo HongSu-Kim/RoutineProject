@@ -1,5 +1,6 @@
 package com.soo.routine.service.member;
 
+import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.mapper.member.MemberMapper;
@@ -9,9 +10,11 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,9 +22,7 @@ public class MemberService {
 //public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    private final MemberMapper memberMapper;
     private final ModelMapper modelMapper;
-
     private final PasswordEncoder passwordEncoder;
 
     /*
@@ -79,6 +80,26 @@ public class MemberService {
 //            throw new IllegalStateException();
 //        }
 //    }
+
+    /*
+    회원 탈퇴
+     */
+    @Transactional
+    public void change_memberActive(String email){
+
+//        Member change_memberActive = memberRepository.findOne(email);
+//
+//        change_memberActive.setMember_active(member.get);
+//
+//        Optional<Member> member = memberRepository.findByEmail(email);
+//        member.change_memberActive(member_active);
+
+
+        // 회원 활성화
+        Member member = memberRepository.findByEmail(email).orElse(null);
+        member.setMember_active(false);
+        memberRepository.save(member);
+    }
 
     /*
     Admin Page
