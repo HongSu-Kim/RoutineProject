@@ -7,17 +7,26 @@
 
     <!-- body -->
     <div class="card-body px-5 pb-5 pt-0 card-body-routine">
+
         <h4 class="text-dark text-center mb-5">비밀번호 재설정</h4>
-        <form action="/profile/join" method="post" modelAttribute="memberJoinDTO">
+
+        <form th:action="@{resetPwd}" th:object="${memberLoginDTO}" method="post">
             <div class="row row-routine">
+
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="email" class="form-control input-lg input_routine" name="email" id="email" value="${memberJoinDTO.email}" aria-describedby="nameHelp" placeholder="이메일 주소">
+                        <input type="text" class="form-control input-lg input_routine" id="email" name="email"
+                               th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
                     </div>
-                    <div class="error_routine">
-                        <errors path="email"/>
+                    <div class="error_routine" th:errors="*{email}"></div>
+                </div>
+                <div class="form-group col-md-12 mb-4 mb_routine">
+                    <div>
+                        <input type="text" class="form-control input-lg input_routine" id="birth" name="birth"
+                               th:field="*{birth}" th:errorclass="fieldErrors" placeholder="생년월일">
                     </div>
+                    <div class="fieldError error_routine" th:errors="*{birth}"></div>
                 </div>
 
                 <!-- 버튼 -->
