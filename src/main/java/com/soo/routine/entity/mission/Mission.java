@@ -53,7 +53,6 @@ public class Mission {
         this.routine = routine;
         this.missionIcon = missionIcon;
         this.missionName = missionAddDTO.getMissionName();
-        this.missionOrder = missionAddDTO.getOrderNum();
         this.runTime = LocalTime.parse(missionAddDTO.getRunTime(), DateTimeFormatter.ISO_LOCAL_TIME);
         this.missionContent = missionAddDTO.getMissionContent();
         return this;

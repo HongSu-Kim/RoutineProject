@@ -4,6 +4,7 @@ import com.soo.routine.dto.routine.RoutineAddDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.member.Member;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.routine.Week;
 import com.soo.routine.service.routine.RoutineService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ import java.util.List;
 public class RoutineController {
 
     private final RoutineService routineService;
-    private final HttpSession session;
+    private final HttpSession httpSession;
 
     /*
     Admin Page
@@ -31,6 +32,12 @@ public class RoutineController {
     // admin - 추천 루틴 리스트 관리 페이지
     @GetMapping("admin/routine-list")
     public String adminRoutineList(Model model) {
+
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
+            return "redirect:/";
+        }
 
         List<RoutineReadDTO> lists = routineService.getRecommendRoutineList();
 
@@ -42,6 +49,13 @@ public class RoutineController {
     // admin - 추천 루틴 추가 페이지
     @GetMapping("admin/routine-add")
     public String adminRoutineAdd(Model model, RoutineAddDTO routineAddDTO) {
+
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
+            return "redirect:/";
+        }
+
         model.addAttribute("pageName", "Routine Add");
         return "admin/routine_add";
     }
@@ -55,7 +69,7 @@ public class RoutineController {
             return "admin/routine_add";
         }
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
         routineAddDTO.setMemberId(loginMember.getId());
         routineService.addRoutine(routineAddDTO);
 
@@ -65,6 +79,13 @@ public class RoutineController {
     // admin - 추천 루틴 수정 페이지
     @GetMapping("admin/routine-update")
     public String adminRoutineUpdate(Model model, RoutineUpdateDTO routineUpdateDTO) {
+
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
+            return "redirect:/";
+        }
+
         model.addAttribute("mode", "update");
         model.addAttribute("pageName", "Routine Update");
         return "admin/routine_add";
@@ -95,7 +116,12 @@ public class RoutineController {
     // 루틴 리스트 페이지(메인)
     @GetMapping("routine")
     public String routineList(Model model) {
-        Member loginMember = (Member) session.getAttribute("loginMember");
+
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        if (loginMember == null) {
+            return "redirect:/login";
+        }
 
         List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
@@ -106,6 +132,10 @@ public class RoutineController {
     // 루틴 추가 페이지
     @GetMapping("routine-add")
     public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
+
+        if (httpSession.getAttribute("loginMember") == null) {
+            return "redirect:/login";
+        }
 
         model.addAttribute("weekEnum", Week.class.getEnumConstants());
 
@@ -121,7 +151,7 @@ public class RoutineController {
             return "routine/routine_add";
         }
 
-        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
         routineAddDTO.setMemberId(loginMember.getId());
 
         routineService.addRoutine(routineAddDTO);
@@ -132,6 +162,10 @@ public class RoutineController {
     // 루틴 상세 페이지
     @GetMapping("routine-detail")
     public String routineDetail(Model model, Long routineId) {
+
+        if (httpSession.getAttribute("loginMember") == null) {
+            return "redirect:/login";
+        }
 
         RoutineReadDTO routineReadDTO = routineService.getRoutine(routineId);
 
@@ -147,6 +181,10 @@ public class RoutineController {
     @GetMapping("routine-start")
     public String routineStart() {
 
+        if (httpSession.getAttribute("loginMember") == null) {
+            return "redirect:/login";
+        }
+
         return "routine/routine_start";
     }
 
@@ -156,22 +194,5 @@ public class RoutineController {
 
         return "routine/routine_finish";
     }
-
-    // 미션 리스트 페이지
-    @GetMapping("mission-list")
-    public String missionList() {
-
-        return "routine/mission_list";
-    }
-
-    // 미션 추가 페이지
-    @GetMapping("mission-add")
-    public String missionAdd() {
-
-        return "routine/mission_add";
-    }
-
-
-
 
 }

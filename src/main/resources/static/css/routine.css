@@ -3,3 +3,11 @@
 	color: red;
 	display: inline-block;
 }
+
+.icon-group {
+	text-align: center;
+}
+
+.icon-group img {
+	width: 100pt;
+}
