@@ -51,10 +51,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // http 관련 인증 설정
         http
-//            .csrf().disable()
+            .csrf().disable()
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
 //                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
-                .antMatchers("/").hasRole("MEMBER") // user(member,admin)만 접근 가능
+//                .antMatchers("/").hasRole("MEMBER") // user(member,admin)만 접근 가능
                 .antMatchers("/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
 
 //                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 비회원만 접근 가능
@@ -79,4 +79,5 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
 }

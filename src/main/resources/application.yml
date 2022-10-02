@@ -32,14 +32,10 @@ spring:
   thymeleaf:
     prefix: classpath:templates/
     suffix: .html
-    check-template-location: true
     cache: false
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
-  devtools:
-    livereload:
-      enabled: true
 
 mybatis:
   mapper-locations: mapper/*.xml
