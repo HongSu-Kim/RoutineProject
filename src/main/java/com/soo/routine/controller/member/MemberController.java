@@ -36,6 +36,11 @@ public class MemberController {
     /*
     Start Page
     */
+//    @GetMapping("/")
+//    public String getIndex(){
+//        return "redirect:/startRoutine";
+//    }
+
     @GetMapping("startRoutine")
     public String getStartRoutine(){
         return "mypage/startRoutine";

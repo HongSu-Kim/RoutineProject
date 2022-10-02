@@ -1,7 +1,10 @@
 package com.soo.routine.controller.mission;
 
-import com.soo.routine.dto.mission.MissionRecommendAddDTO;
+import com.soo.routine.dto.mission.MissionAddDTO;
 import com.soo.routine.dto.mission.MissionReadDTO;
+import com.soo.routine.dto.mission.MissionRecommendAddDTO;
+import com.soo.routine.entity.member.Member;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.service.mission.MissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -19,6 +23,7 @@ import java.util.List;
 public class MissionController {
 
     private final MissionService missionService;
+    private final HttpSession httpSession;
 
     /*
     Admin Page
@@ -27,6 +32,13 @@ public class MissionController {
     // 추천 미션 리스트 관리 페이지
     @GetMapping("admin/mission-list")
     public String adminMissionList(Model model) {
+
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
+            return "redirect:/startRoutine";
+        }
+
         List<MissionReadDTO> lists = missionService.getMissionList("");
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Recommend Mission List");
@@ -43,6 +55,12 @@ public class MissionController {
     // 추천 미션 추가
     @PostMapping("admin/mission-add")
     public String adminMissionAdd(Model model, @Valid MissionRecommendAddDTO missionRecommendAddDTO, BindingResult bindingResult) {
+
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
+            return "redirect:/startRoutine";
+        }
 
         if (missionRecommendAddDTO.getRunTime().equals("00:00:00")) {
             bindingResult.addError(new FieldError("missionRecommendAddDTO", "runTime", "시간을 입력해주세요."));
@@ -61,5 +79,28 @@ public class MissionController {
     /*
     User Page
     */
+
+    @GetMapping("mission-add")
+    public String missionAdd(Model model, MissionAddDTO missionAddDTO, Long routineId) {
+
+        if (httpSession.getAttribute("loginMember") == null){
+            return "redirect:/login";
+        }
+
+        model.addAttribute("routineId", routineId);
+        return "routine/mission_add";
+    }
+
+    @PostMapping("mission-add")
+    public String missionAdd(Model model, @Valid MissionAddDTO missionAddDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "routine/mission_add";
+        }
+
+        missionService.addMission(missionAddDTO);
+
+        return "redirect:/routine-detail?routineId=" + missionAddDTO.getRoutineId();
+    }
 
 }

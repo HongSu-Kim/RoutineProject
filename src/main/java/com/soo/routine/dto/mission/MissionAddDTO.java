@@ -21,8 +21,6 @@ public class MissionAddDTO {
     @NotBlank(message = "미션명을 입력해주세요")
     private String missionName;
 
-    private int orderNum;
-
     @NotNull(message = "시간을 설정해주세요")
     @Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$", message = "시간형식에 맞게 입력해주세요(hh:mm:ss)")
     private String runTime;

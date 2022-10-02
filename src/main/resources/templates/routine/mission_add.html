@@ -1,17 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-			layout:decorate="layout/layout_nav_user">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout_user">
+
+<!-- css -->
+<th:block layout:fragment="css">
+	<link href="/css/routine.css" rel="stylesheet" />
+</th:block>
 
 <th:block layout:fragment="content">
 	<!-- body -->
-	<div class="card card-default mb-0">
-		<div class="card-body">
-			<h4 class="text-dark mb-6 text-center">Routine List</h4>
-
-			
+	<div class="card card-default mb-0 border-0">
+		<div class="card-header pb-0">
+			<h3 class="text-dark mb-6 text-center">Mission Add</h3>
+		</div>
+		<div class="card-body px-5 pb-5 pt-0">
+			<form th:action="@{/mission-add}" method="post" th:object="${missionAddDTO}">
+				<input type="hidden" name="routineId" th:value="${routineId}"/>
+				<!-- icon -->
+				<div class="icon-group">
+					<input type="hidden" name="iconId" value="1">
+					<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c94339e41ce89b663315d96faecd7cfd11b">
+					<div th:each="err : ${#fields.errors('iconId')}" class="error-message" th:text="${err}"></div>
+				</div>
+				<!-- name -->
+				<div class="form-group">
+					<label for="missionName">미션명</label>
+					<div th:each="err : ${#fields.errors('missionName')}" class="error-message" th:text="${err}"></div>
+					<input type="text" class="form-control input-lg input_routine" th:field="*{missionName}">
+				</div>
+				<!-- runTime -->
+				<div class="form-group">
+					<label for="runTime">소요시간</label>
+					<div th:each="err : ${#fields.errors('runTime')}" class="error-message" th:text="${err}"></div>
+					<input type="text" class="form-control input-lg input_routine" th:field="*{runTime}">
+				</div>
+				<!-- content -->
+				<div class="form-group mb-4">
+					<label for="missionContent">내용</label>
+					<textarea class="form-control" th:field="*{missionContent}"></textarea>
+				</div>
+				<!-- button -->
+				<div class="d-flex justify-content-center mt-6 mx-6">
+					<button class="btn btn-block btn-primary btn-pill mb-2" type="submit">완료</button>
+				</div>
+			</form>
 		</div>
 	</div>
+</th:block>
+
+<th:block layout:fragment="script">
+<!--	<script src="/js/routine/mission_add.js"></script>-->
 </th:block>
 
 </html>
