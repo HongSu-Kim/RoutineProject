@@ -23,19 +23,19 @@ public class WebSecurityConfig {
 
         String pwd = passwordEncoder().encode("111");
 
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
+        UserDetails member = User.withDefaultPasswordEncoder()
+                .username("member")
                 .password("pwd")
-                .roles("USER")
+                .roles("MEMBER")
                 .build();
 
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("pwd")
-                .roles("ADMIN", "USER")
+                .roles("ADMIN", "MEMBER")
                 .build();
 
-        return new InMemoryUserDetailsManager(user, admin);
+        return new InMemoryUserDetailsManager(member, admin);
     }
 
     @Bean
@@ -53,11 +53,18 @@ public class WebSecurityConfig {
         http
             .csrf().disable()
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
-                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 비회원만 접근 가능
-                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
-                .antMatchers("/**").access("hasRole('ADMIN') or hasRole('MEMBER')") // user(member,admin)만 접근 가능
+//                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
+//                .antMatchers("/").hasRole("MEMBER") // user(member,admin)만 접근 가능
+                .antMatchers("/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
+
+//                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 비회원만 접근 가능
+//                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
+//                .antMatchers("/**").hasAnyRole("MEMBER","ADMIN")
+
+//                .antMatchers("/**").access("hasRole('ADMIN') or hasRole('MEMBER')") // user(member,admin)만 접근 가능
 //                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 모든 user(non-member,member,admin) 접근 가능
 //                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
+
 //                .antMatchers("/**").hasRole("MEMBER") // user(member,admin)만 접근 가능
 //                .antMatchers("/routine/**", "/profile/**", "/admin/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
                 .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
