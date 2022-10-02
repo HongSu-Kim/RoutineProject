@@ -54,7 +54,7 @@ public class WebSecurityConfig {
             .csrf().disable()
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
 //                .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
-//                .antMatchers("/").hasRole("MEMBER") // user(member,admin)만 접근 가능
+                .antMatchers("/").hasRole("MEMBER") // user(member,admin)만 접근 가능
                 .antMatchers("/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
 
 //                .antMatchers("/startRoutine","/login", "/join", "/resetPwd").permitAll() // 비회원만 접근 가능
@@ -75,7 +75,7 @@ public class WebSecurityConfig {
             .and()
                 .logout() // 로그아웃에 관한 설정
                 .logoutSuccessUrl("/startRoutine") // 로그아웃 시 리다이렉트 주소
-                .invalidateHttpSession(true); // 세션 날리기
+                .invalidateHttpSession(true); // 세션 삭제
 
         return http.build();
     }
