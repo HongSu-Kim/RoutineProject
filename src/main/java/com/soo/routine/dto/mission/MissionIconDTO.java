@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class MissionIconDTO {
 
-    private Long iconId;
-    private Long categoryId;
+    private Long missionIconId;
+    private Long iconCategoryId;
     private String iconFileName;
 
 }

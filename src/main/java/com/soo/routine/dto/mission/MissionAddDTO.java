@@ -15,8 +15,8 @@ public class MissionAddDTO {
 
     private Long routineId;
 
-    @NotNull(message = "아이콘을 정해주세요")
-    private Long iconId;
+    @NotNull(message = "아이콘을 선택해주세요")
+    private Long missionIconId;
 
     @NotBlank(message = "미션명을 입력해주세요")
     private String missionName;

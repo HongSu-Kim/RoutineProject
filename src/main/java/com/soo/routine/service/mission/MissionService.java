@@ -66,7 +66,7 @@ public class MissionService {
     public void addMission(MissionAddDTO missionAddDTO) {
 
         Routine routine = routineRepository.findById(missionAddDTO.getRoutineId()).get();
-        MissionIcon missionIcon = missionIconRepository.findById(missionAddDTO.getIconId()).get();
+        MissionIcon missionIcon = missionIconRepository.findById(missionAddDTO.getMissionIconId()).get();
 
         Mission mission = new Mission().add(missionAddDTO, routine, missionIcon);
 
