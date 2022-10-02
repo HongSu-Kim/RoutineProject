@@ -1,10 +1,10 @@
 package com.soo.routine.controller.mission;
 
-import com.soo.routine.dto.mission.MissionAddDTO;
-import com.soo.routine.dto.mission.MissionReadDTO;
-import com.soo.routine.dto.mission.MissionRecommendAddDTO;
+import com.soo.routine.dto.mission.*;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
+import com.soo.routine.service.mission.IconCategoryService;
+import com.soo.routine.service.mission.MissionIconService;
 import com.soo.routine.service.mission.MissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +23,8 @@ import java.util.List;
 public class MissionController {
 
     private final MissionService missionService;
+    private final MissionIconService missionIconService;
+    private final IconCategoryService iconCategoryService;
     private final HttpSession httpSession;
 
     /*
@@ -87,7 +89,12 @@ public class MissionController {
             return "redirect:/login";
         }
 
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
+
         model.addAttribute("routineId", routineId);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("iconList", iconList);
         return "routine/mission_add";
     }
 
@@ -95,6 +102,10 @@ public class MissionController {
     public String missionAdd(Model model, @Valid MissionAddDTO missionAddDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
+            List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+            List<MissionIconDTO> iconList = missionIconService.getIconList();
+            model.addAttribute("categoryList", categoryList);
+            model.addAttribute("iconList", iconList);
             return "routine/mission_add";
         }
 

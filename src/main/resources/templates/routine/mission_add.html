@@ -9,6 +9,7 @@
 </th:block>
 
 <th:block layout:fragment="content">
+	
 	<!-- body -->
 	<div class="card card-default mb-0 border-0">
 		<div class="card-header pb-0">
@@ -18,10 +19,11 @@
 			<form th:action="@{/mission-add}" method="post" th:object="${missionAddDTO}">
 				<input type="hidden" name="routineId" th:value="${routineId}"/>
 				<!-- icon -->
-				<div class="icon-group">
-					<input type="hidden" name="iconId" value="1">
-					<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c94339e41ce89b663315d96faecd7cfd11b">
-					<div th:each="err : ${#fields.errors('iconId')}" class="error-message" th:text="${err}"></div>
+				<div class="form-group icon-group" data-toggle="modal" data-target="#missionListModal">
+					<input type="hidden" th:field="*{missionIconId}"/>
+					<img src="https://item.kakaocdn.net/do/d535331cab7ad6095881f561e84c1886c37d537a8f2c6f426591be6b8dc7b36a" id="iconSrc">
+					<div class="btn display-block"><span class="mdi mdi-triangle"></span>아이콘 선택</div>
+					<div th:each="err : ${#fields.errors('missionIconId')}" class="error-message display-block" th:text="${err}"></div>
 				</div>
 				<!-- name -->
 				<div class="form-group">
@@ -47,10 +49,44 @@
 			</form>
 		</div>
 	</div>
+	
+	<!-- modal -->
+	<div class="modal fade" id="missionListModal" tabindex="-1" role="dialog" aria-labelledby="missionListModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="missionListModalLabel">아이콘 변경</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card card-default mb-0 border-0">
+						<div class="card-header justify-content-start px-0">
+							<span th:each="iconCategoryDTO : ${categoryList}">
+								&nbsp;&nbsp;<button th:text="|#${iconCategoryDTO.categoryName}|" class="category"></button>&nbsp;&nbsp;
+								<input type="hidden" th:value="${iconCategoryDTO.iconPath}"/>
+							</span>
+						</div>
+						<div class="card-body px-0" id="iconList">
+							<div th:each="iconCategoryDTO : ${categoryList}" th:id="${iconCategoryDTO.iconPath}" class="row hide icon-row">
+								<div th:each="missionIconDTO : ${iconList}" th:if="${missionIconDTO.iconCategoryId == iconCategoryDTO.iconCategoryId}" class="col-3 pb-5">
+									<img th:src="@{|/img/icon/${iconCategoryDTO.iconPath}/${missionIconDTO.iconFileName}|}" class="card-img-top icon-img"/>
+									<input type="hidden" name="modalIconId" th:value="${missionIconDTO.missionIconId}"/>
+									<input type="hidden" name="modalIconSrc" th:value="|/img/icon/${iconCategoryDTO.iconPath}/${missionIconDTO.iconFileName}|"/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </th:block>
 
 <th:block layout:fragment="script">
-<!--	<script src="/js/routine/mission_add.js"></script>-->
+	<script src="/js/routine/mission_add.js"></script>
 </th:block>
 
 </html>

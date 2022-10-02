@@ -15,6 +15,7 @@ public class IconCategory {
     private Long id;//카테고리번호 PK
 
     private String categoryName;//카테고리이름
+    private String iconPath;//아이콘경로
     private Boolean pay;//유료여부
 
 
