@@ -1,5 +1,6 @@
 package com.soo.routine.controller.member;
 
+import com.soo.routine.dto.member.MemberResetPwdDTO;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
@@ -113,12 +114,18 @@ public class MemberController {
 
     @GetMapping("resetPwd")
     public String resetPwd(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                          Model model, MemberLoginDTO memberLoginDTO){
+                          Model model, MemberResetPwdDTO memberResetPwdDTO){
         return "mypage/member_resetPwd";
     }
     @PostMapping("resetPwd")
-    public String resetPwd(MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
+    public String resetPwd(MemberResetPwdDTO memberResetPwdDTO, BindingResult bindingResult, Model model,
                            HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+
+        // 오류 발생 처리
+        if(bindingResult.hasErrors()){
+            model.addAttribute("memberResetPwdDTO", memberResetPwdDTO);
+            return "mypage/member_resetPwd";
+        }
 
         Member resetPwd_checkBirth = memberService.checkBirth(loginMember.getEmail(), loginMember.getBirth());
 
