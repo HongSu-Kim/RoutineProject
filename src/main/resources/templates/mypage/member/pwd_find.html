@@ -8,34 +8,51 @@
     <!-- body -->
     <div class="card-body px-5 pb-5 pt-0 card-body-routine">
 
-        <h4 class="text-dark text-center mb-5">비밀번호 재설정</h4>
+        <div class="pwd-title">
+            <h4 class="text-dark text-center mb-5">비밀번호 찾기</h4>
 
-        <form th:action="@{pwd-find}" th:object="${memberResetPwdDTO}" method="post">
+            <div class="pwd-img">
+                <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c94339e41ce89b663315d96faecd7cfd11b" style="width: 100pt;">
+            </div>
+            <div class="pwd-element">
+                <p>가입한 이메일 입력 시 <br>임시 비밀번호가 전송됩니다.</p>
+            </div>
+        </div>
+
+        <form th:action="@{pwd-find}" th:object="${memberJoinDTO}" method="post">
             <div class="row row-routine">
 
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input_routine" id="email" name="email"
-                               th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
+                        <div>
+                            <input type="text" class="form-control input-lg input_routine" id="email" name="email"
+                                   th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
+                        </div>
+                        <div class="error_routine" th:errors="*{email}"></div>
                     </div>
-                    <div class="error_routine" th:errors="*{email}"></div>
-                </div>
-                <div class="form-group col-md-12 mb-4 mb_routine">
-                    <div>
-                        <input type="text" class="form-control input-lg input_routine" id="birth" name="birth"
-                               th:field="*{birth}" th:errorclass="fieldErrors" placeholder="생년월일">
-                    </div>
-                    <div class="fieldError error_routine" th:errors="*{birth}"></div>
                 </div>
 
                 <!-- 버튼 -->
                 <div class="col-md-12 col-routine-2">
-                    <button type="submit" class="btn btn-primary btn-pill mb-4 btn-routine">재설정 하기</button>
+                    <button type="submit" class="btn btn-primary btn-pill mb-4">임시 비밀번호 받기</button>
+                </div>
+
+                <!-- 하단 링크 -->
+                <div>
+                    <div class="bottom-routine">
+                        <a href="login" class="a-routine a-bottom-routine">로그인</a>
+                    </div>
+                    <div class="middlebar-routine"></div>
+                    <div class="bottom-routine">
+                        <a href="join" class="a-routine a-bottom-routine">회원가입</a>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
+
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 
 </th:block>
 

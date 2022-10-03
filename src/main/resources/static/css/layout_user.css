@@ -218,3 +218,17 @@ img
 .withdraw-img {
     margin-bottom: 30pt;
 }
+
+/* pwd-find */
+.pwd-title {
+    text-align: center;
+    margin-bottom: 30pt;
+}
+
+.pwd-img {
+    margin-bottom: 1rem;
+}
+
+.pwd-element p {
+    font-size: 11pt;
+}

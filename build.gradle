@@ -40,6 +40,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // thymeleaf
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' // thymeleaf Spring Security
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect' // thymeleaf layout
+	implementation 'org.springframework.boot:spring-boot-starter-mail' // mail
+	implementation 'org.apache.commons:commons-email:1.5' // commons-email
 
 
 
