@@ -37,6 +37,5 @@ out/
 .vscode/
 
 # Mail
-Test.class
-util/Test.class
-util/Test.java
+Test.java
+MailUtil.java
