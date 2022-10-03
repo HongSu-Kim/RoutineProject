@@ -1,19 +1,25 @@
 package com.soo.routine.service.member;
 
+import com.soo.routine.dto.member.MemberJoinDTO;
+import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.repository.member.MemberRepository;
+import com.soo.routine.util.MailUtil;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -103,11 +109,32 @@ public class MemberService {
     /*
     비밀번호 재설정
     */
-    // 이메일과 생년월일 일치 여부 체크
-    public Member checkBirth(String email, LocalDate birth) {
-        return memberRepository.findByEmail(email) // email로 회원을 조회해서
-                .filter(m -> m.getBirth().equals(birth)) // birth(getBirth)와 입력한 birth 같으면, 회원을 반환하고
-                .orElse(null); // 다르면 null을 반환한다
+    public Member pwdFind(String email) throws Exception{
+
+        // 회원정보 불러오기
+        Member member = memberRepository.findByEmail(email).orElse(null);
+
+        // 이메일 전송
+        if(member!=null) {
+
+            // 임시 비밀번호 생성
+            String tempPwd = UUID.randomUUID().toString().replace("-", ""); // - 제거
+            tempPwd = tempPwd.substring(0, 10); // 10자리로 생성
+
+            System.out.print("임시 비밀번호 : " + tempPwd);
+            member.setPwd(tempPwd);
+
+            // 이메일 전송
+            MailUtil mail = new MailUtil();
+            mail.sendMail(member);
+
+            // 암호화된 임시 비밀번호 저장
+            member.setPwd(passwordEncoder.encode(member.getPwd()));
+
+            memberRepository.save(member);
+        }
+            return member;
+
     }
 
     /*

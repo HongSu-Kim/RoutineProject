@@ -1,9 +1,9 @@
 package com.soo.routine.controller.member;
 
-import com.soo.routine.dto.member.MemberResetPwdDTO;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
+import com.soo.routine.dto.member.PwdResetDTO;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.service.member.MemberService;
@@ -15,16 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -45,6 +45,7 @@ public class MemberController {
     /*
     User Page
     */
+    // 마이페이지
     @GetMapping("mypage")
     public String mypage(@AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model) {
 
@@ -55,6 +56,7 @@ public class MemberController {
         return "mypage/member/mypage";
     }
 
+    // 로그인
     @GetMapping("login")
     public String login(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                         Model model, MemberLoginDTO memberLoginDTO) {
@@ -102,6 +104,7 @@ public class MemberController {
         return "redirect:/mypage"; // 로그인 성공 시 마이페이지로 이동
     }
 
+    // 로그아웃
     @GetMapping("logout")
     public String logout() {
 
@@ -112,35 +115,33 @@ public class MemberController {
         return "redirect:/login";
     }
 
+    // 비밀번호 찾기
     @GetMapping("pwd-find")
-    public String resetPwd(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                          Model model, MemberResetPwdDTO memberResetPwdDTO){
+    public String pwdFind(@ModelAttribute("memberJoinDTO") MemberJoinDTO memberJoinDTO){
         return "mypage/member/pwd_find";
     }
     @PostMapping("pwd-find")
-    public String resetPwd(MemberResetPwdDTO memberResetPwdDTO, BindingResult bindingResult, Model model,
-                           HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+    public String pwdFind(MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model) throws Exception {
 
-        // 오류 발생 처리
         if(bindingResult.hasErrors()){
-            model.addAttribute("memberResetPwdDTO", memberResetPwdDTO);
+            model.addAttribute("memberJoinDTO", memberJoinDTO);
             return "mypage/member/pwd_find";
         }
 
-        Member resetPwd_checkBirth = memberService.checkBirth(loginMember.getEmail(), loginMember.getBirth());
+        Member member = memberService.pwdFind(memberJoinDTO.getEmail());
 
-        //이메일 또는 생년월일 불일치 처리
-        if (resetPwd_checkBirth == null) {
-            bindingResult.addError(new FieldError("memberLoginDTO", "birth", "이메일 또는 생년월일이 일치하지 않습니다."));
+        if(member == null) {
+            bindingResult.addError(new FieldError("memberJoinDTO", "email", "이메일이 존재하지 않습니다."));
             return "mypage/member/pwd_find";
         }
 
-        return "mypage/member/pwd_find";
+        return "redirect:/login";
     }
 
+    // 회원가입
     @GetMapping("join")
     public String join(MemberJoinDTO memberJoinDTO){
-        return "mypage/member_join";
+        return "mypage/member/join";
     }
     @PostMapping("join")
     public String join(@Valid @ModelAttribute() MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
@@ -191,6 +192,7 @@ public class MemberController {
         return "redirect:/login";
     }
 
+    // 회원정보 수정
     @GetMapping("profile-edit")
     public String getUpdate(){
         return "mypage/member/profile_edit";
@@ -200,6 +202,7 @@ public class MemberController {
         return "mypage/member/profile_edit";
     }
 
+    // 회원탈퇴
     @GetMapping("withdraw")
     public String withdraw(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                            Model model, MemberLoginDTO memberLoginDTO){
