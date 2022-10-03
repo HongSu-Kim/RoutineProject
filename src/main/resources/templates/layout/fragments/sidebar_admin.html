@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="sidebar">
-	<aside class="left-sidebar sidebar-dark" id="left-sidebar">
-		<div id="sidebar" class="sidebar sidebar-with-footer">
+	<aside class="left-sidebar" id="left-sidebar">
+		<div id="sidebar" class="sidebar sidebar-with-footer background-color-brown">
 			
 			<!-- SIDEBAR HEADER -->
 			<div class="app-brand">
 				<a href="#">
-					<img src="/img/logo.png" alt="Routine">
-					<span class="brand-name">Routine</span>
+					<img src="/img/logo/logo1.png" alt="Routine">
+					<span class="brand-name"></span>
 				</a>
 			</div>
 			<!-- SIDEBAR HEADER END -->
@@ -24,12 +24,12 @@
 						User
 					</li>
 					<li>
-						<a class="sidenav-item-link" href="/admin/user-list?level=MEMBER">
+						<a class="sidenav-item-link" href="/admin/user-list?role=MEMBER">
 							<span class="nav-text">Member List</span>
 						</a>
 					</li>
 					<li>
-						<a class="sidenav-item-link" href="/admin/user-list?level=ADMIN">
+						<a class="sidenav-item-link" href="/admin/user-list?role=ADMIN">
 							<span class="nav-text">Admin List</span>
 						</a>
 					</li>

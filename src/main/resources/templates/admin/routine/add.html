@@ -8,13 +8,14 @@
 
 			<div class="card card-default">
 				<div class="card-body">
-					<form action="" method="post" name="routineForm" th:object="${routineAddDTO}">
+					<form action="@{/admin/routine-add}" method="post" name="routineForm" th:object="${routineRecommendAddDTO}">
 						<div class="row">
 							<!-- memberId -->
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label for="memberId">회원번호</label>
-									<input type="text" class="form-control" th:field="*{memberId}">
+									<label for="memberNickname">닉네임</label>
+									<input type="hidden" class="form-control" th:field="*{memberId}">
+									<input type="text" class="form-control" th:field="*{memberNickname}" readonly>
 								</div>
 							</div>
 							<!-- totalTime -->
@@ -40,8 +41,8 @@
 						</div>
 						<!-- routineName -->
 						<div class="form-group mb-4">
-							<label for="routineName">루틴명</label>
-							<div class="error-message hide" id="routineName-error">제목을 입력해주세요.</div>
+							<label for="routineName">루틴명<span class="red">*</span></label>
+							<div class="error-message hide" id="routineName-error">루틴명을 입력해주세요.</div>
 							<div th:each="err : ${#fields.errors('routineName')}" class="error-message" th:text="${err}"></div>
 							<input type="text" class="form-control" th:field="*{routineName}">
 						</div>
@@ -50,11 +51,11 @@
 							<table class="table">
 								<thead class="thead-light">
 									<tr>
-										<th scope="col">icon</th>
-										<th scope="col">name</th>
-										<th scope="col">runtime</th>
+										<th scope="col" class="text-center th-width-50">icon<span class="red">*</span></th>
+										<th scope="col">name<span class="red">*</span></th>
+										<th scope="col">runtime<span class="red">*</span></th>
 										<th scope="col">content</th>
-										<th scope="col" class="text-center th-width-115">imp/del</th>
+										<th scope="col" class="text-center width-115">imp/del</th>
 									</tr>
 								</thead>
 								<tbody id="missionList">
@@ -70,7 +71,7 @@
 						</div>
 						<!-- button -->
 						<div class="d-flex justify-content-between mt-6">
-							<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
+							<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/routine-list|}';|" >목록</button>
 							<button class="btn btn-outline-brown mb-2" type="button" id="submitButton">완료</button>
 						</div>
 					</form>
@@ -79,6 +80,9 @@
 		
 		</div>
 	</div>
+	
+	<th:block th:replace="layout/fragments/modal_missionList :: modal"></th:block>
+	
 </th:block>
 
 <th:block layout:fragment="script">

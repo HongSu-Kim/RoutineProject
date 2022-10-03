@@ -1,10 +1,4 @@
 $(function() {
-
-	if ($('#missionIconId').val()) {
-		let iconSrc = $('input[name="modalIconId"][value=' + $('#missionIconId').val() + ']').siblings('input[name="modalIconSrc"]').val()
-		$('#iconSrc').attr('src', iconSrc)
-	}
-
 	$('.category').click(function() {
 		let category = $(this).siblings('input').val()
 		$('.icon-row').css('display', 'none')
@@ -20,5 +14,4 @@ $(function() {
 
 		$('.icon-group').click()
 	})
-
 })

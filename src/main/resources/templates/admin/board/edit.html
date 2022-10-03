@@ -7,14 +7,14 @@
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-body">
-					<form action="" method="post" th:object="${boardEditDTO}">
+					<form th:action="@{/admin/board-edit}" method="post" th:object="${boardEditDTO}">
 						<input type="hidden" class="form-control" th:field="*{boardId}">
 						<div class="row">
 							<!-- nickname -->
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label for="memberNickname">작성자</label>
-									<input type="text" class="form-control" th:field="*{memberNickname}">
+									<input type="text" class="form-control" th:field="*{memberNickname}" readonly>
 								</div>
 							</div>
 							<!-- category -->

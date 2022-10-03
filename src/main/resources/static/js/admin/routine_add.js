@@ -1,8 +1,11 @@
 $(function() {
 
 	$('#switch-active').click(function() {
-		if ($('#routineActive').val() == 'true') $('#routineActive').val('false')
-		else $('#routineActive').val('true')
+		if ($('#routineActive').val() == 'true') {
+			$('#routineActive').val('false')
+		} else {
+			$('#routineActive').val('true')
+		}
 	});
 
 	$('#addButton').click(function() {
@@ -11,7 +14,12 @@ $(function() {
 
 		$('#missionList').append(
 			'<tr>' +
-			'	<td><input type="text" class="form-control" id="iconId" name="iconId"></td>' +
+			'	<td>' +
+			'		<div class="form-group icon-group mb-0" data-toggle="modal" data-target="#missionListModal">' +
+			'			<input type="hidden" id="missionIconId" name="missionIconId"/>' +
+			'			<img src="https://item.kakaocdn.net/do/d535331cab7ad6095881f561e84c1886c37d537a8f2c6f426591be6b8dc7b36a" id="iconSrc">' +
+			'		</div>' +
+			'	</td>' +
 			'	<td><input type="text" class="form-control" id="missionName" name="missionName"></td>' +
 			'	<td><input type="text" class="form-control" id="runtime" name="runtime" onclick=saveTime(' + index + ') onblur="checkTime(' + index + ')" ></td>' +
 			'	<td><input type="text" class="form-control" id="missionContent" name="missionContent"></td>' +
@@ -22,9 +30,13 @@ $(function() {
 			'</tr>'
 		);
 
-		$('.removeButton').on('click', function() {
+		$('.removeButton').click(function() {
 			$(this).parents("tr").remove (); // remove the button
 		});
+
+		$('.icon-group').click(function() {
+			selectMission = $(this)
+		})
 
 		// $('.runtime').on('blur', function() {
 		// 	alert('asdas')
@@ -40,7 +52,25 @@ $(function() {
 	// 	$(this).parents("tr").remove (); // remove the button
 	// });
 
-	$('#submitButton').on('click', function() {
+	let selectMission
+
+	$('.category').click(function() {
+		let category = $(this).siblings('input').val()
+		$('.icon-row').css('display', 'none')
+		$('#' + category).css('display', 'flex')
+	})
+
+	$('.icon-img').click(function() {
+		let missionIconId = $(this).siblings('input[name="modalIconId"]').val()
+		let iconSrc = $(this).siblings('input[name="modalIconSrc"]').val()
+
+		selectMission.children('input[id="missionIconId"]').val(missionIconId)
+		selectMission.children('img[id="iconSrc"]').attr('src', iconSrc)
+
+		$('.icon-group').click()
+	})
+
+	$('#submitButton').click(function() {
 		// 유효성 검사
 		// routineName
 		if($('#routineName').val().trim() == ''){
@@ -52,16 +82,15 @@ $(function() {
 			$('#routineName-error').hide()
 		}
 
-		let iconId = document.getElementsByName('iconId')
+		let missionIconId = document.getElementsByName('missionIconId')
 		let missionName = document.getElementsByName('missionName')
 		let runtime = document.getElementsByName('runtime')
 		let missionContent = document.getElementsByName('missionContent')
 
-		for (let i = 0; i < iconId.length; i++) {
+		for (let i = 0; i < missionIconId.length; i++) {
 			// 아이콘
-			if (!iconId[i].value) {
+			if (!missionIconId[i].value) {
 				alert('아이콘 필수');
-				iconId[i].focus();
 				return;
 			}
 			// 미션명
@@ -75,7 +104,6 @@ $(function() {
 			if (runtime[i].value.trim() == '') {
 				alert('소요시간 필수');
 				runtime[i].value == '';
-				runtime[i].focus();
 				return;
 			} else {
 				let runtime = document.getElementsByName("runtime")[i].value;
@@ -94,8 +122,8 @@ $(function() {
 });
 
 function addTime(data1) {
-	let time1 = new Date('1970-01-01 ' + totalTime)
-	let time2 = new Date('1970-01-01 ' + data1)
+	let time1 = new Date('1994-07-02 ' + totalTime)
+	let time2 = new Date('1994-07-02  ' + data1)
 	time1.setHours(time1.getHours() + time2.getHours())
 	time1.setMinutes(time1.getMinutes() + time2.getMinutes())
 	time1.setSeconds(time1.getSeconds() + time2.getSeconds())
@@ -105,8 +133,8 @@ function addTime(data1) {
 }
 
 function subTime(data1) {
-	let time1 = new Date('1970-01-01 ' + totalTime)
-	let time2 = new Date('1970-01-01 ' + data1)
+	let time1 = new Date('1994-07-02 ' + totalTime)
+	let time2 = new Date('1994-07-02 ' + data1)
 	time1.setHours(time1.getHours() - time2.getHours())
 	time1.setMinutes(time1.getMinutes() - time2.getMinutes())
 	time1.setSeconds(time1.getSeconds() - time2.getSeconds())

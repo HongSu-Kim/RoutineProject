@@ -40,14 +40,14 @@ public class BoardService {
 
     // QnA 리스트
     @Transactional(readOnly = true)
-    public List<BoardQnaListDTO> getQnaList(String category, String memberId) {
+    public List<BoardQnaListDTO> getQnaList(String category, Long memberId) {
 
         Type type = new TypeToken<List<BoardQnaListDTO>>() {}.getType();
 
         if (memberId == null || memberId.equals(""))
             return modelMapper.map(boardRepository.findAllByCategory(category), type);
         else
-            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, Long.parseLong(memberId)), type);
+            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, memberId), type);
     }
 
     // 게시글 작성
@@ -61,7 +61,6 @@ public class BoardService {
     }
 
     // 게시글 한개
-    @Transactional(readOnly = true)
     public BoardReadDTO getBoard(Long boardId) {
         boardMapper.updateHits(boardId); // boardHits++
         BoardReadDTO boardReadDTO = modelMapper.map(boardRepository.findById(boardId), BoardReadDTO.class);

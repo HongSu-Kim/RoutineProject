@@ -10,11 +10,11 @@
           <table class="table">
             <thead class="thead-light">
               <tr>
-                <th scope="col">No.</th>
-                <th scope="col">Email</th>
+                <th scope="col" class="width-100">No.</th>
+                <th scope="col" class="width-200">Email</th>
                 <th scope="col">Title</th>
-                <th scope="col">Created</th>
-                <th scope="col">Reply</th>
+                <th scope="col" class="width-200">Created</th>
+                <th scope="col" class="width-100">Reply</th>
               </tr>
             </thead>
             <tbody>
@@ -24,7 +24,7 @@
               <tr th:each="dto : ${lists}">
                 <td scope="row" th:text="${dto.boardId }"></td>
                 <td>
-                  <a th:href="@{|/admin/board-list?boardCategory=QnA&membarId=${dto.memberId}|}" th:text="${dto.memberEmail}">Email</a>
+                  <a th:href="@{|/admin/board-list?boardCategory=QnA&memberId=${dto.memberId}|}" th:text="${dto.memberEmail}">Email</a>
                 </td>
                 <td>
                   <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}" th:text="${dto.boardTitle}">Title</a>
