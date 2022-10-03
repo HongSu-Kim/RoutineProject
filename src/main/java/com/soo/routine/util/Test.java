@@ -1,4 +1,5 @@
 package com.soo.routine.util;
 
-public class Test2 {
+public class Test {
+    // Test
 }
