@@ -1,7 +1,6 @@
 package com.soo.routine.controller.board;
 
 import com.soo.routine.dto.board.*;
-import com.soo.routine.dto.board.ReplyWriteDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.service.board.BoardService;

@@ -7,7 +7,7 @@
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-body">
-					<form action="" method="post" th:object="${boardWriteDTO}">
+					<form th:action="@{/board-write}" method="post" th:object="${boardWriteDTO}">
 						<div class="row">
 							<!-- nickname -->
 							<div class="col-lg-6">

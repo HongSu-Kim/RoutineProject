@@ -4,10 +4,26 @@
 	display: inline-block;
 }
 
+.display-block {
+	display: block;
+}
+
 .icon-group {
 	text-align: center;
 }
 
 .icon-group img {
 	width: 100pt;
+}
+
+.modal-header {
+	border: none;
+}
+
+.hide {
+	display: none;
+}
+
+textarea {
+	resize: none;
 }

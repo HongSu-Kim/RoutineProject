@@ -76,6 +76,7 @@ CREATE TABLE harugom.ROUTINE_SET (
 CREATE TABLE harugom.ICON_CATEGORY (
 	icon_category_id	integer			NOT NULL	AUTO_INCREMENT,
 	category_name		varchar(50)		NOT NULL,
+	icon_path			varchar(50)		NOT NULL,
 	pay					boolean			DEFAULT TRUE,
 	CONSTRAINT PK_ICON_CATEGORY PRIMARY KEY (icon_category_id)
 );
@@ -107,5 +108,57 @@ INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,role,NICKNAME,PWD,MEMBE
     VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'ADMIN', 'HIROKAZU', 'hirokazu7', TRUE);
 INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,role,NICKNAME,PWD,MEMBER_ACTIVE)
     VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'ADMIN', 'KRISTAL', 'kristal1', TRUE);
-INSERT INTO harugom.ICON_CATEGORY(CATEGORY_NAME, PAY) VALUES('logo', FALSE);
-INSERT INTO harugom.MISSION_ICON(ICON_FILE_NAME, ICON_CATEGORY_ID) VALUES('favicon.png', 1);
+
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('반려동물', 'animal', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('클린', 'clean', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('커뮤니케이션', 'communication', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('요리', 'cook', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('전가기기', 'electronics', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('이모티콘', 'emoji', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('운동', 'exercise', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('음식', 'food', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('취미', 'hobby', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('집', 'home', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('의료', 'medical', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('아침', 'morning', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('장소', 'place', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('계획', 'plant', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('쇼핑', 'shopping', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('학습', 'study', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('교통', 'traffic', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('날씨', 'weather', FALSE);
+INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('업무', 'work', FALSE);
+
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'BATH.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'CAT.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'FEEDER.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'KOALA .png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'LOBSTER.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'OCTOPUS.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'PANDA.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'PENGUIN.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'PET FEEDER.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'SHEEP.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'SHRIMP.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'TURTLE.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(1, 'WHALE.png');
+
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'BATH TUB.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'BATHUP.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'CUT.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'DELETE.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'LAUNDRY.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'LAUNDRY2.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'RECYCLE.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'SHOWER.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'SHOWER HEAD.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'SHOWER2.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'TAP WATER.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'TRASH BIN.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'WASHING.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'Washing Hand.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'Washing Hand Use Soap_1.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'Washing Hand Use Soap_2.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'WATER.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'WATER TAP.png');
+INSERT INTO harugom.MISSION_ICON(icon_category_id, icon_file_name) VALUES(2, 'WATER2.png');
