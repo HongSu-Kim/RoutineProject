@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class MemberResetPwdDTO {
+public class PwdResetDTO {
 
     @NotBlank(message="이메일 주소를 입력하세요.")
     @Email(message = "이메일 형식에 맞게 입력하세요.")
