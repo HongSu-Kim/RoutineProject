@@ -48,7 +48,13 @@ public class Routine {
     public void updateRoutine(RoutineUpdateDTO routineUpdateDTO) {
         this.routineName = routineUpdateDTO.getRoutineName();
         this.routineActive = routineUpdateDTO.isRoutineActive();
-        this.totalTime = routineUpdateDTO.getTotalTime();
+        this.totalTime = LocalTime.parse(routineUpdateDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
+    }
+
+    // 루틴 수정
+    public void updateRoutineSet(RoutineUpdateDTO routineUpdateDTO) {
+        this.routineName = routineUpdateDTO.getRoutineName();
+        this.routineActive = routineUpdateDTO.isRoutineActive();
     }
 
 }

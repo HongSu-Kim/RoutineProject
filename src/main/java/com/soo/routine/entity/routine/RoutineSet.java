@@ -33,5 +33,10 @@ public class RoutineSet implements Serializable {
         return this;
     }
 
+    public void updateRoutineSet(boolean weekActive, String startTime) {
+        this.weekActive = weekActive;
+        this.startTime = LocalTime.parse(startTime);
+    }
+
 
 }
