@@ -44,14 +44,14 @@ public class MissionController {
         List<MissionReadDTO> lists = missionService.getMissionList("");
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Recommend Mission List");
-        return "admin/mission_list";
+        return "admin/mission/list";
     }
 
     // 추천 미션 추가 페이지
     @GetMapping("admin/mission-add")
     public String adminMissionAdd(Model model, MissionRecommendAddDTO missionRecommendAddDTO) {
         model.addAttribute("pageName", "Recommend Mission Add");
-        return "admin/mission_add";
+        return "admin/mission/add";
     }
 
     // 추천 미션 추가
@@ -70,7 +70,7 @@ public class MissionController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageName", "Recommend Mission Add");
-            return "admin/mission_add";
+            return "admin/mission/add";
         }
 
         missionService.addRecommendMission(missionRecommendAddDTO);
@@ -95,7 +95,7 @@ public class MissionController {
         model.addAttribute("routineId", routineId);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("iconList", iconList);
-        return "routine/mission_add";
+        return "routine/mission/add";
     }
 
     @PostMapping("mission-add")
@@ -106,7 +106,7 @@ public class MissionController {
             List<MissionIconDTO> iconList = missionIconService.getIconList();
             model.addAttribute("categoryList", categoryList);
             model.addAttribute("iconList", iconList);
-            return "routine/mission_add";
+            return "routine/mission/add";
         }
 
         missionService.addMission(missionAddDTO);

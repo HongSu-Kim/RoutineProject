@@ -42,11 +42,11 @@ public class BoardController {
         if (boardCategory == null || !boardCategory.equals("QnA")) {
             List<BoardListDTO> lists = boardService.getBoardList(boardCategory);
             model.addAttribute("lists", lists);
-            return "admin/board_list";
+            return "admin/board/list";
         } else {
             List<BoardQnaListDTO> lists = boardService.getQnaList(boardCategory, memberId);
             model.addAttribute("lists", lists);
-            return "admin/qna_list";
+            return "admin/qna/list";
         }
     }
 
@@ -62,7 +62,7 @@ public class BoardController {
 
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", "Board Write");
-        return "admin/board_write";
+        return "admin/board/write";
     }
 
     // 게시글 작성
@@ -71,7 +71,7 @@ public class BoardController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("pageName", "Board Write");
-            return "admin/board_write";
+            return "admin/board/write";
         }
 
         boardService.writeBoard(boardWriteDTO);
@@ -97,9 +97,9 @@ public class BoardController {
         model.addAttribute("pageName", "Board Detail");
 
         if (category.equals("QnA"))
-            return "admin/qna_detail";
+            return "admin/qna/detail";
         else
-            return "admin/board_detail";
+            return "admin/board/detail";
     }
 
     // 게시글 수정 페이지
@@ -116,7 +116,7 @@ public class BoardController {
 
         model.addAttribute("boardEditDTO", boardReadDTO);
         model.addAttribute("pageName", "Board Edit");
-        return "admin/board_edit";
+        return "admin/board/edit";
     }
 
     // 게시글 수정
@@ -125,7 +125,7 @@ public class BoardController {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("pageName", "Board Edit");
-            return "admin/board_edit";
+            return "admin/board/edit";
         }
 
         boardService.editBoard(boardEditDTO);
@@ -138,47 +138,47 @@ public class BoardController {
     */
     @GetMapping("board-list")
     public String getBoardList(){
-        return "mypage/board_list";
+        return "mypage/board/list";
     }
     @PostMapping("board-list")
     public String postBoardList(){
-        return "mypage/board_list";
+        return "mypage/board/list";
     }
 
     @GetMapping("/board-detail")
     public String getBoardDetail(){
-        return "mypage/board_detail";
+        return "mypage/board/detail";
     }
     @PostMapping("board-detail")
     public String postBoardDetail(){
-        return "mypage/board_detail";
+        return "mypage/board/detail";
     }
 
     @GetMapping("board-write")
     public String getBoardWrite(){
-        return "mypage/board_write";
+        return "mypage/board/write";
     }
     @PostMapping("board-write")
     public String postBoardWrite(){
-        return "mypage/board_write";
+        return "mypage/board/write";
     }
 
     @GetMapping("board-edit")
     public String getBoardEdit(){
-        return "mypage/board_edit";
+        return "mypage/board/edit";
     }
     @PostMapping("/board-edit")
     public String postBoardEdit(){
-        return "mypage/board_edit";
+        return "mypage/board/edit";
     }
 
     @GetMapping("board-delete")
     public String getBoardDelete(){
-        return "mypage/board_delete";
+        return "mypage/board/delete";
     }
     @PostMapping("/board-delete")
     public String postBoardDelete(){
-        return "mypage/board_delete";
+        return "mypage/board/delete";
     }
 
 }
