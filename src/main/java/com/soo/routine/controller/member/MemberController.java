@@ -3,9 +3,8 @@ package com.soo.routine.controller.member;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
-import com.soo.routine.dto.member.PwdResetDTO;
-import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.member.Member;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -15,16 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -236,15 +235,20 @@ public class MemberController {
     /*
     Admin Page
     */
+
+    @GetMapping("admin")
+    public String admin() {
+        return "redirect:/admin/user-list?role=MEMBER";
+    }
+
     @GetMapping("admin/user-list")
     public String memberList(Model model, Role role) {
 
         List<MemberReadDTO> lists = memberService.getMemberList(role);
 
         model.addAttribute("lists", lists);
-//        model.addAttribute("role", role);
-        model.addAttribute("pageName", role + " List");
-        return "admin/user_list";
+        model.addAttribute("pageName", role.name() + " List");
+        return "admin/user/list";
     }
 
 }
