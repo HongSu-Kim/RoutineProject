@@ -52,7 +52,7 @@ public class MemberController {
 
         model.addAttribute("member", loginMember);
 
-        return "mypage/member_mypage";
+        return "mypage/member/mypage";
     }
 
     @GetMapping("login")
@@ -60,7 +60,7 @@ public class MemberController {
                         Model model, MemberLoginDTO memberLoginDTO) {
 
         if (loginMember == null) {
-            return "mypage/member_login";
+            return "mypage/member/login";
         }
 
         model.addAttribute("member", loginMember);
@@ -75,7 +75,7 @@ public class MemberController {
         // 오류 발생 처리
         if(bindingResult.hasErrors()){
             model.addAttribute("memberLoginDTO", memberLoginDTO);
-            return "mypage/member_login";
+            return "mypage/member/login";
         }
 
         Member login_checkEmail = memberService.checkEmail(memberLoginDTO.getEmail()); // service를 호출해서
@@ -84,15 +84,15 @@ public class MemberController {
         //로그인 실패 처리
         if (login_checkEmail == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "email", "이메일이 존재하지 않습니다.")); // 오류 생성하고
-            return "mypage/member_login"; // 다시 로그인 페이지로 이동
+            return "mypage/member/login"; // 다시 로그인 페이지로 이동
         }
         if (login_checkPwd == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
-            return "mypage/member_login"; // 다시 로그인 페이지로 이동
+            return "mypage/member/login"; // 다시 로그인 페이지로 이동
         }
         if (!login_checkEmail.isMember_active()) {
             bindingResult.addError(new FieldError("memberLoginDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
-            return "mypage/member_login";
+            return "mypage/member/login";
         }
 
         // 로그인 성공 처리
@@ -112,19 +112,19 @@ public class MemberController {
         return "redirect:/login";
     }
 
-    @GetMapping("resetPwd")
+    @GetMapping("pwd-find")
     public String resetPwd(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                           Model model, MemberResetPwdDTO memberResetPwdDTO){
-        return "mypage/member_resetPwd";
+        return "mypage/member/pwd_find";
     }
-    @PostMapping("resetPwd")
+    @PostMapping("pwd-find")
     public String resetPwd(MemberResetPwdDTO memberResetPwdDTO, BindingResult bindingResult, Model model,
                            HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
 
         // 오류 발생 처리
         if(bindingResult.hasErrors()){
             model.addAttribute("memberResetPwdDTO", memberResetPwdDTO);
-            return "mypage/member_resetPwd";
+            return "mypage/member/pwd_find";
         }
 
         Member resetPwd_checkBirth = memberService.checkBirth(loginMember.getEmail(), loginMember.getBirth());
@@ -132,10 +132,10 @@ public class MemberController {
         //이메일 또는 생년월일 불일치 처리
         if (resetPwd_checkBirth == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "birth", "이메일 또는 생년월일이 일치하지 않습니다."));
-            return "mypage/member_resetPwd";
+            return "mypage/member/pwd_find";
         }
 
-        return "mypage/member_resetPwd";
+        return "mypage/member/pwd_find";
     }
 
     @GetMapping("join")
@@ -148,14 +148,14 @@ public class MemberController {
         //검증 실패시
         if(bindingResult.hasErrors()){
             model.addAttribute("memberJoinDTO", memberJoinDTO);
-            return "mypage/member_join";
+            return "mypage/member/join";
         }
 
         Member join_checkEmail = memberService.checkEmail(memberJoinDTO.getEmail());
 
         if (join_checkEmail != null) {
             bindingResult.addError(new FieldError("memberJoinDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
-            return "mypage/member_join";
+            return "mypage/member/join";
         }
 
         ModelMapper modelMapper = new ModelMapper();
@@ -191,19 +191,19 @@ public class MemberController {
         return "redirect:/login";
     }
 
-    @GetMapping("editProfile")
+    @GetMapping("profile-edit")
     public String getUpdate(){
-        return "mypage/member_editProfile";
+        return "mypage/member/profile_edit";
     }
-    @PostMapping("editProfile")
+    @PostMapping("profile-edit")
     public String postUpdate(){
-        return "mypage/member_editProfile";
+        return "mypage/member/profile_edit";
     }
 
     @GetMapping("withdraw")
     public String withdraw(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                            Model model, MemberLoginDTO memberLoginDTO){
-        return "mypage/member_withdraw";
+        return "mypage/member/withdraw";
     }
     @PostMapping("withdraw")
     public String withdraw(MemberLoginDTO memberLoginDTO, BindingResult bindingResult, Model model,
@@ -213,7 +213,7 @@ public class MemberController {
 
         if (login_checkPwd == null) {
             bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
-            return "mypage/member_withdraw"; // 다시 회원탈퇴 페이지로 이동
+            return "mypage/member/withdraw"; // 다시 회원탈퇴 페이지로 이동
 
         // 비밀번호 일치 시
         }else {
