@@ -42,6 +42,7 @@ public class MissionController {
         }
 
         List<MissionReadDTO> lists = missionService.getMissionList("");
+
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Recommend Mission List");
         return "admin/mission/list";
@@ -50,6 +51,12 @@ public class MissionController {
     // 추천 미션 추가 페이지
     @GetMapping("admin/mission-add")
     public String adminMissionAdd(Model model, MissionRecommendAddDTO missionRecommendAddDTO) {
+
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
+
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("iconList", iconList);
         model.addAttribute("pageName", "Recommend Mission Add");
         return "admin/mission/add";
     }
@@ -69,11 +76,55 @@ public class MissionController {
         }
 
         if (bindingResult.hasErrors()) {
+            List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+            List<MissionIconDTO> iconList = missionIconService.getIconList();
+            model.addAttribute("categoryList", categoryList);
+            model.addAttribute("iconList", iconList);
             model.addAttribute("pageName", "Recommend Mission Add");
             return "admin/mission/add";
         }
 
         missionService.addRecommendMission(missionRecommendAddDTO);
+
+        return "redirect:/admin/mission-list";
+    }
+
+    // 추천 미션 추가 페이지
+    @GetMapping("admin/mission-edit")
+    public String adminMissionEdit(Model model, MissionRecommendAddDTO missionRecommendAddDTO, Long missionId) {
+
+        MissionReadDTO missionReadDTO = missionService.getMission(missionId);
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
+
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("iconList", iconList);
+        model.addAttribute("missionRecommendAddDTO", missionReadDTO);
+        model.addAttribute("pageName", "Recommend Mission Edit");
+        return "admin/mission/edit";
+    }
+
+    @PostMapping("admin/mission-edit")
+    public String adminMissionEdit(Model model, @Valid MissionRecommendEditDTO missionRecommendEditDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+            List<MissionIconDTO> iconList = missionIconService.getIconList();
+            model.addAttribute("categoryList", categoryList);
+            model.addAttribute("iconList", iconList);
+            model.addAttribute("pageName", "Recommend Mission Edit");
+            return "admin/mission/edit";
+        }
+
+        missionService.editRecommendMission(missionRecommendEditDTO);
+
+        return "redirect:/admin/mission-list";
+    }
+
+    @GetMapping("admin/mission-delete")
+    public String adminMissionDelete(Long missionId) {
+
+        missionService.deleteMission(missionId);
 
         return "redirect:/admin/mission-list";
     }

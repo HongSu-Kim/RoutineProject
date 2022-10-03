@@ -2,6 +2,7 @@ package com.soo.routine.entity.mission;
 
 import com.soo.routine.dto.mission.MissionAddDTO;
 import com.soo.routine.dto.mission.MissionRecommendAddDTO;
+import com.soo.routine.dto.mission.MissionRecommendEditDTO;
 import com.soo.routine.entity.routine.Routine;
 import lombok.Getter;
 
@@ -58,4 +59,10 @@ public class Mission {
         return this;
     }
 
+	public void edit(MissionRecommendEditDTO missionRecommendEditDTO, MissionIcon missionIcon) {
+        this.missionIcon = missionIcon;
+        this.missionName = missionRecommendEditDTO.getMissionName();
+        this.runTime = LocalTime.parse(missionRecommendEditDTO.getRunTime());
+        this.missionContent = missionRecommendEditDTO.getMissionContent();
+	}
 }

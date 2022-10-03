@@ -11,11 +11,11 @@
 					<table class="table">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col">No.</th>
-								<th scope="col">Name</th>
-								<th scope="col">Mission Count</th>
-								<th scope="col">Total Time</th>
-								<th scope="col">Active</th>
+								<th scope="col" class="width-50">No.</th>
+								<th scope="col" class="width-200">Name</th>
+								<th scope="col" class="width-150">Mission Count</th>
+								<th scope="col" class="width-115">Total Time</th>
+								<th scope="col" class="width-100">Active</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -36,7 +36,7 @@
 					</table>
 					<!-- button -->
 					<div class="d-flex justify-content-end mt-6">
-						<button class="btn btn-outline-brown mb-2" onclick="location.href='/admin/routine-add';">루틴 추가</button>
+						<button class="btn btn-outline-brown mb-2" th:onclick="|location.href='@{/admin/routine-add}';|">루틴 추가</button>
 					</div>
 				</div>
 			</div>

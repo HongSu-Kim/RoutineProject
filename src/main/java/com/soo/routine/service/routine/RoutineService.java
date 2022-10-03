@@ -2,9 +2,12 @@ package com.soo.routine.service.routine;
 
 import com.soo.routine.dto.routine.RoutineAddDTO;
 import com.soo.routine.dto.routine.RoutineReadDTO;
+import com.soo.routine.dto.routine.RoutineRecommendAddDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
+import com.soo.routine.entity.mission.Mission;
+import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
 import com.soo.routine.entity.routine.RoutineSet;
 import com.soo.routine.entity.routine.Week;
@@ -39,6 +42,25 @@ public class RoutineService {
     private final ModelMapper modelMapper;
 
     // 루틴 추가
+    public void addRecommendRoutine(RoutineRecommendAddDTO routineRecommendAddDTO) {
+
+        Member member = memberRepository.findById(routineRecommendAddDTO.getMemberId()).get();
+
+        // save routine
+        Routine routine = new Routine().addRecommendRoutine(routineRecommendAddDTO, member);
+        routineRepository.save(routine);
+
+        // save mission
+        if (routineRecommendAddDTO.getMissionIconId() != null) {
+            for (int i = 0; i < routineRecommendAddDTO.getMissionIconId().length; i++) {
+                MissionIcon missionIcon = missionIconRepository.findById(routineRecommendAddDTO.getMissionIconId()[i]).get();
+                Mission mission = new Mission().addRecommend(routine, missionIcon, routineRecommendAddDTO.getMissionName()[i],
+                routineRecommendAddDTO.getRuntime()[i], routineRecommendAddDTO.getMissionContent()[i] != null ? routineRecommendAddDTO.getMissionContent()[i] : "");
+                missionRepository.save(mission);
+            }
+        }
+
+    }// 루틴 추가
     public void addRoutine(RoutineAddDTO routineAddDTO) {
 
         Member member = memberRepository.findById(routineAddDTO.getMemberId()).get();
