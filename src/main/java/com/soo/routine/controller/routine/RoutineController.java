@@ -36,14 +36,14 @@ public class RoutineController {
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
         if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
+            return "redirect:/login";
         }
 
         List<RoutineReadDTO> lists = routineService.getRecommendRoutineList();
 
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Routine List");
-        return "admin/routine_list";
+        return "admin/routine/list";
     }
 
     // admin - 추천 루틴 추가 페이지
@@ -53,11 +53,11 @@ public class RoutineController {
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
         if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
+            return "redirect:/login";
         }
 
         model.addAttribute("pageName", "Routine Add");
-        return "admin/routine_add";
+        return "admin/routine/add";
     }
 
     // admin - 추천 루틴 추가
@@ -66,7 +66,7 @@ public class RoutineController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("pageName", "Routine Add");
-            return "admin/routine_add";
+            return "admin/routine/add";
         }
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
@@ -83,12 +83,12 @@ public class RoutineController {
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
         if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
+            return "redirect:/login";
         }
 
         model.addAttribute("mode", "update");
         model.addAttribute("pageName", "Routine Update");
-        return "admin/routine_add";
+        return "admin/routine/add";
     }
 
     // admin - 추천 루틴 수정
@@ -98,12 +98,13 @@ public class RoutineController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("mode", "update");
             model.addAttribute("pageName", "Routine Update");
-            return "admin/routine_add";
+            return "admin/routine/add";
         }
 
-        Long memberId = 1L;
-        routineService.updateRoutine(routineUpdateDTO);
-        List<RoutineReadDTO> lists = routineService.getRoutineList(memberId);
+        Member loginMember = (Member) httpSession.getAttribute("loginMember");
+
+        routineService.updateRoutine    (routineUpdateDTO);
+        List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
         return "redirect:/admin/routine-list";
@@ -126,7 +127,7 @@ public class RoutineController {
         List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
-        return "routine/routine_list";
+        return "routine/routine/list";
     }
 
     // 루틴 추가 페이지
@@ -139,7 +140,7 @@ public class RoutineController {
 
         model.addAttribute("weekEnum", Week.class.getEnumConstants());
 
-        return "routine/routine_add";
+        return "routine/routine/add";
     }
 
     // 루틴 추가
@@ -148,7 +149,7 @@ public class RoutineController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("weekEnum", Week.class.getEnumConstants());
-            return "routine/routine_add";
+            return "routine/routine/add";
         }
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
@@ -174,7 +175,36 @@ public class RoutineController {
         }
 
         model.addAttribute("routineDTO" , routineReadDTO);
-        return "routine/routine_detail";
+        return "routine/routine/detail";
+    }
+
+    // 루틴 수정 페이지
+    @GetMapping("routine-edit")
+    public String routineEdit(Model model, RoutineUpdateDTO routineUpdateDTO, Long routineId) {
+
+        if (httpSession.getAttribute("loginMember") == null) {
+            return "redirect:/login";
+        }
+
+        routineUpdateDTO = routineService.getRoutineUpdateDTO(routineId);
+
+        model.addAttribute("weekEnum", Week.class.getEnumConstants());
+        model.addAttribute("routineUpdateDTO", routineUpdateDTO);
+        return "routine/routine/edit";
+    }
+
+    // 루틴 수정
+    @PostMapping("routine-edit")
+    public String routineEdit(Model model, @Valid RoutineUpdateDTO routineUpdateDTO, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("weekEnum", Week.class.getEnumConstants());
+            return "routine/routine/edit";
+        }
+
+        routineService.updateRoutineSet(routineUpdateDTO);
+
+        return "redirect:/routine-detail?routineId=" + routineUpdateDTO.getRoutineId();
     }
 
     // 루틴 실행 페이지
@@ -185,14 +215,14 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        return "routine/routine_start";
+        return "routine/routine/start";
     }
 
     // 루틴 종료 페이지
     @GetMapping("routine-finish")
     public String routineFinish() {
 
-        return "routine/routine_finish";
+        return "routine/routine/finish";
     }
 
 }

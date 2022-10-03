@@ -31,7 +31,4 @@ public class RoutineAddDTO {
     private String[] runtime;
     private String[] missionContent;
 
-//    private List<RoutineSet> routineSetList;
-//    private List<Mission> missionList;
-
 }

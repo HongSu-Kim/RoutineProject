@@ -19,6 +19,7 @@ public class RoutineReadDTO {
     private LocalTime totalTime;
 
     private RoutineSet routineSet;
+    private List<RoutineSet> routineSetList;
 
     private List<Mission> missionList;
 
