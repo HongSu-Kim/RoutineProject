@@ -33,7 +33,7 @@ public class ReplyController {
         if (bindingResult.hasErrors()) {
             model.addAttribute(bindingResult);
             model.addAttribute("replyDTO", replyWriteDTO);
-            return "admin/board_detail";
+            return "admin/board/detail";
         }
 
         replyService.createReply(replyWriteDTO);
