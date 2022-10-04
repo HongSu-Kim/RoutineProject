@@ -8,7 +8,8 @@
 			
 			<div class="card card-default">
 				<div class="card-body">
-					<form action="@{/admin/routine-add}" method="post" name="routineForm" th:object="${routineRecommendEditDTO}">
+					<form th:action="@{/admin/routine-edit}" method="post" name="routineForm" th:object="${routineRecommendEditDTO}">
+						<input type="hidden" th:field="*{routineId}"/>
 						<div class="row">
 							<!-- memberId -->
 							<div class="col-lg-6">
@@ -53,12 +54,31 @@
 								<tr>
 									<th scope="col" class="text-center th-width-50">icon<span class="red">*</span></th>
 									<th scope="col">name<span class="red">*</span></th>
-									<th scope="col">runtime<span class="red">*</span></th>
+									<th scope="col">runTime<span class="red">*</span></th>
 									<th scope="col">content</th>
 									<th scope="col" class="text-center width-115">imp/del</th>
 								</tr>
 								</thead>
 								<tbody id="missionList">
+									<tr th:each="mission, i : ${routineRecommendEditDTO.missionList}">
+										<td>
+											<input type="hidden" id="missionId" name="missionId" th:value="${mission.id}"/>
+											<div class="form-group icon-group mb-0" data-toggle="modal" data-target="#missionListModal">
+												<input type="hidden" id="missionIconId" name="missionIconId" th:value="${mission.missionIcon.id}"/>
+												<img th:src="@{|/img/icon/${mission.missionIcon.IconCategory.iconPath}/${mission.missionIcon.iconFileName}|}" id="iconSrc">
+											</div>
+										</td>
+										<td><input type="text" class="form-control" id="missionName" name="missionName" th:value="${mission.missionName}"></td>
+										<td><input type="text" class="form-control" id="runTime" name="runTime" th:value="${mission.runTime}"
+										           th:onclick="|saveTime(${i.index})|" th:onblur="|checkTime(${i.index})|" ></td>
+										<td><input type="text" class="form-control" id="missionContent" name="missionContent" th:value="${mission.missionContent}"></td>
+										<td>
+											<div class="btn-group" role="group" aria-label="Basic example">
+												<button type="button" class="btn btn-sm btn-outline-primary px-2">미션</button>
+												<button type="button" class="btn btn-sm btn-outline-primary px-2 removeButton">삭제</button>
+											</div>
+										</td>
+									</tr>
 								</tbody>
 								<tfoot>
 								<tr>
@@ -84,4 +104,9 @@
 	<th:block th:replace="layout/fragments/modal_missionList :: modal"></th:block>
 	
 </th:block>
+
+<th:block layout:fragment="script">
+	<script src="/js/admin/routine_edit.js"></script>
+</th:block>
+
 </html>

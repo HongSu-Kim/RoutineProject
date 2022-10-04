@@ -26,7 +26,7 @@
 							<tr th:each="dto : ${lists}">
 								<td scope="row" th:text="${dto.routineId}">Id</td>
 								<td>
-									<a class="btn btn-link text-transform-none px-0 py-0" th:href="@{|/admin/routine-detail?routineId=${dto.routineId}|}" th:text="${dto.routineName}">Name</a>
+									<a class="btn btn-link text-transform-none px-0 py-0" th:href="@{|/admin/routine-edit?routineId=${dto.routineId}|}" th:text="${dto.routineName}">Name</a>
 								</td>
 								<td th:text="${#lists.size(dto.missionList)}">MissionCount</td>
 								<td th:text="${#temporals.format(dto.totalTime, 'HH:mm:ss')}">TotalTime</td>

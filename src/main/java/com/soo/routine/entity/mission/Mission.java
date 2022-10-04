@@ -59,10 +59,19 @@ public class Mission {
         return this;
     }
 
-	public void edit(MissionRecommendEditDTO missionRecommendEditDTO, MissionIcon missionIcon) {
+    // 추천 미션수정
+    public void edit(MissionRecommendEditDTO missionRecommendEditDTO, MissionIcon missionIcon) {
         this.missionIcon = missionIcon;
         this.missionName = missionRecommendEditDTO.getMissionName();
         this.runTime = LocalTime.parse(missionRecommendEditDTO.getRunTime());
         this.missionContent = missionRecommendEditDTO.getMissionContent();
-	}
+    }
+
+    // 루틴 내 미션 수정
+    public void edit(MissionIcon missionIcon, String missionName, String runTime, String missionContent) {
+        this.missionIcon = missionIcon;
+        this.missionName = missionName;
+        this.runTime = LocalTime.parse(runTime);
+        this.missionContent = missionContent;
+    }
 }
