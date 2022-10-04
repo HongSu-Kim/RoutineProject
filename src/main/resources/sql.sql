@@ -11,9 +11,9 @@ DROP TABLE IF EXISTS harugom.MEMBER;
 
 CREATE TABLE harugom.MEMBER (
 	member_id		integer			NOT NULL	AUTO_INCREMENT,
-	email			varchar(20)		NOT NULL UNIQUE,
+	email			varchar(20)		NOT NULL	UNIQUE,
 	pwd				varchar(100)	NOT NULL,
-	nickname		varchar(20)		NOT NULL,
+	nickname		varchar(20)		NOT NULL	UNIQUE,
 	gender			varchar(10)		NOT NULL,
 	birth			date			NOT NULL,
 	role			varchar(20)		NOT NULL,

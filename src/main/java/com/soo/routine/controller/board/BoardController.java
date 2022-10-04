@@ -28,7 +28,7 @@ public class BoardController {
 
     // 게시글 리스트 페이지
     @GetMapping("admin/board-list")
-    public String boardList(Model model, String boardCategory, String memberId) {
+    public String boardList(Model model, String boardCategory, Long memberId) {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
@@ -59,6 +59,9 @@ public class BoardController {
         if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
             return "redirect:/";
         }
+
+        boardWriteDTO.setMemberId(loginMember.getId());
+        boardWriteDTO.setMemberNickname(loginMember.getNickname());
 
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", "Board Write");
@@ -96,10 +99,14 @@ public class BoardController {
         model.addAttribute("boardCategory", category);
         model.addAttribute("pageName", "Board Detail");
 
-        if (category.equals("QnA"))
+        if (category.equals("QnA")) {
+            replyWriteDTO.setMemberId(loginMember.getId());
+            replyWriteDTO.setBoardId(boardId);
+            model.addAttribute("replyWriteDTO", replyWriteDTO);
             return "admin/qna/detail";
-        else
+        } else {
             return "admin/board/detail";
+        }
     }
 
     // 게시글 수정 페이지

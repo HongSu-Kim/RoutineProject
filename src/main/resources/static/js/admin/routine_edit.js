@@ -1,4 +1,14 @@
 $(function() {
+	if($('#routineActive').val() == "false") {
+		$('#switch-active').click()
+	}
+
+	if ($('#missionList tr').length != 0) {
+		let index = $('#missionList tr').length
+		for (let i = 0; i < index; i++) {
+			checkTime(i)
+		}
+	}
 
 	$('#switch-active').click(function() {
 		if ($('#routineActive').val() == 'true') {
@@ -15,6 +25,7 @@ $(function() {
 		$('#missionList').append(
 			'<tr>' +
 			'	<td>' +
+			'		<input type="hidden" id="missionId" name="missionId"/>' +
 			'		<div class="form-group icon-group mb-0" data-toggle="modal" data-target="#missionListModal">' +
 			'			<input type="hidden" id="missionIconId" name="missionIconId"/>' +
 			'			<img src="https://item.kakaocdn.net/do/d535331cab7ad6095881f561e84c1886c37d537a8f2c6f426591be6b8dc7b36a" id="iconSrc">' +
@@ -38,19 +49,11 @@ $(function() {
 			selectMission = $(this)
 		})
 
-		// $('.runTime').on('blur', function() {
-		// 	alert('asdas')
-		// 	let runTime = document.getElementsByName('runTime')
-		// 	let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/
-		// 	if (!reg.test(this.value)) {
-		// 		alert('asdas')
-		// 	}
-		// });
 	});
 
-	// $('#removeButton').on('click', function() {
-	// 	$(this).parents("tr").remove (); // remove the button
-	// });
+	$('.removeButton').click(function() {
+		$(this).parents("tr").remove (); // remove the button
+	});
 
 	let selectMission
 
@@ -113,6 +116,17 @@ $(function() {
 					runTime[i].focus();
 					return;
 				}
+			}
+		}
+
+		totalTime = '00:00:00'
+
+		if ($('#missionList tr').length != 0) {
+
+			let index = $('#missionList tr').length
+
+			for (let i = 0; i < index; i++) {
+				checkTime(i)
 			}
 		}
 

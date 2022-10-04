@@ -7,19 +7,20 @@
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-body">
-					<form th:action="@{/board-write}" method="post" th:object="${boardWriteDTO}">
+					<form th:action="@{/admin/board-write}" method="post" th:object="${boardWriteDTO}">
 						<div class="row">
 							<!-- nickname -->
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label for="memberId">작성자</label>
-									<input type="text" class="form-control" th:field="*{memberId}">
+									<input type="hidden" th:field="*{memberId}">
+									<input type="text" class="form-control" th:field="*{memberNickname}" readonly>
 								</div>
 							</div>
 							<!-- category -->
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label for="category">카테고리</label>
+									<label for="category">카테고리<span class="red">*</span></label>
 									<div th:each="err : ${#fields.errors('category')}" class="error-message" th:text="${err}"></div>
 									<select class="form-control" th:field="*{category}">
 										<option value="">카테고리를 선택해주세요</option>
@@ -32,13 +33,13 @@
 						</div>
 						<!-- title -->
 						<div class="form-group mb-4">
-							<label for="boardTitle">제목</label>
+							<label for="boardTitle">제목<span class="red">*</span></label>
 							<div th:each="err : ${#fields.errors('boardTitle')}" class="error-message" th:text="${err}"></div>
 							<input type="text" class="form-control" th:field="*{boardTitle}">
 						</div>
 						<!-- content -->
 						<div class="form-group">
-							<label for="boardContent">내용</label>
+							<label for="boardContent">내용<span class="red">*</span></label>
 							<div th:each="err : ${#fields.errors('boardContent')}" class="error-message" th:text="${err}"></div>
 							<textarea class="form-control min-px-250" th:field="*{boardContent}"></textarea>
 						</div>

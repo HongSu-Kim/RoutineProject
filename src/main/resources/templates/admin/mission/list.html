@@ -11,24 +11,35 @@
 					<table class="table">
 						<thead class="thead-light">
 							<tr>
-								<th scope="col">No.</th>
-								<th scope="col">Icon</th>
+								<th scope="col" class="width-50">No.</th>
+								<th scope="col" class="width-50">Icon</th>
 								<th scope="col">Name</th>
-								<th scope="col">Run Time</th>
+								<th scope="col" class="width-150">Run Time</th>
 								<th scope="col">Content</th>
+								<th scope="col"class="text-center width-115">Edit/Del</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="missionList">
 							<!-- mission list -->
 							<tr th:if="${lists.isEmpty()}">
 								<td colspan="5" align="center">추천 미션이 존재하지 않습니다.</td>
 							</tr>
 							<tr th:each="dto : ${lists}">
 								<td scope="row" th:text="${dto.missionId}"></td>
-								<td th:text="${dto.iconFileName}"></td>
+								<td>
+									<img th:src="@{|/img/icon/${dto.iconCategory.iconPath}/${dto.iconFileName}|}" class="width-50"/>
+								</td>
 								<td th:text="${dto.missionName}"></td>
 								<td th:text="${#temporals.format(dto.runTime, 'HH:mm:ss')}"></td>
 								<td th:text="${dto.missionContent}"></td>
+								<td>
+									<div class="btn-group" role="group" aria-label="Basic example">
+										<button type="button" class="btn btn-sm btn-outline-primary px-2"
+										        th:onclick="|location.href='@{|/admin/mission-edit?missionId=${dto.missionId}|}'|">수정</button>
+										<button type="button" class="btn btn-sm btn-outline-primary px-2"
+										        th:onclick="|confirm('정말 삭제하시겠습니까?') ? location.href='@{|/admin/mission-delete?missionId=${dto.missionId}|}' : false|">삭제</button>
+									</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -41,4 +52,5 @@
 		</div>
 	</div>
 </th:block>
+
 </html>

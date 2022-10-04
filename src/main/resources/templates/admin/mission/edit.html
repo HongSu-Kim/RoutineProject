@@ -7,12 +7,13 @@
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-body">
-					<form th:action="@{/admin/mission-add}" method="post" th:object="${missionRecommendAddDTO}">
+					<form th:action="@{/admin/mission-edit}" method="post" th:object="${missionRecommendAddDTO}">
+						<input type="hidden" th:field="*{missionId}"/>
 						<div class="row">
 							<!-- name -->
 							<div class="col-lg-6">
 								<div class="form-group mb-4">
-									<label for="missionName">미션명<span class="red">*</span></label>
+									<label for="missionName">미션명</label>
 									<div th:each="err : ${#fields.errors('missionName')}" class="error-message" th:text="${err}"></div>
 									<input type="text" class="form-control" th:field="*{missionName}">
 								</div>
@@ -23,12 +24,12 @@
 									<div class="form-group icon-group" data-toggle="modal" data-target="#missionListModal">
 										<div class="row">
 											<div class="col-4">
-												<label for="missionIconId">아이콘<span class="red">*</span></label>
+												<label for="missionIconId">아이콘 </label>
 												<input type="hidden" th:field="*{missionIconId}"/>
 												<div class="btn display-block px-0"><span class="mdi mdi-triangle mdi-rotate-90"></span>아이콘 선택</div>
 											</div>
 											<div class="col-8 text-align-left">
-												<img src="https://item.kakaocdn.net/do/d535331cab7ad6095881f561e84c1886c37d537a8f2c6f426591be6b8dc7b36a" id="iconSrc">
+												<img th:src="@{|/img/icon/*{iconPath}/*{iconFileName}|}" id="iconSrc">
 												<div th:each="err : ${#fields.errors('missionIconId')}" class="error-message display-block" th:text="${err}"></div>
 											</div>
 										</div>
@@ -38,9 +39,9 @@
 						</div>
 						<!-- runTime -->
 						<div class="form-group mb-4">
-							<label for="runTime">소요시간<span class="red">*</span></label>
+							<label for="runTime">소요시간</label>
 							<div th:each="err : ${#fields.errors('runTime')}" class="error-message" th:text="${err}"></div>
-							<input type="text" class="form-control" th:field="*{runTime}">
+							<input type="text" class="form-control" id="runTime" name="runTime" th:value="${#temporals.format(missionRecommendAddDTO.runTime, 'HH:mm:ss')}">
 						</div>
 						<!-- content -->
 						<div class="form-group mb-4">
@@ -50,7 +51,7 @@
 						<!-- button -->
 						<div class="d-flex justify-content-between mt-4">
 							<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{/admin/mission-list}';|">목록</button>
-							<button class="btn btn-outline-brown mb-2" type="submit">추가</button>
+							<button class="btn btn-outline-brown mb-2" type="submit">수정</button>
 						</div>
 					</form>
 				</div>
@@ -64,7 +65,24 @@
 	
 <!-- script -->
 <th:block layout:fragment="script">
-	<script src="/js/admin/mission_add.js"></script>
+	<script src="/js/admin/mission_edit.js"></script>
+	<script type ="text/javascript">
+		$('.category').click(function() {
+			let category = $(this).siblings('input').val()
+			$('.icon-row').css('display', 'none')
+			$('#' + category).css('display', 'flex')
+		})
+	
+		$('.icon-img').click(function() {
+			let missionIconId = $(this).siblings('input[name="modalIconId"]').val()
+			let iconSrc = $(this).siblings('input[name="modalIconSrc"]').val()
+	
+			$('#missionIconId').val(missionIconId)
+			$('#iconSrc').attr('src', iconSrc)
+	
+			$('.icon-group').click()
+		})
+	</script>
 </th:block>
 
 </html>

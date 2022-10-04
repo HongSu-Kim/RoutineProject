@@ -1,11 +1,13 @@
 package com.soo.routine.controller.routine;
 
-import com.soo.routine.dto.routine.RoutineAddDTO;
-import com.soo.routine.dto.routine.RoutineReadDTO;
-import com.soo.routine.dto.routine.RoutineUpdateDTO;
+import com.soo.routine.dto.mission.IconCategoryDTO;
+import com.soo.routine.dto.mission.MissionIconDTO;
+import com.soo.routine.dto.routine.*;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.routine.Week;
+import com.soo.routine.service.mission.IconCategoryService;
+import com.soo.routine.service.mission.MissionIconService;
 import com.soo.routine.service.routine.RoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,8 @@ import java.util.List;
 public class RoutineController {
 
     private final RoutineService routineService;
+    private final IconCategoryService iconCategoryService;
+    private final MissionIconService missionIconService;
     private final HttpSession httpSession;
 
     /*
@@ -48,13 +52,21 @@ public class RoutineController {
 
     // admin - 추천 루틴 추가 페이지
     @GetMapping("admin/routine-add")
-    public String adminRoutineAdd(Model model, RoutineAddDTO routineAddDTO) {
+    public String adminRoutineAdd(Model model, RoutineRecommendAddDTO routineRecommendAddDTO) {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
         if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
             return "redirect:/login";
         }
+
+        routineRecommendAddDTO.setMemberId(loginMember.getId());
+        routineRecommendAddDTO.setMemberNickname(loginMember.getNickname());
+
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("iconList", iconList);
 
         model.addAttribute("pageName", "Routine Add");
         return "admin/routine/add";
@@ -62,23 +74,26 @@ public class RoutineController {
 
     // admin - 추천 루틴 추가
     @PostMapping("admin/routine-add")
-    public String adminRoutineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
+    public String adminRoutineAdd(Model model, @Valid RoutineRecommendAddDTO routineRecommendAddDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
+            List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+            List<MissionIconDTO> iconList = missionIconService.getIconList();
+            model.addAttribute("categoryList", categoryList);
+            model.addAttribute("iconList", iconList);
             model.addAttribute("pageName", "Routine Add");
             return "admin/routine/add";
         }
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-        routineAddDTO.setMemberId(loginMember.getId());
-        routineService.addRoutine(routineAddDTO);
+        routineRecommendAddDTO.setMemberId(routineRecommendAddDTO.getMemberId());
+        routineService.addRecommendRoutine(routineRecommendAddDTO);
 
         return "redirect:/admin/routine-list";
     }
 
     // admin - 추천 루틴 수정 페이지
-    @GetMapping("admin/routine-update")
-    public String adminRoutineUpdate(Model model, RoutineUpdateDTO routineUpdateDTO) {
+    @GetMapping("admin/routine-edit")
+    public String adminRoutineUpdate(Model model, RoutineRecommendEditDTO routineRecommendEditDTO, Long routineId) {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
@@ -86,28 +101,37 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        model.addAttribute("mode", "update");
-        model.addAttribute("pageName", "Routine Update");
-        return "admin/routine/add";
+        routineRecommendEditDTO = routineService.getRecommendRoutine(routineId);
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
+
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("iconList", iconList);
+        model.addAttribute("routineRecommendEditDTO", routineRecommendEditDTO);
+        model.addAttribute("pageName", "Routine Edit");
+        return "admin/routine/edit";
     }
 
     // admin - 추천 루틴 수정
-    @PostMapping("admin/routine-update")
-    public String adminRoutineUpdate(Model model, @Valid RoutineUpdateDTO routineUpdateDTO, BindingResult bindingResult) {
+    @PostMapping("admin/routine-edit")
+    public String adminRoutineUpdate(Model model, @Valid RoutineRecommendEditDTO routineRecommendEditDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("mode", "update");
-            model.addAttribute("pageName", "Routine Update");
-            return "admin/routine/add";
+            List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+            List<MissionIconDTO> iconList = missionIconService.getIconList();
+            model.addAttribute("categoryList", categoryList);
+            model.addAttribute("iconList", iconList);
+            model.addAttribute("pageName", "Routine Edit");
+            return "admin/routine/edit";
         }
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
-        routineService.updateRoutine    (routineUpdateDTO);
+        routineService.updateRoutine(routineRecommendEditDTO);
         List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
-        return "redirect:/admin/routine-list";
+        return "redirect:/admin/routine-edit?routineId=" + routineRecommendEditDTO.getRoutineId();
     }
 
     /*
@@ -203,6 +227,7 @@ public class RoutineController {
         }
 
         routineService.updateRoutineSet(routineUpdateDTO);
+        routineService.updateRoutine(routineUpdateDTO);
 
         return "redirect:/routine-detail?routineId=" + routineUpdateDTO.getRoutineId();
     }

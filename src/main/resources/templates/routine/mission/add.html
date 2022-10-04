@@ -50,38 +50,7 @@
 		</div>
 	</div>
 	
-	<!-- modal -->
-	<div class="modal fade" id="missionListModal" tabindex="-1" role="dialog" aria-labelledby="missionListModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h3 class="modal-title" id="missionListModalLabel">아이콘 변경</h3>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="card card-default mb-0 border-0">
-						<div class="card-header justify-content-start px-0">
-							<span th:each="iconCategoryDTO : ${categoryList}">
-								&nbsp;&nbsp;<button th:text="|#${iconCategoryDTO.categoryName}|" class="category"></button>&nbsp;&nbsp;
-								<input type="hidden" th:value="${iconCategoryDTO.iconPath}"/>
-							</span>
-						</div>
-						<div class="card-body px-0" id="iconList">
-							<div th:each="iconCategoryDTO : ${categoryList}" th:id="${iconCategoryDTO.iconPath}" class="row hide icon-row">
-								<div th:each="missionIconDTO : ${iconList}" th:if="${missionIconDTO.iconCategoryId == iconCategoryDTO.iconCategoryId}" class="col-3 pb-5">
-									<img th:src="@{|/img/icon/${iconCategoryDTO.iconPath}/${missionIconDTO.iconFileName}|}" class="card-img-top icon-img"/>
-									<input type="hidden" name="modalIconId" th:value="${missionIconDTO.missionIconId}"/>
-									<input type="hidden" name="modalIconSrc" th:value="|/img/icon/${iconCategoryDTO.iconPath}/${missionIconDTO.iconFileName}|"/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<th:block th:replace="layout/fragments/modal_missionList :: modal"></th:block>
 	
 </th:block>
 
