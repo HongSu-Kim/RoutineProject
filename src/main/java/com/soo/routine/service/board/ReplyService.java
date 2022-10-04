@@ -29,7 +29,7 @@ public class ReplyService {
         Member member = memberRepository.findById(replyWriteDTO.getMemberId()).get();
         Board board = boardRepository.findById(replyWriteDTO.getBoardId()).get();
 
-        Reply reply = new Reply().write(replyWriteDTO, member, board);
+        Reply reply = new Reply(replyWriteDTO, member, board);
 
         replyRepository.save(reply);
     }

@@ -55,7 +55,7 @@ public class BoardService {
 
         Member member = memberRepository.findById(boardWriteDTO.getMemberId()).get();
 
-        Board board = new Board().write(boardWriteDTO, member);
+        Board board = new Board(boardWriteDTO, member);
 
         boardRepository.save(board);
     }

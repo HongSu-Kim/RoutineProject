@@ -37,7 +37,7 @@ public class MissionService {
 
         MissionIcon missionIcon = missionIconRepository.findById(missionRecommendAddDTO.getMissionIconId()).get();
 
-        Mission mission = new Mission().addRecommend(missionRecommendAddDTO, missionIcon);
+        Mission mission = new Mission(missionRecommendAddDTO, missionIcon);
 
         missionRepository.save(mission);
     }
@@ -69,7 +69,7 @@ public class MissionService {
         Routine routine = routineRepository.findById(missionAddDTO.getRoutineId()).get();
         MissionIcon missionIcon = missionIconRepository.findById(missionAddDTO.getMissionIconId()).get();
 
-        Mission mission = new Mission().add(missionAddDTO, routine, missionIcon);
+        Mission mission = new Mission(missionAddDTO, routine, missionIcon);
 
         missionRepository.save(mission);
     }

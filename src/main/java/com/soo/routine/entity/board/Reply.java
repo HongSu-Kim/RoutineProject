@@ -27,12 +27,11 @@ public class Reply {
     private String replyContent;//답글내용
     private LocalDateTime replyCreate;//답글작성일
 
-    public Reply write(ReplyWriteDTO replyWriteDTO, Member member, Board board) {
+    public Reply(ReplyWriteDTO replyWriteDTO, Member member, Board board) {
         this.member = member;
         this.board = board;
         this.replyContent = replyWriteDTO.getReplyContent();
         this.replyCreate = LocalDateTime.now();
-        return this;
     }
 
 }
