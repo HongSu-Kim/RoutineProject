@@ -7,6 +7,7 @@ import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.mission.Mission;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Routine {
 
     @Id
@@ -37,21 +39,19 @@ public class Routine {
     @OneToMany(mappedBy = "routine", cascade = CascadeType.REMOVE)
     private List<RoutineSet> routineSetList;
 
-    // 루틴 추가
-    public Routine addRecommendRoutine(RoutineRecommendAddDTO routineRecommendAddDTO, Member member) {
+    // 추천 루틴 추가
+    public Routine(RoutineRecommendAddDTO routineRecommendAddDTO, Member member) {
         this.member = member;
         this.routineName = routineRecommendAddDTO.getRoutineName();
         this.routineActive = routineRecommendAddDTO.isRoutineActive();
         this.totalTime = LocalTime.parse(routineRecommendAddDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
-        return this;
     }
-
-    public Routine addRoutine(RoutineAddDTO routineAddDTO, Member member) {
+    // 루틴 추가
+    public Routine(RoutineAddDTO routineAddDTO, Member member) {
         this.member = member;
         this.routineName = routineAddDTO.getRoutineName();
         this.routineActive = routineAddDTO.isRoutineActive();
         this.totalTime = LocalTime.parse(routineAddDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
-        return this;
     }
 
     // 루틴 수정
