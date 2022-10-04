@@ -27,7 +27,7 @@
                     <div>
                         <div>
                             <input type="text" class="form-control input-lg input_routine" id="email" name="email"
-                                   th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
+                                   th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소" autofocus>
                         </div>
                         <div class="error_routine" th:errors="*{email}"></div>
                     </div>

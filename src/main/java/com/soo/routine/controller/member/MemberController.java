@@ -46,7 +46,12 @@ public class MemberController {
     */
     // 마이페이지
     @GetMapping("mypage")
-    public String mypage(@AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model) {
+    public String mypage(@AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                         Model model, MemberLoginDTO memberLoginDTO) {
+
+        if (loginMember == null) {
+            return "mypage/member/login";
+        }
 
 //        Member loginMember = httpSession.getAttribute("loginMember");
 
@@ -130,7 +135,7 @@ public class MemberController {
         Member member = memberService.pwdFind(memberJoinDTO.getEmail());
 
         if(member == null) {
-            bindingResult.addError(new FieldError("memberJoinDTO", "email", "이메일이 존재하지 않습니다."));
+            bindingResult.addError(new FieldError("memberJoinDTO", "email", "이메일이 올바르지 않습니다."));
             return "mypage/member/pwd_find";
         }
 
@@ -140,7 +145,7 @@ public class MemberController {
     // 회원가입
     @GetMapping("join")
     public String join(MemberJoinDTO memberJoinDTO){
-        return "mypage/member/join";
+        return "mypage/member/info";
     }
     @PostMapping("join")
     public String join(@Valid @ModelAttribute() MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
@@ -148,14 +153,14 @@ public class MemberController {
         //검증 실패시
         if(bindingResult.hasErrors()){
             model.addAttribute("memberJoinDTO", memberJoinDTO);
-            return "mypage/member/join";
+            return "mypage/member/info";
         }
 
         Member join_checkEmail = memberService.checkEmail(memberJoinDTO.getEmail());
 
         if (join_checkEmail != null) {
             bindingResult.addError(new FieldError("memberJoinDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
-            return "mypage/member/join";
+            return "mypage/member/info";
         }
 
         ModelMapper modelMapper = new ModelMapper();
@@ -193,12 +198,13 @@ public class MemberController {
 
     // 회원정보 수정
     @GetMapping("profile-edit")
-    public String getUpdate(){
-        return "mypage/member/profile_edit";
+    public String profileEdit(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
+                              Model model, MemberJoinDTO memberJoinDTODTO){
+        return "mypage/member/info";
     }
     @PostMapping("profile-edit")
-    public String postUpdate(){
-        return "mypage/member/profile_edit";
+    public String profileEdit(){
+        return "mypage/member/info";
     }
 
     // 회원탈퇴
