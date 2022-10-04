@@ -173,6 +173,7 @@ button
     border-radius: 2rem;
     color: #a38479;
     border-color: #a38479;
+    text-align: left;
 }
 
 .routine-btn:hover {
@@ -180,6 +181,20 @@ button
    background-color: #a38479;
    border-color: #a38479;
  }
+
+ .routine-btn2 {
+     border-radius: 2rem;
+     color: #ffffff;
+     border-color: #a38479;
+     text-align: left;
+     background: #a38479;
+ }
+
+ .routine-btn2:hover {
+    color: #a38479;
+    background-color: #ffffff;
+    border-color: #a38479;
+  }
 
 .routine-btn:focus, .routine-btn.focus {
     box-shadow: 0 0 0 0.2rem #d6cbc7;
@@ -232,3 +247,61 @@ img
 .pwd-element p {
     font-size: 11pt;
 }
+
+
+/* My Page */
+.mypage-img {
+   padding-bottom: 10pt;
+}
+
+.routine-title {
+    font-weight: 600;
+}
+
+.routine-nickname {
+    padding-top: 10pt;
+    font-weight: 600;
+    font-size: 0.98rem;
+}
+
+.mypage-row {
+    margin-right: 5pt;
+    margin-left: 5pt;
+}
+
+.mypage-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.mypage-list-first {
+    padding-bottom: 15pt;
+}
+
+.mypage-list h4 {
+    font-weight: 600;
+    margin-left: 20pt;
+}
+
+.mypage-btn-wrap {
+    position: relative;
+    top: 0;
+    margin: 20pt 20pt 15pt;
+}
+
+.mypage-btn {
+    margin-top: 0;
+    margin-bottom: 10pt;
+}
+
+/* header_user_ver2 */
+.header-ver2-wrap {
+    display: flex;
+    justify-content: right;
+    padding: 1.6rem 1.6rem 0.5rem;
+}
+
+.header-element {
+    padding-right: 15px;
+}
+
