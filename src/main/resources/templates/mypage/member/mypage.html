@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout_nav_user">
+      layout:decorate="layout/layout_user_ver2">
 
 <th:block layout:fragment="content">
-    <h3><b>My Page</b></h3>
-    <div style="text-align: center;">
-        <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c948f324a0b9c48f77dbce3a43bd11ce785" style="width: 100pt;">
+    <div class="card-body px-5 pb-5 pt-0 card-body-routine">
+
+        <h4 class="text-dark text-center mb-5 routine-title">My Page</h4>
+
+        <div class="routine-img mypage-img">
+            <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c948f324a0b9c48f77dbce3a43bd11ce785" style="width: 100pt;">
+            <div class="routine-nickname">
+                <th:block th:text="${member.nickname}"></th:block>님
+            </div>
+        </div>
+
+        <form action="withdraw" method="post">
+            <div class="row row-routine mypage-row">
+
+                <div class="list-group mypage-list mypage-list-first">
+                    <h4>Profile</h4>
+                    <div class="mypage-btn-wrap">
+                        <button type="button" class="btn btn-block routine-btn routine-btn-first"
+                                onclick="location.href='join'">비밀번호 찾기
+                        </button>
+                        <button type="button" class="btn btn-block routine-btn"
+                                onclick="location.href='login'">회원정보 수정
+                        </button>
+                        <button type="button" class="btn btn-block routine-btn"
+                                onclick="location.href='login'">회원탈퇴
+                        </button>
+                    </div>
+
+<!--                    <a href="resetPwd" class="list-group-item list-group-item-action">비밀번호 찾기</a>-->
+<!--                    <a href="editProfile" class="list-group-item list-group-item-action">회원정보 수정</a>-->
+<!--                    <a href="withdraw" class="list-group-item list-group-item-action">회원탈퇴</a>-->
+                </div>
+
+                <div class="list-group mypage-list">
+                    <h4><b>Board</b></h4>
+                    <div class="mypage-btn-wrap">
+                        <button type="button" class="btn btn-block routine-btn2 routine-btn-first mypage-btn"
+                                onclick="location.href='join'">공지사항
+                        </button>
+                        <button type="button" class="btn btn-block routine-btn2 mypage-btn"
+                                onclick="location.href='login'">자주 묻는 질문
+                        </button>
+                        <button type="button" class="btn btn-block routine-btn2 mypage-btn"
+                                onclick="location.href='login'">1:1 문의
+                        </button>
+                    </div>
+
+<!--                    <a href="notice" class="list-group-item list-group-item-action">공지사항</a>-->
+<!--                    <a href="faq" class="list-group-item list-group-item-action">자주 묻는 질문</a>-->
+<!--                    <a href="qna" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">1:1 문의</a>-->
+                </div>
+
+            </div>
+        </form>
     </div>
-    <div th:text="${member.nickname}"></div>
-    <a href="logout">로그아웃</a>
-    <div class="list-group">
-        <h4><b>Profile</b></h4>
-        <a href="resetPwd" class="list-group-item list-group-item-action">비밀번호 찾기</a>
-        <a href="editProfile" class="list-group-item list-group-item-action">회원정보 수정</a>
-        <a href="withdraw" class="list-group-item list-group-item-action">회원탈퇴</a>
-    </div>
-    <div class="list-group">
-        <h4><b>Board</b></h4>
-        <a href="notice" class="list-group-item list-group-item-action">공지사항</a>
-        <a href="faq" class="list-group-item list-group-item-action">자주 묻는 질문</a>
-        <a href="qna" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">1:1 문의</a>
-    </div>
+
+
 </th:block>
 
 </html>
