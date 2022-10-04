@@ -1,9 +1,6 @@
 package com.soo.routine.service.routine;
 
-import com.soo.routine.dto.routine.RoutineAddDTO;
-import com.soo.routine.dto.routine.RoutineReadDTO;
-import com.soo.routine.dto.routine.RoutineRecommendAddDTO;
-import com.soo.routine.dto.routine.RoutineUpdateDTO;
+import com.soo.routine.dto.routine.*;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.mission.Mission;
@@ -41,7 +38,7 @@ public class RoutineService {
     private final RoutineMapper routineMapper;
     private final ModelMapper modelMapper;
 
-    // 루틴 추가
+    // 추천 루틴 추가
     public void addRecommendRoutine(RoutineRecommendAddDTO routineRecommendAddDTO) {
 
         Member member = memberRepository.findById(routineRecommendAddDTO.getMemberId()).get();
@@ -108,8 +105,55 @@ public class RoutineService {
 
         routineRepository.save(routine);
     }
+
+    // 추천 루틴 수정
+    public void updateRoutine(RoutineRecommendEditDTO routineRecommendEditDTO) {
+
+        Routine routine = routineRepository.findById(routineRecommendEditDTO.getRoutineId()).get();
+        routine.updateRoutine(routineRecommendEditDTO);
+
+        Long[] missionId = routineRecommendEditDTO.getMissionId();
+        Long[] missionIconId = routineRecommendEditDTO.getMissionIconId();
+        String[] missionName = routineRecommendEditDTO.getMissionName();
+        String[] runTime = routineRecommendEditDTO.getRunTime();
+        String[] missionContent = routineRecommendEditDTO.getMissionContent();
+
+        System.out.println("missionId : " + missionId.length);
+        System.out.println("missionIconId : " + missionIconId.length);
+        System.out.println("missionName : " + missionName.length);
+        System.out.println("runtime : " + runTime.length);
+        System.out.println("missionContent : " + missionContent.length);
+
+        // update, delete
+        for (Mission m : routine.getMissionList()){
+            boolean result = false;
+            for (int i = 0; i < missionId.length; i++) {
+                if (m.getId().equals(missionId[i])) {
+                    Mission mission = missionRepository.findById(m.getId()).get();
+                    MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
+                    mission.edit(missionIcon, missionName[i], runTime[i], missionContent[i]);
+                    missionRepository.save(mission);
+                    result = true;
+                }
+            }
+            if (!result) {
+                missionRepository.deleteById(m.getId());
+            }
+        }
+
+        // insert
+        for (int i = 0; i < missionId.length; i++) {
+            if (missionId[i] == null) {
+                MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
+                Mission mission = new Mission().addRecommend(routine, missionIcon, missionName[i], runTime[i], missionContent[i]);
+                missionRepository.save(mission);
+            }
+        }
+
+        routineRepository.save(routine);
+    }
     
-    // 루틴 수정
+    // 루틴세팅 수정
     public void updateRoutineSet(RoutineUpdateDTO routineUpdateDTO) {
 
         Routine routine = routineRepository.findById(routineUpdateDTO.getRoutineId()).get();
@@ -174,6 +218,7 @@ public class RoutineService {
         return routineReadDTO;
     }
 
+    // 루틴 수정
     public RoutineUpdateDTO getRoutineUpdateDTO(Long routineId) {
 
         Routine routine = routineRepository.findById(routineId).orElse(null);
@@ -200,5 +245,22 @@ public class RoutineService {
         routineUpdateDTO.setWeekActive(weekActive);
 
         return routineUpdateDTO;
+    }
+
+    // 추천 루틴 수정
+    public RoutineRecommendEditDTO getRecommendRoutine(Long routineId) {
+
+        Routine routine = routineRepository.findById(routineId).orElse(null);
+
+        if (routine == null) {
+            return null;
+        }
+
+        RoutineRecommendEditDTO routineRecommendEditDTO = modelMapper.map(routine, RoutineRecommendEditDTO.class);
+
+//        List<Mission> missionList = missionRepository.findAllByRoutineId(routineId);
+//        routineRecommendEditDTO.setMissionList(missionList);
+
+        return routineRecommendEditDTO;
     }
 }

@@ -1,23 +1,17 @@
 package com.soo.routine.service.member;
 
-import com.soo.routine.dto.member.MemberJoinDTO;
-import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
-import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.member.Member;
+import com.soo.routine.entity.member.Role;
 import com.soo.routine.repository.member.MemberRepository;
-import com.soo.routine.util.MailUtil;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -125,8 +119,8 @@ public class MemberService {
             member.setPwd(tempPwd);
 
             // 이메일 전송
-            MailUtil mail = new MailUtil();
-            mail.sendMail(member);
+//            MailUtil mail = new MailUtil();
+//            mail.sendMail(member);
 
             // 암호화된 임시 비밀번호 저장
             member.setPwd(passwordEncoder.encode(member.getPwd()));
