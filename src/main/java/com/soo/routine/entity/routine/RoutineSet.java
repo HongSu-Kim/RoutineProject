@@ -1,6 +1,7 @@
 package com.soo.routine.entity.routine;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @IdClass(RoutineSetId.class)
 public class RoutineSet implements Serializable {
 
@@ -23,20 +25,17 @@ public class RoutineSet implements Serializable {
     private boolean weekActive;//요일활성화
     private LocalTime startTime;//시작시간
 
-    public RoutineSet addRoutineSet(int i, boolean weekActive, String startTime, Routine routine) {
-        for (Week w : Week.class.getEnumConstants()) {
-            if (w.getValue() == i) this.week = w;
-        }
+    // 루틴 세팅 추가
+    public RoutineSet(Week week, boolean weekActive, String startTime, Routine routine) {
+        this.week = week;
         this.routine = routine;
         this.weekActive = weekActive;
         this.startTime = LocalTime.parse(startTime);
-        return this;
     }
 
+    // 루틴 세팅 수정
     public void updateRoutineSet(boolean weekActive, String startTime) {
         this.weekActive = weekActive;
         this.startTime = LocalTime.parse(startTime);
     }
-
-
 }

@@ -44,14 +44,14 @@ public class RoutineService {
         Member member = memberRepository.findById(routineRecommendAddDTO.getMemberId()).get();
 
         // save routine
-        Routine routine = new Routine().addRecommendRoutine(routineRecommendAddDTO, member);
+        Routine routine = new Routine(routineRecommendAddDTO, member);
         routineRepository.save(routine);
 
         // save mission
         if (routineRecommendAddDTO.getMissionIconId() != null) {
             for (int i = 0; i < routineRecommendAddDTO.getMissionIconId().length; i++) {
                 MissionIcon missionIcon = missionIconRepository.findById(routineRecommendAddDTO.getMissionIconId()[i]).get();
-                Mission mission = new Mission().addRecommend(routine, missionIcon, routineRecommendAddDTO.getMissionName()[i],
+                Mission mission = new Mission(routine, missionIcon, routineRecommendAddDTO.getMissionName()[i],
                 routineRecommendAddDTO.getRuntime()[i], routineRecommendAddDTO.getMissionContent()[i] != null ? routineRecommendAddDTO.getMissionContent()[i] : "");
                 missionRepository.save(mission);
             }
@@ -63,15 +63,19 @@ public class RoutineService {
         Member member = memberRepository.findById(routineAddDTO.getMemberId()).get();
 
         // save routine
-        Routine routine = new Routine().addRoutine(routineAddDTO, member);
+        Routine routine = new Routine(routineAddDTO, member);
         routineRepository.save(routine);
 
         // save routineSet
         boolean[] weekActive = routineAddDTO.getWeekActive();
         String startTime = routineAddDTO.getStartTime();
         for (int i = 0; i < 7; i++) {
-            RoutineSet routineSet = new RoutineSet().addRoutineSet(i , weekActive[i], startTime, routine);
-            routineSetRepository.save(routineSet);
+            for (Week w : Week.class.getEnumConstants()) {
+                if (w.getValue() == i) {
+                    RoutineSet routineSet = new RoutineSet(w , weekActive[i], startTime, routine);
+                    routineSetRepository.save(routineSet);
+                }
+            }
         }
 
         // save mission
@@ -118,14 +122,8 @@ public class RoutineService {
         String[] runTime = routineRecommendEditDTO.getRunTime();
         String[] missionContent = routineRecommendEditDTO.getMissionContent();
 
-        System.out.println("missionId : " + missionId.length);
-        System.out.println("missionIconId : " + missionIconId.length);
-        System.out.println("missionName : " + missionName.length);
-        System.out.println("runtime : " + runTime.length);
-        System.out.println("missionContent : " + missionContent.length);
-
         // update, delete
-        for (Mission m : routine.getMissionList()){
+        for (Mission m : routine.getMissionList()) {
             boolean result = false;
             for (int i = 0; i < missionId.length; i++) {
                 if (m.getId().equals(missionId[i])) {
@@ -145,7 +143,7 @@ public class RoutineService {
         for (int i = 0; i < missionId.length; i++) {
             if (missionId[i] == null) {
                 MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
-                Mission mission = new Mission().addRecommend(routine, missionIcon, missionName[i], runTime[i], missionContent[i]);
+                Mission mission = new Mission(routine, missionIcon, missionName[i], runTime[i], missionContent[i]);
                 missionRepository.save(mission);
             }
         }
@@ -162,10 +160,10 @@ public class RoutineService {
         routineRepository.save(routine);
 
         int i = 0;
-        for (boolean wa : routineUpdateDTO.getWeekActive()) {
+        for (boolean weekActive : routineUpdateDTO.getWeekActive()) {
             for (RoutineSet rs : routine.getRoutineSetList()) {
                 if (rs.getWeek().getValue() == i) {
-                    rs.updateRoutineSet(wa, routineUpdateDTO.getStartTime());
+                    rs.updateRoutineSet(weekActive, routineUpdateDTO.getStartTime());
 
                     routineSetRepository.save(rs);
                     i++;
@@ -218,7 +216,7 @@ public class RoutineService {
         return routineReadDTO;
     }
 
-    // 루틴 수정
+    // 루틴 수정 select
     public RoutineUpdateDTO getRoutineUpdateDTO(Long routineId) {
 
         Routine routine = routineRepository.findById(routineId).orElse(null);
@@ -247,7 +245,7 @@ public class RoutineService {
         return routineUpdateDTO;
     }
 
-    // 추천 루틴 수정
+    // 추천 루틴 수정 select
     public RoutineRecommendEditDTO getRecommendRoutine(Long routineId) {
 
         Routine routine = routineRepository.findById(routineId).orElse(null);
@@ -257,9 +255,6 @@ public class RoutineService {
         }
 
         RoutineRecommendEditDTO routineRecommendEditDTO = modelMapper.map(routine, RoutineRecommendEditDTO.class);
-
-//        List<Mission> missionList = missionRepository.findAllByRoutineId(routineId);
-//        routineRecommendEditDTO.setMissionList(missionList);
 
         return routineRecommendEditDTO;
     }

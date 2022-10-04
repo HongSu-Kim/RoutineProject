@@ -4,6 +4,7 @@ import com.soo.routine.dto.board.BoardEditDTO;
 import com.soo.routine.dto.board.BoardWriteDTO;
 import com.soo.routine.entity.member.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Board {
 
     @Id
@@ -38,14 +40,13 @@ public class Board {
     private Reply reply;
 
     // 글 작성
-    public Board write(BoardWriteDTO boardWriteDTO, Member member) {
+    public Board(BoardWriteDTO boardWriteDTO, Member member) {
         this.member = member;
         this.category = boardWriteDTO.getCategory();
         this.boardTitle = boardWriteDTO.getBoardTitle();
         this.boardContent = boardWriteDTO.getBoardContent();
         this.boardCreate = LocalDateTime.now();
         this.boardHits = 0;
-        return this;
     }
 
     // 글 수정
