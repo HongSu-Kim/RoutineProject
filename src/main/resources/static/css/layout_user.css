@@ -166,7 +166,8 @@ button
 .routine-btn-wrap {
     position: relative;
     top: 38%;
-    margin: 25pt;
+    /*margin: 25pt;*/
+    margin: 20pt 50pt 15pt;
 }
 
 .routine-btn {
