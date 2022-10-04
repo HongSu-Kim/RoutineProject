@@ -9,7 +9,7 @@
 			<div class="card card-default">
 				<div class="card-header align-items-baseline px-7">
 					<h3 th:text="${boardDTO.boardTitle}">Title</h3>
-					<h6 th:text="@{|${boardDTO.category} / ${#temporals.format(boardDTO.boardCreate, 'yyyy-MM-dd HH:mm')} / ${boardDTO.boardHits}|}">Category / Create / Hits</h6>
+					<h6 th:text="@{|${boardDTO.category} / ${#temporals.format(boardDTO.boardCreate, 'yyyy-MM-dd HH:mm')}|}">Category / Create</h6>
 				</div>
 				<div class="card-body">
 					<p class="px-6 pb-3"th:text="@{|${boardDTO.memberNickname} / ${boardDTO.memberEmail}|}">Nickname / Email</p>
@@ -19,10 +19,10 @@
 						</div>
 					</div>
 					<!-- reply write -->
-					<form th:if="${boardDTO.reply == null}" action="/admin/reply-write" method="post" th:object="${replyWriteDTO}">
+					<form th:if="${boardDTO.reply == null}" th:action="@{/admin/reply-write}" method="post" th:object="${replyWriteDTO}">
 						<!-- session에서 받아온 작성자 id -->
-						<input type="hidden" name="memberId" value="1" />
-						<input type="hidden" th:field="${boardDTO.boardId}" />
+						<input type="hidden" th:field="*{memberId}" />
+						<input type="hidden" th:field="*{boardId}" />
 						<div class="form-group">
 							<label for="replyContent">답글 작성</label>
 							<div th:each="err : ${#fields.errors('replyContent')}" class="error-message" th:text="${err}"></div>

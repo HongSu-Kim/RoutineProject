@@ -3,6 +3,7 @@ package com.soo.routine.service.mission;
 import com.soo.routine.dto.mission.MissionAddDTO;
 import com.soo.routine.dto.mission.MissionRecommendAddDTO;
 import com.soo.routine.dto.mission.MissionReadDTO;
+import com.soo.routine.dto.mission.MissionRecommendEditDTO;
 import com.soo.routine.entity.mission.Mission;
 import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
@@ -34,7 +35,7 @@ public class MissionService {
     // 추천 미션 추가
     public void addRecommendMission(MissionRecommendAddDTO missionRecommendAddDTO) {
 
-        MissionIcon missionIcon = missionIconRepository.findById(missionRecommendAddDTO.getIconId()).get();
+        MissionIcon missionIcon = missionIconRepository.findById(missionRecommendAddDTO.getMissionIconId()).get();
 
         Mission mission = new Mission().addRecommend(missionRecommendAddDTO, missionIcon);
 
@@ -73,4 +74,25 @@ public class MissionService {
         missionRepository.save(mission);
     }
 
+	public MissionReadDTO getMission(Long missionId) {
+
+        Mission mission = missionRepository.findById(missionId).get();
+
+        MissionReadDTO missionReadDTO = modelMapper.map(mission, MissionReadDTO.class);
+        missionReadDTO.setIconPath(mission.getMissionIcon().getIconCategory().getIconPath());
+
+        return missionReadDTO;
+    }
+
+    public void editRecommendMission(MissionRecommendEditDTO missionRecommendEditDTO) {
+
+        Mission mission = missionRepository.findById(missionRecommendEditDTO.getMissionId()).orElse(null);
+        MissionIcon missionIcon = missionIconRepository.findById(missionRecommendEditDTO.getMissionIconId()).orElse(null);
+
+        mission.edit(missionRecommendEditDTO, missionIcon);
+    }
+
+	public void deleteMission(Long missionId) {
+        missionRepository.deleteById(missionId);
+	}
 }

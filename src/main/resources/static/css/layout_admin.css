@@ -10,8 +10,17 @@
     padding: 0.5rem 1.5rem;
 }
  */
- .left-sidebar::before {
-	/*background-color: #a38479;*/
+ .background-color-brown {
+	background-color: #a38479;
+ }
+ .sidebar .sidebar-inner .section-title {
+ 	color: #fff;
+ }
+ .sidebar .sidebar-inner > li > a {
+ 	color: #fff;
+ }
+ .sidebar .sub-menu > li > a {
+ 	color: #fff;
  }
 
 textarea {
@@ -40,10 +49,35 @@ textarea {
 	display: none;
 }
 
-.th-width-115 {
-	width: 115px;
+#missionList td {
+	vertical-align: inherit;
 }
 
+.width-50 { width: 50px; }
+.width-100 { width: 100px; }
+.width-115 { width: 115px; }
+.width-150 { width: 150px; }
+.width-200 { width: 200px; }
+.width-300 { width: 300px; }
+
+span.red {
+	color: red;
+}
+
+.icon-group {
+	text-align: center;
+}
+
+.icon-group img {
+	width: 50pt;
+}
+
+.display-block {
+	display: block;
+}
+.text-align-left {
+	text-align: left
+}
 /*
 brown
 	color: #a38479;

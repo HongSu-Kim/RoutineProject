@@ -1,6 +1,8 @@
 package com.soo.routine.entity.routine;
 
 import com.soo.routine.dto.routine.RoutineAddDTO;
+import com.soo.routine.dto.routine.RoutineRecommendAddDTO;
+import com.soo.routine.dto.routine.RoutineRecommendEditDTO;
 import com.soo.routine.dto.routine.RoutineUpdateDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.mission.Mission;
@@ -36,6 +38,14 @@ public class Routine {
     private List<RoutineSet> routineSetList;
 
     // 루틴 추가
+    public Routine addRecommendRoutine(RoutineRecommendAddDTO routineRecommendAddDTO, Member member) {
+        this.member = member;
+        this.routineName = routineRecommendAddDTO.getRoutineName();
+        this.routineActive = routineRecommendAddDTO.isRoutineActive();
+        this.totalTime = LocalTime.parse(routineRecommendAddDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
+        return this;
+    }
+
     public Routine addRoutine(RoutineAddDTO routineAddDTO, Member member) {
         this.member = member;
         this.routineName = routineAddDTO.getRoutineName();
@@ -55,6 +65,13 @@ public class Routine {
     public void updateRoutineSet(RoutineUpdateDTO routineUpdateDTO) {
         this.routineName = routineUpdateDTO.getRoutineName();
         this.routineActive = routineUpdateDTO.isRoutineActive();
+    }
+
+    // 추천 루틴 수정
+    public void updateRoutine(RoutineRecommendEditDTO routineRecommendEditDTO) {
+        this.routineName = routineRecommendEditDTO.getRoutineName();
+        this.routineActive = routineRecommendEditDTO.isRoutineActive();
+        this.totalTime = LocalTime.parse(routineRecommendEditDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
     }
 
 }
