@@ -1,23 +1,26 @@
 package com.soo.routine.controller.member;
 
+import com.soo.routine.dto.board.BoardReadDTO;
+import com.soo.routine.dto.member.MemberEditDTO;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
+import com.soo.routine.repository.member.MemberRepository;
 import com.soo.routine.service.member.MemberService;
+import com.soo.routine.util.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -145,7 +148,7 @@ public class MemberController {
     // 회원가입
     @GetMapping("join")
     public String join(MemberJoinDTO memberJoinDTO){
-        return "mypage/member/info";
+        return "mypage/member/join";
     }
     @PostMapping("join")
     public String join(@Valid @ModelAttribute() MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model){
@@ -153,14 +156,14 @@ public class MemberController {
         //검증 실패시
         if(bindingResult.hasErrors()){
             model.addAttribute("memberJoinDTO", memberJoinDTO);
-            return "mypage/member/info";
+            return "mypage/member/join";
         }
 
         Member join_checkEmail = memberService.checkEmail(memberJoinDTO.getEmail());
 
         if (join_checkEmail != null) {
             bindingResult.addError(new FieldError("memberJoinDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
-            return "mypage/member/info";
+            return "mypage/member/join";
         }
 
         ModelMapper modelMapper = new ModelMapper();
@@ -197,14 +200,32 @@ public class MemberController {
     }
 
     // 회원정보 수정
-    @GetMapping("profile-edit")
+//    @GetMapping("edit-profile")
+//    public String profileEdit(@AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember,
+//                              Model model, MemberEditDTO memberEditDTO){
+//
+//        if (loginMember != null) {
+//
+//            model.addAttribute("nickname", memberEditDTO.getNickname());
+//            model.addAttribute("memberEditDTO", memberEditDTO);
+//        }
+//
+//        return "mypage/member/edit_profile";
+//    }
+    @GetMapping("edit-profile")
     public String profileEdit(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
-                              Model model, MemberJoinDTO memberJoinDTODTO){
-        return "mypage/member/info";
+                              MemberEditDTO memberEditDTO, Model model){
+
+        model.addAttribute("memberEditDTO", new MemberEditDTO());
+
+        return "mypage/member/edit_profile";
     }
-    @PostMapping("profile-edit")
-    public String profileEdit(){
-        return "mypage/member/info";
+    @PutMapping("edit-profile")
+    public ResponseEntity<String> profileEdit(@RequestBody MemberEditDTO memberEditDTO, String email) {
+
+        memberService.edit(memberEditDTO, email);
+
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
 
     // 회원탈퇴

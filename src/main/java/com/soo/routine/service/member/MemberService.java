@@ -1,5 +1,7 @@
 package com.soo.routine.service.member;
 
+import com.soo.routine.dto.board.BoardReadDTO;
+import com.soo.routine.dto.member.MemberEditDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
@@ -84,7 +86,7 @@ public class MemberService {
     회원 탈퇴
      */
     @Transactional
-    public void change_memberActive(String email){
+    public void change_memberActive(String email) {
 
 //        Member change_memberActive = memberRepository.findOne(email);
 //
@@ -101,9 +103,9 @@ public class MemberService {
     }
 
     /*
-    비밀번호 재설정
+    비밀번호 찾기
     */
-    public Member pwdFind(String email) throws Exception{
+    public Member pwdFind(String email) throws Exception {
 
         // 회원정보 불러오기
         Member member = memberRepository.findByEmail(email).orElse(null);
@@ -129,6 +131,21 @@ public class MemberService {
         }
             return member;
 
+    }
+    
+    /*
+    회원정보 수정
+    */
+    @Transactional
+    public void edit(MemberEditDTO memberEditDTO, String email) {
+
+        Member member = memberRepository.findByEmail(memberEditDTO.toEntity().getEmail()).orElseThrow(() -> {
+           return new IllegalArgumentException("회원을 찾을 수 없습니다.");
+        });
+
+        memberEditDTO = modelMapper.map(memberRepository.findByEmail(email), MemberEditDTO.class);
+
+        member.Edit(memberEditDTO.getNickname(), passwordEncoder.encode(memberEditDTO.getPwd()));
     }
 
     /*
