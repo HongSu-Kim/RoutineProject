@@ -51,6 +51,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
 
+    // 회원가입
     @Builder
     public Member(String email, String pwd, String nickname, String gender,
                   String birth, Role role, LocalDateTime joinDate, boolean member_active){
@@ -63,6 +64,12 @@ public class Member {
         this.role = role;
         this.joinDate = joinDate;
         this.member_active = member_active;
+    }
+
+    // 회원정보 수정
+    public void Edit(String pwd, String nickname) {
+        this.pwd = pwd;
+        this.nickname = nickname;
     }
 
 }
