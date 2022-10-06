@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout_user">
+      layout:decorate="layout/layout_user_ver1">
 
 <th:block layout:fragment="content">
 
@@ -27,7 +27,7 @@
                     <div>
                         <div>
                             <input type="text" class="form-control input-lg input_routine" id="email" name="email"
-                                   th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소">
+                                   th:field="*{email}" th:errorclass="fieldErrors" placeholder="이메일 주소" autofocus>
                         </div>
                         <div class="error_routine" th:errors="*{email}"></div>
                     </div>
