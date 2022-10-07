@@ -52,11 +52,11 @@ public class MissionController {
     @GetMapping("admin/mission-add")
     public String adminMissionAdd(Model model, MissionRecommendAddDTO missionRecommendAddDTO) {
 
-        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
         List<MissionIconDTO> iconList = missionIconService.getIconList();
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
 
-        model.addAttribute("categoryList", categoryList);
         model.addAttribute("iconList", iconList);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("pageName", "Recommend Mission Add");
         return "admin/mission/add";
     }

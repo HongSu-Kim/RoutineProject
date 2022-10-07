@@ -5,6 +5,9 @@ import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -28,7 +30,7 @@ public class BoardController {
 
     // 게시글 리스트 페이지
     @GetMapping("admin/board-list")
-    public String boardList(Model model, String boardCategory, Long memberId) {
+    public String boardList(Model model, @PageableDefault Pageable pageable, String boardCategory, Long memberId) {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
@@ -40,11 +42,11 @@ public class BoardController {
         model.addAttribute("pageName", boardCategory + " List");
 
         if (boardCategory == null || !boardCategory.equals("QnA")) {
-            List<BoardListDTO> lists = boardService.getBoardList(boardCategory);
+            Page<BoardListDTO> lists = boardService.getBoardList(boardCategory, pageable);
             model.addAttribute("lists", lists);
             return "admin/board/list";
         } else {
-            List<BoardQnaListDTO> lists = boardService.getQnaList(boardCategory, memberId);
+            Page<BoardQnaListDTO> lists = boardService.getQnaList(boardCategory, memberId, pageable);
             model.addAttribute("lists", lists);
             return "admin/qna/list";
         }

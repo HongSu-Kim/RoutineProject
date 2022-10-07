@@ -3,12 +3,14 @@ package com.soo.routine.entity.board;
 import com.soo.routine.dto.board.ReplyWriteDTO;
 import com.soo.routine.entity.member.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Reply {
 
     @Id

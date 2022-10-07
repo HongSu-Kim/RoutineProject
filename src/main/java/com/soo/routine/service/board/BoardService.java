@@ -8,11 +8,14 @@ import com.soo.routine.repository.board.BoardRepository;
 import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.TypeToken;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,33 +30,46 @@ public class BoardService {
 
     // 게시글 리스트
     @Transactional(readOnly = true)
-    public List<BoardListDTO> getBoardList(String category) {
+    public Page<BoardListDTO> getBoardList(String category, Pageable pageable) {
 
-        Type type = new TypeToken<List<BoardListDTO>>() {}.getType();
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("id"));
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
+
+        Type type = new TypeToken<PageImpl<BoardListDTO>>() {}.getType();
+        TypeMap<Board, BoardListDTO> typeMap = modelMapper.typeMap(Board.class, BoardListDTO.class);
+        typeMap.addMapping(Board::getId, BoardListDTO::setBoardId);
 
         if (category == null)
-            return modelMapper.map(boardRepository.findAll(), type);
+            return modelMapper.map(boardRepository.findAll(pageable), type);
         else
-            return modelMapper.map(boardRepository.findAllByCategory(category), type);
+            return modelMapper.map(boardRepository.findAllByCategory(category, pageable), type);
 
     }
 
     // QnA 리스트
     @Transactional(readOnly = true)
-    public List<BoardQnaListDTO> getQnaList(String category, Long memberId) {
+    public Page<BoardQnaListDTO> getQnaList(String category, Long memberId, Pageable pageable) {
 
-        Type type = new TypeToken<List<BoardQnaListDTO>>() {}.getType();
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("id"));
+        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
-        if (memberId == null || memberId.equals(""))
-            return modelMapper.map(boardRepository.findAllByCategory(category), type);
-        else
-            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, memberId), type);
+        Type type = new TypeToken<PageImpl<BoardQnaListDTO>>() {}.getType();
+        TypeMap<Board, BoardQnaListDTO> typeMap = modelMapper.typeMap(Board.class, BoardQnaListDTO.class);
+        typeMap.addMapping(Board::getId, BoardQnaListDTO::setBoardId);
+
+        if (memberId == null || memberId.toString().equals("")) {
+            return modelMapper.map(boardRepository.findAllByCategory(category, pageable), type);
+        } else {
+            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, memberId, pageable), type);
+        }
     }
 
     // 게시글 작성
     public void writeBoard(BoardWriteDTO boardWriteDTO) {
 
-        Member member = memberRepository.findById(boardWriteDTO.getMemberId()).get();
+        Member member = memberRepository.findById(boardWriteDTO.getMemberId()).orElse(null);
 
         Board board = new Board(boardWriteDTO, member);
 
@@ -63,14 +79,17 @@ public class BoardService {
     // 게시글 한개
     public BoardReadDTO getBoard(Long boardId) {
         boardMapper.updateHits(boardId); // boardHits++
-        BoardReadDTO boardReadDTO = modelMapper.map(boardRepository.findById(boardId), BoardReadDTO.class);
-        return boardReadDTO;
+        return modelMapper.map(boardRepository.findById(boardId).orElse(null), BoardReadDTO.class);
     }
 
     // 게시글 수정
     public void editBoard(BoardEditDTO boardEditDTO) {
 
-        Board board = boardRepository.findById(boardEditDTO.getBoardId()).get();
+        Board board = boardRepository.findById(boardEditDTO.getBoardId()).orElse(null);
+
+        if (board == null) {
+            return;
+        }
 
         board.edit(boardEditDTO);
 
