@@ -21,7 +21,7 @@
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <input type="password" class="form-control input-lg input_routine" id="pwd" name="pwd"
-                           th:field="*{pwd}" th:errorclass="fieldErrors" placeholder="비밀번호">
+                           th:field="*{pwd}" th:errorclass="fieldErrors" placeholder="비밀번호" autofocus>
                     <div class="error_routine" th:errors="*{pwd}"></div>
                 </div>
 

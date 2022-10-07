@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class MemberJoinDTO {//회원가입 시 사용
 
     private long memberId;//회원번호
-    private String level;//회원등급
+    private String role;//회원등급
     private LocalDateTime joinDate;//가입일
 
     @NotBlank(message="이메일 주소를 입력하세요.")
