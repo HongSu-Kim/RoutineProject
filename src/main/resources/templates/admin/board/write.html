@@ -43,12 +43,18 @@
 							<div th:each="err : ${#fields.errors('boardContent')}" class="error-message" th:text="${err}"></div>
 							<textarea class="form-control min-px-250" th:field="*{boardContent}"></textarea>
 						</div>
+						
 						<!-- button -->
 						<div class="d-flex justify-content-between mt-6">
 							<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-list?boardCategory=${boardCategory}|}';|" >목록</button>
 							<button class="btn btn-outline-brown mb-2" type="submit">완료</button>
 						</div>
 					</form>
+					<!--
+					<div class="border rounded mb-5">
+						<form action="./" class="dropzone"></form>
+					</div>
+					-->
 				</div>
 			</div>
 		</div>
