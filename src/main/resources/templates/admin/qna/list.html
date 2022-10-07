@@ -21,22 +21,42 @@
               <tr th:if="${lists.isEmpty()}">
                 <td colspan="5" align="center">글이 존재하지 않습니다.</td>
               </tr>
-              <tr th:each="dto : ${lists}">
-                <td scope="row" th:text="${dto.boardId }"></td>
+              <tr th:each="dto, loop : ${lists}">
+                <td scope="row" th:text="${lists.totalElements - (lists.number * lists.size) - loop.index}">No</td>
                 <td>
-                  <a th:href="@{|/admin/board-list?boardCategory=QnA&memberId=${dto.memberId}|}" th:text="${dto.memberEmail}">Email</a>
+                  <a th:href="@{|/admin/board-list?boardCategory=QnA&memberId=${dto.member.id}|}" th:text="${dto.member.email}">Email</a>
                 </td>
                 <td>
-                  <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}" th:text="${dto.boardTitle}">Title</a>
+                  <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.id}|}" th:text="${dto.boardTitle}">Title</a>
                 </td>
                 <td th:text="${#temporals.format(dto.boardCreate, 'yyyy-MM-dd HH:mm')}">Create</td>
                 <td th:if="${dto.reply == null}">
-                  <a th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}">답변 대기</a>
+                  <a th:href="@{|/admin/board-detail?boardId=${dto.id}|}">답변 대기</a>
                 </td>
                 <td th:if="${dto.reply != null}">답변 완료</td>
               </tr>
             </tbody>
           </table>
+					<nav arial-label="Page navigation">
+						<ul class="pagination justify-content-center pagination-sm"
+								th:with="startNumber = ${lists.number / 10} * 10 + 1, endNumber = (${lists.totalPages} > ${startNumber + 9}) ? ${startNumber + 9} : ${lists.totalPages}">
+							<!-- << -->
+							<li><a class="page-link" th:href="@{|?boardCategory=${boardCategory}&page=1|}">&laquo;</a></li>
+							<!-- < -->
+							<li class="page-item" th:style="${lists.first} ? 'display:none'">
+								<!-- <a class="page-link" th:href="@{/question/list(page = ${paging.number})}">&lsaquo;</a> -->
+								<a class="page-link" th:href="@{|?boardCategory=${boardCategory}&page=${lists.number}|}">&lsaquo;</a>
+							</li>
+							<li class="page-item" th:each="page : ${#numbers.sequence(startNumber, endNumber)}" th:classappend="(${page} == ${lists.number + 1}) ? 'active' : null">
+								<a class="page-link" th:href="@{|?boardCategory=${boardCategory}&page=${page}|}" th:text="${page}"></a>
+							</li>
+							<!-- > -->
+							<li class="page-item" th:style="${lists.last} ? 'display:none'">
+								<a class="page-link" th:href="@{|?boardCategory=${boardCategory}&page=${lists.number + 2}|}">&rsaquo;</a>
+							</li>
+							<!-- >> -->
+							<li><a class="page-link" th:href="@{|?boardCategory=${boardCategory}&page=${lists.totalPages}|}">&raquo;</a></li>
+						</ul>
 				</div>
 			</div>
 		</div>

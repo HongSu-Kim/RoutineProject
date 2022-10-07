@@ -8,7 +8,7 @@
 
 			<div class="card card-default">
 				<div class="card-body">
-					<form action="@{/admin/routine-add}" method="post" name="routineForm" th:object="${routineRecommendAddDTO}">
+					<form th:action="@{/admin/routine-add}" method="post" name="routineForm" th:object="${routineRecommendAddDTO}">
 						<div class="row">
 							<!-- memberId -->
 							<div class="col-lg-6">
@@ -81,7 +81,7 @@
 		</div>
 	</div>
 	
-	<th:block th:replace="layout/fragments/modal_missionList :: modal"></th:block>
+	<th:block th:replace="layout/modal/modal_missionList :: modal"></th:block>
 	
 </th:block>
 
