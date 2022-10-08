@@ -67,7 +67,7 @@ public class Member {
     }
 
     // 회원정보 수정
-    public void Edit(String pwd, String nickname) {
+    public void edit(String pwd, String nickname) {
         this.pwd = pwd;
         this.nickname = nickname;
     }

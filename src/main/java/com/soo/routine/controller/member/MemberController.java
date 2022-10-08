@@ -68,10 +68,6 @@ public class MemberController {
     public String login(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                         Model model, MemberLoginDTO memberLoginDTO) {
 
-        if (loginMember == null) {
-            return "mypage/member/login";
-        }
-
         model.addAttribute("member", loginMember);
 
         return "redirect:/mypage";
@@ -124,7 +120,13 @@ public class MemberController {
 
     // 비밀번호 찾기
     @GetMapping("pwd-find")
-    public String pwdFind(@ModelAttribute("memberJoinDTO") MemberJoinDTO memberJoinDTO){
+    public String pwdFind(@ModelAttribute("memberJoinDTO") MemberJoinDTO memberJoinDTO,
+                          @AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember){
+
+        if (loginMember == null) {
+            return "mypage/member/login";
+        }
+
         return "mypage/member/pwd_find";
     }
     @PostMapping("pwd-find")
@@ -200,38 +202,54 @@ public class MemberController {
     }
 
     // 회원정보 수정
-//    @GetMapping("edit-profile")
-//    public String profileEdit(@AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember,
-//                              Model model, MemberEditDTO memberEditDTO){
-//
-//        if (loginMember != null) {
-//
-//            model.addAttribute("nickname", memberEditDTO.getNickname());
-//            model.addAttribute("memberEditDTO", memberEditDTO);
-//        }
-//
-//        return "mypage/member/edit_profile";
-//    }
     @GetMapping("edit-profile")
     public String profileEdit(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                               MemberEditDTO memberEditDTO, Model model){
+
+        if (loginMember == null) {
+            return "mypage/member/login";
+        }
 
         model.addAttribute("memberEditDTO", new MemberEditDTO());
 
         return "mypage/member/edit_profile";
     }
-    @PutMapping("edit-profile")
-    public ResponseEntity<String> profileEdit(@RequestBody MemberEditDTO memberEditDTO, String email) {
+    @PostMapping("edit-profile")
+    public String profileEdit(@Valid MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
 
-        memberService.edit(memberEditDTO, email);
+        if(bindingResult.hasErrors()){
+            model.addAttribute("memberEditDTO", memberEditDTO);
+            return "mypage/member/edit_profile";
+        }
 
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        memberService.edit(memberEditDTO);
+
+        return "mypage/member/edit_profile";
     }
+
+//    @PutMapping("edit-profile")
+//    public ResponseEntity<String> profileEdit(@RequestBody Member member) {
+//
+//        memberService.edit(member);
+//
+//        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+//    }
+
+//    public ResponseEntity<Integer> profileEdit(@RequestBody Member member) {
+//
+//        memberService.edit(member);
+//        return new ResponseEntity<Integer>(HttpStatus.OK.value(), 1);
+//    }
 
     // 회원탈퇴
     @GetMapping("withdraw")
     public String withdraw(@SessionAttribute(name = "loginMember", required = false)Member loginMember,
                            Model model, MemberLoginDTO memberLoginDTO){
+
+        if (loginMember == null) {
+            return "mypage/member/login";
+        }
+
         return "mypage/member/withdraw";
     }
     @PostMapping("withdraw")
