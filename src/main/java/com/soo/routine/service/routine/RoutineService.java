@@ -93,12 +93,12 @@ public class RoutineService {
 
     // 루틴 리스트
     @Transactional(readOnly = true)
-    public List<RoutineDetailDTO> getRoutineList(Long memberId) {
+    public List<RoutineDTO> getRoutineList(Long memberId) {
 
-        List<Routine> routineList = routineRepository.findAllByMemberId(memberId);
-        Type type = new TypeToken<List<RoutineDetailDTO>>() {}.getType();
+        List<Routine> routineList = routineRepository.findAllByMemberId(memberId); // Entity
+        Type type = new TypeToken<List<RoutineDTO>>() {}.getType(); // DTO
 
-        List<RoutineDetailDTO> lists = modelMapper.map(routineList, type);
+        List<RoutineDTO> lists = modelMapper.map(routineList, type); // (Entity, DTO)
 
         return lists;
     }
@@ -177,19 +177,19 @@ public class RoutineService {
 
     // 루틴 추천 리스트
     @Transactional(readOnly = true)
-    public List<RoutineDetailDTO> getRecommendRoutineList() {
+    public List<RoutineDTO> getRecommendRoutineList() {
 
         List<Routine> routineList = routineRepository.findAllByMemberRole(Role.ADMIN);
-        Type type = new TypeToken<List<RoutineDetailDTO>>() {}.getType();
+        Type type = new TypeToken<List<RoutineDTO>>() {}.getType();
 
-        List<RoutineDetailDTO> lists = modelMapper.map(routineList, type);
+        List<RoutineDTO> lists = modelMapper.map(routineList, type);
 
         return lists;
     }
 
     // 루틴 디테일
     @Transactional(readOnly = true)
-    public RoutineDetailDTO getRoutine(Long routineId) {
+    public RoutineDTO getRoutine(Long routineId) {
 
         Routine routine = routineRepository.findById(routineId).orElse(null);
 
@@ -197,7 +197,7 @@ public class RoutineService {
             return null;
         }
 
-        RoutineDetailDTO routineDetailDTO = modelMapper.map(routine, RoutineDetailDTO.class);
+        RoutineDTO routineDTO = modelMapper.map(routine, RoutineDTO.class);
         String today = LocalDate.now().getDayOfWeek().name();
 
         for (RoutineSet rs : routine.getRoutineSetList()) {
@@ -210,12 +210,12 @@ public class RoutineService {
                 finalTime.plusMinutes(totalTime.getMinute());
                 finalTime.plusSeconds(totalTime.getSecond());
 
-                routineDetailDTO.setFinalTime(finalTime);
-                routineDetailDTO.setRoutineSet(rs);
+                routineDTO.setFinalTime(finalTime);
+                routineDTO.setRoutineSet(rs);
             }
         }
 
-        return routineDetailDTO;
+        return routineDTO;
     }
 
     // 루틴 수정 select

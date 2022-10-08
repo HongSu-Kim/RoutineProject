@@ -115,18 +115,12 @@ public class MemberController {
             httpSession.invalidate(); // 세션 제거
         }
 
-        return "redirect:/login";
+        return "mypage/member/login";
     }
 
     // 비밀번호 찾기
     @GetMapping("pwd-find")
-    public String pwdFind(@ModelAttribute("memberJoinDTO") MemberJoinDTO memberJoinDTO,
-                          @AuthenticationPrincipal @SessionAttribute(name = "loginMember", required = false)Member loginMember){
-
-        if (loginMember == null) {
-            return "mypage/member/login";
-        }
-
+    public String pwdFind(@ModelAttribute("memberJoinDTO") MemberJoinDTO memberJoinDTO){
         return "mypage/member/pwd_find";
     }
     @PostMapping("pwd-find")
