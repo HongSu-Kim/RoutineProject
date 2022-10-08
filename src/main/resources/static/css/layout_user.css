@@ -306,3 +306,12 @@ img
     padding-right: 15px;
 }
 
+/* 회원정보 수정 */
+.btn-edit-left {
+    width: 70pt;
+}
+
+.btn-edit-right {
+    margin-left: 10pt;
+    width: 70pt;
+}

@@ -105,9 +105,17 @@ CREATE TABLE harugom.MISSION (
 
 
 INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,role,NICKNAME,PWD,MEMBER_ACTIVE)
-    VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'ADMIN', 'HIROKAZU', 'hirokazu7', TRUE);
+    VALUES('1994-07-02', 'hirokazu@gmail.com', 'M', NOW(), 'ADMIN',
+    'HIROKAZU', '{bcrypt}$2a$10$Ck98NMXjuxoBaJndWUUc3ufSns1PR4GOLmudp/Gaq519O3prScL5u', TRUE); -- PWD : hirokazu72
 INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,role,NICKNAME,PWD,MEMBER_ACTIVE)
-    VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'ADMIN', 'KRISTAL', 'kristal1', TRUE);
+    VALUES('1993-02-14', 'kristal@gmail.com', 'F', NOW(), 'ADMIN',
+    'KRISTAL', '{bcrypt}$2a$10$7mOoW7aeU.qyt/5xxC.68eX43QPujsiC9.iN6KrKc7zFuULwr3Wwm', TRUE); -- PWD : kri111
+INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,role,NICKNAME,PWD,MEMBER_ACTIVE)
+    VALUES('2000-10-07', 'gom@naver.com', 'M', NOW(), 'MEMBER',
+    '곰돌이', '{bcrypt}$2a$10$7mOoW7aeU.qyt/5xxC.68eX43QPujsiC9.iN6KrKc7zFuULwr3Wwm', TRUE); -- PWD : gom111
+INSERT INTO harugom.MEMBER (BIRTH,EMAIL,GENDER,JOIN_DATE,role,NICKNAME,PWD,MEMBER_ACTIVE)
+    VALUES('1998-11-14', 'soo@naver.com', 'F', NOW(), 'MEMBER',
+    '수정', '{bcrypt}$2a$10$7mOoW7aeU.qyt/5xxC.68eX43QPujsiC9.iN6KrKc7zFuULwr3Wwm', TRUE); -- PWD : soo111
 
 INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('반려동물', 'animal', FALSE);
 INSERT INTO harugom.ICON_CATEGORY(category_name, icon_path, pay) VALUES('클린', 'clean', FALSE);

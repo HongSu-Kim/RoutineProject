@@ -137,15 +137,20 @@ public class MemberService {
     회원정보 수정
     */
     @Transactional
-    public void edit(MemberEditDTO memberEditDTO, String email) {
+    public void edit(MemberEditDTO memberEditDTO) {
 
-        Member member = memberRepository.findByEmail(memberEditDTO.toEntity().getEmail()).orElseThrow(() -> {
-           return new IllegalArgumentException("회원을 찾을 수 없습니다.");
-        });
+        Member member = memberRepository.findByEmail(memberEditDTO.getEmail()).orElse(null);
 
-        memberEditDTO = modelMapper.map(memberRepository.findByEmail(email), MemberEditDTO.class);
+        if (member == null) {
+            return;
+        }
 
-        member.Edit(memberEditDTO.getNickname(), passwordEncoder.encode(memberEditDTO.getPwd()));
+//        member.setPwd(passwordEncoder.encode(memberEditDTO.getPwd()));
+//        member.setNickname(memberEditDTO.getNickname());
+
+        member.edit(passwordEncoder.encode(memberEditDTO.getNewPwd()), memberEditDTO.getNickname());
+
+        memberRepository.save(member);
     }
 
     /*
