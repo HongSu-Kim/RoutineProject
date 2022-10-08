@@ -10,13 +10,17 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RoutineDetailDTO {
+public class RoutineDTO {
 
-    private Long routineId;
-    private Long memberId;
-    private String routineName;
-    private boolean routineActive;
-    private LocalTime totalTime;
+    private Long routineId; // 루틴 ID
+    private Long memberId; // 회원 ID
+
+    private String routineName; // 루틴 이름
+    private boolean routineActive; // 루틴 활성화
+    private LocalTime totalTime; // 총 시간
+    private LocalTime startTime; // 시작시간
+    private LocalTime endTime; // 종료시간
+    private String day; // 요일
 
     private RoutineSet routineSet;
     private List<RoutineSet> routineSetList;
