@@ -29,6 +29,6 @@ public class RoutineUpdateDTO {
     // mission
     private Long[] iconId;
     private String[] missionName;
-    private String[] runtime;
+    private String[] runTime;
     private String[] missionContent;
 }
