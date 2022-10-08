@@ -49,12 +49,12 @@ public class RoutineService {
 
         // save mission
         if (routineRecommendAddDTO.getMissionIconId() != null) {
-            for (int i = 0; i < routineRecommendAddDTO.getMissionIconId().length; i++) {
-                MissionIcon missionIcon = missionIconRepository.findById(routineRecommendAddDTO.getMissionIconId()[i]).get();
-                Mission mission = new Mission(routine, missionIcon, routineRecommendAddDTO.getMissionName()[i],
-                routineRecommendAddDTO.getRuntime()[i], routineRecommendAddDTO.getMissionContent()[i] != null ? routineRecommendAddDTO.getMissionContent()[i] : "");
-                missionRepository.save(mission);
-            }
+			for (int i = 0; i < routineRecommendAddDTO.getMissionIconId().length; i++) {
+				MissionIcon missionIcon = missionIconRepository.findById(routineRecommendAddDTO.getMissionIconId()[i]).get();
+				Mission mission = new Mission(routine, missionIcon, routineRecommendAddDTO.getMissionName()[i], routineRecommendAddDTO.getRunTime()[i],
+						routineRecommendAddDTO.getMissionContent() != null ? routineRecommendAddDTO.getMissionContent()[i] : "");
+				missionRepository.save(mission);
+			}
         }
 
     }
@@ -124,31 +124,39 @@ public class RoutineService {
         String[] runTime = routineRecommendEditDTO.getRunTime();
         String[] missionContent = routineRecommendEditDTO.getMissionContent();
 
-        // update, delete
-        for (Mission m : routine.getMissionList()) {
-            boolean result = false;
-            for (int i = 0; i < missionId.length; i++) {
-                if (m.getId().equals(missionId[i])) {
-                    Mission mission = missionRepository.findById(m.getId()).get();
-                    MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
-                    mission.edit(missionIcon, missionName[i], runTime[i], missionContent[i]);
-                    missionRepository.save(mission);
-                    result = true;
-                }
-            }
-            if (!result) {
-                missionRepository.deleteById(m.getId());
-            }
-        }
+		if (missionId != null) {
+			// update, delete
+			for (Mission m : routine.getMissionList()) {
+				boolean result = false;
+				for (int i = 0; i < missionId.length; i++) {
+					if (m.getId().equals(missionId[i])) {
+						Mission mission = missionRepository.findById(m.getId()).get();
+						MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
+						mission.edit(missionIcon, missionName[i], runTime[i],
+								missionContent.length > 0 && missionContent[i] != null ? missionContent[i] : "");
+						missionRepository.save(mission);
+						result = true;
+					}
+				}
+				if (!result) {
+					missionRepository.deleteById(m.getId());
+				}
+			}
 
-        // insert
-        for (int i = 0; i < missionId.length; i++) {
-            if (missionId[i] == null) {
-                MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
-                Mission mission = new Mission(routine, missionIcon, missionName[i], runTime[i], missionContent[i]);
-                missionRepository.save(mission);
-            }
-        }
+			// insert
+			for (int i = 0; i < missionId.length; i++) {
+				if (missionId[i] == null) {
+					MissionIcon missionIcon = missionIconRepository.findById(missionIconId[i]).get();
+					Mission mission = new Mission(routine, missionIcon, missionName[i], runTime[i],
+							missionContent != null && missionContent[i] != null ? missionContent[i] : "");
+					missionRepository.save(mission);
+				}
+			}
+		} else {
+			for (Mission m : routine.getMissionList()) {
+				missionRepository.delete(m);
+			}
+		}
 
         routineRepository.save(routine);
     }

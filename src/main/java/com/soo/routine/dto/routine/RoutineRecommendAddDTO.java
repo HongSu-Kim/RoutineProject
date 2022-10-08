@@ -21,7 +21,7 @@ public class RoutineRecommendAddDTO {
     // mission
     private Long[] missionIconId;
     private String[] missionName;
-    private String[] runtime;
+    private String[] runTime;
     private String[] missionContent;
 
 }

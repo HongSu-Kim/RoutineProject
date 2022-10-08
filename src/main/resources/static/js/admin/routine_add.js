@@ -22,7 +22,7 @@ $(function() {
 			'	</td>' +
 			'	<td><input type="text" class="form-control" id="missionName" name="missionName"></td>' +
 			'	<td><input type="text" class="form-control" id="runTime" name="runTime" onclick=saveTime(' + index + ') onblur="checkTime(' + index + ')" ></td>' +
-			'	<td><input type="text" class="form-control" id="missionContent" name="missionContent"></td>' +
+			'	<td><input type="text" class="form-control" id="missionContent" name="missionContent" value=" "></td>' +
 			'	<td><div class="btn-group" role="group" aria-label="Basic example">' +
 			'		<button type="button" class="btn btn-sm btn-outline-primary px-2">미션</button>' +
 			'		<button type="button" class="btn btn-sm btn-outline-primary px-2 removeButton">삭제</button>' +
@@ -103,14 +103,14 @@ $(function() {
 			// 소요시간
 			if (runTime[i].value.trim() == '') {
 				alert('소요시간 필수');
-				runTime[i].value == '';
+                runTime[i].value == '';
 				return;
 			} else {
 				let runTime = document.getElementsByName("runTime")[i].value;
 				let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/
 				if (!reg.test(runTime)) {
 					checkTime(i)
-					runTime[i].focus();
+                    runTime[i].focus();
 					return;
 				}
 			}
