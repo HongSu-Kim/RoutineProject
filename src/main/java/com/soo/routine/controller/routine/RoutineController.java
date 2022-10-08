@@ -43,7 +43,7 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        List<RoutineReadDTO> lists = routineService.getRecommendRoutineList();
+        List<RoutineDetailDTO> lists = routineService.getRecommendRoutineList();
 
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Routine List");
@@ -128,7 +128,7 @@ public class RoutineController {
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
         routineService.updateRoutine(routineRecommendEditDTO);
-        List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
+        List<RoutineDetailDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
         return "redirect:/admin/routine-edit?routineId=" + routineRecommendEditDTO.getRoutineId();
@@ -148,7 +148,7 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        List<RoutineReadDTO> lists = routineService.getRoutineList(loginMember.getId());
+        List<RoutineDetailDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);
         return "routine/routine/list";
@@ -192,13 +192,13 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        RoutineReadDTO routineReadDTO = routineService.getRoutine(routineId);
+        RoutineDetailDTO routineDetailDTO = routineService.getRoutine(routineId);
 
-        if (routineReadDTO == null) {
+        if (routineDetailDTO == null) {
             return "redirect:/routine";
         }
 
-        model.addAttribute("routineDTO" , routineReadDTO);
+        model.addAttribute("routineDTO" , routineDetailDTO);
         return "routine/routine/detail";
     }
 
@@ -240,9 +240,9 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        RoutineReadDTO routineReadDTO = routineService.getRoutine(routineId);
+        RoutineDetailDTO routineDetailDTO = routineService.getRoutine(routineId);
 
-        model.addAttribute("routineReadDTO", routineReadDTO);
+        model.addAttribute("routineReadDTO", routineDetailDTO);
         return "routine/routine/start";
     }
 

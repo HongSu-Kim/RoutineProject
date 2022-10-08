@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RoutineDTO {
+public class RoutineListDTO {
 
     private Long routineId;
     private Long memberId;
