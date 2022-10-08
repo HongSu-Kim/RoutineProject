@@ -93,6 +93,6 @@ public class BoardService {
 
         board.edit(boardEditDTO);
 
-        boardRepository.save(board);
+//        boardRepository.save(board);
     }
 }
