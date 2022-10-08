@@ -5,7 +5,9 @@
 
     <div class="header-ver2-wrap">
         <div class="bottom-routine header-element">
+            <th:block th:if="${(#request.getRequestURI).equals('/mypage')}">
             <a href="logout" class="a-routine a-bottom-routine">로그아웃</a>
+            </th:block>
         </div>
     </div>
 

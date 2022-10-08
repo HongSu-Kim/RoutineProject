@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RoutineReadDTO {
+public class RoutineDetailDTO {
 
     private Long routineId;
     private Long memberId;

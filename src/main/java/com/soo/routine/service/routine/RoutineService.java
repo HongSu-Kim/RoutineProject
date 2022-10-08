@@ -93,12 +93,12 @@ public class RoutineService {
 
     // 루틴 리스트
     @Transactional(readOnly = true)
-    public List<RoutineReadDTO> getRoutineList(Long memberId) {
+    public List<RoutineDetailDTO> getRoutineList(Long memberId) {
 
         List<Routine> routineList = routineRepository.findAllByMemberId(memberId);
-        Type type = new TypeToken<List<RoutineReadDTO>>() {}.getType();
+        Type type = new TypeToken<List<RoutineDetailDTO>>() {}.getType();
 
-        List<RoutineReadDTO> lists = modelMapper.map(routineList, type);
+        List<RoutineDetailDTO> lists = modelMapper.map(routineList, type);
 
         return lists;
     }
@@ -177,19 +177,19 @@ public class RoutineService {
 
     // 루틴 추천 리스트
     @Transactional(readOnly = true)
-    public List<RoutineReadDTO> getRecommendRoutineList() {
+    public List<RoutineDetailDTO> getRecommendRoutineList() {
 
         List<Routine> routineList = routineRepository.findAllByMemberRole(Role.ADMIN);
-        Type type = new TypeToken<List<RoutineReadDTO>>() {}.getType();
+        Type type = new TypeToken<List<RoutineDetailDTO>>() {}.getType();
 
-        List<RoutineReadDTO> lists = modelMapper.map(routineList, type);
+        List<RoutineDetailDTO> lists = modelMapper.map(routineList, type);
 
         return lists;
     }
 
     // 루틴 디테일
     @Transactional(readOnly = true)
-    public RoutineReadDTO getRoutine(Long routineId) {
+    public RoutineDetailDTO getRoutine(Long routineId) {
 
         Routine routine = routineRepository.findById(routineId).orElse(null);
 
@@ -197,7 +197,7 @@ public class RoutineService {
             return null;
         }
 
-        RoutineReadDTO routineReadDTO = modelMapper.map(routine, RoutineReadDTO.class);
+        RoutineDetailDTO routineDetailDTO = modelMapper.map(routine, RoutineDetailDTO.class);
         String today = LocalDate.now().getDayOfWeek().name();
 
         for (RoutineSet rs : routine.getRoutineSetList()) {
@@ -210,12 +210,12 @@ public class RoutineService {
                 finalTime.plusMinutes(totalTime.getMinute());
                 finalTime.plusSeconds(totalTime.getSecond());
 
-                routineReadDTO.setFinalTime(finalTime);
-                routineReadDTO.setRoutineSet(rs);
+                routineDetailDTO.setFinalTime(finalTime);
+                routineDetailDTO.setRoutineSet(rs);
             }
         }
 
-        return routineReadDTO;
+        return routineDetailDTO;
     }
 
     // 루틴 수정 select

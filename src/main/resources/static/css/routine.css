@@ -41,4 +41,13 @@ textarea {
     width: 200px;
 }
 
+.routine-list-wrap {
+    position: relative;
+    top: 0;
+    margin: 20pt 20pt 15pt;
+    text-align: center;
+}
 
+.routine-list-wrap p {
+    font-size: 0.9375rem;
+}
