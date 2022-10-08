@@ -57,7 +57,9 @@ public class RoutineService {
             }
         }
 
-    }// 루틴 추가
+    }
+
+    // 루틴 추가
     public void addRoutine(RoutineAddDTO routineAddDTO) {
 
         Member member = memberRepository.findById(routineAddDTO.getMemberId()).get();

@@ -64,8 +64,8 @@ public class RoutineController {
         routineRecommendAddDTO.setMemberNickname(loginMember.getNickname());
 
         List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
-        List<MissionIconDTO> iconList = missionIconService.getIconList();
         model.addAttribute("categoryList", categoryList);
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
         model.addAttribute("iconList", iconList);
 
         model.addAttribute("pageName", "Routine Add");
@@ -234,12 +234,15 @@ public class RoutineController {
 
     // 루틴 실행 페이지
     @GetMapping("routine-start")
-    public String routineStart() {
+    public String routineStart(Model model, Long routineId) {
 
         if (httpSession.getAttribute("loginMember") == null) {
             return "redirect:/login";
         }
 
+        RoutineReadDTO routineReadDTO = routineService.getRoutine(routineId);
+
+        model.addAttribute("routineReadDTO", routineReadDTO);
         return "routine/routine/start";
     }
 
