@@ -61,8 +61,8 @@ textarea {
     margin-top: 15pt;
 }
 
-.first-list {
-    margin-top: 35pt;
+.routine-list {
+    margin-top: 20pt;
 }
 
 .routine-list-group {
@@ -80,7 +80,6 @@ textarea {
 
 .list-icon-wrap {
     text-align: right;
-    margin-bottom: -25px;
     margin-top: -14px;
 }
 
@@ -104,4 +103,14 @@ textarea {
 .list-content {
     float: left;
     margin-left: 4pt;
+}
+
+.page-active a{
+    background-color: $theme-color-2;
+    color: $white;
+    @include box-shadow(0 0 40px rgba(40, 125, 250, 0.1));
+}
+
+.page-active a i {
+    color: $white;
 }

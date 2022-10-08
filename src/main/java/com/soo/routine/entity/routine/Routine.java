@@ -31,9 +31,6 @@ public class Routine {
     private String routineName; // 루틴 이름
     private boolean routineActive; // 루틴 활성화
     private LocalTime totalTime; // 전체시간
-    private LocalTime startTime; // 시작시간
-    private LocalTime endTime; // 종료시간
-    private String day; // 요일
 
     @OneToMany(mappedBy = "routine", cascade = CascadeType.REMOVE)
     private List<Mission> missionList;
