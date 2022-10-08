@@ -9,41 +9,69 @@
 
 		<h4 class="text-dark text-center mb-5 routine-title">My Routine</h4>
 
-		<div class="routine-img mypage-img">
-			<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c9415b3f4e3c2033bfd702a321ec6eda72c"
-				 style="width: 100pt;">
-		</div>
+		<th:block th:if="${lists.isEmpty()}">
 
-		<div class="row row-routine">
-			<div class="list-group mypage-list">
-				<div class="routine-list-wrap">
-					<p class="card-text pt-1">루틴이 없습니다</p>
-					<p class="card-text pb-4 pt-1">간단한 루틴부터 시작해보세요!</p>
-					<button type="button" class="btn btn-outline-primary btn-pill mt-1 mb-4"
-							onclick="location.href='/routine-add'">루틴 추가하기</button>
-<!--						<button type="button" class="btn btn-block routine-btn mypage-btn"-->
-<!--								onclick="location.href='edit-profile'">회원정보 수정-->
-<!--						</button>-->
-<!--						<button type="button" class="btn btn-block routine-btn mypage-btn"-->
-<!--								onclick="location.href='withdraw'">회원탈퇴-->
-<!--						</button>-->
+			<!-- Routine List 없는 경우 -->
+			<div class="none-content">
+				<div class="routine-img mypage-img">
+					<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c9415b3f4e3c2033bfd702a321ec6eda72c"
+						 style="width: 100pt;">
+				</div>
+
+				<div class="row row-routine">
+					<div class="list-group mypage-list">
+						<div class="routine-list-wrap">
+							<p class="card-text pt-1">루틴이 없습니다</p>
+							<p class="card-text pb-4 pt-1">간단한 루틴부터 시작해보세요!</p>
+							<button type="button" class="btn btn-outline-primary btn-pill mt-1 mb-4"
+									onclick="location.href='/routine-add'">루틴 추가하기</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+
+		</th:block>
+
+		<th:block th:each="dto, loop : ${lists}">
+
+			<!-- Routine List 있는 경우 -->
+			<div class="list-icon-wrap">
+				<a href="routine-add">
+					<img src="img/icon/black-icon/write.png" class="list-icon">
+				</a>
+			</div>
+			<div>
+				<div class="list-group list-item-wrap first-list">
+					<a href="#" class="list-group-item list-group-item-action routine-list-group">
+						<div class="d-flex w-100 justify-content-between">
+							<p class="mb-1 list-title">매일 루틴</p>
+							<div>
+								<img src="img/icon/black-icon/listmenu.png" class="list-icon">
+							</div>
+						</div>
+						<p class="list-content-first">오전10:00 - 오후4:00</p>
+						<p class="list-content">(매일)</p>
+						<p class="list-content">(ON)</p>
+					</a>
+				</div>
+				<div class="list-group list-item-wrap">
+					<a href="#" class="list-group-item list-group-item-action routine-list-group">
+						<div class="d-flex w-100 justify-content-between">
+							<p class="mb-1 list-title">냠냠</p>
+							<div>
+								<img src="img/icon/black-icon/listmenu.png" class="list-icon">
+							</div>
+						</div>
+						<p class="list-content-first">오후3:00 - 오후8:00</p>
+						<p class="list-content">(월,화)</p>
+						<p class="list-content">(OFF)</p>
+					</a>
+				</div>
+			</div>
+
+		</th:block>
 
 	</div>
-
-<!--	<div class="row">-->
-<!--		<div class="col">-->
-<!--			<div class="card py-3 mb-4 border-0">-->
-<!--				<div class="card-body text-center ">-->
-<!--					<p class="card-text pb-4 pt-1">루틴이 없습니다</p>-->
-<!--					<p class="card-text pb-4 pt-1">간단한 루틴부터 시작해보세요!</p>-->
-<!--					<button type="button" class="btn btn-outline-primary btn-pill mt-1 mb-4" onclick="location.href='/routine-add'">루틴 추가하기</button>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
 
 </th:block>
 
