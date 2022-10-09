@@ -1,5 +1,14 @@
 $(function() {
 
+	$('#switch-active').click(function() {
+		if ($('#routineActive').val() == 'true') {
+			$('#routineActive').val('OFF')
+		} else {
+			$('#routineActive').val('ON')
+		}
+	});
+
+
 	for (let i = 0; i < 7; i++) {
 		let weekBtn = $('button[id="week' + i + '"]')
 		if (weekBtn.siblings('input').val() == 'false') {

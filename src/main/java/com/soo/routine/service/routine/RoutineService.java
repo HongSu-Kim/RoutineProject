@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -95,10 +96,45 @@ public class RoutineService {
     @Transactional(readOnly = true)
     public List<RoutineDTO> getRoutineList(Long memberId) {
 
-        List<Routine> routineList = routineRepository.findAllByMemberId(memberId); // Entity
-        Type type = new TypeToken<List<RoutineDTO>>() {}.getType(); // DTO
+        List<Routine> routineList = routineRepository.findAllByMemberId(memberId);
 
-        List<RoutineDTO> lists = modelMapper.map(routineList, type); // (Entity, DTO)
+        List<RoutineDTO> lists = new ArrayList<>();
+
+        for(Routine routine : routineList) { // routineList에서 routine를 하나씩 꺼낸다
+
+            RoutineDTO routineDTO = modelMapper.map(routine, RoutineDTO.class);
+            String today = LocalDate.now().getDayOfWeek().name();
+
+            StringBuffer weekList = new StringBuffer();
+
+            for (RoutineSet rs : routine.getRoutineSetList()) {
+
+                if (today.equals(rs.getWeek().name())){
+
+                    LocalTime totalTime = routine.getTotalTime();
+                    LocalTime finalTime = rs.getStartTime();
+
+                    finalTime.plusHours(totalTime.getHour());
+                    finalTime.plusMinutes(totalTime.getMinute());
+                    finalTime.plusSeconds(totalTime.getSecond());
+
+                    routineDTO.setFinalTime(finalTime);
+
+                    routineDTO.setWeekActive(rs.isWeekActive());
+                    routineDTO.setStartTime(rs.getStartTime());
+                }
+
+                if (rs.isWeekActive()) {
+                    weekList.append(rs.getWeek().getButton() + ", ");
+                }
+            }
+
+            String weekResult = "(" + weekList.toString().substring(0, weekList.length()-2) + ")";
+
+            routineDTO.setWeekList(weekResult);
+
+            lists.add(routineDTO);
+        }
 
         return lists;
     }
@@ -219,7 +255,6 @@ public class RoutineService {
                 finalTime.plusSeconds(totalTime.getSecond());
 
                 routineDTO.setFinalTime(finalTime);
-                routineDTO.setRoutineSet(rs);
             }
         }
 
