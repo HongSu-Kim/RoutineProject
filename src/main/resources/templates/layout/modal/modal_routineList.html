@@ -17,8 +17,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
-          <form method="post">
-            <input type="hidden" name="_method" value="POST">
+          <form th:action="@{routine-activate}" method="post">
             <button type="submit" class="btn btn-primary btn-pill btn-modal" id="btn-routine-activate">활성화</button>
           </form>
         </div>
@@ -43,7 +42,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary btn-pill btn-modal" id="btn-routine-deactivate">비활성화</button>
+          <form th:action="@{routine-deactivate}" method="post">
+            <button type="button" class="btn btn-primary btn-pill btn-modal" id="btn-routine-deactivate">비활성화</button>
+          </form>
         </div>
       </div>
     </div>
@@ -67,7 +68,8 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
           <form th:action="@{routine-delete}" method="post">
-            <input type="hidden" name="_method" value="delete">
+<!--            <input type="hidden" name="_method" value="delete">-->
+            <input type="hidden" id="deleteId" name="deleteId">
             <button type="submit" class="btn btn-primary btn-pill btn-modal">삭제하기</button>
           </form>
         </div>
