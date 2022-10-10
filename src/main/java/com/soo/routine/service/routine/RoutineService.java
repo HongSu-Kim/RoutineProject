@@ -311,10 +311,18 @@ public class RoutineService {
         return routineRecommendEditDTO;
     }
 
+    // 루틴 활성화 수정
+    public void routineActive(Long routineId) {
+
+        Routine routine = routineRepository.findById(routineId).get();
+        routine.editActive();
+
+        routineRepository.save(routine);
+    }
+
     // 루틴 삭제
     @Transactional
     public void routineDelete(Long routineId) {
-        System.out.print(routineId + "service");
         routineRepository.deleteById(routineId);
     }
 }
