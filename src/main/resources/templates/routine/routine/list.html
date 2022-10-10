@@ -60,21 +60,24 @@
 								<img src="img/icon/black-icon/listmenu.png" class="list-icon"
 									 type="button" id="dropdownMenuButton" data-toggle="dropdown"
 									 aria-haspopup="true" aria-expanded="false" data-display="static">
-								</button>
 								<div class="dropdown-menu routine-dropdown-menu" aria-labelledby="dropdownMenuButton">
+<!--									<input type="hidden" id="routineId" th:value="${dto.routineId}">-->
 									<!-- 비활성 -->
 									<th:block th:if="${dto.routineActive == true}">
-										<a class="dropdown-item routine-dropdown-item" data-toggle="modal" data-target="#routine-deactivate">비활성화</a>
+										<a class="dropdown-item routine-dropdown-item"
+										   data-toggle="modal" data-target="#routine-deactivate" id="routine-deactivate">비활성화</a>
 									</th:block>
 									<th:block th:if="${dto.routineActive == false}">
-										<a class="dropdown-item routine-dropdown-item" data-toggle="modal" data-target="#routine-activate">활성화</a>
+										<a class="dropdown-item routine-dropdown-item"
+										   data-toggle="modal" data-target="#routine-activate" id="routine-activate">활성화</a>
 									</th:block>
 
 									<!-- 수정 -->
 									<a class="dropdown-item routine-dropdown-item" th:href="@{|/routine-edit?routineId=${dto.routineId}|}">수정</a>
 
 									<!-- 삭제 -->
-									<a class="dropdown-item routine-dropdown-item" data-toggle="modal" data-target="#routine-delete">삭제</a>
+									<a class="dropdown-item routine-dropdown-item dropdown-delete"
+									   data-toggle="modal" data-target="#routine-delete">삭제</a>
 
 								</div>
 							</div>
@@ -91,6 +94,10 @@
 	<th:block th:replace="layout/modal/modal_routineList::deactivate"></th:block>
 	<th:block th:replace="layout/modal/modal_routineList::delete"></th:block>
 
+</th:block>
+
+<th:block layout:fragment="script">
+	<script src="/js/routine/routine_list.js"></script>
 </th:block>
 
 </html>

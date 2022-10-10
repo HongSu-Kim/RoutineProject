@@ -1,17 +1,19 @@
 $(function() {
 
     /* 활성화 */
-    $('#btn-routine-activate').click(function() {
+    $('#routine-activate').click(function() {
 
     });
 
     /* 비활성화 */
-    $('#btn-routine-deactivate').click(function() {
+    $('#routine-deactivate').click(function() {
 
     });
 
     /* 삭제 */
-    $('#btn-routine-delete').click(function() {
-
+    $('.dropdown-delete').click(function() {
+        let routineId = $(this).siblings('input').val()
+        $('#deleteId').val(routineId)
     });
+
 })
