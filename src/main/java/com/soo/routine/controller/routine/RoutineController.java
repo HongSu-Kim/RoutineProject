@@ -256,34 +256,19 @@ public class RoutineController {
         return "routine/routine/finish";
     }
 
-    // 루틴 활성화
-    @PostMapping("routine-active")
-    public String routineActive(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model) {
+    // 루틴 활성화 수정
+    @PostMapping("routine-activate")
+    public String routineActive(Long activateId) {
 
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("routineDTO", routineDTO);
-            return "routine/routine/list";
-        }
-
-//        routineService.updateRoutineSet(routineUpdateDTO);
-//        routineService.updateRoutine(routineUpdateDTO);
-
-        return "redirect:/routine?routineId=" + routineDTO.getRoutineId();
+        routineService.routineActive(activateId);
+        return "redirect:/routine";
     }
 
     // 루틴 삭제
     @PostMapping("routine-delete")
-    public String routineDelete(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model, Long deleteId) {
-
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("routineDTO", routineDTO);
-            return "routine/routine/list";
-        }
-
-        System.out.print(deleteId + "controller");
+    public String routineDelete(Long deleteId) {
 
         routineService.routineDelete(deleteId);
-
         return "redirect:/routine";
     }
 }
