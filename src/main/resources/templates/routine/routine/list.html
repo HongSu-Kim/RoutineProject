@@ -51,7 +51,7 @@
 									<p class="mb-1 list-title" th:text="${dto.routineName}">Routine Name</p>
 								</div>
 								<p class="list-content-first"
-									th:text="${#temporals.format(dto.startTime, 'a hh:mm')}">오전10:00</p>
+									th:text="${#temporals.format(dto.startTime, 'a h:mm')}">오전10:00</p>
 								<p class="list-content" th:text="${dto.weekList}">(매일)</p>
 								<p class="list-content list-active"
 								   th:text="${dto.routineActive ? '(ON)' : '(OFF)'}"
