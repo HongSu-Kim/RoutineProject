@@ -44,17 +44,13 @@ public class MissionService {
 
     // 미션 리스트
     @Transactional(readOnly = true)
-    public List<MissionReadDTO> getMissionList(String routineId) {
+    public List<MissionReadDTO> getMissionList(Long routineId) {
 
         Type type = new TypeToken<List<MissionReadDTO>>() {}.getType();
         TypeMap<Mission, MissionReadDTO> typeMap = modelMapper.typeMap(Mission.class, MissionReadDTO.class);
         typeMap.addMapping(Mission::getId, MissionReadDTO::setMissionId);
 
-        if (routineId == null || routineId.equals("")) {
-            return modelMapper.map(missionRepository.findAllByRoutineId(null), type);
-        } else {
-            return modelMapper.map(missionRepository.findAllByRoutineId(Long.parseLong(routineId)), type);
-        }
+		return modelMapper.map(missionRepository.findAllByRoutineId(routineId), type);
     }
 
     // 미션 추가
