@@ -10,49 +10,70 @@
 
 <th:block layout:fragment="content">
 	<!-- body -->
-	<div class="card card-default mb-0 border-0">
-		<th:block th:each="mission : ${routineDTO.missionList}">
+	<th:block th:each="mission, i : ${list}">
+		<div class="card card-default mb-0 border-0">
+			<!-- mission name -->
 			<div class="card-header justify-content-center pb-0">
-				<h1 class="text-dark mb-6 text-center">Routine Start</h1>
+				<h1 class="text-dark mb-6 text-center" th:text="${mission.missionName}">MissionName</h1>
 			</div>
-			<div class="card-body px-5 pb-5 pt-0">
-					<div class="timer align-items-center">
-<!--						<img th:src="@{|/img/icon/${mission.missionIcon.iconCategory.iconPath}/${mission.missionIcon.iconFileName}|}">-->
+			<!-- icon / timer / runtime -->
+			<div class="card-body text-center px-5 pb-5 pt-0">
+				<div class="card py-3 mb-4 border-0">
+					<div class="circle">
+						<img th:src="@{|/img/icon/${mission.iconPath}/${mission.iconFileName}|}" class="justify-content-center">
+						<p class="card-text h2 pb-4 pt-1" id="timer"></p>
+						<p class="card-text pb-4 pt-1" id="runTime" name="runTime" th:text="${mission.runTime}">runTime</p>
 					</div>
-					<div class="card py-3 mb-4 border-0">
-						<div class="card-body text-center ">
-							<p class="card-text pb-4 pt-1">루틴이 없습니다</p>
-							<p class="card-text pb-4 pt-1">간단한 루틴부터 시작해보세요!</p>
-							<button type="button" class="btn btn-outline-primary btn-pill mt-1 mb-4" onclick="location.href='/routine-add'">루틴 추가하기</button>
-						</div>
-					</div>
+				</div>
+				<!-- button -->
+				<div class="d-flex justify-content-center mt-6 mx-6">
+					<button class="btn btn-outline-primary btn-pill mb-2" type="button" id="start">시작</button>
+					<input type="hidden" id="index" th:value="${i.index}">
+				</div>
+				<!-- next mission -->
 			</div>
-		</th:block>
-	</div>
+
+		</div>
+	</th:block>
 </th:block>
 
 <!-- script -->
 <th:block layout:fragment="script">
 	<script>
 		$(function() {
-			let index =
 
 			$('#start').click(function() {
-				time = 10
-
+				let index = $(this).siblings('input').val()
+				let timeStr = document.getElementsByName('runTime')[index].innerHTML
+				let time = parseInt(timeStr.substring(0,2))*60*60 + parseInt(timeStr.substring(3,5))*60 + parseInt(timeStr.substring(6))
 				//setInterval(함수, 시간) : 주기적인 실행
 				let timer = setInterval(function() {
-					//parseInt() : 정수를 반환
-					min = parseInt(time/60); //몫을 계산
-					sec = time%60; //나머지를 계산
 
-					document.getElementById("demo").innerHTML = min + "분" + sec + "초";
+					//parseInt() : 정수를 반환
+					h = parseInt(time/60/60)
+					m = parseInt(time/60); //몫을 계산
+					s = time%60; //나머지를 계산
+
+					timeStr = ''
+					if (h > 0) {
+						timeStr += h + ':'
+					}
+					if (m != 0) {
+						timeStr += m + ':'
+					}
+					if (s >= 0) {
+						timeStr += s
+					} else {
+						timeStr += -s
+					}
+
+					document.getElementById("timer").innerHTML = timeStr;
 					time--;
 
 					//타임아웃 시
 					if (time < 0) {
-							clearInterval(timer); //setInterval() 실행을 끝냄
-							document.getElementById("demo").innerHTML = "시간초과";
+							// clearInterval(timer); //setInterval() 실행을 끝냄
+							document.getElementById("timer").style.color = 'red'
 					}
 				}, 1000);
 			})
