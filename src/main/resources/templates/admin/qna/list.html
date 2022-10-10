@@ -24,14 +24,14 @@
               <tr th:each="dto, loop : ${lists}">
                 <td scope="row" th:text="${lists.totalElements - (lists.number * lists.size) - loop.index}">No</td>
                 <td>
-                  <a th:href="@{|/admin/board-list?boardCategory=QnA&memberId=${dto.member.id}|}" th:text="${dto.member.email}">Email</a>
+                  <a th:href="@{|/admin/board-list?boardCategory=QnA&memberId=${dto.memberId}|}" th:text="${dto.memberEmail}">Email</a>
                 </td>
                 <td>
-                  <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.id}|}" th:text="${dto.boardTitle}">Title</a>
+                  <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}" th:text="${dto.boardTitle}">Title</a>
                 </td>
                 <td th:text="${#temporals.format(dto.boardCreate, 'yyyy-MM-dd HH:mm')}">Create</td>
                 <td th:if="${dto.reply == null}">
-                  <a th:href="@{|/admin/board-detail?boardId=${dto.id}|}">답변 대기</a>
+                  <a th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}">답변 대기</a>
                 </td>
                 <td th:if="${dto.reply != null}">답변 완료</td>
               </tr>
