@@ -11,7 +11,7 @@ public class MissionDTO {
     private Long routineId;
     private Long iconId;
     private String missionName;
-    private int orderNum;
+    private int missionOrder;
     private String runTime;
     private String missionContent;
 
