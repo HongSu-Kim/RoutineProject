@@ -170,7 +170,7 @@ textarea {
 
 /* Detail Page */
 .detail-title-wrap {
-    margin: 0 20px;
+    margin: 15px 20px 30px;
 }
 
 .detail-title {
@@ -195,4 +195,27 @@ textarea {
 
 .detail-btn-right {
     margin-right: 20px;
+}
+
+.routine-detail-group {
+    padding: 0.8rem;
+    background-color: #f5f2f08a;
+    border-radius: 20px;
+}
+
+/* mission */
+.mission-wrap {
+    display: flex;
+}
+
+.mission-img img {
+    width: 40px;
+}
+
+.mission-content {
+    margin-left: 15px;
+}
+
+.mission-runtime {
+    font-size: 1rem;
 }
