@@ -13,9 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
@@ -165,7 +164,18 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        model.addAttribute("weekEnum", Week.class.getEnumConstants());
+		boolean[] weekActive = new boolean[7];
+		String[] weekButton = new String[7];
+		int i = 0;
+
+		for (Week w : Week.class.getEnumConstants()) {
+			weekActive[i] = w.isBool();
+			weekButton[i] = w.getButton();
+			i++;
+		}
+
+		routineAddDTO.setWeekActive(weekActive);
+		routineAddDTO.setWeekButton(weekButton);
 
         return "routine/routine/add";
     }
@@ -174,8 +184,18 @@ public class RoutineController {
     @PostMapping("routine-add")
     public String routineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
 
+		boolean weekActive = false;
+		for (boolean wa : routineAddDTO.getWeekActive()) {
+			if (wa)
+				weekActive = wa;
+		}
+
+		if (!weekActive) {
+			bindingResult.addError(new FieldError("routineAddDTO", "weekActive", "요일을 하나 이상 선택해주세요"));
+		}
+
         if (bindingResult.hasErrors()) {
-            model.addAttribute("weekEnum", Week.class.getEnumConstants());
+			model.addAttribute("routineAddDTO", routineAddDTO);
             return "routine/routine/add";
         }
 
