@@ -58,8 +58,10 @@ public class MissionService {
         MissionIcon missionIcon = missionIconRepository.findById(missionAddDTO.getMissionIconId()).get();
 
         Mission mission = new Mission(missionAddDTO, routine, missionIcon);
+		missionRepository.save(mission);
 
-        missionRepository.save(mission);
+		routineRepository.save(routine.updateTotaTime(missionAddDTO.getRunTime()));
+
     }
 
 	public MissionReadDTO getMission(Long missionId) {

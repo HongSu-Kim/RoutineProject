@@ -77,4 +77,9 @@ public class Routine {
         routineActive = !routineActive;
     }
 
+	public Routine updateTotaTime(String runTimeStr) {
+		LocalTime runTime = LocalTime.parse(runTimeStr);
+		totalTime = totalTime.plusHours(runTime.getHour()).plusMinutes(runTime.getMinute());
+		return this;
+	}
 }
