@@ -73,4 +73,9 @@ public class Routine {
         this.totalTime = LocalTime.parse(routineRecommendEditDTO.getTotalTime(), DateTimeFormatter.ISO_LOCAL_TIME);
     }
 
+    // 루틴 활성화 수정
+    public void editActive() {
+        routineActive = !routineActive;
+    }
+
 }
