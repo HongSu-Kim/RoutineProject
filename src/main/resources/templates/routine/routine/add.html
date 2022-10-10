@@ -25,10 +25,17 @@
 				<!-- week -->
 				<div class="form-group mb-4">
 					<label for="week">요일 설정</label>
+					<div th:each="err : ${#fields.errors('weekActive')}" class="error-message" th:text="${err}"></div>
 					<div class="d-flex justify-content-between">
-						<span th:each="item : ${weekEnum}">
-							<button type="button" class="mb-1 btn btn-primary btn-pill px-3 week" th:id="|week${item.value}|" th:text="${item.button}"></button>
-							<input type="hidden" class="form-control" id="weekActive" name="weekActive" th:value="${item.bool ? 'true' : 'false'}">
+<!--						<span th:each="item : ${weekEnum}">-->
+<!--							<button type="button" class="mb-1 btn btn-primary btn-pill px-3 week" th:id="|week${item.value}|" th:text="${item.button}"></button>-->
+<!--							<input type="hidden" class="form-control" id="weekActive" name="weekActive" th:value="${item.bool ? 'true' : 'false'}">-->
+<!--						</span>-->
+<!--						<span th:each="index : ${#numbers.sequence(0,6)}">-->
+						<span th:each="weekActive, i : ${routineAddDTO.weekActive}">
+							<button type="button" class="mb-1 btn btn-primary btn-pill px-3 week" th:id="|week${i.index}|" th:text="${routineAddDTO.weekButton[i.index]}"></button>
+							<input type="hidden" id="weekButton" name="weekButton" th:value="${routineAddDTO.weekButton[i.index]}">
+							<input type="hidden" class="form-control" id="weekActive" name="weekActive" th:value="${routineAddDTO.weekActive[i.index] ? 'true' : 'false'}">
 						</span>
 					</div>
 				</div>
