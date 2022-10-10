@@ -45,36 +45,33 @@
 			<th:block th:each="dto, loop : ${lists}">
 				<div>
 					<div class="list-group list-item-wrap routine-list">
-						<a th:href="@{|/routine-detail?routineId=${dto.routineId}|}"
-						   class="list-group-item list-group-item-action routine-list-group">
-							<div class="d-flex w-100 justify-content-between">
-								<p class="mb-1 list-title" th:text="${dto.routineName}">Routine Name</p>
-								<div>
-									<img src="img/icon/black-icon/listmenu.png" class="list-icon">
+						<div class="list-group-item list-group-item-action routine-list-group"
+							 th:onclick="@{|location.href='/routine-detail?routineId=${dto.routineId}';|}">
+								<div class="d-flex w-100 justify-content-between">
+									<p class="mb-1 list-title" th:text="${dto.routineName}">Routine Name</p>
+								</div>
+								<p class="list-content-first"
+									th:text="${#temporals.format(dto.startTime, 'a hh:mm')}">오전10:00</p>
+								<p class="list-content" th:text="${dto.weekList}">(매일)</p>
+								<p class="list-content" th:text="${dto.routineActive ? '(ON)' : '(OFF)'}">(ON)</p>
+						</div>
+						<div class="routine-edit">
+							<div class="dropdown d-inline-block mb-1">
+								<img src="img/icon/black-icon/listmenu.png" class="list-icon"
+									 type="button" id="dropdownMenuButton" data-toggle="dropdown"
+									 aria-haspopup="true" aria-expanded="false" data-display="static">
+								</button>
+								<div class="dropdown-menu routine-dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item routine-dropdown-item" id="switch-active" href="routine-list">비활성</a>
+									<input type="hidden" id="routineActive">
+									<a class="dropdown-item routine-dropdown-item" th:href="@{|/routine-edit?routineId=${dto.routineId}|}">수정</a>
+									<a class="dropdown-item routine-dropdown-item" href="#">삭제</a>
 								</div>
 							</div>
-	<!--						<p class="list-content-first"-->
-	<!--							th:text="${#temporals.format(dto.startTime, 'HH:mm')}">오전10:00</p>-->
-	<!--						<p class="list-content" th:text="${dto.week}">(매일)</p>-->
-							<p class="list-content" th:text="${dto.routineActive}">(ON)</p>
-						</a>
+						</div>
 					</div>
 				</div>
 			</th:block>
-
-			<div class="list-group list-item-wrap">
-				<a href="#" class="list-group-item list-group-item-action routine-list-group">
-					<div class="d-flex w-100 justify-content-between">
-						<p class="mb-1 list-title">냠냠</p>
-						<div>
-							<img src="img/icon/black-icon/listmenu.png" class="list-icon">
-						</div>
-					</div>
-					<p class="list-content-first">오후3:00</p>
-					<p class="list-content">(월,화)</p>
-					<p class="list-content">(OFF)</p>
-				</a>
-			</div>
 
 		</th:block>
 

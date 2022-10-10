@@ -33,6 +33,11 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
   main:
     allow-bean-definition-overriding: true
     allow-circular-references: true
