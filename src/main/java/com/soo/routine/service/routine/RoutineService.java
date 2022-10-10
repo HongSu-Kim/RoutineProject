@@ -25,6 +25,8 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -98,7 +100,6 @@ public class RoutineService {
     public List<RoutineDTO> getRoutineList(Long memberId) {
 
         List<Routine> routineList = routineRepository.findAllByMemberId(memberId);
-
         List<RoutineDTO> lists = new ArrayList<>();
 
         for(Routine routine : routineList) { // routineList에서 routine를 하나씩 꺼낸다. 루틴 for문
@@ -108,33 +109,41 @@ public class RoutineService {
 
             StringBuffer weekList = new StringBuffer();
 
-            for (RoutineSet rs : routine.getRoutineSetList()) { // 요일 for문
+            for (Week week : Week.class.getEnumConstants()) { // Week Class를 list로 불러와서 --1
 
-                if (today.equals(rs.getWeek().name())){
+                for (RoutineSet routineSet : routine.getRoutineSetList()) { // 요일 for문을 돌리는데
 
-                    LocalTime totalTime = routine.getTotalTime();
-                    LocalTime finalTime = rs.getStartTime();
+                    if (week == routineSet.getWeek()) {// 요일을 Week의 순서대로 출력한다 --2
 
-                    finalTime.plusHours(totalTime.getHour());
-                    finalTime.plusMinutes(totalTime.getMinute());
-                    finalTime.plusSeconds(totalTime.getSecond());
+                        if (today.equals(routineSet.getWeek().name())) {
 
-                    routineDTO.setFinalTime(finalTime);
+                            LocalTime totalTime = routine.getTotalTime();
+                            LocalTime finalTime = routineSet.getStartTime();
 
-                    routineDTO.setWeekActive(rs.isWeekActive());
-                    routineDTO.setStartTime(rs.getStartTime());
-                }
+                            // totalTime의 Hour, Minute, Second를 각각 finalTime에 더해서
+                            finalTime.plusHours(totalTime.getHour());
+                            finalTime.plusMinutes(totalTime.getMinute());
+                            finalTime.plusSeconds(totalTime.getSecond());
 
-                if (rs.isWeekActive()) {
-                    weekList.append(rs.getWeek().getButton() + ", ");
+                            // routineDTO에 저장한다
+                            routineDTO.setFinalTime(finalTime);
+
+                            routineDTO.setWeekActive(routineSet.isWeekActive());
+                            routineDTO.setStartTime(routineSet.getStartTime());
+                        }
+
+                        if (routineSet.isWeekActive()) {
+                            weekList.append(routineSet.getWeek().getButton() + ", ");
+                        }
+                    }
                 }
             }
 
-            if(weekList.toString().equals("")) {
-                continue;
+            if (weekList.toString().equals("")) { // 모든 요일이 비활성화일 때
+                continue; // continue 아래는 실행X → 다음 routine for문을 실행한다
             }
 
-            String weekResult = "(" + weekList.toString().substring(0, weekList.length()-2) + ")";
+            String weekResult = "(" + weekList.toString().substring(0, weekList.length() - 2) + ")";
 
             routineDTO.setWeekList(weekResult);
             lists.add(routineDTO);
