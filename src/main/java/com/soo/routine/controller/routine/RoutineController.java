@@ -256,7 +256,7 @@ public class RoutineController {
         return "routine/routine/finish";
     }
 
-    // 루틴 활성화 유무
+    // 루틴 활성화
     @PostMapping("routine-active")
     public String routineActive(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model) {
 
@@ -272,16 +272,17 @@ public class RoutineController {
     }
 
     // 루틴 삭제
-    @DeleteMapping("routine-delete")
-    public String routineDelete(@Valid RoutineDTO routineDTO, BindingResult bindingResult,
-                                Model model, @PathVariable("routineId") Long routineId) {
+    @PostMapping("routine-delete")
+    public String routineDelete(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model, Long deleteId) {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("routineDTO", routineDTO);
             return "routine/routine/list";
         }
 
-        routineService.routineDelete(routineId);
+        System.out.print(deleteId + "controller");
+
+        routineService.routineDelete(deleteId);
 
         return "redirect:/routine";
     }

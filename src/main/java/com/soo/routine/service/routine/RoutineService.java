@@ -20,6 +20,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Console;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -313,6 +314,7 @@ public class RoutineService {
     // 루틴 삭제
     @Transactional
     public void routineDelete(Long routineId) {
+        System.out.print(routineId + "service");
         routineRepository.deleteById(routineId);
     }
 }
