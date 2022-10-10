@@ -9,7 +9,11 @@ public class ModelMapperConfig {
 
     @Bean
     public ModelMapper ModelMapperConfig() {
-        return new ModelMapper();
+		ModelMapper modelMapper = new ModelMapper();
+//		modelMapper.getConfiguration()
+//				.setFieldMatchingEnabled(true)
+//				.setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+		return modelMapper;
     }
 
 }

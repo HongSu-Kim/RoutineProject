@@ -258,6 +258,9 @@ public class RoutineService {
                 finalTime.plusSeconds(totalTime.getSecond());
 
                 routineDTO.setFinalTime(finalTime);
+				routineDTO.setWeek(rs.getWeek());
+				routineDTO.setWeekActive(rs.isWeekActive());
+				routineDTO.setStartTime(rs.getStartTime());
             }
         }
 
