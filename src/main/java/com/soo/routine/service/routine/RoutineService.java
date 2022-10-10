@@ -309,4 +309,10 @@ public class RoutineService {
 
         return routineRecommendEditDTO;
     }
+
+    // 루틴 삭제
+    @Transactional
+    public void routineDelete(Long routineId) {
+        routineRepository.deleteById(routineId);
+    }
 }

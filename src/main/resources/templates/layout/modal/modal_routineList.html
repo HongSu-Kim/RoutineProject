@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="activate">
+  <div class="modal fade" id="routine-activate" tabindex="-1" role="dialog"
+       aria-labelledby="routineActivateTitle" aria-hidden="true">
+    <div class="modal-dialog modal-sm routine-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="routineActivateTitle">루틴을 활성화할까요?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          루틴은 다시 비활성화 할 수 있어요!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
+          <form method="post">
+            <input type="hidden" name="_method" value="POST">
+            <button type="submit" class="btn btn-primary btn-pill btn-modal" id="btn-routine-activate">활성화</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+<th:block th:fragment="deactivate">
+  <div class="modal fade" id="routine-deactivate" tabindex="-1" role="dialog"
+       aria-labelledby="routineDeactivateTitle" aria-hidden="true">
+    <div class="modal-dialog modal-sm routine-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="routineDeactivateTitle">루틴을 비활성화할까요?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          루틴은 다시 활성화 할 수 있어요!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary btn-pill btn-modal" id="btn-routine-deactivate">비활성화</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+<th:block th:fragment="delete">
+  <div class="modal fade" id="routine-delete" tabindex="-1" role="dialog"
+       aria-labelledby="routineDeleteTitle" aria-hidden="true">
+    <div class="modal-dialog modal-sm routine-modal" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="routineDeleteTitle">루틴을 삭제할까요?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          삭제한 루틴은 되돌릴 수 없어요!
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
+          <form th:action="@{routine-delete}" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn btn-primary btn-pill btn-modal">삭제하기</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+</html>

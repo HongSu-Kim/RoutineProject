@@ -142,4 +142,28 @@ textarea {
 .routine-dropdown-item:hover {
     color: #a38479;
     background-color: unset;
+    cursor: pointer;
+}
+
+/* Modal */
+.routine-modal {
+    transform: translate(0, 100%)!important;
+}
+
+.btn-modal:hover {
+    color: #a38479;
+    border-color: #a38479;
+    background-color: #fff;
+}
+
+.btn-cancel {
+    color: #a38479;
+    border-color: #a38479;
+    background-color: #fff;
+}
+
+.btn-cancel:hover {
+    color: #fff;
+    border-color: #a38479;
+    background-color: #a38479;
 }
