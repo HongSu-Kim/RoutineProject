@@ -16,10 +16,10 @@
           루틴은 다시 비활성화 할 수 있어요!
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-danger btn-pill btn-white" data-dismiss="modal">취소</button>
           <form th:action="@{routine-activate}" method="post">
             <input type="hidden" id="activateId" name="activateId"> <!-- routine_list.js에서 받는건 id, controller로 보내는건 name (parameter) -->
-            <button type="submit" class="btn btn-primary btn-pill btn-modal">활성화</button>
+            <button type="submit" class="btn btn-primary btn-pill btn-brown">활성화</button>
           </form>
         </div>
       </div>
@@ -42,10 +42,10 @@
           루틴은 다시 활성화 할 수 있어요!
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-danger btn-pill btn-white" data-dismiss="modal">취소</button>
           <form th:action="@{routine-activate}" method="post">
             <input type="hidden" id="deactivateId" name="activateId">
-            <button type="submit" class="btn btn-primary btn-pill btn-modal">비활성화</button>
+            <button type="submit" class="btn btn-primary btn-pill btn-brown">비활성화</button>
           </form>
         </div>
       </div>
@@ -68,10 +68,10 @@
           삭제한 루틴은 되돌릴 수 없어요!
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-pill btn-cancel" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-pill btn-white" data-dismiss="modal">취소</button>
           <form th:action="@{routine-delete}" method="post">
             <input type="hidden" id="deleteId" name="deleteId">
-            <button type="submit" class="btn btn-primary btn-pill btn-modal">삭제하기</button>
+            <button type="submit" class="btn btn-primary btn-pill btn-brown">삭제하기</button>
           </form>
         </div>
       </div>

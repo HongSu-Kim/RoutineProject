@@ -41,7 +41,7 @@ textarea {
     width: 200px;
 }
 
-.none-content {
+.list-none-content {
     margin-top: 100pt;
 }
 
@@ -150,20 +150,72 @@ textarea {
     transform: translate(0, 100%)!important;
 }
 
-.btn-modal:hover {
+.btn-brown:hover {
     color: #a38479;
     border-color: #a38479;
     background-color: #fff;
 }
 
-.btn-cancel {
+.btn-white {
     color: #a38479;
     border-color: #a38479;
     background-color: #fff;
 }
 
-.btn-cancel:hover {
+.btn-white:hover {
     color: #fff;
     border-color: #a38479;
     background-color: #a38479;
+}
+
+/* Detail Page */
+.detail-title-wrap {
+    margin: 15px 20px 30px;
+}
+
+.detail-title {
+    margin-bottom: 10px;
+}
+
+.detail-none-content {
+    margin-top: 80pt;
+}
+
+.detail-btn-wrap {
+    position: fixed;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 60pt;
+}
+
+.detail-btn {
+    width: 90px;
+}
+
+.detail-btn-right {
+    margin-right: 20px;
+}
+
+.routine-detail-group {
+    padding: 0.8rem;
+    background-color: #f5f2f08a;
+    border-radius: 20px;
+}
+
+/* mission */
+.mission-wrap {
+    display: flex;
+}
+
+.mission-img img {
+    width: 40px;
+}
+
+.mission-content {
+    margin-left: 15px;
+}
+
+.mission-runtime {
+    font-size: 1rem;
 }

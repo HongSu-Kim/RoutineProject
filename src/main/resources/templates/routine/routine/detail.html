@@ -9,53 +9,78 @@
 </th:block>
 
 <th:block layout:fragment="content">
+
 	<!-- body -->
 	<div class="card card-default mb-0 border-0">
-		<div class="card-header pb-0">
-			<h3 class="text-dark mb-6 text-center" th:text="${routineDTO.routineName}"></h3>
-			<p th:text="|${routineDTO.startTime} ~ ${routineDTO.finalTime} (${routineDTO.totalTime})|"></p>
-		</div>
 		<div class="card-body px-5 pb-5 pt-0">
-			
-			<!-- missionList.isEmpty() -->
-			<div th:if="${routineDTO.missionList.isEmpty()}">
-				<div style="text-align: center;">
-					<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c94339e41ce89b663315d96faecd7cfd11b" style="width: 100pt;">
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="card py-3 mb-4 border-0">
-							<div class="card-body text-center ">
-								<p class="card-text pb-4 pt-1">할 일을 차례대로</p>
+
+			<div class="detail-title-wrap">
+				<h4 class="text-dark routine-title detail-title" th:text="${routineDTO.routineName}"></h4>
+				<p th:text="|${routineDTO.startTime} ~ ${routineDTO.finalTime} (${routineDTO.totalTime})|"></p>
+			</div>
+
+			<th:block th:if="${routineDTO.missionList.isEmpty()}">
+
+				<!-- Mission List가 없는 경우 -->
+				<div class="detail-none-content">
+					<div class="routine-img mypage-img">
+						<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c94339e41ce89b663315d96faecd7cfd11b"
+							 style="width: 100pt;">
+					</div>
+
+					<div class="row row-routine">
+						<div class="list-group mypage-list">
+							<div class="routine-list-wrap">
+								<p class="card-text pt-1">할 일을 차례대로</p>
 								<p class="card-text pb-4 pt-1">추가해보세요!</p>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			
-			<!-- missionList -->
-			<ul class="list-group">
-				<li th:each="mission : ${routineDTO.missionList}" class="list-group-item list-group-item-action">
-					<div class="media media-sm mb-0">
-						<div class="media-sm-wrapper">
-							<span th:text="${mission.missionIcon.iconFileName}">iconFileName</span>
-							<img src="/image/user/user-sm-01.jpg" alt="User Image">
-						</div>
-						<div class="media-body">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1 text-white" th:text="${mission.missionName}">missionName</h5>
-								<small th:text="${mission.runTime}"></small>
+
+			</th:block>
+
+			<th:block th:unless="${routineDTO.missionList.isEmpty()}">
+
+				<!-- Mission List가 있는 경우 -->
+				<th:block th:each="mission : ${routineDTO.missionList}">
+					<div class="list-group-item list-group-item-action routine-detail-group">
+						<div class="mission-wrap">
+							<div class="mission-img">
+								<img th:src="@{|/img/icon/${mission.missionIcon.iconCategory.iconPath}/${mission.missionIcon.iconFileName}|}">
 							</div>
+							<div class="w-100 mission-content">
+								<p class="mb-1 list-title" th:text="${mission.missionName}">missionName</p>
+							</div>
+							<div class="mission-runtime" th:text="${mission.runTime}">runTime</div>
 						</div>
 					</div>
-				</li>
-			</ul>
+				</th:block>
+
+
+<!--					<li th:each="mission : ${routineDTO.missionList}" class="list-group-item list-group-item-action">-->
+<!--						<div class="media media-sm mb-0">-->
+<!--							<div class="media-sm-wrapper">-->
+<!--								<span th:text="${mission.missionIcon.iconFileName}">iconFileName</span>-->
+<!--								<img src="/image/user/user-sm-01.jpg" alt="User Image">-->
+<!--							</div>-->
+<!--							<div class="media-body">-->
+<!--								<div class="d-flex w-100 justify-content-between">-->
+<!--									<h5 class="mb-1 text-white" th:text="${mission.missionName}">missionName</h5>-->
+<!--									<small th:text="${mission.runTime}"></small>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</li>-->
+
+			</th:block>
 			
 			<!-- button -->
-			<div class="d-flex justify-content-center mt-6">
-				<button class="btn btn-outline-primary mb-2 mr-5" type="button" th:onclick="|location.href='@{|/mission-add?routineId=${routineDTO.routineId}|}';|">추가</button>
-				<button class="btn btn-outline-primary mb-2" type="button" th:onclick="|location.href='@{|/routine-start?routineId=${routineDTO.routineId}|}';|">시작</button>
+			<div class="d-flex justify-content-center mt-6 detail-btn-wrap">
+				<button type="button" class="btn btn-pill btn-white detail-btn detail-btn-right"
+						th:onclick="|location.href='@{|/mission-add?routineId=${routineDTO.routineId}|}';|">추가</button>
+				<button type="button" class="btn btn-primary btn-pill btn-brown detail-btn"
+						th:onclick="|location.href='@{|/routine-start?routineId=${routineDTO.routineId}|}';|">시작</button>
 			</div>
 			
 		</div>
