@@ -11,8 +11,8 @@
 
 		<th:block th:if="${lists.isEmpty()}">
 
-			<!-- Routine List 없는 경우 -->
-			<div class="none-content">
+			<!-- Routine List가 없는 경우 -->
+			<div class="list-none-content">
 				<div class="routine-img mypage-img">
 					<img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c9415b3f4e3c2033bfd702a321ec6eda72c"
 						 style="width: 100pt;">
@@ -53,8 +53,11 @@
 								<p class="list-content-first"
 									th:text="${#temporals.format(dto.startTime, 'a hh:mm')}">오전10:00</p>
 								<p class="list-content" th:text="${dto.weekList}">(매일)</p>
-								<p class="list-content" th:text="${dto.routineActive ? '(ON)' : '(OFF)'}">(ON)</p>
+								<p class="list-content list-active"
+								   th:text="${dto.routineActive ? '(ON)' : '(OFF)'}"
+								   th:style="${dto.routineActive ? 'color:#a38479; font-weight:700' : 'color:#8a909d'}">(ON)</p>
 						</div>
+
 						<div class="routine-edit">
 							<div class="dropdown d-inline-block mb-1">
 								<img src="img/icon/black-icon/listmenu.png" class="list-icon"
