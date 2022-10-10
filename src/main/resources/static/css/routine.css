@@ -116,16 +116,6 @@ textarea {
     margin-left: 4pt;
 }
 
-.page-active a{
-    background-color: $theme-color-2;
-    color: $white;
-    @include box-shadow(0 0 40px rgba(40, 125, 250, 0.1));
-}
-
-.page-active a i {
-    color: $white;
-}
-
 /* Routine Dropdown */
 .routine-dropdown-menu {
     min-width: 6rem;
@@ -198,9 +188,11 @@ textarea {
 }
 
 .routine-detail-group {
-    padding: 0.8rem;
+    padding: 0.5rem 0.8rem;
     background-color: #f5f2f08a;
     border-radius: 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 /* mission */
@@ -217,5 +209,16 @@ textarea {
 }
 
 .mission-runtime {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    color: #8a909d;
+    margin-right: 10px;
+    line-height: 35px;
+}
+
+.mission-title {
+    width: 65% !important;
+    font-size: 1rem!important;
+    color: #565a62!important;
+    font-weight: 500;
+    line-height: 35px;
 }

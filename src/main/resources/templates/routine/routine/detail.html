@@ -16,7 +16,19 @@
 
 			<div class="detail-title-wrap">
 				<h4 class="text-dark routine-title detail-title" th:text="${routineDTO.routineName}"></h4>
-				<p th:text="|${routineDTO.startTime} ~ ${routineDTO.finalTime} (${routineDTO.totalTime})|"></p>
+
+				<!-- Mission List가 없는 경우 -->
+				<th:block th:if="${routineDTO.missionList.isEmpty()}">
+					<p th:text="|${#temporals.format(routineDTO.startTime, 'a h:mm')}
+					(${#temporals.format(routineDTO.totalTime, 'H시간 m분')})|"></p>
+				</th:block>
+
+				<!-- Mission List가 있는 경우 -->
+				<th:block th:unless="${routineDTO.missionList.isEmpty()}">
+					<p th:text="|${#temporals.format(routineDTO.startTime, 'a h:mm')} ~
+					${#temporals.format(routineDTO.finalTime, 'a h:mm')}
+					(${#temporals.format(routineDTO.totalTime, 'H시간 m분')})|"></p>
+				</th:block>
 			</div>
 
 			<th:block th:if="${routineDTO.missionList.isEmpty()}">
@@ -44,15 +56,14 @@
 
 				<!-- Mission List가 있는 경우 -->
 				<th:block th:each="mission : ${routineDTO.missionList}">
-					<div class="list-group-item list-group-item-action routine-detail-group">
+					<div class="list-group-item-action routine-detail-group">
+<!--						 th:onclick="@{|location.href='/mission-edit?routineId=${dto.routineId}';|}">-->
 						<div class="mission-wrap">
 							<div class="mission-img">
 								<img th:src="@{|/img/icon/${mission.missionIcon.iconCategory.iconPath}/${mission.missionIcon.iconFileName}|}">
 							</div>
-							<div class="w-100 mission-content">
-								<p class="mb-1 list-title" th:text="${mission.missionName}">missionName</p>
-							</div>
-							<div class="mission-runtime" th:text="${mission.runTime}">runTime</div>
+							<div class="w-100 mission-content mission-title" th:text="${mission.missionName}"></div>
+							<div class="mission-runtime" th:text="${#temporals.format(mission.runTime, 'H시간 m분')}">runTime</div>
 						</div>
 					</div>
 				</th:block>
