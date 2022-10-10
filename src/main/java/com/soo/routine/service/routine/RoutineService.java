@@ -100,14 +100,14 @@ public class RoutineService {
 
         List<RoutineDTO> lists = new ArrayList<>();
 
-        for(Routine routine : routineList) { // routineList에서 routine를 하나씩 꺼낸다
+        for(Routine routine : routineList) { // routineList에서 routine를 하나씩 꺼낸다. 루틴 for문
 
             RoutineDTO routineDTO = modelMapper.map(routine, RoutineDTO.class);
             String today = LocalDate.now().getDayOfWeek().name();
 
             StringBuffer weekList = new StringBuffer();
 
-            for (RoutineSet rs : routine.getRoutineSetList()) {
+            for (RoutineSet rs : routine.getRoutineSetList()) { // 요일 for문
 
                 if (today.equals(rs.getWeek().name())){
 
@@ -129,10 +129,13 @@ public class RoutineService {
                 }
             }
 
+            if(weekList.toString().equals("")) {
+                continue;
+            }
+
             String weekResult = "(" + weekList.toString().substring(0, weekList.length()-2) + ")";
 
             routineDTO.setWeekList(weekResult);
-
             lists.add(routineDTO);
         }
 

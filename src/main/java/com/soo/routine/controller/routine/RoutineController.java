@@ -149,6 +149,7 @@ public class RoutineController {
         }
 
         List<RoutineDTO> lists = routineService.getRoutineList(loginMember.getId());
+
         model.addAttribute("lists", lists);
 
         return "routine/routine/list";
@@ -251,6 +252,33 @@ public class RoutineController {
     public String routineFinish() {
 
         return "routine/routine/finish";
+    }
+
+    // 루틴 활성화 유무
+    @PostMapping("routine-active")
+    public String routineActive(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("routineDTO", routineDTO);
+            return "routine/routine/list";
+        }
+
+//        routineService.updateRoutineSet(routineUpdateDTO);
+//        routineService.updateRoutine(routineUpdateDTO);
+
+        return "redirect:/routine?routineId=" + routineDTO.getRoutineId();
+    }
+
+    // 루틴 삭제
+    @PostMapping("routine-delete")
+    public String routineDelete(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("routineDTO", routineDTO);
+            return "routine/routine/list";
+        }
+
+        return "redirect:/routine?routineId=" + routineDTO.getRoutineId();
     }
 
 }
