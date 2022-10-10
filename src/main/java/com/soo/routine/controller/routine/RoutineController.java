@@ -13,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
@@ -270,15 +272,17 @@ public class RoutineController {
     }
 
     // 루틴 삭제
-    @PostMapping("routine-delete")
-    public String routineDelete(@Valid RoutineDTO routineDTO, BindingResult bindingResult, Model model) {
+    @DeleteMapping("routine-delete")
+    public String routineDelete(@Valid RoutineDTO routineDTO, BindingResult bindingResult,
+                                Model model, @PathVariable("routineId") Long routineId) {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("routineDTO", routineDTO);
             return "routine/routine/list";
         }
 
-        return "redirect:/routine?routineId=" + routineDTO.getRoutineId();
-    }
+        routineService.routineDelete(routineId);
 
+        return "redirect:/routine";
+    }
 }
