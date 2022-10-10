@@ -41,7 +41,7 @@ public class MissionController {
             return "redirect:/startRoutine";
         }
 
-        List<MissionReadDTO> lists = missionService.getMissionList("");
+        List<MissionReadDTO> lists = missionService.getMissionList(null);
 
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Recommend Mission List");

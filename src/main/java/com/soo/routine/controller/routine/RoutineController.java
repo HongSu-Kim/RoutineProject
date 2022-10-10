@@ -252,7 +252,7 @@ public class RoutineController {
         routineService.updateRoutineSet(routineUpdateDTO);
         routineService.updateRoutine(routineUpdateDTO);
 
-        return "redirect:/routine-detail?routineId=" + routineUpdateDTO.getRoutineId();
+        return "redirect:/routine";
     }
 
     // 루틴 실행 페이지
