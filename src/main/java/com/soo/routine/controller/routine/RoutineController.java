@@ -2,12 +2,14 @@ package com.soo.routine.controller.routine;
 
 import com.soo.routine.dto.mission.IconCategoryDTO;
 import com.soo.routine.dto.mission.MissionIconDTO;
+import com.soo.routine.dto.mission.MissionReadDTO;
 import com.soo.routine.dto.routine.*;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.routine.Week;
 import com.soo.routine.service.mission.IconCategoryService;
 import com.soo.routine.service.mission.MissionIconService;
+import com.soo.routine.service.mission.MissionService;
 import com.soo.routine.service.routine.RoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ import java.util.List;
 public class RoutineController {
 
     private final RoutineService routineService;
+	private final MissionService missionService;
     private final IconCategoryService iconCategoryService;
     private final MissionIconService missionIconService;
     private final HttpSession httpSession;
@@ -264,8 +267,10 @@ public class RoutineController {
         }
 
         RoutineDTO routineDTO = routineService.getRoutine(routineId);
+		List<MissionReadDTO> list = missionService.getMissionList(routineId);
 
-        model.addAttribute("routineReadDTO", routineDTO);
+		model.addAttribute("routineReadDTO", routineDTO);
+		model.addAttribute("list", list);
         return "routine/routine/start";
     }
 

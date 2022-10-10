@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface RoutineRepository extends JpaRepository<Routine, Long> {
 
-//	@EntityGraph(attributePaths = {"mission, routine"}, type = EntityGraph.EntityGraphType.LOAD)
 	Optional<Routine> findById(Long routineId);
     List<Routine> findAllByMemberId(Long memberId);
     List<Routine> findAllByMemberRole(Role role);
