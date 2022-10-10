@@ -8,13 +8,13 @@ import com.soo.routine.repository.board.BoardRepository;
 import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
-import org.modelmapper.TypeToken;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +36,10 @@ public class BoardService {
         sorts.add(Sort.Order.desc("id"));
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
-        Type type = new TypeToken<PageImpl<BoardListDTO>>() {}.getType();
-        TypeMap<Board, BoardListDTO> typeMap = modelMapper.typeMap(Board.class, BoardListDTO.class);
-        typeMap.addMapping(Board::getId, BoardListDTO::setBoardId);
-
         if (category == null)
-            return modelMapper.map(boardRepository.findAll(pageable), type);
+			return boardRepository.findAll(pageable).map(board -> modelMapper.map(board, BoardListDTO.class));
         else
-            return modelMapper.map(boardRepository.findAllByCategory(category, pageable), type);
+			return boardRepository.findAllByCategory(category, pageable).map(board -> modelMapper.map(board, BoardListDTO.class));
 
     }
 
@@ -55,14 +51,11 @@ public class BoardService {
         sorts.add(Sort.Order.desc("id"));
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
-        Type type = new TypeToken<PageImpl<BoardQnaListDTO>>() {}.getType();
-        TypeMap<Board, BoardQnaListDTO> typeMap = modelMapper.typeMap(Board.class, BoardQnaListDTO.class);
-        typeMap.addMapping(Board::getId, BoardQnaListDTO::setBoardId);
-
         if (memberId == null || memberId.toString().equals("")) {
-            return modelMapper.map(boardRepository.findAllByCategory(category, pageable), type);
+            return boardRepository.findAllByCategory(category, pageable).map(board -> modelMapper.map(board, BoardQnaListDTO.class));
+
         } else {
-            return modelMapper.map(boardRepository.findAllByCategoryAndMemberId(category, memberId, pageable), type);
+            return boardRepository.findAllByCategoryAndMemberId(category, memberId, pageable).map(board -> modelMapper.map(board, BoardQnaListDTO.class));
         }
     }
 
@@ -71,7 +64,8 @@ public class BoardService {
 
         Member member = memberRepository.findById(boardWriteDTO.getMemberId()).orElse(null);
 
-        Board board = new Board(boardWriteDTO, member);
+		Board board = new Board(boardWriteDTO, member);
+//		Board board = modelMapper.map(boardWriteDTO, Board.class);
 
         boardRepository.save(board);
     }

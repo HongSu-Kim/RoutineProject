@@ -23,7 +23,7 @@
               <tr th:each="dto, loop : ${lists}">
                 <td scope="row" th:text="${lists.totalElements - (lists.number * lists.size) - loop.index}">No</td>
                 <td>
-                  <a class="btn btn-link text-transform-none px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.id}|}" th:text="${dto.boardTitle }">Title</a>
+                  <a class="btn btn-link text-transform-none px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}" th:text="${dto.boardTitle }">Title</a>
                 </td>
                 <td th:text="${#temporals.format(dto.boardCreate, 'yyyy-MM-dd HH:mm')}">Create</td>
                 <td th:text="${dto.boardHits}">Hits</td>
