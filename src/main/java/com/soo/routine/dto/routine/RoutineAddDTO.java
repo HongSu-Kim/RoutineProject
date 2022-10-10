@@ -26,6 +26,8 @@ public class RoutineAddDTO {
     private String startTime;
     private boolean[] weekActive;
 
+	private String[] weekButton;
+
     // mission
     private Long[] missionIconId;
     private String[] missionName;
