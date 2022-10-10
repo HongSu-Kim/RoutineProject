@@ -1,9 +1,6 @@
 package com.soo.routine.service.mission;
 
-import com.soo.routine.dto.mission.MissionAddDTO;
-import com.soo.routine.dto.mission.MissionRecommendAddDTO;
-import com.soo.routine.dto.mission.MissionReadDTO;
-import com.soo.routine.dto.mission.MissionRecommendEditDTO;
+import com.soo.routine.dto.mission.*;
 import com.soo.routine.entity.mission.Mission;
 import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
@@ -13,13 +10,11 @@ import com.soo.routine.repository.mission.MissionRepository;
 import com.soo.routine.repository.routine.RoutineRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
-import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -46,11 +41,14 @@ public class MissionService {
     @Transactional(readOnly = true)
     public List<MissionReadDTO> getMissionList(Long routineId) {
 
-        Type type = new TypeToken<List<MissionReadDTO>>() {}.getType();
-        TypeMap<Mission, MissionReadDTO> typeMap = modelMapper.typeMap(Mission.class, MissionReadDTO.class);
-        typeMap.addMapping(Mission::getId, MissionReadDTO::setMissionId);
-
-		return modelMapper.map(missionRepository.findAllByRoutineId(routineId), type);
+//		Type type = new TypeToken<List<MissionReadDTO>>() {}.getType();
+//        TypeMap<Mission, MissionReadDTO> typeMap = modelMapper.typeMap(Mission.class, MissionReadDTO.class);
+//        typeMap.addMapping(Mission::getId, MissionReadDTO::setMissionId);
+//
+//		return modelMapper.map(missionRepository.findAllByRoutineId(routineId), type );
+		return missionRepository.findAllByRoutineId(routineId)
+				.stream().map(mission -> new MissionReadDTO(mission))
+				.collect(Collectors.toList());
     }
 
     // 미션 추가
