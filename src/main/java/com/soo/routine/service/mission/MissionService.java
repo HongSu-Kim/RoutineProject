@@ -1,6 +1,9 @@
 package com.soo.routine.service.mission;
 
-import com.soo.routine.dto.mission.*;
+import com.soo.routine.dto.mission.MissionAddDTO;
+import com.soo.routine.dto.mission.MissionReadDTO;
+import com.soo.routine.dto.mission.MissionRecommendAddDTO;
+import com.soo.routine.dto.mission.MissionRecommendEditDTO;
 import com.soo.routine.entity.mission.Mission;
 import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
@@ -10,10 +13,13 @@ import com.soo.routine.repository.mission.MissionRepository;
 import com.soo.routine.repository.routine.RoutineRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -76,13 +82,24 @@ public class MissionService {
 
     public void editRecommendMission(MissionRecommendEditDTO missionRecommendEditDTO) {
 
-        Mission mission = missionRepository.findById(missionRecommendEditDTO.getMissionId()).orElse(null);
+		Optional<Mission> byId = missionRepository.findById(missionRecommendEditDTO.getMissionId());
+		if(byId.isEmpty()) System.out.println("null");
+		else System.out.println("not null");
+		Mission mission = byId.orElse(null);
         MissionIcon missionIcon = missionIconRepository.findById(missionRecommendEditDTO.getMissionIconId()).orElse(null);
 
-        mission.edit(missionRecommendEditDTO, missionIcon);
+//        mission.edit(missionRecommendEditDTO, missionIcon);
+		String missionName = missionRecommendEditDTO.getMissionName();
+		String runTime = missionRecommendEditDTO.getRunTime();
+		String missionContent = missionRecommendEditDTO.getMissionContent();
+		mission.edit(missionIcon, missionName, runTime, missionContent);
     }
 
 	public void deleteMission(Long missionId) {
         missionRepository.deleteById(missionId);
+	}
+
+	public Page<MissionReadDTO> getMissionPage(Pageable pageable) {
+		return missionRepository.findAllByRoutineId(null, pageable).map(MissionReadDTO::new);
 	}
 }

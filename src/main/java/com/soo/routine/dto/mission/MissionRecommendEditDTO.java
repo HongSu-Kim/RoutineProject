@@ -1,6 +1,7 @@
 package com.soo.routine.dto.mission;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class MissionRecommendEditDTO {
 
 	private Long missionId;
@@ -23,7 +25,7 @@ public class MissionRecommendEditDTO {
 	private String missionName;
 
 	@NotNull(message = "시간을 입력해주세요")
-	@Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$", message = "시간형식에 맞게 입력해주세요(hh:mm:ss)")
+	@Pattern(regexp = "^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$", message = "시간형식에 맞게 입력해주세요(hh:mm)")
 	private String runTime;
 
 	private String missionContent;

@@ -28,6 +28,7 @@ public class MissionReadDTO {
 
 	public MissionReadDTO(Mission mission) {
 		missionId = mission.getId();
+		if(mission.getRoutine() != null)
 		routineId = mission.getRoutine().getId();
 		missionName = mission.getMissionName();
 		missionOrder = mission.getMissionOrder();
