@@ -66,7 +66,7 @@ public class MissionService {
         Mission mission = new Mission(missionAddDTO, routine, missionIcon);
 		missionRepository.save(mission);
 
-		routineRepository.save(routine.updateTotaTime(missionAddDTO.getRunTime()));
+		routineRepository.save(routine.updateTotalTime(missionAddDTO.getRunTime()));
 
     }
 

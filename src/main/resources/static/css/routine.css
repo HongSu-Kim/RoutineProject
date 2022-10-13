@@ -221,3 +221,30 @@ textarea {
     font-weight: 500;
     line-height: 35px;
 }
+
+/* mission 추가 및 수정 */
+.mission-group {
+    margin-top: 1rem;
+}
+
+.mission-detail-title {
+    font-weight: 600;
+}
+
+.click-img {
+    cursor: pointer;
+}
+
+.input-mission {
+    font-size: 0.8375rem;
+    border-radius: 2rem;
+}
+
+.routine-mission-wrap {
+    margin-top: 2.5rem;
+    margin: 20pt 25pt 35pt;
+}
+
+.routine-mission {
+    margin-bottom: 2.5rem;
+}
