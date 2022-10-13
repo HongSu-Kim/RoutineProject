@@ -24,8 +24,8 @@
 							<tr th:if="${lists.isEmpty()}">
 								<td colspan="5" align="center">추천 미션이 존재하지 않습니다.</td>
 							</tr>
-							<tr th:each="dto : ${lists}">
-								<td scope="row" th:text="${dto.missionId}"></td>
+							<tr th:each="dto, loop : ${lists}">
+								<td scope="row" th:text="${lists.totalElements - (lists.number * lists.size) - loop.index}">No</td>
 								<td>
 									<img th:src="@{|/img/icon/${dto.iconCategory.iconPath}/${dto.iconFileName}|}" class="width-50"/>
 								</td>

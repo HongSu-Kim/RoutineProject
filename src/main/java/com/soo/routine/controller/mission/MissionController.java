@@ -7,6 +7,9 @@ import com.soo.routine.service.mission.IconCategoryService;
 import com.soo.routine.service.mission.MissionIconService;
 import com.soo.routine.service.mission.MissionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +36,7 @@ public class MissionController {
 
     // 추천 미션 리스트 관리 페이지
     @GetMapping("admin/mission-list")
-    public String adminMissionList(Model model) {
+    public String adminMissionList(Model model, @PageableDefault Pageable pageable) {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
@@ -41,7 +44,7 @@ public class MissionController {
             return "redirect:/startRoutine";
         }
 
-        List<MissionReadDTO> lists = missionService.getMissionList(null);
+        Page<MissionReadDTO> lists = missionService.getMissionPage(pageable);
 
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Recommend Mission List");
@@ -71,7 +74,7 @@ public class MissionController {
             return "redirect:/startRoutine";
         }
 
-        if (missionRecommendAddDTO.getRunTime().equals("00:00:00")) {
+        if (missionRecommendAddDTO.getRunTime().equals("00:00")) {
             bindingResult.addError(new FieldError("missionRecommendAddDTO", "runTime", "시간을 입력해주세요."));
         }
 
@@ -89,9 +92,9 @@ public class MissionController {
         return "redirect:/admin/mission-list";
     }
 
-    // 추천 미션 추가 페이지
+    // 추천 미션 수정 페이지
     @GetMapping("admin/mission-edit")
-    public String adminMissionEdit(Model model, MissionRecommendAddDTO missionRecommendAddDTO, Long missionId) {
+    public String adminMissionEdit(Model model, MissionRecommendEditDTO missionRecommendEditDTO, Long missionId) {
 
         MissionReadDTO missionReadDTO = missionService.getMission(missionId);
         List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
@@ -99,7 +102,7 @@ public class MissionController {
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("iconList", iconList);
-        model.addAttribute("missionRecommendAddDTO", missionReadDTO);
+        model.addAttribute("missionRecommendEditDTO", missionReadDTO);
         model.addAttribute("pageName", "Recommend Mission Edit");
         return "admin/mission/edit";
     }

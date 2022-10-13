@@ -16,11 +16,11 @@ import com.soo.routine.repository.routine.RoutineRepository;
 import com.soo.routine.repository.routine.RoutineSetRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -231,14 +231,9 @@ public class RoutineService {
 
     // 루틴 추천 리스트
     @Transactional(readOnly = true)
-    public List<RoutineDTO> getRecommendRoutineList() {
-
-        List<Routine> routineList = routineRepository.findAllByMemberRole(Role.ADMIN);
-        Type type = new TypeToken<List<RoutineDTO>>() {}.getType();
-
-        List<RoutineDTO> lists = modelMapper.map(routineList, type);
-
-        return lists;
+    public Page<RoutineDTO> getRecommendRoutineList(Pageable pageable) {
+		return routineRepository.findAllByMemberRole(Role.ADMIN, pageable)
+				.map(routine -> modelMapper.map(routine, RoutineDTO.class));
     }
 
     // 루틴 디테일
@@ -258,11 +253,7 @@ public class RoutineService {
             if (today.equals(rs.getWeek().name())){
 
                 LocalTime totalTime = routine.getTotalTime();
-                LocalTime finalTime = rs.getStartTime();
-
-                finalTime.plusHours(totalTime.getHour());
-                finalTime.plusMinutes(totalTime.getMinute());
-                finalTime.plusSeconds(totalTime.getSecond());
+                LocalTime finalTime = rs.getStartTime().plusHours(totalTime.getHour()).plusMinutes(totalTime.getMinute());
 
                 routineDTO.setFinalTime(finalTime);
 				routineDTO.setWeek(rs.getWeek());

@@ -12,6 +12,9 @@ import com.soo.routine.service.mission.MissionIconService;
 import com.soo.routine.service.mission.MissionService;
 import com.soo.routine.service.routine.RoutineService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +42,7 @@ public class RoutineController {
 
     // admin - 추천 루틴 리스트 관리 페이지
     @GetMapping("admin/routine-list")
-    public String adminRoutineList(Model model) {
+    public String adminRoutineList(Model model, @PageableDefault Pageable pageable) {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
@@ -47,7 +50,7 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        List<RoutineDTO> lists = routineService.getRecommendRoutineList();
+        Page<RoutineDTO> lists = routineService.getRecommendRoutineList(pageable);
 
         model.addAttribute("lists", lists);
         model.addAttribute("pageName", "Routine List");
