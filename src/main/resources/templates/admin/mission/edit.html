@@ -7,7 +7,7 @@
 		<div class="content">
 			<div class="card card-default">
 				<div class="card-body">
-					<form th:action="@{/admin/mission-edit}" method="post" th:object="${missionRecommendAddDTO}">
+					<form th:action="@{/admin/mission-edit}" method="post" th:object="${missionRecommendEditDTO}">
 						<input type="hidden" th:field="*{missionId}"/>
 						<div class="row">
 							<!-- name -->
@@ -41,7 +41,7 @@
 						<div class="form-group mb-4">
 							<label for="runTime">소요시간</label>
 							<div th:each="err : ${#fields.errors('runTime')}" class="error-message" th:text="${err}"></div>
-							<input type="text" class="form-control" id="runTime" name="runTime" th:value="${#temporals.format(missionRecommendAddDTO.runTime, 'HH:mm:ss')}">
+							<input type="text" class="form-control" id="runTime" name="runTime" th:value="${missionRecommendEditDTO.runTime}">
 						</div>
 						<!-- content -->
 						<div class="form-group mb-4">
