@@ -13,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface MissionRepository extends JpaRepository<Mission, Long> {
 
+	Optional<Mission> findById(Long missionId);
+
     @EntityGraph(attributePaths = {"missionIcon"}, type = EntityGraph.EntityGraphType.LOAD)
 	List<Mission> findAllByRoutineId(Long routineId);
 	Page<Mission> findAllByRoutineId(Long routineId, Pageable pageable);
