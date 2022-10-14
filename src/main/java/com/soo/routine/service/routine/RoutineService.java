@@ -115,16 +115,12 @@ public class RoutineService {
                         if (today.equals(routineSet.getWeek().name())) {
 
                             LocalTime totalTime = routine.getTotalTime();
-                            LocalTime finalTime = routineSet.getStartTime();
 
                             // totalTime의 Hour, Minute, Second를 각각 finalTime에 더해서
-                            finalTime.plusHours(totalTime.getHour());
-                            finalTime.plusMinutes(totalTime.getMinute());
-                            finalTime.plusSeconds(totalTime.getSecond());
+                            LocalTime finalTime = routineSet.getStartTime().plusHours(totalTime.getHour()).plusMinutes(totalTime.getMinute());
 
                             // routineDTO에 저장한다
                             routineDTO.setFinalTime(finalTime);
-
                             routineDTO.setWeekActive(routineSet.isWeekActive());
                             routineDTO.setStartTime(routineSet.getStartTime());
                         }

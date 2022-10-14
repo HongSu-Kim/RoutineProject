@@ -136,6 +136,7 @@ public class MissionController {
     User Page
     */
 
+    // 미션 추가
     @GetMapping("mission-add")
     public String missionAdd(Model model, MissionAddDTO missionAddDTO, Long routineId) {
 
@@ -161,6 +162,39 @@ public class MissionController {
             model.addAttribute("categoryList", categoryList);
             model.addAttribute("iconList", iconList);
             return "routine/mission/add";
+        }
+
+        missionService.addMission(missionAddDTO);
+
+        return "redirect:/routine-detail?routineId=" + missionAddDTO.getRoutineId();
+    }
+
+    // 미션 수정
+    @GetMapping("mission-edit")
+    public String missionEdit(MissionAddDTO missionAddDTO, Long routineId, Long missionId, Model model) {
+
+        List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+        List<MissionIconDTO> iconList = missionIconService.getIconList();
+        MissionReadDTO missionReadDTO = missionService.getMission(missionId);
+
+        model.addAttribute("routineId", routineId);
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("iconList", iconList);
+        model.addAttribute("missionAddDTO", missionAddDTO);
+
+        return "routine/mission/edit";
+    }
+    @PostMapping("mission-edit")
+    public String missionEdit(@Valid MissionAddDTO missionAddDTO, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
+            List<MissionIconDTO> iconList = missionIconService.getIconList();
+            model.addAttribute("categoryList", categoryList);
+            model.addAttribute("iconList", iconList);
+
+            return "routine/mission/edit";
         }
 
         missionService.addMission(missionAddDTO);
