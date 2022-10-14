@@ -110,7 +110,7 @@ $(function() {
 				return;
 			} else {
 				let runTime = document.getElementsByName("runTime")[i].value;
-				let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/
+				let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
 				if (!reg.test(runTime)) {
 					checkTime(i)
 					runTime[i].focus();
@@ -119,7 +119,7 @@ $(function() {
 			}
 		}
 
-		totalTime = '00:00:00'
+		totalTime = '00:00'
 
 		if ($('#missionList tr').length != 0) {
 
@@ -140,10 +140,8 @@ function addTime(data1) {
 	let time2 = new Date('1994-07-02  ' + data1)
 	time1.setHours(time1.getHours() + time2.getHours())
 	time1.setMinutes(time1.getMinutes() + time2.getMinutes())
-	time1.setSeconds(time1.getSeconds() + time2.getSeconds())
 	totalTime = '' + (time1.getHours() < 10 ? '0' + time1.getHours() : time1.getHours())
 			+ ':' + (time1.getMinutes() < 10 ? '0' + time1.getMinutes() : time1.getMinutes())
-			+ ':' + (time1.getSeconds() < 10 ? '0' + time1.getSeconds() : time1.getSeconds())
 }
 
 function subTime(data1) {
@@ -151,10 +149,8 @@ function subTime(data1) {
 	let time2 = new Date('1994-07-02 ' + data1)
 	time1.setHours(time1.getHours() - time2.getHours())
 	time1.setMinutes(time1.getMinutes() - time2.getMinutes())
-	time1.setSeconds(time1.getSeconds() - time2.getSeconds())
 	totalTime = '' + (time1.getHours() < 10 ? '0' + time1.getHours() : time1.getHours())
 			+ ':' + (time1.getMinutes() < 10 ? '0' + time1.getMinutes() : time1.getMinutes())
-			+ ':' + (time1.getSeconds() < 10 ? '0' + time1.getSeconds() : time1.getSeconds())
 }
 
 let totalTime = '00:00:00'
@@ -162,7 +158,7 @@ let currentTime = '00:00:00'
 function saveTime(num) {
 	currentTime = '00:00:00'
 	let runTime = document.getElementsByName("runTime")[num].value;
-	let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/
+	let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
 	if (reg.test(runTime)) {
 		currentTime = runTime
 	}
@@ -170,12 +166,12 @@ function saveTime(num) {
 
 function checkTime(num) {
 	let runTime = document.getElementsByName("runTime")[num].value;
-	let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/
+	let reg = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/
 	if (!reg.test(runTime)) {
 		subTime(currentTime)
 		console.log(totalTime)
-		currentTime = '00:00:00'
-		alert('시간형식에 맞게 입력해주세요(hh:mm:ss)')
+		currentTime = '00:00'
+		alert('시간형식에 맞게 입력해주세요(hh:mm)')
 	} else {
 		subTime(currentTime)
 		addTime(runTime)

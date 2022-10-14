@@ -37,9 +37,9 @@ public class BoardService {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
         if (category == null)
-			return boardRepository.findAll(pageable).map(board -> modelMapper.map(board, BoardListDTO.class));
+			return boardRepository.findAll(pageable).map(BoardListDTO::new);
         else
-			return boardRepository.findAllByCategory(category, pageable).map(board -> modelMapper.map(board, BoardListDTO.class));
+			return boardRepository.findAllByCategory(category, pageable).map(BoardListDTO::new);
 
     }
 
@@ -52,10 +52,9 @@ public class BoardService {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
         if (memberId == null || memberId.toString().equals("")) {
-            return boardRepository.findAllByCategory(category, pageable).map(board -> modelMapper.map(board, BoardQnaListDTO.class));
-
+            return boardRepository.findAllByCategory(category, pageable).map(BoardQnaListDTO::new);
         } else {
-            return boardRepository.findAllByCategoryAndMemberId(category, memberId, pageable).map(board -> modelMapper.map(board, BoardQnaListDTO.class));
+            return boardRepository.findAllByCategoryAndMemberId(category, memberId, pageable).map(BoardQnaListDTO::new);
         }
     }
 
@@ -65,7 +64,6 @@ public class BoardService {
         Member member = memberRepository.findById(boardWriteDTO.getMemberId()).orElse(null);
 
 		Board board = new Board(boardWriteDTO, member);
-//		Board board = modelMapper.map(boardWriteDTO, Board.class);
 
         boardRepository.save(board);
     }
