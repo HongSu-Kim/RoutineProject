@@ -171,14 +171,16 @@ public class MissionController {
 
     // 미션 수정
     @GetMapping("mission-edit")
-    public String missionEdit(MissionAddDTO missionAddDTO, Long routineId, Model model) {
+    public String missionEdit(MissionAddDTO missionAddDTO, Long routineId, Long missionId, Model model) {
 
         List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
         List<MissionIconDTO> iconList = missionIconService.getIconList();
+        MissionReadDTO missionReadDTO = missionService.getMission(missionId);
 
         model.addAttribute("routineId", routineId);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("iconList", iconList);
+        model.addAttribute("missionAddDTO", missionAddDTO);
 
         return "routine/mission/edit";
     }

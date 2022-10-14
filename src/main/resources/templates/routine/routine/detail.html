@@ -57,7 +57,8 @@
 				<!-- Mission List가 있는 경우 -->
 				<th:block th:each="mission : ${routineDTO.missionList}">
 					<div class="list-group-item-action routine-detail-group">
-						<div class="mission-wrap" th:onclick="@{|location.href='/mission-edit?routineId=${routineDTO.routineId}';|}">
+						<div class="mission-wrap" th:onclick="@{|location.href='/mission-edit?routineId=${routineDTO.routineId}
+							 &missionId=${missionReadDTO.missionId}';|}">
 							<div class="mission-img">
 								<img th:src="@{|/img/icon/${mission.missionIcon.iconCategory.iconPath}/${mission.missionIcon.iconFileName}|}">
 							</div>
