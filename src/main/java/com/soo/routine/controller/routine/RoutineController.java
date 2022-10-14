@@ -215,21 +215,19 @@ public class RoutineController {
 
     // 루틴 상세 페이지
     @GetMapping("routine-detail")
-    public String routineDetail(Model model, Long routineId, Long missionId) {
+    public String routineDetail(Model model, Long routineId) {
 
         if (httpSession.getAttribute("loginMember") == null) {
             return "redirect:/login";
         }
 
         RoutineDTO routineDTO = routineService.getRoutine(routineId);
-        MissionReadDTO missionReadDTO = missionService.getMission(missionId);
 
         if (routineDTO == null) {
             return "redirect:/routine";
         }
 
         model.addAttribute("routineDTO" , routineDTO);
-        model.addAttribute("missionId", missionId);
 
         return "routine/routine/detail";
     }

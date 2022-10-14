@@ -75,4 +75,11 @@ public class Mission {
         this.runTime = LocalTime.parse(runTime);
         this.missionContent = missionContent;
     }
+
+    // 미션 수정
+    public void editMission(MissionIcon missionIcon, String missionName, String runTime) {
+        this.missionIcon = missionIcon;
+        this.missionName = missionName;
+        this.runTime = LocalTime.parse(runTime);
+    }
 }
