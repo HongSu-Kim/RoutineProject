@@ -2,14 +2,12 @@ package com.soo.routine.service.board;
 
 import com.soo.routine.dto.board.ReplyWriteDTO;
 import com.soo.routine.entity.board.Board;
-import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.board.Reply;
-import com.soo.routine.mapper.board.ReplyMapper;
+import com.soo.routine.entity.member.Member;
 import com.soo.routine.repository.board.BoardRepository;
-import com.soo.routine.repository.member.MemberRepository;
 import com.soo.routine.repository.board.ReplyRepository;
+import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +19,6 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
-    private final ReplyMapper replyMapper;
-    private final ModelMapper modelMapper;
 
     public void createReply(ReplyWriteDTO replyWriteDTO) {
 

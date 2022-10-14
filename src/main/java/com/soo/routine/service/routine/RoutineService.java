@@ -99,7 +99,7 @@ public class RoutineService {
 
         for(Routine routine : routineList) { // routineList에서 routine를 하나씩 꺼낸다. 루틴 for문
 
-            RoutineDTO routineDTO = modelMapper.map(routine, RoutineDTO.class);
+            RoutineDTO routineDTO = new RoutineDTO(routine);
             String today = LocalDate.now().getDayOfWeek().name();
 
             StringBuffer weekList = new StringBuffer();
@@ -227,7 +227,7 @@ public class RoutineService {
     @Transactional(readOnly = true)
     public Page<RoutineDTO> getRecommendRoutineList(Pageable pageable) {
 		return routineRepository.findAllByMemberRole(Role.ADMIN, pageable)
-				.map(routine -> modelMapper.map(routine, RoutineDTO.class));
+				.map(RoutineDTO::new);
     }
 
     // 루틴 디테일
@@ -240,7 +240,7 @@ public class RoutineService {
             return null;
         }
 
-        RoutineDTO routineDTO = modelMapper.map(routine, RoutineDTO.class);
+        RoutineDTO routineDTO = new RoutineDTO(routine);
         String today = LocalDate.now().getDayOfWeek().name();
 
         for (RoutineSet rs : routine.getRoutineSetList()) {
@@ -268,17 +268,13 @@ public class RoutineService {
             return null;
         }
 
-        RoutineUpdateDTO routineUpdateDTO = modelMapper.map(routine, RoutineUpdateDTO.class);
+        RoutineUpdateDTO routineUpdateDTO = new RoutineUpdateDTO(routine);
 
         boolean[] weekActive = new boolean[7];
         for (Week w : Week.class.getEnumConstants()) {
             for (RoutineSet rs : routine.getRoutineSetList()) {
                 if (w.name().equals(rs.getWeek().name())) {
                     weekActive[w.getValue()] = rs.isWeekActive();
-
-                    if (w.getValue() == 0) {
-                        routineUpdateDTO.setStartTime(rs.getStartTime().toString());
-                    }
                 }
             }
         }

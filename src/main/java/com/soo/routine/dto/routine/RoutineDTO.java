@@ -1,16 +1,19 @@
 package com.soo.routine.dto.routine;
 
-import com.soo.routine.entity.mission.Mission;
-import com.soo.routine.entity.routine.RoutineSet;
+import com.soo.routine.dto.mission.MissionReadDTO;
+import com.soo.routine.entity.routine.Routine;
 import com.soo.routine.entity.routine.Week;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class RoutineDTO {
 
     private Long routineId; // 루틴 ID
@@ -30,6 +33,17 @@ public class RoutineDTO {
 
     private String weekList;
 
-    private List<Mission> missionList;
+    private List<MissionReadDTO> missionList;
+
+	public RoutineDTO(Routine routine) {
+		routineId = routine.getId();
+		routineName = routine.getRoutineName();
+		routineActive = routine.isRoutineActive();
+		totalTime = routine.getTotalTime();
+
+		missionList = routine.getMissionList().stream()
+				.map(MissionReadDTO::new)
+				.collect(Collectors.toList());
+	}
 
 }

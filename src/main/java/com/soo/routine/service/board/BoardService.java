@@ -7,7 +7,6 @@ import com.soo.routine.mapper.board.BoardMapper;
 import com.soo.routine.repository.board.BoardRepository;
 import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +24,6 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-    private final ModelMapper modelMapper;
     private final BoardMapper boardMapper;
 
     // 게시글 리스트
@@ -71,7 +69,7 @@ public class BoardService {
     // 게시글 한개
     public BoardReadDTO getBoard(Long boardId) {
         boardMapper.updateHits(boardId); // boardHits++
-        return modelMapper.map(boardRepository.findById(boardId).orElse(null), BoardReadDTO.class);
+        return boardRepository.findById(boardId).map(BoardReadDTO::new).orElse(null);
     }
 
     // 게시글 수정

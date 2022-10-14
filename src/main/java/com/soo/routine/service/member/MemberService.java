@@ -1,6 +1,5 @@
 package com.soo.routine.service.member;
 
-import com.soo.routine.dto.board.BoardReadDTO;
 import com.soo.routine.dto.member.MemberEditDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Member;
