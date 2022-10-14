@@ -17,14 +17,15 @@
 		<h4 class="text-dark text-center mb-5 mission-detail-title">미션 수정</h4>
 
 		<div class="card-body px-5 pb-5 pt-0">
-			<form th:action="@{/mission-edit}" method="post" th:object="${missionAddDTO}">
+			<form th:action="@{/mission-edit}" method="post" th:object="${missionEditDTO}">
 
 				<input type="hidden" name="routineId" th:value="${routineId}"/>
+				<input type="hidden" name="missionId" th:value="${missionId}"/>
 
 				<!-- icon -->
 				<div class="form-group icon-group mission-group" data-toggle="modal" data-target="#missionListModal">
 					<input type="hidden" th:field="*{missionIconId}"/>
-					<img src="https://item.kakaocdn.net/do/376c38817123f596b1ace9c8aad794e0d0bbab1214a29e381afae56101ded106" id="iconSrc" class="click-img">
+					<img src="" id="iconSrc" class="click-img">
 					<div class="btn display-block"><span class="mdi mdi-triangle"></span>아이콘 선택</div>
 					<div th:each="err : ${#fields.errors('missionIconId')}" class="error-message display-block" th:text="${err}"></div>
 				</div>
