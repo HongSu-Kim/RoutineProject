@@ -171,21 +171,21 @@ public class MissionController {
 
     // 미션 수정
     @GetMapping("mission-edit")
-    public String missionEdit(MissionAddDTO missionAddDTO, Long routineId, Long missionId, Model model) {
+    public String missionEdit(Long missionId, Model model) {
 
+        MissionReadDTO missionReadDTO = missionService.getMission(missionId);
         List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
         List<MissionIconDTO> iconList = missionIconService.getIconList();
-        MissionReadDTO missionReadDTO = missionService.getMission(missionId);
 
-        model.addAttribute("routineId", routineId);
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("iconList", iconList);
-        model.addAttribute("missionAddDTO", missionAddDTO);
+        model.addAttribute("missionEditDTO", missionReadDTO);
 
         return "routine/mission/edit";
     }
+
     @PostMapping("mission-edit")
-    public String missionEdit(@Valid MissionAddDTO missionAddDTO, BindingResult bindingResult, Model model) {
+    public String missionEdit(@Valid MissionEditDTO missionEditDTO, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
 
@@ -197,9 +197,9 @@ public class MissionController {
             return "routine/mission/edit";
         }
 
-        missionService.addMission(missionAddDTO);
+        missionService.editMission(missionEditDTO);
 
-        return "redirect:/routine-detail?routineId=" + missionAddDTO.getRoutineId();
+        return "redirect:/routine-detail";
     }
 
 }

@@ -1,9 +1,6 @@
 package com.soo.routine.service.mission;
 
-import com.soo.routine.dto.mission.MissionAddDTO;
-import com.soo.routine.dto.mission.MissionReadDTO;
-import com.soo.routine.dto.mission.MissionRecommendAddDTO;
-import com.soo.routine.dto.mission.MissionRecommendEditDTO;
+import com.soo.routine.dto.mission.*;
 import com.soo.routine.entity.mission.Mission;
 import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
@@ -68,6 +65,14 @@ public class MissionService {
         MissionIcon missionIcon = missionIconRepository.findById(missionRecommendEditDTO.getMissionIconId()).orElse(null);
 
 		mission.edit(missionIcon, missionRecommendEditDTO.getMissionName(), missionRecommendEditDTO.getRunTime(), missionRecommendEditDTO.getMissionContent());
+    }
+
+    public void editMission(MissionEditDTO missionEditDTO) {
+
+        Mission mission = missionRepository.findById(missionEditDTO.getMissionId()).orElse(null);
+        MissionIcon missionIcon = missionIconRepository.findById(missionEditDTO.getMissionIconId()).orElse(null);
+
+        mission.editMission(missionIcon, missionEditDTO.getMissionName(), missionEditDTO.getRunTime());
     }
 
 	public void deleteMission(Long missionId) {
