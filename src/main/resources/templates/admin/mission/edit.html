@@ -8,7 +8,7 @@
 			<div class="card card-default">
 				<div class="card-body">
 					<form th:action="@{/admin/mission-edit}" method="post" th:object="${missionRecommendEditDTO}">
-						<input type="hidden" th:field="*{missionId}"/>
+						<input type="hidden" name="missionId" th:value="${missionRecommendEditDTO.missionId}"/>
 						<div class="row">
 							<!-- name -->
 							<div class="col-lg-6">

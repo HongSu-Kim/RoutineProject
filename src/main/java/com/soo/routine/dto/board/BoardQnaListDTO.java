@@ -1,15 +1,15 @@
 package com.soo.routine.dto.board;
 
-import com.soo.routine.entity.board.Reply;
-import lombok.Data;
+import com.soo.routine.entity.board.Board;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Data
+@NoArgsConstructor
 public class BoardQnaListDTO {
 
     private Long boardId;
@@ -23,6 +23,21 @@ public class BoardQnaListDTO {
     private LocalDateTime boardCreate;
     private LocalDateTime boardModify;
 
-    private Reply reply;
+	private Long replyId;
+
+	public BoardQnaListDTO(Board board) {
+		boardId = board.getId();
+		memberId = board.getMember().getId();
+		memberEmail = board.getMember().getEmail();
+		category = board.getCategory();
+		boardTitle = board.getBoardTitle();
+		boardContent = board.getBoardContent();
+		boardCreate = board.getBoardCreate();
+		boardModify = board.getBoardModify();
+
+		if (board.getReply() != null){
+			replyId = board.getReply().getId();
+		}
+	}
 
 }
