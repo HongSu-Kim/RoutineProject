@@ -19,8 +19,8 @@
 		<div class="card-body px-5 pb-5 pt-0">
 			<form th:action="@{/mission-edit}" method="post" th:object="${missionEditDTO}">
 
-				<input type="hidden" name="routineId" th:value="${routineId}"/>
-				<input type="hidden" name="missionId" th:value="${missionId}"/>
+				<input type="hidden" name="routineId" th:value="*{routineId}"/>
+				<input type="hidden" name="missionId" th:value="*{missionId}"/>
 
 				<!-- icon -->
 				<div class="form-group icon-group mission-group" data-toggle="modal" data-target="#missionListModal">
@@ -41,7 +41,7 @@
 					<!-- runTime -->
 					<div class="form-group routine-mission">
 						<label for="runTime">소요 시간</label>
-						<input type="text" class="form-control input-lg input-mission" th:field="*{runTime}">
+						<input type="text" class="form-control input-lg input-mission" name="runTime" th:value="*{#temporals.format(runTime, 'H:mm')}">
 						<div th:each="err : ${#fields.errors('runTime')}" class="error-message" th:text="${err}"></div>
 					</div>
 				</div>

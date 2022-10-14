@@ -199,7 +199,7 @@ public class MissionController {
 
         missionService.editMission(missionEditDTO);
 
-        return "redirect:/routine-detail";
+        return "redirect:/routine-detail?routineId=" + missionEditDTO.getRoutineId();
     }
 
 }
