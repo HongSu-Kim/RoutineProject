@@ -8,7 +8,6 @@ import com.soo.routine.entity.mission.MissionIcon;
 import com.soo.routine.entity.routine.Routine;
 import com.soo.routine.entity.routine.RoutineSet;
 import com.soo.routine.entity.routine.Week;
-import com.soo.routine.mapper.routine.RoutineMapper;
 import com.soo.routine.repository.member.MemberRepository;
 import com.soo.routine.repository.mission.MissionIconRepository;
 import com.soo.routine.repository.mission.MissionRepository;
@@ -36,7 +35,6 @@ public class RoutineService {
     private final MemberRepository memberRepository;
     private final MissionRepository missionRepository;
     private final MissionIconRepository missionIconRepository;
-    private final RoutineMapper routineMapper;
     private final ModelMapper modelMapper;
 
     // 추천 루틴 추가

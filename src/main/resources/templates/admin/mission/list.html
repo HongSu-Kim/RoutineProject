@@ -30,7 +30,7 @@
 									<img th:src="@{|/img/icon/${dto.iconCategory.iconPath}/${dto.iconFileName}|}" class="width-50"/>
 								</td>
 								<td th:text="${dto.missionName}"></td>
-								<td th:text="${#temporals.format(dto.runTime, 'HH:mm:ss')}"></td>
+								<td th:text="${#temporals.format(dto.runTime, 'HH:mm')}"></td>
 								<td th:text="${dto.missionContent}"></td>
 								<td>
 									<div class="btn-group" role="group" aria-label="Basic example">

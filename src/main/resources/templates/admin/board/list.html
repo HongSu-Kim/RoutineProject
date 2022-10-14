@@ -30,7 +30,7 @@
               </tr>
             </tbody>
           </table>
-					<nav arial-label="Page navigation">
+					<nav th:if="${!lists.isEmpty()}" arial-label="Page navigation">
 						<ul class="pagination justify-content-center pagination-sm"
 								th:with="startNumber = ${lists.number / 10} * 10 + 1, endNumber = (${lists.totalPages} > ${startNumber + 9}) ? ${startNumber + 9} : ${lists.totalPages}">
 							<!-- << -->
@@ -50,10 +50,10 @@
 							<!-- >> -->
 							<li><a class="page-link" th:href="@{|?boardCategory=${boardCategory}&page=${lists.totalPages}|}">&raquo;</a></li>
 						</ul>
-						<div class="d-flex justify-content-end mt-6">
-							<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-write?boardCategory=${boardCategory}|}';|">글 작성</button>
-						</div>
 					</nav>
+					<div class="d-flex justify-content-end mt-6">
+						<button class="btn btn-outline-brown mb-2" type="button" th:onclick="|location.href='@{|/admin/board-write?boardCategory=${boardCategory}|}';|">글 작성</button>
+					</div>
 				</div>
 			</div>
 		</div>

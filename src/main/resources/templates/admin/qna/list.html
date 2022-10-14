@@ -30,10 +30,10 @@
                   <a class="btn btn-link px-0 py-0" th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}" th:text="${dto.boardTitle}">Title</a>
                 </td>
                 <td th:text="${#temporals.format(dto.boardCreate, 'yyyy-MM-dd HH:mm')}">Create</td>
-                <td th:if="${dto.reply == null}">
+                <td th:if="${dto.replyId == null}">
                   <a th:href="@{|/admin/board-detail?boardId=${dto.boardId}|}">답변 대기</a>
                 </td>
-                <td th:if="${dto.reply != null}">답변 완료</td>
+                <td th:if="${dto.replyId != null}">답변 완료</td>
               </tr>
             </tbody>
           </table>
