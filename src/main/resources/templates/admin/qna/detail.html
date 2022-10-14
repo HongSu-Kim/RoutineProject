@@ -9,17 +9,17 @@
 			<div class="card card-default">
 				<div class="card-header align-items-baseline px-7">
 					<h3 th:text="${boardDTO.boardTitle}">Title</h3>
-					<h6 th:text="@{|${boardDTO.category} / ${#temporals.format(boardDTO.boardCreate, 'yyyy-MM-dd HH:mm')}|}">Category / Create</h6>
+					<h6 th:text="|${boardDTO.category} / ${#temporals.format(boardDTO.boardCreate, 'yyyy-MM-dd HH:mm')}|">Category / Create</h6>
 				</div>
 				<div class="card-body">
-					<p class="px-6 pb-3"th:text="@{|${boardDTO.memberNickname} / ${boardDTO.memberEmail}|}">Nickname / Email</p>
+					<p class="px-6 pb-3"th:text="|${boardDTO.memberNickname} / ${boardDTO.memberEmail}|">Nickname / Email</p>
 					<div class="card mb-3">
 						<div class="card-body min-px-250 py-5">
 							<p class="card-text" th:text="${boardDTO.boardContent}">Content</p>
 						</div>
 					</div>
 					<!-- reply write -->
-					<form th:if="${boardDTO.reply == null}" th:action="@{/admin/reply-write}" method="post" th:object="${replyWriteDTO}">
+					<form th:if="${boardDTO.replyReadDTO == null}" th:action="@{/admin/reply-write}" method="post" th:object="${replyWriteDTO}">
 						<!-- session에서 받아온 작성자 id -->
 						<input type="hidden" th:field="*{memberId}" />
 						<input type="hidden" th:field="*{boardId}" />
@@ -33,14 +33,14 @@
 						</div>
 					</form>
 					<!-- reply view -->
-					<div th:if="${boardDTO.reply != null}" >
+					<div th:if="${boardDTO.replyReadDTO != null}" >
 						<div class="card-header align-items-baseline px-3">
-							<h6 th:text="@{|답변 완료 / ${#temporals.format(boardDTO.reply.replyCreate, 'yyyy-MM-dd HH:mm')}|}">답변 완료 / replyCreated</h6>
-							<h6 class="text-transform-none" th:text="@{|${boardDTO.reply.member.nickname} / ${boardDTO.reply.member.email}|}">Nickname / Email</h6>
+							<h6 th:text="|답변 완료 / ${#temporals.format(boardDTO.replyReadDTO.replyCreate, 'yyyy-MM-dd HH:mm')}|">답변 완료 / replyCreated</h6>
+							<h6 class="text-transform-none" th:text="|${boardDTO.replyReadDTO.memberNickname} / ${boardDTO.replyReadDTO.memberEmail}|">Nickname / Email</h6>
 						</div>
 						<div class="card mb-3">
 							<div class="card-body min-px-250 py-5">
-								<p class="card-text" th:text="${boardDTO.reply.replyContent}">Content</p>
+								<p class="card-text" th:text="${boardDTO.replyReadDTO.replyContent}">Content</p>
 							</div>
 						</div>
 					</div>

@@ -1,26 +1,24 @@
 package com.soo.routine.controller.member;
 
-import com.soo.routine.dto.board.BoardReadDTO;
 import com.soo.routine.dto.member.MemberEditDTO;
 import com.soo.routine.dto.member.MemberJoinDTO;
 import com.soo.routine.dto.member.MemberLoginDTO;
 import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
-import com.soo.routine.repository.member.MemberRepository;
 import com.soo.routine.service.member.MemberService;
-import com.soo.routine.util.LoginUser;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

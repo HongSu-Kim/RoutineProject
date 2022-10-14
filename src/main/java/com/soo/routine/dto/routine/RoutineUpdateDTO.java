@@ -1,6 +1,8 @@
 package com.soo.routine.dto.routine;
 
+import com.soo.routine.entity.routine.Routine;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -9,6 +11,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class RoutineUpdateDTO {
 
     private Long routineId;
@@ -31,4 +34,13 @@ public class RoutineUpdateDTO {
     private String[] missionName;
     private String[] runTime;
     private String[] missionContent;
+
+	public RoutineUpdateDTO(Routine routine) {
+		routineId = routine.getId();
+		memberId = routine.getMember().getId();
+		routineName = routine.getRoutineName();
+		routineActive = routine.isRoutineActive();
+		totalTime = routine.getTotalTime().toString();
+		startTime = routine.getRoutineSetList().get(0).getStartTime().toString();
+	}
 }
