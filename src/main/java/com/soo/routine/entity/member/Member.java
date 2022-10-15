@@ -76,8 +76,9 @@ public class Member {
         this.pwd = pwd;
     }
 
-    // 회원 활성화
-    public void active(boolean member_active) {
+    // 회원 탈퇴
+    public void withdraw(Role role, boolean member_active) {
+        this.role = role;
         this.member_active = member_active;
     }
 

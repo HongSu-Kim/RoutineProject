@@ -107,11 +107,12 @@ public class MemberService {
 //            bindingResult.addError(new FieldError("memberJoinDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
 //            return "mypage/member/join";
 //        }
-
+    
     // 이메일과 비밀번호 일치 여부 체크
+    // 회원탈퇴
     public Member checkPwd(String email, String pwd) {
         return memberRepository.findByEmail(email) // email로 회원을 조회하고
-                .filter(m -> this.passwordEncoder.matches(pwd, m.getPwd())) // 암호화된 pwd(getPwd)와 입력한 pwd가 같으면, 회원을 반환하고
+                .filter(m -> this.passwordEncoder.matches(pwd, m.getPwd())) // 입력한 pwd와 암호화된 pwd(m.getPwd)가 같으면, 회원을 반환하고
                 .orElse(null); // 다르면 null을 반환한다
     }
 
@@ -164,23 +165,12 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    /*
-    회원 탈퇴
-     */
+    // 회원 탈퇴
     @Transactional
-    public void change_memberActive(String email) {
+    public void withdraw(String email) {
 
-//        Member change_memberActive = memberRepository.findOne(email);
-//
-//        change_memberActive.setMember_active(member.get);
-//
-//        Optional<Member> member = memberRepository.findByEmail(email);
-//        member.change_memberActive(member_active);
-
-
-        // 회원 활성화
         Member member = memberRepository.findByEmail(email).orElse(null);
-        member.active(false);
+        member.withdraw(Role.valueOf("WITHDRAW"), false); // 회원 비활성화
         memberRepository.save(member);
     }
 

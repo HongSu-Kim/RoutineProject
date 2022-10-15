@@ -7,9 +7,9 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class MemberWithdrawDTO {//탈퇴 시 사용
+public class MemberWithdrawDTO {
 
     @NotBlank(message="비밀번호를 입력하세요.")
-    private String pwd;//비밀번호
+    private String pwd; // 비밀번호
 
 }

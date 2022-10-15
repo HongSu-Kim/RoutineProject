@@ -76,17 +76,17 @@ public class MemberController {
 
     // 비밀번호 찾기
     @PostMapping("pwd-find")
-    public String pwdFind(MemberJoinDTO memberJoinDTO, BindingResult bindingResult, Model model) throws Exception {
+    public String pwdFind(MemberDTO memberDTO, BindingResult bindingResult, Model model) throws Exception {
 
         if(bindingResult.hasErrors()){
-            model.addAttribute("memberJoinDTO", memberJoinDTO);
+            model.addAttribute("memberDTO", memberDTO);
             return "mypage/member/pwd_find";
         }
 
-        Member member = memberService.pwdFind(memberJoinDTO.getEmail());
+        Member member = memberService.pwdFind(memberDTO.getEmail());
 
         if(member == null) {
-            bindingResult.addError(new FieldError("memberJoinDTO", "email", "이메일이 올바르지 않습니다."));
+            bindingResult.addError(new FieldError("memberDTO", "email", "이메일이 올바르지 않습니다."));
             return "mypage/member/pwd_find";
         }
 
@@ -145,24 +145,21 @@ public class MemberController {
 
     // 회원탈퇴
     @PostMapping("withdraw")
-    public String withdraw(MemberDTO memberDTO, BindingResult bindingResult, Model model,
-                           HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+    public String withdraw(@LoginUser SessionDTO sessionDTO, MemberDTO memberDTO, BindingResult bindingResult, Model model, HttpServletRequest request){
 
-        Member login_checkPwd = memberService.checkPwd(loginMember.getEmail(), memberDTO.getPwd());
+        Member checkPwd = memberService.checkPwd(sessionDTO.getEmail(), memberDTO.getPwd());
 
-        if (login_checkPwd == null) {
-            bindingResult.addError(new FieldError("memberLoginDTO", "pwd", "비밀번호가 일치하지 않습니다.")); // 오류 생성하고
-            return "mypage/member/withdraw"; // 다시 회원탈퇴 페이지로 이동
+        if (checkPwd == null) { // 비밀번호 불일치 시
+            bindingResult.addError(new FieldError("memberDTO", "pwd", "비밀번호가 일치하지 않습니다."));
+            return "mypage/member/withdraw";
 
-        // 비밀번호 일치 시
-        }else {
+        }else { // 비밀번호 일치 시
 
-            memberService.change_memberActive(loginMember.getEmail());
-//            loginMember.setMember_active(false); // 멤버 비활성화
+            memberService.withdraw(sessionDTO.getEmail());
 
-            if (httpSession!=null) {
-                httpSession.invalidate(); // 세션 제거
-            }
+//            if (httpSession!=null) {
+//                httpSession.invalidate(); // 세션 제거
+//            }
 
             return "redirect:/login";
         }

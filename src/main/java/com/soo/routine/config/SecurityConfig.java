@@ -43,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
                 .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
     //                .antMatchers("/routine", "mypage").hasRole("MEMBER") // user(member,admin)만 접근 가능
-                .antMatchers("/routine", "/mypage").hasAnyRole("MEMBER", "ADMIN") // user(member,admin)만 접근 가능
-                .antMatchers("/**").permitAll() // 모든 user(non-member,member,admin) 접근 가능
+                .antMatchers("/", "/startRoutine", "/join", "/login", "/pwd-find").permitAll() // 모든 user(non-member,member,admin) 접근 가능
+                .antMatchers("/routine**", "/mypage**").hasAnyRole("MEMBER", "ADMIN") // user(member,admin)만 접근 가능
                 .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
             .and()
                 .formLogin() // 로그인에 관한 설정
