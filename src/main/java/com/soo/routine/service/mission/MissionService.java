@@ -82,4 +82,32 @@ public class MissionService {
 	public Page<MissionReadDTO> getMissionPage(Pageable pageable) {
 		return missionRepository.findAllByRoutineId(null, pageable).map(MissionReadDTO::new);
 	}
+
+	public MissionStartDTO getNextMissionStartDTO(Long routineId, Long missionId) {
+
+		List<Mission> missionList = missionRepository.findAllByRoutineId(routineId);
+
+		if (missionList.size() == 0) return null;
+
+		MissionStartDTO missionStartDTO = null;
+
+		for (Mission mission : missionList) {
+
+			if (missionStartDTO != null) {
+				missionStartDTO.setNextMissionId(mission.getId());
+				break;
+			}
+
+			if (missionId == null) {
+				missionStartDTO = new MissionStartDTO(mission);
+				continue;
+			}
+
+			if (missionId == mission.getId()) {
+				missionId = null;
+			}
+		}
+
+		return missionStartDTO;
+	}
 }
