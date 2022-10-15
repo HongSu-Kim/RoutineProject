@@ -10,11 +10,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
@@ -22,7 +22,13 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private long id; // 회원번호 PK
+    private Long id; // 회원번호 PK
+
+    @Enumerated(EnumType.STRING)
+    private Role role; // 회원등급
+
+    private LocalDateTime joinDate; // 가입일
+    private boolean member_active; // 회원 활성화 유무
 
     @Column(unique = true)
     private String email; // 이메일 주소
@@ -35,41 +41,44 @@ public class Member {
     private String gender; // 성별
     private LocalDate birth; // 생년월일
 
-    @Enumerated(EnumType.STRING)
-    private Role role; // 회원등급
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Routine> routineList = new ArrayList<>();
 
-    private LocalDateTime joinDate; // 가입일
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Board> boardList = new ArrayList<>();
 
-    private boolean member_active; // 회원 활성화 유무
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<Board> boardList;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<Routine> routineList;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<Reply> replyList;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Reply> replyList = new ArrayList<>();
 
     // 회원가입
     @Builder
-    public Member(String email, String pwd, String nickname, String gender,
-                  String birth, Role role, LocalDateTime joinDate, boolean member_active){
+    public Member(Role role, LocalDateTime joinDate, boolean member_active,
+                  String email, String pwd, String nickname, String gender, String birth){
 
+        this.role = role;
+        this.joinDate = joinDate;
+        this.member_active = member_active;
         this.email = email;
         this.pwd = pwd;
         this.nickname = nickname;
         this.gender = gender;
-        this.birth = LocalDate.parse(birth, DateTimeFormatter.ISO_LOCAL_DATE);
-        this.role = role;
-        this.joinDate = joinDate;
-        this.member_active = member_active;
+        this.birth = LocalDate.parse(birth);
     }
 
     // 회원정보 수정
     public void edit(String pwd, String nickname) {
         this.pwd = pwd;
         this.nickname = nickname;
+    }
+
+    // 비밀번호 찾기
+    public void findPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    // 회원 활성화
+    public void active(boolean member_active) {
+        this.member_active = member_active;
     }
 
 }
