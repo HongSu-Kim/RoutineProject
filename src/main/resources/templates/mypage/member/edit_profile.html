@@ -11,7 +11,7 @@
         <!-- title -->
         <h4 class="text-dark text-center mb-5">회원정보 수정</h4>
 
-        <form th:action="@{edit-profile}" th:object="${memberEditDTO}" method="post">
+        <form th:action="@{mypage-edit}" th:object="${memberEditDTO}" method="post">
             <div class="row row-routine">
 
 <!--            <input type="hidden" th:field="*{id}"/>-->
@@ -21,7 +21,7 @@
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine"
-                               th:value="${session.loginMember.email}" name="email" id="email" readonly="readonly">
+                               th:value="${sessionDTO.email}" id="email" th:name="*{email}" readonly="readonly">
                     </div>
                 </div>
 
@@ -29,21 +29,21 @@
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="password" class="form-control input-lg input_routine"
-                               th:field="*{pwd}" id="pwd" th:errorclass="fieldErrors" placeholder="기존 비밀번호" autofocus>
+                               th:field="*{pwd}" th:errorclass="fieldErrors" placeholder="기존 비밀번호" autofocus>
                     </div>
                     <div class="error_routine" th:errors="*{pwd}"></div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="password" class="form-control input-lg input_routine"
-                               th:field="*{newPwd}" id="newPwd" th:errorclass="fieldErrors" placeholder="새 비밀번호">
+                               th:field="*{newPwd}" th:errorclass="fieldErrors" placeholder="새 비밀번호">
                     </div>
                     <div class="error_routine" th:errors="*{newPwd}"></div>
                 </div>
                 <div class="form-group col-md-12 mb_routine">
                     <div>
                         <input type="password" class="form-control input-lg input_routine"
-                               th:field="*{newPwd2}" id="newPwd2" th:errorclass="fieldErrors" placeholder="새 비밀번호 확인">
+                               th:field="*{newPwd2}" th:errorclass="fieldErrors" placeholder="새 비밀번호 확인">
                     </div>
                     <div class="error_routine" th:errors="*{newPwd2}"></div>
                 </div>
@@ -51,8 +51,8 @@
                  <!-- nickname -->
                 <div class="form-group col-md-12 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input_routine"
-                               th:field="*{nickname}" id="nickname" th:errorclass="fieldErrors" th:placeholder="${session.loginMember.nickname}">
+                        <input type="text" class="form-control input-lg input_routine" id="nickname" name="nickname"
+                               th:value="${sessionDTO.nickname}" th:errorclass="fieldErrors">
                     </div>
                     <div class="error_routine" th:errors="*{nickname}"></div>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine"
-                               th:value="${session.loginMember.gender}" name="gender" id="gender" readonly="readonly">
+                               name="gender" id="gender" th:value="${sessionDTO.gender}" readonly="readonly">
                     </div>
                 </div>
 
@@ -69,7 +69,7 @@
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine"
-                               th:value="${session.loginMember.birth}" name="birth" id="birth" readonly="readonly">
+                               name="birth" id="birth" th:value="${sessionDTO.birth}" readonly="readonly">
                     </div>
                 </div>
 

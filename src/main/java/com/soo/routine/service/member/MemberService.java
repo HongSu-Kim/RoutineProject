@@ -38,7 +38,7 @@ public class MemberService {
         // 패스워드 불일치 처리
         // 닉네임 중복 처리
 
-        Member member = new Member(Role.MEMBER, LocalDateTime.now(), true,
+        Member member = new Member(Role.MEMBER, LocalDateTime.now(),
                 memberJoinDTO.getEmail(), passwordEncoder.encode(memberJoinDTO.getPwd()),
                 memberJoinDTO.getNickname(), memberJoinDTO.getGender(), memberJoinDTO.getBirth());
 
@@ -145,9 +145,7 @@ public class MemberService {
 
     }
     
-    /*
-    회원정보 수정
-    */
+    // 회원정보 수정
     @Transactional
     public void edit(MemberEditDTO memberEditDTO) {
 
@@ -157,11 +155,7 @@ public class MemberService {
             return;
         }
 
-//        member.setPwd(passwordEncoder.encode(memberEditDTO.getPwd()));
-//        member.setNickname(memberEditDTO.getNickname());
-
         member.edit(passwordEncoder.encode(memberEditDTO.getNewPwd()), memberEditDTO.getNickname());
-
         memberRepository.save(member);
     }
 
@@ -170,7 +164,7 @@ public class MemberService {
     public void withdraw(String email) {
 
         Member member = memberRepository.findByEmail(email).orElse(null);
-        member.withdraw(Role.valueOf("WITHDRAW"), false); // 회원 비활성화
+        member.withdraw(Role.valueOf("WITHDRAW")); // 회원 비활성화
         memberRepository.save(member);
     }
 

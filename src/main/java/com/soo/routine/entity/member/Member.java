@@ -28,7 +28,6 @@ public class Member {
     private Role role; // 회원등급
 
     private LocalDateTime joinDate; // 가입일
-    private boolean member_active; // 회원 활성화 유무
 
     @Column(unique = true)
     private String email; // 이메일 주소
@@ -52,12 +51,11 @@ public class Member {
 
     // 회원가입
     @Builder
-    public Member(Role role, LocalDateTime joinDate, boolean member_active,
-                  String email, String pwd, String nickname, String gender, String birth){
+    public Member(Role role, LocalDateTime joinDate, String email,
+                  String pwd, String nickname, String gender, String birth){
 
         this.role = role;
         this.joinDate = joinDate;
-        this.member_active = member_active;
         this.email = email;
         this.pwd = pwd;
         this.nickname = nickname;
@@ -77,9 +75,8 @@ public class Member {
     }
 
     // 회원 탈퇴
-    public void withdraw(Role role, boolean member_active) {
+    public void withdraw(Role role) {
         this.role = role;
-        this.member_active = member_active;
     }
 
 }
