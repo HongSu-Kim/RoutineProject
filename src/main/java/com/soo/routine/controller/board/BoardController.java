@@ -1,8 +1,8 @@
 package com.soo.routine.controller.board;
 
 import com.soo.routine.dto.board.*;
-import com.soo.routine.entity.member.Member;
-import com.soo.routine.entity.member.Role;
+import com.soo.routine.dto.member.SessionDTO;
+import com.soo.routine.security.LoginUser;
 import com.soo.routine.service.board.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -22,7 +21,6 @@ import javax.validation.Valid;
 public class BoardController {
 
     private final BoardService boardService;
-    private final HttpSession httpSession;
 
     /*
     Admin Page
@@ -31,12 +29,6 @@ public class BoardController {
     // 게시글 리스트 페이지
     @GetMapping("admin/board-list")
     public String boardList(Model model, @PageableDefault Pageable pageable, String boardCategory, Long memberId) {
-
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
-        }
 
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", boardCategory + " List");
@@ -54,16 +46,10 @@ public class BoardController {
 
     // 게시글 작성 페이지
     @GetMapping("admin/board-write")
-    public String boardWrite(Model model, BoardWriteDTO boardWriteDTO, String boardCategory) {
+    public String boardWrite(@LoginUser SessionDTO sessionDTO, Model model, BoardWriteDTO boardWriteDTO, String boardCategory) {
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
-        }
-
-        boardWriteDTO.setMemberId(loginMember.getId());
-        boardWriteDTO.setMemberNickname(loginMember.getNickname());
+        boardWriteDTO.setMemberId(sessionDTO.getMemberId());
+        boardWriteDTO.setMemberNickname(sessionDTO.getNickname());
 
         model.addAttribute("boardCategory", boardCategory);
         model.addAttribute("pageName", "Board Write");
@@ -86,13 +72,7 @@ public class BoardController {
 
     // 게시글 디테일 페이지
     @GetMapping("admin/board-detail")
-    public String boardDetail(Model model, ReplyWriteDTO replyWriteDTO, Long boardId) {
-
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
-        }
+    public String boardDetail(@LoginUser SessionDTO sessionDTO, Model model, ReplyWriteDTO replyWriteDTO, Long boardId) {
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
         String category = boardReadDTO.getCategory();
@@ -102,7 +82,7 @@ public class BoardController {
         model.addAttribute("pageName", "Board Detail");
 
         if (category.equals("QnA")) {
-            replyWriteDTO.setMemberId(loginMember.getId());
+            replyWriteDTO.setMemberId(sessionDTO.getMemberId());
             replyWriteDTO.setBoardId(boardId);
             model.addAttribute("replyWriteDTO", replyWriteDTO);
             return "admin/qna/detail";
@@ -114,12 +94,6 @@ public class BoardController {
     // 게시글 수정 페이지
     @GetMapping("admin/board-edit")
     public String boardEdit(Model model, BoardEditDTO boardEditDTO, Long boardId) {
-
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/";
-        }
 
         BoardReadDTO boardReadDTO = boardService.getBoard(boardId);
 
