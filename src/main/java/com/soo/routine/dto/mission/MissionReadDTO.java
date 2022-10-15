@@ -1,6 +1,5 @@
 package com.soo.routine.dto.mission;
 
-import com.soo.routine.entity.mission.IconCategory;
 import com.soo.routine.entity.mission.Mission;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,6 @@ public class MissionReadDTO {
     private Long missionIconId;
     private String iconFileName;
     private String iconPath;
-    private IconCategory iconCategory;
 
     private String missionName;
     private int missionOrder;
@@ -37,7 +35,6 @@ public class MissionReadDTO {
 
 		missionIconId = mission.getMissionIcon().getId();
 		iconFileName = mission.getMissionIcon().getIconFileName();
-		iconCategory = mission.getMissionIcon().getIconCategory();
 
 		iconPath = mission.getMissionIcon().getIconCategory().getIconPath();
 	}
