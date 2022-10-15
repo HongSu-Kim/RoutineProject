@@ -10,12 +10,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -201,5 +205,16 @@ public class MissionController {
 
         return "redirect:/routine-detail";
     }
+
+	@PostMapping("mission-next")
+	@ResponseBody
+	public ResponseEntity<?> missionNext(@RequestBody MissionStartDTO missionStartDTO) {
+
+		if (missionStartDTO.getNextMissionId() == null) {
+			return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+		}
+
+		return new ResponseEntity<>(missionService.getNextMissionStartDTO(missionStartDTO.getRoutineId(), missionStartDTO.getNextMissionId()), HttpStatus.OK);
+	}
 
 }

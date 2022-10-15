@@ -2,7 +2,7 @@ package com.soo.routine.controller.routine;
 
 import com.soo.routine.dto.mission.IconCategoryDTO;
 import com.soo.routine.dto.mission.MissionIconDTO;
-import com.soo.routine.dto.mission.MissionReadDTO;
+import com.soo.routine.dto.mission.MissionStartDTO;
 import com.soo.routine.dto.routine.*;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
@@ -270,18 +270,27 @@ public class RoutineController {
             return "redirect:/login";
         }
 
-        RoutineDTO routineDTO = routineService.getRoutine(routineId);
-		List<MissionReadDTO> list = missionService.getMissionList(routineId);
+//		RoutineDTO routineDTO = routineService.getRoutine(routineId);
+//		List<MissionReadDTO> list = missionService.getMissionList(routineId);
+		MissionStartDTO missionStartDTO = missionService.getNextMissionStartDTO(routineId, null);
 
-		model.addAttribute("routineReadDTO", routineDTO);
-		model.addAttribute("list", list);
-        return "routine/routine/start";
+		if (missionStartDTO == null) {
+			return "redirect:/routine";
+		}
+
+//		model.addAttribute("routineReadDTO", routineDTO);
+//		model.addAttribute("list", list);
+		model.addAttribute("missionStartDTO", missionStartDTO);
+		return "routine/routine/start";
     }
 
     // 루틴 종료 페이지
     @GetMapping("routine-finish")
-    public String routineFinish() {
+    public String routineFinish(Model model, Long routineId) {
 
+		RoutineDTO routineDTO = routineService.getRoutine(routineId);
+
+		model.addAttribute("routineDTO", routineDTO);
         return "routine/routine/finish";
     }
 

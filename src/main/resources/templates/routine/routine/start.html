@@ -10,75 +10,41 @@
 
 <th:block layout:fragment="content">
 	<!-- body -->
-	<th:block th:each="mission, i : ${list}">
-		<div class="card card-default mb-0 border-0">
-			<!-- mission name -->
-			<div class="card-header justify-content-center pb-0">
-				<h1 class="text-dark mb-6 text-center" th:text="${mission.missionName}">MissionName</h1>
-			</div>
-			<!-- icon / timer / runtime -->
-			<div class="card-body text-center px-5 pb-5 pt-0">
-				<div class="card py-3 mb-4 border-0">
-					<div class="circle">
-						<img th:src="@{|/img/icon/${mission.iconPath}/${mission.iconFileName}|}" class="justify-content-center">
-						<p class="card-text h2 pb-4 pt-1" id="timer"></p>
-						<p class="card-text pb-4 pt-1" id="runTime" name="runTime" th:text="${mission.runTime}">runTime</p>
-					</div>
-				</div>
-				<!-- button -->
-				<div class="d-flex justify-content-center mt-6 mx-6">
-					<button class="btn btn-outline-primary btn-pill mb-2" type="button" id="start">시작</button>
-					<input type="hidden" id="index" th:value="${i.index}">
-				</div>
-				<!-- next mission -->
-			</div>
-
+	<div class="card card-default mb-0 border-0">
+		<!-- mission name -->
+		<div class="card-header justify-content-center pb-0">
+			<h1 class="text-dark mb-6 text-center" id="missionName" th:text="${missionStartDTO.missionName}">MissionName</h1>
 		</div>
-	</th:block>
+		<!-- icon / timer / runtime -->
+		<div class="card-body text-center px-5 pb-5 pt-0">
+			<div class="card py-3 mb-4 border-0">
+				<div class="circle">
+					<img th:src="@{|/img/icon/${missionStartDTO.iconPath}/${missionStartDTO.iconFileName}|}" class="justify-content-center" id="img">
+					<p class="card-text h2 pb-4 pt-1" id="timer"
+						 th:text="${missionStartDTO.runTime.toString().substring(0,2).equals('00')
+						 ? #temporals.format(missionStartDTO.runTime, 'mm:00')
+						 : #temporals.format(missionStartDTO.runTime, 'HH:mm:00')}">timer</p>
+					<p class="card-text pb-4 pt-1 mb-6" id="runTimeStr"
+						 th:text="${missionStartDTO.runTime.toString().substring(0,2).equals('00')
+						 ? #temporals.format(missionStartDTO.runTime, 'mm분')
+						 : #temporals.format(missionStartDTO.runTime, 'HH시간mm분')}">runTime</p>
+					<input type="hidden" id="runTime" name="runTime" th:value="${missionStartDTO.runTime}">
+				</div>
+			</div>
+			<!-- button -->
+			<div class="d-flex justify-content-center mt-6 mx-6">
+				<button class="btn btn-outline-primary btn-pill mb-2" type="button" id="btn">시작</button>
+				<input type="hidden" id="routineId" th:value="${missionStartDTO.routineId}">
+				<input type="hidden" id="nextMissionId" th:value="${missionStartDTO.nextMissionId}">
+			</div>
+			<!-- next mission -->
+		</div>
+	</div>
 </th:block>
 
 <!-- script -->
 <th:block layout:fragment="script">
-	<script>
-		$(function() {
-
-			$('#start').click(function() {
-				let index = $(this).siblings('input').val()
-				let timeStr = document.getElementsByName('runTime')[index].innerHTML
-				let time = parseInt(timeStr.substring(0,2))*60*60 + parseInt(timeStr.substring(3,5))*60 + parseInt(timeStr.substring(6))
-				//setInterval(함수, 시간) : 주기적인 실행
-				let timer = setInterval(function() {
-
-					//parseInt() : 정수를 반환
-					h = parseInt(time/60/60)
-					m = parseInt(time/60); //몫을 계산
-					s = time%60; //나머지를 계산
-
-					timeStr = ''
-					if (h > 0) {
-						timeStr += h + ':'
-					}
-					if (m != 0) {
-						timeStr += m + ':'
-					}
-					if (s >= 0) {
-						timeStr += s
-					} else {
-						timeStr += -s
-					}
-
-					document.getElementById("timer").innerHTML = timeStr;
-					time--;
-
-					//타임아웃 시
-					if (time < 0) {
-							// clearInterval(timer); //setInterval() 실행을 끝냄
-							document.getElementById("timer").style.color = 'red'
-					}
-				}, 1000);
-			})
-		})
-	</script>
+	<script src="/js/routine/routine_start.js"></script>
 </th:block>
 
 </html>
