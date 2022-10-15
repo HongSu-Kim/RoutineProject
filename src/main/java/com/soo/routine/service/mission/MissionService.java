@@ -69,7 +69,7 @@ public class MissionService {
 
     public void editMission(MissionEditDTO missionEditDTO) {
 
-        Mission mission = missionRepository.findById(missionEditDTO.getMissionId()).orElse(null);
+        Mission mission = missionRepository.findById( missionEditDTO.getMissionId()).orElse(null);
         MissionIcon missionIcon = missionIconRepository.findById(missionEditDTO.getMissionIconId()).orElse(null);
 
         mission.editMission(missionIcon, missionEditDTO.getMissionName(), missionEditDTO.getRunTime());

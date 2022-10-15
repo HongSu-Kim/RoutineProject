@@ -151,10 +151,6 @@ public class RoutineController {
 
         Member loginMember = (Member) httpSession.getAttribute("loginMember");
 
-        if (loginMember == null) {
-            return "redirect:/login";
-        }
-
         List<RoutineDTO> lists = routineService.getRoutineList(loginMember.getId());
 
         model.addAttribute("lists", lists);

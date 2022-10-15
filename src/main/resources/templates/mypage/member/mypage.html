@@ -10,16 +10,14 @@
 
         <div class="routine-img mypage-img">
             <img src="https://item.kakaocdn.net/do/4856d24382126429021e6246b1866c948f324a0b9c48f77dbce3a43bd11ce785" style="width: 100pt;">
-            <div class="routine-nickname">
-                <th:block th:text="${member.nickname}"></th:block>님
-            </div>
+            <div class="routine-nickname" th:text="|${sessionDTO.nickname}님|"></div>
         </div>
 
         <form action="withdraw" method="post">
             <div class="row row-routine mypage-row">
 
                 <!-- 관리자 -->
-                <th:block th:if="${member.role.name == 'ADMIN'}">
+                <th:block sec:authorize="hasRole('ADMIN')">
                     <div class="list-group mypage-list">
                         <h4>Admin</h4>
                         <div class="mypage-btn-wrap">
