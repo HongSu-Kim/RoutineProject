@@ -25,7 +25,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-    private final HttpSession httpSession;
 
     /*
     User Page
@@ -102,16 +101,16 @@ public class MemberController {
     }
 
     // 회원정보 수정 페이지
-    @GetMapping("edit-profile")
-    public String profileEdit(MemberEditDTO memberEditDTO, Model model){
+    @GetMapping("mypage-edit")
+    public String editProfile(@LoginUser SessionDTO sessionDTO, MemberEditDTO memberEditDTO, Model model){
 
-        model.addAttribute("memberEditDTO", new MemberEditDTO());
+        model.addAttribute("sessionDTO", sessionDTO);
         return "mypage/member/edit_profile";
     }
 
     // 회원정보 수정
-    @PostMapping("edit-profile")
-    public String profileEdit(@Valid MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
+    @PostMapping("mypage-edit")
+    public String editProfile(@Valid MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberEditDTO", memberEditDTO);
@@ -119,50 +118,38 @@ public class MemberController {
         }
 
         memberService.edit(memberEditDTO);
-
         return "mypage/member/edit_profile";
     }
 
-//    @PutMapping("edit-profile")
-//    public ResponseEntity<String> profileEdit(@RequestBody Member member) {
-//
-//        memberService.edit(member);
-//
-//        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
-//    }
-
-//    public ResponseEntity<Integer> profileEdit(@RequestBody Member member) {
-//
-//        memberService.edit(member);
-//        return new ResponseEntity<Integer>(HttpStatus.OK.value(), 1);
-//    }
-
     // 회원탈퇴 페이지
-    @GetMapping("withdraw")
+    @GetMapping("mypage-withdraw")
     public String withdraw(MemberDTO memberDTO){
         return "mypage/member/withdraw";
     }
 
     // 회원탈퇴
-    @PostMapping("withdraw")
-    public String withdraw(@LoginUser SessionDTO sessionDTO, MemberDTO memberDTO, BindingResult bindingResult, Model model, HttpServletRequest request){
+    @PostMapping("mypage-withdraw")
+    public String withdraw(@LoginUser SessionDTO sessionDTO, MemberDTO memberDTO,
+                           BindingResult bindingResult, Model model){
 
         Member checkPwd = memberService.checkPwd(sessionDTO.getEmail(), memberDTO.getPwd());
 
         if (checkPwd == null) { // 비밀번호 불일치 시
+
             bindingResult.addError(new FieldError("memberDTO", "pwd", "비밀번호가 일치하지 않습니다."));
             return "mypage/member/withdraw";
 
         }else { // 비밀번호 일치 시
 
             memberService.withdraw(sessionDTO.getEmail());
-
-//            if (httpSession!=null) {
-//                httpSession.invalidate(); // 세션 제거
-//            }
-
             return "redirect:/login";
         }
+    }
+
+    // 접근 불가 페이지
+    @GetMapping("deny")
+    public String deny() {
+        return "mypage/deny";
     }
 
 
