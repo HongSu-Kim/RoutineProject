@@ -1,12 +1,12 @@
 package com.soo.routine.controller.routine;
 
+import com.soo.routine.dto.member.SessionDTO;
 import com.soo.routine.dto.mission.IconCategoryDTO;
 import com.soo.routine.dto.mission.MissionIconDTO;
 import com.soo.routine.dto.mission.MissionStartDTO;
 import com.soo.routine.dto.routine.*;
-import com.soo.routine.entity.member.Member;
-import com.soo.routine.entity.member.Role;
 import com.soo.routine.entity.routine.Week;
+import com.soo.routine.security.LoginUser;
 import com.soo.routine.service.mission.IconCategoryService;
 import com.soo.routine.service.mission.MissionIconService;
 import com.soo.routine.service.mission.MissionService;
@@ -22,7 +22,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class RoutineController {
 	private final MissionService missionService;
     private final IconCategoryService iconCategoryService;
     private final MissionIconService missionIconService;
-    private final HttpSession httpSession;
 
     /*
     Admin Page
@@ -43,12 +41,6 @@ public class RoutineController {
     // admin - 추천 루틴 리스트 관리 페이지
     @GetMapping("admin/routine-list")
     public String adminRoutineList(Model model, @PageableDefault Pageable pageable) {
-
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/login";
-        }
 
         Page<RoutineDTO> lists = routineService.getRecommendRoutineList(pageable);
 
@@ -59,16 +51,10 @@ public class RoutineController {
 
     // admin - 추천 루틴 추가 페이지
     @GetMapping("admin/routine-add")
-    public String adminRoutineAdd(Model model, RoutineRecommendAddDTO routineRecommendAddDTO) {
+    public String adminRoutineAdd(@LoginUser SessionDTO sessionDTO, Model model, RoutineRecommendAddDTO routineRecommendAddDTO) {
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/login";
-        }
-
-        routineRecommendAddDTO.setMemberId(loginMember.getId());
-        routineRecommendAddDTO.setMemberNickname(loginMember.getNickname());
+        routineRecommendAddDTO.setMemberId(sessionDTO.getMemberId());
+        routineRecommendAddDTO.setMemberNickname(sessionDTO.getNickname());
 
         List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
         model.addAttribute("categoryList", categoryList);
@@ -102,12 +88,6 @@ public class RoutineController {
     @GetMapping("admin/routine-edit")
     public String adminRoutineUpdate(Model model, RoutineRecommendEditDTO routineRecommendEditDTO, Long routineId) {
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        if (loginMember == null || loginMember.getRole() != Role.ADMIN) {
-            return "redirect:/login";
-        }
-
         routineRecommendEditDTO = routineService.getRecommendRoutine(routineId);
         List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
         List<MissionIconDTO> iconList = missionIconService.getIconList();
@@ -121,7 +101,7 @@ public class RoutineController {
 
     // admin - 추천 루틴 수정
     @PostMapping("admin/routine-edit")
-    public String adminRoutineUpdate(Model model, @Valid RoutineRecommendEditDTO routineRecommendEditDTO, BindingResult bindingResult) {
+    public String adminRoutineUpdate(@LoginUser SessionDTO sessionDTO, Model model, @Valid RoutineRecommendEditDTO routineRecommendEditDTO, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             List<IconCategoryDTO> categoryList = iconCategoryService.getCategoryList();
@@ -132,10 +112,8 @@ public class RoutineController {
             return "admin/routine/edit";
         }
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
         routineService.updateRoutine(routineRecommendEditDTO);
-        List<RoutineDTO> lists = routineService.getRoutineList(loginMember.getId());
+        List<RoutineDTO> lists = routineService.getRoutineList(sessionDTO.getMemberId());
 
         model.addAttribute("lists", lists);
         return "redirect:/admin/routine-edit?routineId=" + routineRecommendEditDTO.getRoutineId();
@@ -147,11 +125,9 @@ public class RoutineController {
 
     // 루틴 리스트 페이지(메인)
     @GetMapping("routine")
-    public String routineList(Model model) {
+    public String routineList(@LoginUser SessionDTO sessionDTO, Model model) {
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-
-        List<RoutineDTO> lists = routineService.getRoutineList(loginMember.getId());
+        List<RoutineDTO> lists = routineService.getRoutineList(sessionDTO.getMemberId());
 
         model.addAttribute("lists", lists);
 
@@ -160,11 +136,7 @@ public class RoutineController {
 
     // 루틴 추가 페이지
     @GetMapping("routine-add")
-    public String routineAdd(Model model, RoutineAddDTO routineAddDTO) {
-
-        if (httpSession.getAttribute("loginMember") == null) {
-            return "redirect:/login";
-        }
+    public String routineAdd(RoutineAddDTO routineAddDTO) {
 
 		boolean[] weekActive = new boolean[7];
 		String[] weekButton = new String[7];
@@ -184,7 +156,7 @@ public class RoutineController {
 
     // 루틴 추가
     @PostMapping("routine-add")
-    public String routineAdd(Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
+    public String routineAdd(@LoginUser SessionDTO sessionDTO, Model model, @Valid RoutineAddDTO routineAddDTO, BindingResult bindingResult) {
 
 		boolean weekActive = false;
 		for (boolean wa : routineAddDTO.getWeekActive()) {
@@ -201,8 +173,7 @@ public class RoutineController {
             return "routine/routine/add";
         }
 
-        Member loginMember = (Member) httpSession.getAttribute("loginMember");
-        routineAddDTO.setMemberId(loginMember.getId());
+        routineAddDTO.setMemberId(sessionDTO.getMemberId());
 
         routineService.addRoutine(routineAddDTO);
 
@@ -211,11 +182,7 @@ public class RoutineController {
 
     // 루틴 상세 페이지
     @GetMapping("routine-detail")
-    public String routineDetail(Model model, Long routineId) {
-
-        if (httpSession.getAttribute("loginMember") == null) {
-            return "redirect:/login";
-        }
+    public String routineDetail( Model model, Long routineId) {
 
         RoutineDTO routineDTO = routineService.getRoutine(routineId);
 
@@ -231,10 +198,6 @@ public class RoutineController {
     // 루틴 수정 페이지
     @GetMapping("routine-edit")
     public String routineEdit(Model model, RoutineUpdateDTO routineUpdateDTO, Long routineId) {
-
-        if (httpSession.getAttribute("loginMember") == null) {
-            return "redirect:/login";
-        }
 
         routineUpdateDTO = routineService.getRoutineUpdateDTO(routineId);
 
@@ -261,21 +224,12 @@ public class RoutineController {
     // 루틴 실행 페이지
     @GetMapping("routine-start")
     public String routineStart(Model model, Long routineId) {
-
-        if (httpSession.getAttribute("loginMember") == null) {
-            return "redirect:/login";
-        }
-
-//		RoutineDTO routineDTO = routineService.getRoutine(routineId);
-//		List<MissionReadDTO> list = missionService.getMissionList(routineId);
 		MissionStartDTO missionStartDTO = missionService.getNextMissionStartDTO(routineId, null);
 
 		if (missionStartDTO == null) {
 			return "redirect:/routine";
 		}
 
-//		model.addAttribute("routineReadDTO", routineDTO);
-//		model.addAttribute("list", list);
 		model.addAttribute("missionStartDTO", missionStartDTO);
 		return "routine/routine/start";
     }
