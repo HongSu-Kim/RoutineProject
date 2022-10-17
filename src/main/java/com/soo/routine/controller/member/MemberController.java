@@ -10,13 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -57,7 +52,12 @@ public class MemberController {
 
     // 로그인 페이지
     @GetMapping("login")
-    public String login(MemberDTO memberDTO) {
+    public String login(MemberDTO memberDTO, @RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "exception", required = false) String exception, Model model) {
+
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+
         return "mypage/member/login";
     }
 
@@ -69,7 +69,7 @@ public class MemberController {
 
     // 비밀번호 찾기 페이지
     @GetMapping("pwd-find")
-    public String pwdFind(@ModelAttribute("memberJoinDTO") MemberJoinDTO memberJoinDTO){
+    public String pwdFind(@ModelAttribute("memberDTO") MemberDTO memberDTO){
         return "mypage/member/pwd_find";
     }
 
@@ -110,7 +110,7 @@ public class MemberController {
 
     // 회원정보 수정
     @PostMapping("mypage-edit")
-    public String editProfile(@Valid MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
+    public String editProfile(@LoginUser SessionDTO sessionDTO, @Valid MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("memberEditDTO", memberEditDTO);
@@ -146,13 +146,6 @@ public class MemberController {
         }
     }
 
-    // 접근 불가 페이지
-    @GetMapping("deny")
-    public String deny() {
-        return "mypage/deny";
-    }
-
-
     /*
     Admin Page
     */
@@ -171,5 +164,27 @@ public class MemberController {
         model.addAttribute("pageName", role.name() + " List");
         return "admin/user/list";
     }
+
+
+    /*
+    임시 페이지
+    */
+
+    // 접근 불가 페이지
+    @GetMapping("deny")
+    public String deny() {
+        return "mypage/deny";
+    }
+
+    // 준비중인 페이지
+    @GetMapping("recommend")
+    public String recommend() {
+        return "mypage/getReady";
+    }
+
+    @GetMapping("analysis")
+        public String analysis() {
+            return "mypage/getReady";
+        }
 
 }

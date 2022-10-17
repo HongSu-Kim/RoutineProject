@@ -52,7 +52,7 @@
                 <div class="form-group col-md-12 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine" id="nickname" name="nickname"
-                               th:value="${sessionDTO.nickname}" th:errorclass="fieldErrors">
+                               th:field="*{nickname}" th:value="${sessionDTO.nickname}" th:errorclass="fieldErrors" placeholder="닉네임">
                     </div>
                     <div class="error_routine" th:errors="*{nickname}"></div>
                 </div>
