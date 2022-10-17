@@ -19,12 +19,12 @@
 		<div class="card-body text-center px-5 pb-5 pt-0">
 			<div class="card py-3 mb-4 border-0">
 				<div class="circle">
-					<img th:src="@{|/img/icon/${missionStartDTO.iconPath}/${missionStartDTO.iconFileName}|}" class="justify-content-center" id="img">
+					<img th:src="@{|/img/icon/${missionStartDTO.iconPath}/${missionStartDTO.iconFileName}|}" class="justify-content-center mt-3" id="img">
 					<p class="card-text h2 pb-4 pt-1" id="timer"
 						 th:text="${missionStartDTO.runTime.toString().substring(0,2).equals('00')
 						 ? #temporals.format(missionStartDTO.runTime, 'mm:00')
 						 : #temporals.format(missionStartDTO.runTime, 'HH:mm:00')}">timer</p>
-					<p class="card-text pb-4 pt-1 mb-6" id="runTimeStr"
+					<p class="card-text pb-4 pt-1 mb-3" id="runTimeStr"
 						 th:text="${missionStartDTO.runTime.toString().substring(0,2).equals('00')
 						 ? #temporals.format(missionStartDTO.runTime, 'mm분')
 						 : #temporals.format(missionStartDTO.runTime, 'HH시간mm분')}">runTime</p>
@@ -32,11 +32,13 @@
 				</div>
 			</div>
 			<!-- button -->
-			<div class="d-flex justify-content-center mt-6 mx-6">
-				<button class="btn btn-outline-primary btn-pill mb-2" type="button" id="btn">시작</button>
-				<input type="hidden" id="routineId" th:value="${missionStartDTO.routineId}">
-				<input type="hidden" id="nextMissionId" th:value="${missionStartDTO.nextMissionId}">
-			</div>
+			<form th:action="@{/routine-finish}" method="post" id="form" name="form">
+				<div class="d-flex justify-content-center mt-6 mx-6">
+					<button class="btn btn-outline-primary btn-pill mb-2" type="button" id="btn">시작</button>
+					<input type="hidden" id="routineId" name="routineId" th:value="${missionStartDTO.routineId}">
+					<input type="hidden" id="nextMissionId" th:value="${missionStartDTO.nextMissionId}">
+				</div>
+			</form>
 			<!-- next mission -->
 		</div>
 	</div>

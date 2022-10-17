@@ -27,7 +27,7 @@
 							<tr th:each="dto, loop : ${lists}">
 								<td scope="row" th:text="${lists.totalElements - (lists.number * lists.size) - loop.index}">No</td>
 								<td>
-									<img th:src="@{|/img/icon/${dto.iconCategory.iconPath}/${dto.iconFileName}|}" class="width-50"/>
+									<img th:src="@{|/img/icon/${dto.iconPath}/${dto.iconFileName}|}" class="width-50"/>
 								</td>
 								<td th:text="${dto.missionName}"></td>
 								<td th:text="${#temporals.format(dto.runTime, 'HH:mm')}"></td>

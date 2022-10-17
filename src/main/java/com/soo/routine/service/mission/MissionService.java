@@ -98,14 +98,14 @@ public class MissionService {
 				break;
 			}
 
-			if (missionId == null) {
+			if (missionId == null || missionId == mission.getId()) {
 				missionStartDTO = new MissionStartDTO(mission);
 				continue;
 			}
 
-			if (missionId == mission.getId()) {
-				missionId = null;
-			}
+//			if (missionId == mission.getId()) {
+//				missionId = null;
+//			}
 		}
 
 		return missionStartDTO;
