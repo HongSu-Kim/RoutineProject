@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,9 @@ public class MissionService {
         Mission mission = new Mission(missionAddDTO, routine, missionIcon);
 		missionRepository.save(mission);
 
-		routineRepository.save(routine.updateTotalTime(missionAddDTO.getRunTime()));
+		LocalTime runTime = LocalTime.parse(missionAddDTO.getRunTime());
+		LocalTime totalTime = routine.getTotalTime().plusHours(runTime.getHour()).plusMinutes(runTime.getMinute());
+		routineRepository.save(routine.updateTotalTime(totalTime));
     }
 
 	public MissionReadDTO getMission(Long missionId) {
@@ -71,8 +74,15 @@ public class MissionService {
 
         Mission mission = missionRepository.findById( missionEditDTO.getMissionId()).orElse(null);
         MissionIcon missionIcon = missionIconRepository.findById(missionEditDTO.getMissionIconId()).orElse(null);
+		Routine routine = routineRepository.findById(mission.getRoutine().getId()).orElse(null);
 
-        mission.editMission(missionIcon, missionEditDTO.getMissionName(), missionEditDTO.getRunTime());
+		LocalTime preRunTime = mission.getRunTime();
+		LocalTime runTime = LocalTime.parse(missionEditDTO.getRunTime());
+		LocalTime totalTime = routine.getTotalTime().minusHours(preRunTime.getHour()).minusMinutes(preRunTime.getMinute())
+													.plusHours(runTime.getHour()).plusMinutes(runTime.getMinute());
+
+		routine.updateTotalTime(totalTime);
+		mission.editMission(missionIcon, missionEditDTO.getMissionName(), missionEditDTO.getRunTime());
     }
 
 	public void deleteMission(Long missionId) {
