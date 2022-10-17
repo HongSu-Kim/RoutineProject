@@ -1,5 +1,6 @@
 package com.soo.routine.service.routine;
 
+import com.soo.routine.dto.mission.MissionReadDTO;
 import com.soo.routine.dto.routine.*;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -312,4 +314,49 @@ public class RoutineService {
     public void routineDelete(Long routineId) {
         routineRepository.deleteById(routineId);
     }
+
+	public RoutineFinishDTO getRoutineFinishDTO(Long routineId, String[] remainingTime) {
+
+		RoutineFinishDTO routineFinishDTO = routineRepository.findById(routineId).map(RoutineFinishDTO::new).orElse(null);
+
+		LocalTime totalTime = routineFinishDTO.getTotalTime();
+		routineFinishDTO.setFinalTime(routineFinishDTO.getStartTime().plusHours(totalTime.getHour()).plusMinutes(totalTime.getMinute()));
+		
+		String[] elapsedTime = new String[routineFinishDTO.getMissionList().size()];
+
+		int i = 0;
+		for (MissionReadDTO missionReadDTO : routineFinishDTO.getMissionList()) {
+
+			// elapsedTime
+			elapsedTime[i] = missionReadDTO.getRunTime().minusSeconds(Long.parseLong(remainingTime[i]))
+					.format(DateTimeFormatter.ofPattern("HH시 mm분 ss초"));
+			if (elapsedTime[i].substring(0,2).equals("00")) {
+				elapsedTime[i] = elapsedTime[i].substring(4);
+				if (elapsedTime[i].substring(0,2).equals("00")) {
+					elapsedTime[i] = elapsedTime[i].substring(4);
+				}
+			}
+
+			// remainingTime
+			int temp = Integer.parseInt(remainingTime[i]);
+			String hou = temp/60/60 < 10 ? "0" + String.valueOf((temp/60/60)) : String.valueOf((temp/60/60));
+			String min = temp/60%60 < 10 ? "0" + String.valueOf((temp/60%60)) : String.valueOf((temp/60%60));
+			String sec = temp%60 < 10 ? "0" + String.valueOf((temp%60)) : String.valueOf((temp%60));
+
+			remainingTime[i] = hou +  "시 " + min + "분 " + sec + "초";
+			if (remainingTime[i].substring(0,2).equals("00")) {
+				remainingTime[i] = remainingTime[i].substring(4);
+				if (remainingTime[i].substring(0,2).equals("00")) {
+					remainingTime[i] = remainingTime[i].substring(4);
+				}
+			}
+
+			i++;
+		}
+
+		routineFinishDTO.setElapsedTime(elapsedTime);
+		routineFinishDTO.setRemainingTime(remainingTime);
+
+		return routineFinishDTO;
+	}
 }

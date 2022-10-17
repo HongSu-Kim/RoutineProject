@@ -235,12 +235,12 @@ public class RoutineController {
     }
 
     // 루틴 종료 페이지
-    @GetMapping("routine-finish")
-    public String routineFinish(Model model, Long routineId) {
+    @PostMapping("routine-finish")
+    public String routineFinish(Model model, RoutineFinishDTO routineFinishDTO) {
 
-		RoutineDTO routineDTO = routineService.getRoutine(routineId);
+		routineFinishDTO = routineService.getRoutineFinishDTO(routineFinishDTO.getRoutineId(), routineFinishDTO.getRemainingTime());
 
-		model.addAttribute("routineDTO", routineDTO);
+		model.addAttribute("routineFinishDTO", routineFinishDTO);
         return "routine/routine/finish";
     }
 

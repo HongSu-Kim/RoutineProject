@@ -16,6 +16,8 @@ $(function() {
 
         clearInterval(stop)
 
+        $('#form').append('<input type="hidden" name="remainingTime" value="' + time  + '"/>')
+
         $.ajax({
             url: "/mission-next",
             method: "POST",
@@ -25,16 +27,17 @@ $(function() {
                 nextMissionId: $('#nextMissionId').val()
             }),
             success: function (missionStartDTO) {
-                $('#nextMissionId').val(missionStartDTO.nextMissionId);
+                $('#nextMissionId').val(missionStartDTO.nextMissionId)
                 $('#missionName').text(missionStartDTO.missionName)
                 $('#img').attr("src", "/img/icon/" + missionStartDTO.iconPath + "/" + missionStartDTO.iconFileName)
+                $('#runTime').val(missionStartDTO.runTime)
                 let runTime = missionStartDTO.runTime.toString()
                 $('#timer').text(runTime.substring(0,2) == ('00') ? runTime.substring(3): runTime)
                 let runTimeStr = (runTime.substring(0,2) != ('00') ? runTime.substring(0,2) + "시간" : "") + runTime.substring(3,5) + "분"
                 $('#runTimeStr').text(runTimeStr)
             },
             error: function (error) {
-                location.href = '/routine-finish?routineId=' + $('#routineId').val()
+                $('#form').submit()
             }
 
         }).done(function () {
@@ -61,7 +64,7 @@ let timer = function() {
     timeStr = (time < 0 ? "-" : "")
             + (hou == 0 ? "" : (hou >= 10 ? hou + ":" : "0" + hou + ":"))
             + (min == 0 ? "00:" : ((min >= 10 ? min + ":" : "0" + min + ":")))
-            + (sec > 10 ? sec : "0" + sec)
+            + (sec >= 10 ? sec : "0" + sec)
 
 
     $('#timer').html(timeStr)
