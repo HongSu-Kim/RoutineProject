@@ -78,9 +78,8 @@ public class Routine {
     }
 
     // 합계 시간
-	public Routine updateTotalTime(String runTimeStr) {
-		LocalTime runTime = LocalTime.parse(runTimeStr);
-		totalTime = totalTime.plusHours(runTime.getHour()).plusMinutes(runTime.getMinute());
+	public Routine updateTotalTime(LocalTime totalTime) {
+		this.totalTime = totalTime;
 		return this;
 	}
 }
