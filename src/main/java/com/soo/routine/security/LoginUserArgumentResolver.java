@@ -32,7 +32,6 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        System.out.print("ㅠㅠㅠ");
         return httpSession.getAttribute("member");
     }
 }

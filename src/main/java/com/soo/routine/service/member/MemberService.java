@@ -150,12 +150,8 @@ public class MemberService {
     public void edit(MemberEditDTO memberEditDTO) {
 
         Member member = memberRepository.findByEmail(memberEditDTO.getEmail()).orElse(null);
-
-        if (member == null) {
-            return;
-        }
-
         member.edit(passwordEncoder.encode(memberEditDTO.getNewPwd()), memberEditDTO.getNickname());
+
         memberRepository.save(member);
     }
 
