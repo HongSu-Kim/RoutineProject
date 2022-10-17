@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -202,7 +201,7 @@ public class RoutineService {
 
         routineRepository.save(routine);
     }
-    
+
     // 루틴세팅 수정
     public void updateRoutineSet(RoutineUpdateDTO routineUpdateDTO) {
 
@@ -321,35 +320,18 @@ public class RoutineService {
 
 		LocalTime totalTime = routineFinishDTO.getTotalTime();
 		routineFinishDTO.setFinalTime(routineFinishDTO.getStartTime().plusHours(totalTime.getHour()).plusMinutes(totalTime.getMinute()));
-		
+
 		String[] elapsedTime = new String[routineFinishDTO.getMissionList().size()];
+
 
 		int i = 0;
 		for (MissionReadDTO missionReadDTO : routineFinishDTO.getMissionList()) {
 
-			// elapsedTime
-			elapsedTime[i] = missionReadDTO.getRunTime().minusSeconds(Long.parseLong(remainingTime[i]))
-					.format(DateTimeFormatter.ofPattern("HH시 mm분 ss초"));
-			if (elapsedTime[i].substring(0,2).equals("00")) {
-				elapsedTime[i] = elapsedTime[i].substring(4);
-				if (elapsedTime[i].substring(0,2).equals("00")) {
-					elapsedTime[i] = elapsedTime[i].substring(4);
-				}
-			}
+			int time = Integer.parseInt(remainingTime[i]);
+			remainingTime[i] = toString(time);
 
-			// remainingTime
-			int temp = Integer.parseInt(remainingTime[i]);
-			String hou = temp/60/60 < 10 ? "0" + String.valueOf((temp/60/60)) : String.valueOf((temp/60/60));
-			String min = temp/60%60 < 10 ? "0" + String.valueOf((temp/60%60)) : String.valueOf((temp/60%60));
-			String sec = temp%60 < 10 ? "0" + String.valueOf((temp%60)) : String.valueOf((temp%60));
-
-			remainingTime[i] = hou +  "시 " + min + "분 " + sec + "초";
-			if (remainingTime[i].substring(0,2).equals("00")) {
-				remainingTime[i] = remainingTime[i].substring(4);
-				if (remainingTime[i].substring(0,2).equals("00")) {
-					remainingTime[i] = remainingTime[i].substring(4);
-				}
-			}
+			time = missionReadDTO.getRunTime().toSecondOfDay() - time;
+			elapsedTime[i] = toString(time);
 
 			i++;
 		}
@@ -358,5 +340,17 @@ public class RoutineService {
 		routineFinishDTO.setRemainingTime(remainingTime);
 
 		return routineFinishDTO;
+	}
+
+	private String toString(int time) {
+		int temp = time < 0 ? time * -1 : time;
+		int hou = temp/60/60;
+		int min = temp/60%60;
+		int sec = temp%60;
+		return (time < 0 ? "-" : "")
+				+ (hou == 0 ? "" : hou + "시")
+				+ (min == 0 ? (hou == 0 ? "" : "00분" ) : (
+					min > 10 ? min : (hou == 0 ? min : "0" + min)) + "분")
+				+ (sec >= 10 ? sec : (hou == 0 && min == 0 ? sec : "0" + sec)) + "초";
 	}
 }

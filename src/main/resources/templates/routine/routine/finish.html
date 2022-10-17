@@ -28,13 +28,17 @@
 			<!-- Mission List가 있는 경우 -->
 			<th:block th:each="missionReadDTO, i : ${routineFinishDTO.missionList}">
 				<div class="list-group-item-action routine-detail-group">
-					<div class="mission-wrap" th:onclick="|location.href='@{|/mission-edit?missionId=${missionReadDTO.missionId}|}';|">
-						<div class="mission-img">
-							<img th:src="@{|/img/icon/${missionReadDTO.iconPath}/${missionReadDTO.iconFileName}|}">
+					<div class="mission-wrap justify-content-between">
+						<div>
+							<div class="mission-img d-inline-block">
+								<img th:src="@{|/img/icon/${missionReadDTO.iconPath}/${missionReadDTO.iconFileName}|}">
+							</div>
+							<div class="d-inline-block" th:text="${missionReadDTO.missionName}"></div>
 						</div>
-						<div class="mission-title" th:text="${missionReadDTO.missionName}"></div>
-						<div class="elapsedTime" th:text="${routineFinishDTO.elapsedTime[i.index]}">elapsedTime</div>
-						<div class="remainingTime" th:text="${routineFinishDTO.remainingTime[i.index]}">remainingTime</div>
+						<div class="pt-1">
+							<div class="d-inline-block" th:text="${routineFinishDTO.elapsedTime[i.index]}">elapsedTime</div>
+							<div class="d-inline-block small" th:style="${routineFinishDTO.remainingTime[i.index].substring(0,1) eq '-' ? 'color: red' : 'color: blue'}" th:text="|(${routineFinishDTO.remainingTime[i.index]})|">remainingTime</div>
+						</div>
 					</div>
 				</div>
 			</th:block>
@@ -42,9 +46,7 @@
 			<!-- button -->
 			<div class="d-flex justify-content-center mt-6 detail-btn-wrap">
 				<button type="button" class="btn btn-pill btn-white detail-btn detail-btn-right"
-								th:onclick="|location.href='@{|/mission-add?routineId=${routineFinishDTO.routineId}|}';|">추가</button>
-				<button type="button" class="btn btn-primary btn-pill btn-brown detail-btn"
-								th:onclick="|location.href='@{|/routine-start?routineId=${routineFinishDTO.routineId}|}';|">시작</button>
+								th:onclick="|location.href='/routine';|">완료</button>
 			</div>
 
 		</div>
