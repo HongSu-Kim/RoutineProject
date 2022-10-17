@@ -18,7 +18,6 @@ public class MemberJoinDTO {
     private Long memberId; // 회원번호
     private Role role; // 회원등급
     private LocalDateTime joinDate; // 가입일
-    private boolean member_active; // 회원 활성화 유무
 
     @NotBlank(message="이메일 주소를 입력하세요.")
     @Email(message = "이메일 형식에 맞게 입력하세요.")

@@ -1,5 +1,6 @@
 package com.soo.routine.config;
 
+import com.soo.routine.security.CustomFailureHandler;
 import com.soo.routine.service.member.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소 접근 시, 권한 및 인증을 미리 체크
@@ -21,6 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService customUserDetailsService;
+    private final CustomFailureHandler customFailureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,16 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests() // 페이지 접근에 대한 인증 설정
                 .antMatchers("/admin/**").hasRole("ADMIN") // admin만 접근 가능
-//                .antMatchers("/routine**", "/mypage**").hasAnyRole("MEMBER", "ADMIN") // user(member,admin)만 접근 가능
-                .antMatchers("/", "/startRoutine", "/join", "/login", "/pwd-find").access("!hasRole('MEMBER') and !hasRole('ADMIN')") // 모든 user(non-member,member,admin) 접근 가능
-                .anyRequest().hasAnyRole("MEMBER", "ADMIN") // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
-//                .anyRequest().authenticated() // 나머지 요청들은 권한의 종류에 상관 없이 권한이 있어야 접근 가능
+                .antMatchers("/", "/startRoutine", "/join", "/login", "/pwd-find").access("!hasRole('MEMBER') and !hasRole('ADMIN')") // 비회원만 접근 가능
+                .anyRequest().hasAnyRole("MEMBER", "ADMIN") // 나머지 요청들은 user(member,admin)만 접근 가능
             .and()
                 .formLogin() // 로그인에 관한 설정
-                    .loginPage("/login") // 로그인 안 된 경우 페이지
+                    .loginPage("/login") // 로그인 페이지
                     .usernameParameter("email")
                     .passwordParameter("pwd")
                     .loginProcessingUrl("/login")
+                    .failureHandler(customFailureHandler) // 로그인 실패 시
                     .defaultSuccessUrl("/mypage") // 로그인 시 리다이렉트 페이지
             .and()
                 .logout() // 로그아웃에 관한 설정

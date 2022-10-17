@@ -133,10 +133,14 @@ layout_user
     vertical-align: middle;
 }
 
-.input_routine {
+.input-routine {
     font-size: 0.8375rem;
     border-radius: 2rem;
     margin-bottom: 36px;
+}
+
+.input-routine-final {
+    margin-bottom: 0;
 }
 
 .col-routine-2 {
@@ -144,11 +148,15 @@ layout_user
 }
 
 .error_routine {
-    padding: 8px 0 10px;
-    font-size: 12px;
+    padding: 15px 17px 10px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: normal;
     color: #f13d2b;
+}
+
+.error-login {
+    margin-bottom: -44.5px;
 }
 
 .mb_routine {
@@ -183,8 +191,8 @@ button
 .routine-btn-wrap {
     position: relative;
     top: 38%;
-    /*margin: 25pt;*/
     margin: 20pt 50pt 15pt;
+    text-align: center;
 }
 
 .routine-btn {
@@ -239,6 +247,14 @@ button
 
 .fieldErrors {
     margin-bottom: 0;
+}
+
+.routine-deny {
+    margin: 0;
+}
+
+.login-btn {
+    margin-top: 54.5px;
 }
 
 /*
