@@ -6,8 +6,8 @@ import com.soo.routine.dto.member.MemberReadDTO;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import com.soo.routine.repository.member.MemberRepository;
+import com.soo.routine.util.MailUtil;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,6 @@ import java.util.UUID;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
     /*
@@ -135,8 +134,8 @@ public class MemberService {
             member.findPwd(tempPwd);
 
             // 이메일 전송
-//            MailUtil mail = new MailUtil();
-//            mail.sendMail(member);
+            MailUtil mail = new MailUtil();
+            mail.sendMail(member);
 
             // 암호화된 임시 비밀번호 저장
             member.findPwd(passwordEncoder.encode(member.getPwd()));

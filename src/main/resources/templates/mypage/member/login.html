@@ -16,13 +16,13 @@
                 <!-- 입력 -->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input-routine" id="email" name="email"
+                        <input type="text" class="form-control input-lg input_routine" id="email" name="email"
                                th:field="*{email}" placeholder="이메일 주소" autofocus>
                     </div>
                 </div>
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
-                        <input type="password" class="form-control input-lg input-routine input-routine-final" id="pwd" name="pwd"
+                        <input type="password" class="form-control input-lg input_routine input-routine-final" id="pwd" name="pwd"
                                th:field="*{pwd}" placeholder="비밀번호">
                         <th:block th:if="${param.error}">
                             <div class="error_routine error-login" th:text="${exception}"></div>
