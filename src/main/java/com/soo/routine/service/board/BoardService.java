@@ -68,8 +68,9 @@ public class BoardService {
 
     // 게시글 한개
     public BoardReadDTO getBoard(Long boardId) {
-        boardMapper.updateHits(boardId); // boardHits++
-        return boardRepository.findById(boardId).map(BoardReadDTO::new).orElse(null);
+        return boardRepository.findById(boardId)
+				.map(board -> new BoardReadDTO(board.updateHits()))
+				.orElse(null);
     }
 
     // 게시글 수정

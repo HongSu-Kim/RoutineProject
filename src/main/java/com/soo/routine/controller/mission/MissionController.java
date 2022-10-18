@@ -6,7 +6,9 @@ import com.soo.routine.service.mission.MissionIconService;
 import com.soo.routine.service.mission.MissionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -37,6 +40,10 @@ public class MissionController {
     // 추천 미션 리스트 관리 페이지
     @GetMapping("admin/mission-list")
     public String adminMissionList(Model model, @PageableDefault Pageable pageable) {
+
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("id"));
+		pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
         Page<MissionReadDTO> lists = missionService.getMissionPage(pageable);
 

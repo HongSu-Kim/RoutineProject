@@ -56,5 +56,10 @@ public class Board {
         this.boardModify = LocalDateTime.now();
     }
 
+	public Board updateHits() {
+		boardHits++;
+		return this;
+	}
+
 
 }

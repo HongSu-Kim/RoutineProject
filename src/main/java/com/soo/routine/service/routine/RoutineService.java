@@ -17,7 +17,9 @@ import com.soo.routine.repository.routine.RoutineSetRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -227,6 +229,11 @@ public class RoutineService {
     // 루틴 추천 리스트
     @Transactional(readOnly = true)
     public Page<RoutineDTO> getRecommendRoutineList(Pageable pageable) {
+
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("id"));
+		pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
+
 		return routineRepository.findAllByMemberRole(Role.ADMIN, pageable)
 				.map(RoutineDTO::new);
     }
