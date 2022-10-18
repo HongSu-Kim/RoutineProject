@@ -133,7 +133,7 @@ layout_user
     vertical-align: middle;
 }
 
-.input-routine {
+.input_routine {
     font-size: 0.8375rem;
     border-radius: 2rem;
     margin-bottom: 36px;
@@ -255,6 +255,18 @@ button
 
 .login-btn {
     margin-top: 54.5px;
+}
+
+.deny-btn-first {
+    margin-right: 20px;
+    color: #a38479;
+}
+
+.deny-btn {
+    margin-bottom: 10pt;
+    border-radius: 2rem;
+    border-color: #a38479;
+    text-align: left;
 }
 
 /*
