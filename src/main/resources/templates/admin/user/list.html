@@ -30,6 +30,29 @@
               </tr>
             </tbody>
           </table>
+
+					<nav th:if="${!lists.isEmpty()}" arial-label="Page navigation">
+						<ul class="pagination justify-content-center pagination-sm"
+								th:with="startNumber = ${lists.number / 10} * 10 + 1, endNumber = (${lists.totalPages} > ${startNumber + 9}) ? ${startNumber + 9} : ${lists.totalPages}">
+							<!-- << -->
+							<li><a class="page-link" th:href="@{|?role=${role}&page=1|}">&laquo;</a></li>
+							<!-- < -->
+							<li class="page-item" th:style="${lists.first} ? 'display:none'">
+								<!-- <a class="page-link" th:href="@{/question/list(page = ${paging.number})}">&lsaquo;</a> -->
+								<a class="page-link" th:href="@{|?role=${role}&page=${lists.number}|}">&lsaquo;</a>
+							</li>
+							<li class="page-item" th:each="page : ${#numbers.sequence(startNumber, endNumber)}" th:classappend="(${page} == ${lists.number + 1}) ? 'active' : null">
+								<a class="page-link" th:href="@{|?role=${role}&page=${page}|}" th:text="${page}"></a>
+							</li>
+							<!-- > -->
+							<li class="page-item" th:style="${lists.last} ? 'display:none'">
+								<a class="page-link" th:href="@{|?role=${role}&page=${lists.number + 2}|}">&rsaquo;</a>
+							</li>
+							<!-- >> -->
+							<li><a class="page-link" th:href="@{|?role=${role}&page=${lists.totalPages}|}">&raquo;</a></li>
+						</ul>
+					</nav>
+
 				</div>
 			</div>
 		</div>

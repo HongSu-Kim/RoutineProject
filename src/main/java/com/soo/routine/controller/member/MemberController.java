@@ -6,14 +6,19 @@ import com.soo.routine.entity.member.Role;
 import com.soo.routine.security.LoginUser;
 import com.soo.routine.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -156,11 +161,12 @@ public class MemberController {
     }
 
     @GetMapping("admin/user-list")
-    public String memberList(Model model, Role role) {
+    public String memberList(Model model, Role role, @PageableDefault Pageable pageable) {
 
-        List<MemberReadDTO> lists = memberService.getMemberList(role);
+        Page<MemberReadDTO> lists = memberService.getMemberList(role, pageable);
 
-        model.addAttribute("lists", lists);
+		model.addAttribute("lists", lists);
+		model.addAttribute("role", role.name());
         model.addAttribute("pageName", role.name() + " List");
         return "admin/user/list";
     }
