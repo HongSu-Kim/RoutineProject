@@ -3,7 +3,6 @@ package com.soo.routine.service.board;
 import com.soo.routine.dto.board.*;
 import com.soo.routine.entity.board.Board;
 import com.soo.routine.entity.member.Member;
-import com.soo.routine.mapper.board.BoardMapper;
 import com.soo.routine.repository.board.BoardRepository;
 import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,6 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
-    private final BoardMapper boardMapper;
 
     // 게시글 리스트
     @Transactional(readOnly = true)

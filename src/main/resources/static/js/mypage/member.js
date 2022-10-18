@@ -1,28 +1,24 @@
 /* 회원정보 수정 */
-//$("#edit").on("click", () => {
-//    let data = {
-//            email: $("#email").val(),
-//            pwd: $("#newPwd").val(),
-//            nickname: $("#nickname").val()
-//        }
-//
-//        $.ajax({
-//            type: "PUT",
-//            url: "profile-edit",
-//            data: JSON.stringify(data), // http body 데이터
-//            contentType: "application/json; charset=utf-8",
-//            dataType: "json"
-//        }).done(function(resp){
-//            alert("회원정보가 수정되었습니다.");
-//            location.href="mypage";
-//        }).fail(function(error){
-//            alert(JSON.stringify(error));
-//        })
-//});
+$("#edit").on("click", () => {
+    let data = {
+            email: $("#email").val(),
+            pwd: $("#newPwd").val(),
+            nickname: $("#nickname").val()
+        }
 
-//edit: function(){
-//
-//}
+        $.ajax({
+            type: "POST",
+            url: "mypage-edit",
+            data: JSON.stringify(data), // http body 데이터
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function(resp){
+            alert("회원정보가 수정되었습니다.");
+            location.href="mypage";
+        }).fail(function(error){
+            alert(JSON.stringify(error));
+        })
+});
 
 
 /* 비밀번호 찾기 */
@@ -60,4 +56,4 @@ $("#pwdFind").click(function () {
             }
         }
     })
-})
+});

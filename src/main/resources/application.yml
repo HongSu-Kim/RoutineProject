@@ -42,12 +42,6 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
 
-mybatis:
-  mapper-locations: mapper/*.xml
-  type-aliases-package: com.soo.routine.mapper
-  configuration:
-    map-underscore-to-camel-case: true
-
 logging:
   level:
     org:
