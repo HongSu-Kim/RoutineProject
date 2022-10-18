@@ -8,14 +8,16 @@ import com.soo.routine.entity.member.Role;
 import com.soo.routine.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.FieldError;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -167,10 +169,12 @@ public class MemberService {
     /*
     Admin Page
     */
-    public List<MemberReadDTO> getMemberList(Role role) {
+    public Page<MemberReadDTO> getMemberList(Role role, Pageable pageable) {
 
-        Type type = new TypeToken<List<MemberReadDTO>>() {}.getType();
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("id"));
+		pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize(), Sort.by(sorts));
 
-        return modelMapper.map(memberRepository.findByrole(role), type);
+        return memberRepository.findByRole(role, pageable).map(MemberReadDTO::new);
     }
 }
