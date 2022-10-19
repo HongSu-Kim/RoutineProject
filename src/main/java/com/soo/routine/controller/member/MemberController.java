@@ -9,14 +9,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,6 +28,7 @@ import javax.validation.Valid;
 public class MemberController {
 
     private final MemberService memberService;
+    private final AuthenticationManager authenticationManager;
 
     /*
     User Page
@@ -107,23 +111,40 @@ public class MemberController {
 
     // 회원정보 수정 페이지
     @GetMapping("mypage-edit")
-    public String editProfile(@LoginUser SessionDTO sessionDTO, MemberEditDTO memberEditDTO, Model model){
+    public String editProfile(@LoginUser SessionDTO sessionDTO, Model model){
 
-        model.addAttribute("sessionDTO", sessionDTO);
+        if(sessionDTO != null) {
+
+            MemberEditDTO memberEditDTO = memberService.editPage(sessionDTO.getEmail());
+            model.addAttribute("memberEditDTO", memberEditDTO);
+        }
+
         return "mypage/member/edit_profile";
     }
 
     // 회원정보 수정
-    @PostMapping("mypage-edit")
-    public String editProfile(@LoginUser SessionDTO sessionDTO, @Valid MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
+//    @PostMapping("mypage-edit")
+    @PutMapping("mypage-edit")
+    public ResponseEntity<String> editProfile(@RequestBody MemberEditDTO memberEditDTO) throws Exception { // @RequestBody : ajax에서 JSON데이터 Http Body에 담아서 요청하기 때문에 사용
+//    public String editProfile(@LoginUser SessionDTO sessionDTO, @RequestBody MemberEditDTO memberEditDTO, BindingResult bindingResult, Model model) {
 
-        if(bindingResult.hasErrors()){
-            model.addAttribute("memberEditDTO", memberEditDTO);
-            return "mypage/member/edit_profile";
-        }
+//        if(bindingResult.hasErrors()){
+//
+//            model.addAttribute("sessionDTO", sessionDTO);
+//            model.addAttribute("memberEditDTO", memberEditDTO);
+//            return "mypage/member/edit_profile";
+//        }
 
         memberService.edit(memberEditDTO);
-        return "mypage/member/edit_profile";
+
+        // 변경된 Session 등록
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(memberEditDTO.getNewPwd(), memberEditDTO.getNickname()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+//        return "mypage/member/edit_profile";
     }
 
     // 회원탈퇴 페이지

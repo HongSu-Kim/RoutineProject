@@ -1,5 +1,6 @@
 /* 회원정보 수정 */
-$("#edit").on("click", () => {
+//$("#edit").on("click", () => {
+$("#edit").on("click", function () {
     let data = {
             email: $("#email").val(),
             pwd: $("#newPwd").val(),
@@ -7,15 +8,15 @@ $("#edit").on("click", () => {
         }
 
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: "mypage-edit",
-            data: JSON.stringify(data), // http body 데이터
             contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data), // http body 데이터
             dataType: "json"
-        }).done(function(resp){
+        }).success(function(){
             alert("회원정보가 수정되었습니다.");
             location.href="mypage";
-        }).fail(function(error){
+        }).error(function(error){
             alert(JSON.stringify(error));
         })
 });
