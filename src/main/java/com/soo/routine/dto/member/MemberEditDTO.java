@@ -3,14 +3,15 @@ package com.soo.routine.dto.member;
 import com.soo.routine.entity.member.Member;
 import com.soo.routine.entity.member.Role;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class MemberEditDTO {
@@ -37,24 +38,23 @@ public class MemberEditDTO {
     private String gender; // 성별
     private String birth; // 생년월일
 
-//     Entity → DTO
-//    public MemberEditDTO(Member member) {
-//        System.out.print(member.getId());
-//        this.id = member.getId();
-//        this.email = member.getEmail();
-//        this.nickname = member.getNickname();
-//        this.gender = member.getGender();
-//        this.birth = String.valueOf(member.getBirth());
-//    }
+    public MemberEditDTO(Member member) {
+        this.memberId = member.getId();
+        this.email = member.getEmail();
+        this.nickname = member.getNickname();
+        this.gender = member.getGender();
+        this.birth = String.valueOf(member.getBirth());
+    }
 
     public Member toEntity(){
-        return Member
-                .builder()
-                .email(email)//
-                .pwd(pwd)
+        return Member.builder()
+                .role(role)
+                .joinDate(joinDate)
+                .email(email)
+                .pwd(newPwd)
                 .nickname(nickname)
-                .gender(gender)/////
-                .birth(birth)/////
+                .gender(gender)
+                .birth(LocalDate.parse(birth))
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package com.soo.routine.service.member;
+package com.soo.routine.security;
 
 import com.soo.routine.dto.member.SessionDTO;
 import com.soo.routine.entity.member.Member;

@@ -11,14 +11,6 @@ import java.util.*;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail(String email);
-    Optional<Member> findByNickname(String nickname);
-
-    Optional<Member> findByEmailAndPwd(String email, String pwd);
-
-//    Optional<Member> findOne(String email);
-
-    boolean existsByEmail(String email);
-    boolean existsByNickname(String nickname);
 
     Page<Member> findByRole(Role role, Pageable pageable);
 
