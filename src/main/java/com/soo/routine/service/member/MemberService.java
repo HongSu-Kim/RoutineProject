@@ -12,10 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ public class MemberService {
 
         Member member = new Member(Role.MEMBER, LocalDateTime.now(),
                 memberJoinDTO.getEmail(), passwordEncoder.encode(memberJoinDTO.getPwd()),
-                memberJoinDTO.getNickname(), memberJoinDTO.getGender(), memberJoinDTO.getBirth());
+                memberJoinDTO.getNickname(), memberJoinDTO.getGender(), LocalDate.parse(memberJoinDTO.getBirth()));
 
         memberRepository.save(member);
     }
@@ -92,22 +94,6 @@ public class MemberService {
 //            throw new IllegalStateException();
 //        }
 //    }
-
-    // 로그인
-
-    // 이메일 존재 여부 체크
-//    public Member checkEmail(String email) {
-//        return memberRepository.findByEmail(email) // email로 회원을 조회해서
-//                .filter(m -> m.getEmail().equals(email)) // 입력한 email과 같으면, 회원을 반환하고
-//                .orElse(null); // 다르면 null을 반환한다
-//    }
-
-    //        Member join_checkEmail = memberService.checkEmail(memberJoinDTO.getEmail());
-//
-//        if (join_checkEmail != null) {
-//            bindingResult.addError(new FieldError("memberJoinDTO", "email", "사용 불가능한 이메일입니다.")); // 오류 생성하고
-//            return "mypage/member/join";
-//        }
     
     // 이메일과 비밀번호 일치 여부 체크
     // 회원탈퇴
@@ -146,14 +132,25 @@ public class MemberService {
 
     }
     
+    // 회원정보 수정 페이지
+    @Transactional
+    public MemberEditDTO editPage(String email) {
+
+        return memberRepository.findByEmail(email)
+                .map(MemberEditDTO::new)
+                .orElse(null);
+    }
+
     // 회원정보 수정
     @Transactional
-    public void edit(MemberEditDTO memberEditDTO) {
+    public void edit(MemberEditDTO memberEditDTO) throws Exception {
+
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         Member member = memberRepository.findByEmail(memberEditDTO.getEmail()).orElse(null);
-        member.edit(passwordEncoder.encode(memberEditDTO.getNewPwd()), memberEditDTO.getNickname());
+        System.out.print(member.getId());
+        member.edit(passwordEncoder.encode(memberEditDTO.getPwd()),memberEditDTO.getNickname());
 
-        memberRepository.save(member);
     }
 
     // 회원 탈퇴

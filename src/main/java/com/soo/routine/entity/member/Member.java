@@ -52,15 +52,14 @@ public class Member {
     // 회원가입
     @Builder
     public Member(Role role, LocalDateTime joinDate, String email,
-                  String pwd, String nickname, String gender, String birth){
-
+                  String pwd, String nickname, String gender, LocalDate birth){
         this.role = role;
         this.joinDate = joinDate;
         this.email = email;
         this.pwd = pwd;
         this.nickname = nickname;
         this.gender = gender;
-        this.birth = LocalDate.parse(birth);
+        this.birth = birth;
     }
 
     // 회원정보 수정

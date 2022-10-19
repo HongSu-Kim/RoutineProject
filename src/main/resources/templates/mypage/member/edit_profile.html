@@ -11,17 +11,17 @@
         <!-- title -->
         <h4 class="text-dark text-center mb-5">회원정보 수정</h4>
 
-        <form th:action="@{mypage-edit}" th:object="${memberEditDTO}" method="post">
+        <form th:action="@{mypage-edit}" th:object="${memberEditDTO}">
             <div class="row row-routine">
 
-<!--            <input type="hidden" th:field="*{id}"/>-->
+                <input type="hidden" id="memberId" name="memberId" th:value="*{memberId}"/>
 
                 <!-- 입력 -->
                 <!-- email-->
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine"
-                               th:value="${sessionDTO.email}" id="email" th:name="*{email}" readonly="readonly">
+                               id="email" name="email" th:value="*{email}" readonly="readonly">
                     </div>
                 </div>
 
@@ -51,8 +51,8 @@
                  <!-- nickname -->
                 <div class="form-group col-md-12 mb_routine">
                     <div>
-                        <input type="text" class="form-control input-lg input_routine" id="nickname" name="nickname"
-                               th:field="*{nickname}" th:value="${sessionDTO.nickname}" th:errorclass="fieldErrors" placeholder="닉네임">
+                        <input type="text" class="form-control input-lg input_routine"
+                               id="nickname" name="nickname" th:value="*{nickname}" th:errorclass="fieldErrors" placeholder="닉네임">
                     </div>
                     <div class="error_routine" th:errors="*{nickname}"></div>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine"
-                               name="gender" id="gender" th:value="${sessionDTO.gender}" readonly="readonly">
+                               id="gender" name="gender" th:value="*{gender}" readonly="readonly">
                     </div>
                 </div>
 
@@ -69,13 +69,13 @@
                 <div class="form-group col-md-12 mb-4 mb_routine">
                     <div>
                         <input type="text" class="form-control input-lg input_routine"
-                               name="birth" id="birth" th:value="${sessionDTO.birth}" readonly="readonly">
+                               id="birth" name="birth" th:value="*{birth}" readonly="readonly">
                     </div>
                 </div>
 
                 <!-- 버튼 -->
                 <div class="col-md-12 col-routine-2">
-                    <button type="submit" class="btn btn-primary btn-pill mb-4 btn-routine btn-edit-left" id="edit">수정</button>
+                    <button type="submit" id="edit" class="btn btn-primary btn-pill mb-4 btn-routine btn-edit-left">수정</button>
                     <button type="button" onclick="location.href='mypage'" class="btn btn-primary btn-pill mb-4 btn-routine btn-edit-right" id="cancel">취소</button>
                 </div>
 
